@@ -407,11 +407,11 @@ class _SettingsState extends State<Settings> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
+                    /*  Navigator.push(
                         context,
                         PageTransition(
                             type: PageTransitionType.rightToLeft,
-                            child: Grille_Tarifaire_model()));
+                            child: Grille_Tarifaire_model()));*/
                   },
                   child: SettingsTabOption(
                       icon: Icon(
@@ -732,7 +732,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 1,
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -771,15 +771,15 @@ class _SettingsState extends State<Settings> {
                       style: TextStyle(
                           fontFamily: content_font,
                           fontWeight: FontWeight.w500))),
-              Tab(
+              /* Tab(
                   child: Text(
                 AppLocalizations.of(context)!.translate("Profil")!.toString(),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: TextStyle(
                     fontFamily: content_font, fontWeight: FontWeight.w500),
-              )),
-              Tab(
+              )),*/
+              /* Tab(
                   child: Text(
                       AppLocalizations.of(context)!
                           .translate("Password")!
@@ -788,15 +788,15 @@ class _SettingsState extends State<Settings> {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontFamily: content_font,
-                          fontWeight: FontWeight.w500))),
+                          fontWeight: FontWeight.w500))),*/
             ],
           ),
         ),
         body: TabBarView(
           children: [
             settingsContent(context),
-            profilContent(context),
-            configPassWordContent(context),
+            // profilContent(context),
+            // configPassWordContent(context),
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/app_localizations.dart';
@@ -90,7 +92,7 @@ class _Resset_Password_VerificationState
                     child: Column(
                       children: [
                         TextFormField(
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.phone,
                             style: TextStyle(
                                 fontFamily: content_font, fontSize: 13),
                             textAlign: TextAlign.start,
@@ -135,12 +137,15 @@ class _Resset_Password_VerificationState
                                 setState(() {
                                   _isLoading = false;
                                 });
+                                value["phone"] = phoneNumber;
                                 Navigator.push(
                                     context,
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
-                                        child: Resset_Password()));
-                                // print(value);
+                                        child: Resset_Password(
+                                          data: value,
+                                        )));
+                                print(value);
                               }).catchError((error) {
                                 print(error);
                                 showTopSnackBar(

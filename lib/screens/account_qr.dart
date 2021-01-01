@@ -100,6 +100,17 @@ class _AccountQRState extends State<AccountQR> {
                         child: Container(
                           child: Row(
                             children: [
+                              const CircleAvatar(
+                                radius: 38,
+                                child: CircleAvatar(
+                                  radius: 37,
+                                  backgroundImage: AssetImage(
+                                      'assets/images/pexels-anna-nekrashevich-6802046.jpg'),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
                               Container(
                                 height: 70,
                                 color: Colors.transparent,

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/Models/Operateur.dart';
 import 'package:mydirectcash/Repository/OperationServices.dart';
@@ -54,8 +56,9 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
                     image: DecorationImage(
                         image: AssetImage('assets/images/background.png'),
                         fit: BoxFit.cover)),
-                child: Column(children: [
+                child: Wrap(children: [
                   Container(
+                    height: MediaQuery.of(context).size.height * .07,
                     margin: EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,58 +95,62 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  GridView(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 16,
-                            childAspectRatio: 0.9),
-                    shrinkWrap: true,
-                    children: List.generate(
-                        operationServices.produits.length,
-                        (index) => InkWell(
-                              onTap: () {},
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        colors: [
-                                          Color.fromRGBO(255, 255, 255, 1),
-                                          Color.fromRGBO(3, 169, 244, 1),
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter),
-                                    image: DecorationImage(
-                                        image: NetworkImage(operationServices
-                                            .produits[index].urlImage!))),
-                                child: Stack(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Container(
-                                        height: 70,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        color: Colors.black.withOpacity(0.5),
-                                        child: Center(
-                                          child: Text(
-                                              operationServices
-                                                  .produits[index].displayName!,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 25,
-                                                  fontWeight: FontWeight.w500)),
+                  Container(
+                    // padding: EdgeInsets.only(bottom: 200),
+                    height: MediaQuery.of(context).size.height * .87,
+                    child: GridView(
+                      // scrollDirection: Axis.vertical,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 16,
+                              childAspectRatio: 0.9),
+                      shrinkWrap: true,
+                      children: List.generate(
+                          operationServices.produits.length,
+                          (index) => InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                          colors: [
+                                            Color.fromRGBO(255, 255, 255, 1),
+                                            Color.fromRGBO(3, 169, 244, 1),
+                                          ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter),
+                                      image: DecorationImage(
+                                          image: NetworkImage(operationServices
+                                              .produits[index].urlImage!))),
+                                  child: Stack(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Container(
+                                          height: 70,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          color: Colors.black.withOpacity(0.5),
+                                          child: Center(
+                                            child: Text(
+                                                operationServices
+                                                    .produits[index]
+                                                    .displayName!,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 25,
+                                                    fontWeight:
+                                                        FontWeight.w500)),
+                                          ),
                                         ),
-                                      ),
-                                    )
-                                  ],
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            )),
-                  ),
+                              )),
+                    ),
+                  )
                 ])),
             Container(
                 child: _isLoading

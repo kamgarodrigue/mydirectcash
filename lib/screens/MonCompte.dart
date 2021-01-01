@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:mydirectcash/AppLanguage.dart';
 import 'package:mydirectcash/Controllers/UserController.dart';
@@ -7,6 +8,7 @@ import 'package:mydirectcash/Models/User.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
+import 'package:mydirectcash/screens/Resset_Password_Verification.dart';
 import 'package:mydirectcash/screens/carousel_page.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
@@ -157,6 +159,26 @@ class _HomeState extends State<MonCompte> {
                     const SizedBox(
                       height: 16,
                     ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: Resset_Password_Verification()));
+                      },
+                      child: Text(
+                        "${AppLocalizations.of(context)!.translate('Changer de Mot de Passe')}",
+                        style: const TextStyle(
+                            color: Colors.blue,
+                            fontSize: 14,
+                            fontFamily: content_font),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -215,7 +237,7 @@ class _HomeState extends State<MonCompte> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10)),
                           width: MediaQuery.of(context).size.width,
-                          height: 249,
+                          //                                                                                                                                                                                                                                                                                                                                                                                                                                           height: 249,
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

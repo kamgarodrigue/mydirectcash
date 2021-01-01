@@ -84,10 +84,10 @@ class AuthService extends ChangeNotifier {
   Future resendCodeValidation(Map data) async {
     Dio.Response response =
         await dio().post("Authentication/SendRegistrationCode", data: data);
-    // print(response.toString());
-    // print(json.decode(response.toString())["Message"]);
+    print(response.toString());
+    print(json.decode(response.toString())["Message"]);
 
-    return response.data;
+    return json.decode(response.toString())["Message"];
   }
 
   Future askResetPass(Map data) async {
@@ -105,7 +105,7 @@ class AuthService extends ChangeNotifier {
     print(response.toString());
     // print(json.decode(response.toString())["Message"]);
 
-    return response.data;
+    return json.decode(response.toString())["message"];
   }
 
   Future validation(Map data) async {

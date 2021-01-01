@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -9,7 +11,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>cm.directcash.alliancefinancialsa.mydirectcashmobile</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -40,35 +42,30 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-		<key>io.flutter.embedded_views_preview</key>
-<true/>
-<key>CFBundleURLTypes</key>
-<array>
-    <dict>
-        <key>CFBundleTypeRole</key>
-        <string>Editor</string>
-        <key>CFBundleURLName</key>
-        <string>com.your-company.your-app.payments</string>
-        <key>CFBundleURLSchemes</key>
-        <array>
-            <string>com.your-company.your-app.payments</string>
-        </array>
-    </dict>
-</array>
-
-<key>NSAppTransportSecurity</key>
-<dict>
-   <key>NSAllowsArbitraryLoads</key><true/>
-</dict>
-
-<key>NSCameraUsageDescription</key>
-<string>This app needs camera access to scan QR codes</string>
+		<string>io.flutter.embedded_views_preview</string>
+		<true/>
+		<string>CFBundleURLTypes</string>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLName</key>
+				<string>com.your-company.your-app.payments</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.your-company.your-app.payments</string>
+				</array>
+			</dict>
+		</array>
+		<string>NSAppTransportSecurity</string>
+		<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+		</dict>
+		<string>NSCameraUsageDescription</string>
+		<string>This app needs camera access to scan QR codes</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	
 	<false/>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
 </dict>
-
 </plist>

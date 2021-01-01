@@ -11,7 +11,9 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class Resset_Password extends StatefulWidget {
-  Resset_Password({Key? key}) : super(key: key);
+  final dynamic data;
+
+  Resset_Password({Key? key, required this.data}) : super(key: key);
 
   @override
   State<Resset_Password> createState() => _Resset_PasswordState();
@@ -90,7 +92,7 @@ class _Resset_PasswordState extends State<Resset_Password> {
                         text: "Vous avez recu un code sur ",
                         children: [
                           TextSpan(
-                              text: "chocobami@gmail.com",
+                              text: "${widget.data["email"]}",
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -113,10 +115,10 @@ class _Resset_PasswordState extends State<Resset_Password> {
                             style: TextStyle(
                                 fontFamily: content_font, fontSize: 13),
                             textAlign: TextAlign.start,
-                            initialValue: pass,
+                            initialValue: code,
                             onChanged: (value) {
                               setState(() {
-                                pass = value;
+                                code = value;
                               });
                             },
                             decoration: InputDecoration(
@@ -141,14 +143,14 @@ class _Resset_PasswordState extends State<Resset_Password> {
                     child: Column(
                       children: [
                         TextFormField(
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.number,
                             style: TextStyle(
                                 fontFamily: content_font, fontSize: 13),
                             textAlign: TextAlign.start,
-                            initialValue: code,
+                            initialValue: pass,
                             onChanged: (value) {
                               setState(() {
-                                code = value;
+                                pass = value;
                               });
                             },
                             decoration: InputDecoration(
@@ -181,11 +183,22 @@ class _Resset_PasswordState extends State<Resset_Password> {
                                 _isLoading = true;
                               });
 
-                              context.read<AuthService>().ResetPass(
-                                  {"code": code, "Pass": pass}).then((value) {
+                              context.read<AuthService>().ResetPass({
+                                "code": code,
+                                "Pass": pass,
+                                "phone": widget.data["phone"]
+                              }).then((value) {
                                 setState(() {
                                   _isLoading = false;
                                 });
+                                showTopSnackBar(
+                                  context,
+                                  CustomSnackBar.info(
+                                    message: value.toString(),
+                                  ),
+                                  showOutAnimationDuration:
+                                      Duration(seconds: 2),
+                                );
 
                                 // print(value);
                               }).catchError((error) {

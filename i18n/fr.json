@@ -1,6 +1,6 @@
 {
   "title": "MyDirectCash Mobile",
-  "message" : "N'importe quand, n'importe où, n'importe quel téléphone",
+  "message" : "AnyTime, AnyWhere, AnyPhone",
   "Commencer":"Commencer",
   "title1": "Tansfert d'argent",
   "content1": "Transférez de l'argent dans un compte qui soit ou non DirectCash et le destinatare disposera de son argent comme bon lui semble.",
@@ -135,7 +135,8 @@
 "resset":"Mot de passe oublié?",
 "reset1":"Réinitialiser le mot de passe - Verification",
 "Password1":"Nouveau Mot de passe",
-"code":"Code" 
+"code":"Code" ,
+"Changer de Mot de Passe":"Changer de Mot de Passe"
 
 
 
