@@ -1,0 +1,79 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {},
+        "name":"boulevard de la reunification carefour cetic",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              11.505236998200415,
+              3.8599276676191576
+            ],
+            [
+              11.505104564130306,
+              3.860131387587773
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "name":"rue universitaire cetic 2",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+             [
+              11.505236998200415,
+              3.8599276676191576
+            ],
+            [
+              11.505047902464867,
+              3.8597664310904527
+            ],
+            [
+              11.504930220544338,
+              3.8596894924871434
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "name":"rue universitaire cetic 1",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+                      [
+              11.505104564130306,
+              3.860131387587773
+            ],
+            [
+              11.505120657384396,
+              3.860011965543128
+            ],
+            [
+              11.505120322108269,
+              3.8599437243672248
+            ],
+            [
+              11.505097188055515,
+              3.859898899278102
+            ],
+            [
+              11.504993923008442,
+              3.8597671001217586
+            ],
+             [
+              11.504930220544338,
+              3.8596894924871434
+            ]
+          ]
+        }
+      }
+    ]
+  }

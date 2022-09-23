@@ -1,0 +1,28 @@
+ quelque route a tester
+GET ( nomdedomaine/api/users/) recuperer les utilisateurs.
+GET ( nomdedomaine/api/lieu/) recuperer les lieux
+GET ( nomdedomaine/api/typeLieu/) recuperer les type de lieu
+post(nomdedomaine/api/users/register ,data )  data= formdata({
+userName:"",
+            email:""l,
+             phone:"", 
+            birthDay:"",
+            avatar[ ] : fichier,
+            password:"",
+            address:""
+            sexe:""
+
+})  cree un compte
+
+post(nomdedomaine/api/users/store ,data )  data= formdata({
+intitule:" ",
+        id_user:"",
+        description:"",
+        image[ ]:file,
+        lat:"",
+        long:"",
+        rating:"",
+        id_campus:"",
+        id_type:""
+
+})  cree un  lieu
