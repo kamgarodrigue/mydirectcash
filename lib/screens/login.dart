@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:mydirectcash/Controllers/Authcontroller.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/app_localizations.dart';
+import 'package:mydirectcash/screens/Resset_Password_Verification.dart';
 import 'package:mydirectcash/screens/ValidateAccount.dart';
 import 'package:mydirectcash/screens/carousel_page.dart';
 import 'package:mydirectcash/screens/code_entry.dart';
@@ -187,6 +188,36 @@ class _LoginState extends StateMVC<Login> {
                                               color: Colors.grey.shade500,
                                               fontSize: 14)),
                                     )),
+                                SizedBox(
+                                  height: 40,
+                                ),
+                                Container(
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            PageTransition(
+                                                type: PageTransitionType
+                                                    .rightToLeft,
+                                                child:
+                                                    Resset_Password_Verification()));
+
+                                        /* Navigator.push(
+                              context,
+                              PageTransition(
+                                  type: PageTransitionType.rightToLeft,
+                                  child: Register())); // CodeEntry()));*/
+                                      },
+                                      child: Text(
+                                          "${AppLocalizations.of(context)!.translate('resset')}",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontFamily: content_font,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                              color:
+                                                  blueColor.withOpacity(0.7)))),
+                                ),
                                 SizedBox(
                                   height: 40,
                                 ),

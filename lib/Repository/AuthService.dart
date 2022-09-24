@@ -36,7 +36,7 @@ class AuthService extends ChangeNotifier {
     sharedPreferences().then((value) {
       if (json.decode("${value.getBool("open")}") != null) {
         this._isOpen = json.decode("${value.getBool("open")}");
-        print(_isOpen);
+        //print(_isOpen);
         notifyListeners();
       }
     });
@@ -84,10 +84,28 @@ class AuthService extends ChangeNotifier {
   Future resendCodeValidation(Map data) async {
     Dio.Response response =
         await dio().post("Authentication/SendRegistrationCode", data: data);
-    print(response.toString());
-    print(json.decode(response.toString())["Message"]);
+    // print(response.toString());
+    // print(json.decode(response.toString())["Message"]);
 
-    return json.decode(response.toString())["Message"];
+    return response.data;
+  }
+
+  Future askResetPass(Map data) async {
+    Dio.Response response =
+        await dio().post("Authentication/AskResetPass", data: data);
+    print(response.toString());
+    // print(json.decode(response.toString())["Message"]);
+
+    return response.data;
+  }
+
+  Future ResetPass(Map data) async {
+    Dio.Response response =
+        await dio().post("Authentication/ResetPass", data: data);
+    print(response.toString());
+    // print(json.decode(response.toString())["Message"]);
+
+    return response.data;
   }
 
   Future validation(Map data) async {
@@ -110,7 +128,7 @@ class AuthService extends ChangeNotifier {
     this._isLoggedIn = false;
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.remove("user");
-    await pref.remove("open");
+    await pref.setBool("open", false);
     notifyListeners();
   }
 }

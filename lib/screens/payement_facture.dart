@@ -64,8 +64,19 @@ class _PayementFactureState extends State<PayementFacture> {
   bool _isLoading = false;
 
   Widget bouquetContainer(int index) {
+    final authService = context.watch<AuthService>();
     return GestureDetector(
       onTap: () {
+        var data = {
+          "amount": "${boquets[index].tarifFormule}",
+          "paymentID": "",
+          "adresseEmail": "",
+          "numero": authService.currentUser!.data!.phone!,
+          "serviceN": "",
+          "pass": "",
+          "imei": "5258889",
+          "typeOp": 'canal',
+        };
         Navigator.push(
             context,
             PageTransition(
@@ -78,7 +89,7 @@ class _PayementFactureState extends State<PayementFacture> {
                         .translate('Choisissez le Bouquet de recharge')
                         .toString()
                   },
-                  detailFac: detailFac,
+                  detailFac: data,
                 )));
       },
       child: Container(
@@ -145,10 +156,10 @@ class _PayementFactureState extends State<PayementFacture> {
 
   dynamic detailFac = {
     "typeOP": "",
-    "id": "33662044955",
-    "numeroDeContrat": "200792766",
-    "deviceId": "5498",
-    "pass": "123456",
+    "id": "",
+    "numeroDeContrat": "",
+    "deviceId": "",
+    "pass": "",
   };
 
   @override
@@ -480,16 +491,19 @@ class _PayementFactureState extends State<PayementFacture> {
                                         setState(() {
                                           _isLoading = false;
                                         });
-                                        Navigator.push(
-                                            context,
-                                            PageTransition(
-                                                type: PageTransitionType
-                                                    .rightToLeft,
-                                                child: PayementFactureValidate(
-                                                  factureInfos:
-                                                      widget.factureInfos,
-                                                  detailFac: details[0],
-                                                )));
+                                        if (details.isNotEmpty) {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType
+                                                      .rightToLeft,
+                                                  child:
+                                                      PayementFactureValidate(
+                                                    factureInfos:
+                                                        widget.factureInfos,
+                                                    detailFac: details[0],
+                                                  )));
+                                        }
                                       }).catchError((error) {
                                         print(error);
                                         setState(() {

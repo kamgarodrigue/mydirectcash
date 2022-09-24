@@ -19,10 +19,10 @@ class PayementMarchand extends StatefulWidget {
 class _PayementMarchandState extends State<PayementMarchand> {
   Map data = {
     "pass": "",
-    "Montant": 200,
+    "Montant": "",
     "Client": "",
     "Collecteur": "",
-    "frais": "100"
+    "frais": ""
   };
   bool isCanning = false;
   void setCode(String code) {
@@ -167,7 +167,15 @@ class _PayementMarchandState extends State<PayementMarchand> {
                                   primary: blueColor,
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 50)),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: PayementMarchandMontant(
+                                          data: data,
+                                        )));
+                              },
                               child: Text(
                                 AppLocalizations.of(context)!
                                     .translate("suivant")!,

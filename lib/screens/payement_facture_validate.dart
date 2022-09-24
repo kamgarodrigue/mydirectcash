@@ -1,5 +1,7 @@
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
+import 'package:mydirectcash/Repository/AuthService.dart';
+import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/payement_marchant_montant.dart';
@@ -7,6 +9,7 @@ import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class PayementFactureValidate extends StatefulWidget {
   PayementFactureValidate({required this.factureInfos, this.detailFac});
@@ -31,7 +34,15 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
     "frais": "null"
   };
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<AuthService>().authenticate;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final authService = context.watch<AuthService>();
     widget.detailFac["frais"] =
         widget.detailFac["frais"] == null ? "0" : widget.detailFac["frais"];
     widget.detailFac["amount"] = (double.tryParse(widget.detailFac["amount"])! +
@@ -168,7 +179,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                 child: Column(
                   children: [
                     Text(
-                        widget.factureInfos['title'] == 'Bouquet ACCESS'
+                        widget.factureInfos['title'] == 'Abonnement Canal+'
                             ? AppLocalizations.of(context)!
                                 .translate(
                                     "Vous êtes sur le point d'acheter le bouquet ACCESS pour 3 mois")
@@ -269,11 +280,12 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                               primary: blueColor,
                               padding: EdgeInsets.symmetric(horizontal: 50)),
                           onPressed: () {
-                            /*Navigator.push(
-                            context,
-                            PageTransition(
-                                type: PageTransitionType.rightToLeft,
-                                child: PayementFactureValidate()));*/
+                            context
+                                .read<TransactonService>()
+                                .PayementFactureCamwaterEneo(
+                                    authService.currentUser!.data!.phone!,
+                                    "12344",
+                                    widget.detailFac);
                           },
                           child: Text(
                             AppLocalizations.of(context)!
