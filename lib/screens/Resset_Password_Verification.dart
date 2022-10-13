@@ -153,8 +153,6 @@ class _Resset_Password_VerificationState
                                   CustomSnackBar.error(
                                     message: error.toString(),
                                   ),
-                                  showOutAnimationDuration:
-                                      Duration(seconds: 2),
                                 );
 
                                 setState(() {

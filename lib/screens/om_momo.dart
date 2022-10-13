@@ -173,7 +173,6 @@ class _OmMoMoState extends State<OmMoMo> {
                           CustomSnackBar.success(
                             message: value.toString(),
                           ),
-                          showOutAnimationDuration: Duration(seconds: 2),
                         );
                         Navigator.pop(context);
                       }).catchError((error) {
@@ -186,7 +185,6 @@ class _OmMoMoState extends State<OmMoMo> {
                           CustomSnackBar.error(
                             message: error.toString(),
                           ),
-                          showOutAnimationDuration: Duration(seconds: 2),
                         );
                       });
 
@@ -341,7 +339,6 @@ class _OmMoMoState extends State<OmMoMo> {
                           CustomSnackBar.success(
                             message: value.toString(),
                           ),
-                          showOutAnimationDuration: Duration(seconds: 2),
                         );
                         Navigator.pop(context);
                       }).catchError((error) {
@@ -354,7 +351,6 @@ class _OmMoMoState extends State<OmMoMo> {
                           CustomSnackBar.error(
                             message: error.toString(),
                           ),
-                          showOutAnimationDuration: Duration(seconds: 2),
                         );
                       });
 

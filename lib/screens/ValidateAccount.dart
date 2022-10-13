@@ -215,12 +215,11 @@ class _ValidateAccountState extends State<ValidateAccount> {
                               });
                               print(err);
                               showTopSnackBar(
-                                context,
-                                CustomSnackBar.error(
-                                  message: err.toString(),
-                                ),
-                                showOutAnimationDuration: Duration(seconds: 2),
-                              );
+                                  context,
+                                  CustomSnackBar.error(
+                                    message: err.toString(),
+                                  ),
+                                  displayDuration: Duration(seconds: 2));
                             });
                           },
                           child: Text(
@@ -270,8 +269,6 @@ class _ValidateAccountState extends State<ValidateAccount> {
                                       message: value.toString() +
                                           "  Votre compte a ete verifier",
                                     ),
-                                    showOutAnimationDuration:
-                                        Duration(seconds: 2),
                                   );
                                 } else {
                                   showTopSnackBar(
@@ -280,8 +277,6 @@ class _ValidateAccountState extends State<ValidateAccount> {
                                       message:
                                           value.toString() + "  Code invalide",
                                     ),
-                                    showOutAnimationDuration:
-                                        Duration(seconds: 2),
                                   );
                                 }
                                 setState(() {
@@ -297,8 +292,6 @@ class _ValidateAccountState extends State<ValidateAccount> {
                                   CustomSnackBar.error(
                                     message: err.toString(),
                                   ),
-                                  showOutAnimationDuration:
-                                      Duration(seconds: 2),
                                 );
                                 setState(
                                   () {

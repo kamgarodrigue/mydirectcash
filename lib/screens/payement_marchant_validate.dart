@@ -202,8 +202,6 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                     CustomSnackBar.success(
                                       message: value.toString(),
                                     ),
-                                    showOutAnimationDuration:
-                                        Duration(seconds: 2),
                                   );
                                   // Navigator.pop(context);
                                 }).catchError((error) {
@@ -216,8 +214,6 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                     CustomSnackBar.error(
                                       message: error.toString(),
                                     ),
-                                    showOutAnimationDuration:
-                                        Duration(seconds: 2),
                                   );
                                 });
                               },

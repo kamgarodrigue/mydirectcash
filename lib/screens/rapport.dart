@@ -177,8 +177,6 @@ class _RapportState extends State<Rapport> {
                                       message: value.toString() +
                                           "Rapport envoyé avec succes",
                                     ),
-                                    showOutAnimationDuration:
-                                        Duration(seconds: 2),
                                   );
                                 }).catchError((errror) {
                                   print(errror);
@@ -190,8 +188,6 @@ class _RapportState extends State<Rapport> {
                                     CustomSnackBar.error(
                                       message: "Erreur $errror:",
                                     ),
-                                    showOutAnimationDuration:
-                                        Duration(seconds: 2),
                                   );
                                 });
                               },

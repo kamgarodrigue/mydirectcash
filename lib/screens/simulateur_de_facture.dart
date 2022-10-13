@@ -191,8 +191,6 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                                       message:
                                           "${AppLocalizations.of(context)!.translate("le nouvel indice dois être supérieur à l ancien")}",
                                     ),
-                                    showOutAnimationDuration:
-                                        Duration(seconds: 8),
                                   );
                                 } else {
                                   setState(() {
@@ -374,7 +372,6 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
           CustomSnackBar.error(
             message: "le nouvel indice dois être supérieur à l ancien",
           ),
-          showOutAnimationDuration: Duration(seconds: 8),
         );
       } else {
         if (consoKw < 50) {

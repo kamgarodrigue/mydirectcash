@@ -234,8 +234,6 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                                     CustomSnackBar.success(
                                       message: "Recharge DirectCash reussi",
                                     ),
-                                    showOutAnimationDuration:
-                                        Duration(seconds: 2),
                                   );
                                   Navigator.pop(context);
                                 }).catchError((error) {
@@ -247,8 +245,6 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                                     context,
                                     CustomSnackBar.error(
                                         message: "une erreur c est produite"),
-                                    showOutAnimationDuration:
-                                        Duration(seconds: 2),
                                   );
                                 });
                                 /*showDialog(

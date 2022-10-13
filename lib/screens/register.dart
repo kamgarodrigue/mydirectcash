@@ -253,8 +253,6 @@ class _RegisterState extends State<Register> {
                                             CustomSnackBar.success(
                                               message: value.toString(),
                                             ),
-                                            showOutAnimationDuration:
-                                                Duration(seconds: 2),
                                           );
                                           /* setState(() {
                                             _isverify = true;
@@ -270,8 +268,6 @@ class _RegisterState extends State<Register> {
                                             CustomSnackBar.error(
                                               message: error.toString(),
                                             ),
-                                            showOutAnimationDuration:
-                                                Duration(seconds: 2),
                                           );
                                         });
                                       },

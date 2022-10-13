@@ -196,8 +196,6 @@ class _Resset_PasswordState extends State<Resset_Password> {
                                   CustomSnackBar.info(
                                     message: value.toString(),
                                   ),
-                                  showOutAnimationDuration:
-                                      Duration(seconds: 2),
                                 );
 
                                 // print(value);
@@ -208,8 +206,6 @@ class _Resset_PasswordState extends State<Resset_Password> {
                                   CustomSnackBar.error(
                                     message: error.toString(),
                                   ),
-                                  showOutAnimationDuration:
-                                      Duration(seconds: 2),
                                 );
 
                                 setState(() {

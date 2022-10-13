@@ -194,13 +194,11 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                                     this._isLoading = false;
                                   });
                                   showTopSnackBar(
-                                    context,
-                                    CustomSnackBar.success(
-                                      message: value.toString(),
-                                    ),
-                                    showOutAnimationDuration:
-                                        Duration(seconds: 2),
-                                  );
+                                      context,
+                                      CustomSnackBar.success(
+                                        message: value.toString(),
+                                      ),
+                                      displayDuration: Duration(seconds: 2));
                                   Navigator.pop(context);
                                 }).catchError((error) {
                                   setState(() {
@@ -208,13 +206,11 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                                   });
                                   print(error);
                                   showTopSnackBar(
-                                    context,
-                                    CustomSnackBar.error(
-                                      message: error.toString(),
-                                    ),
-                                    showOutAnimationDuration:
-                                        Duration(seconds: 2),
-                                  );
+                                      context,
+                                      CustomSnackBar.error(
+                                        message: error.toString(),
+                                      ),
+                                      displayDuration: Duration(seconds: 2));
                                 });
                               },
                               child: Text(

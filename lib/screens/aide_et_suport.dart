@@ -118,12 +118,11 @@ class _SupportState extends State<Support> {
                       } catch (e) {
                         //To handle error and display error message
                         showTopSnackBar(
-                          context,
-                          CustomSnackBar.error(
-                            message: "Unable to open whatsapp",
-                          ),
-                          showOutAnimationDuration: Duration(seconds: 2),
-                        );
+                            context,
+                            CustomSnackBar.error(
+                              message: "Unable to open whatsapp",
+                            ),
+                            displayDuration: Duration(seconds: 2));
                       }
                     },
                     child: Card(

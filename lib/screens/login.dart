@@ -260,8 +260,6 @@ class _LoginState extends StateMVC<Login> {
                                                               .toString() +
                                                           " verifier votre compte",
                                                     ),
-                                                    showOutAnimationDuration:
-                                                        Duration(seconds: 2),
                                                   );
                                                 }
                                                 if (value.toString() ==
@@ -271,8 +269,6 @@ class _LoginState extends StateMVC<Login> {
                                                     CustomSnackBar.success(
                                                       message: value.toString(),
                                                     ),
-                                                    showOutAnimationDuration:
-                                                        Duration(seconds: 2),
                                                   );
                                                   if (widget.isLogin) {
                                                     Navigator.pop(context);
@@ -291,8 +287,6 @@ class _LoginState extends StateMVC<Login> {
                                                   CustomSnackBar.error(
                                                     message: error.toString(),
                                                   ),
-                                                  showOutAnimationDuration:
-                                                      Duration(seconds: 2),
                                                 );
                                               });
                                             },
@@ -405,8 +399,6 @@ class _LoginState extends StateMVC<Login> {
                                             message: value.toString() +
                                                 " verifier votre compte",
                                           ),
-                                          showOutAnimationDuration:
-                                              Duration(seconds: 2),
                                         );
                                       }
                                       if (value.toString() == "Success") {
@@ -415,8 +407,6 @@ class _LoginState extends StateMVC<Login> {
                                           CustomSnackBar.success(
                                             message: value.toString(),
                                           ),
-                                          showOutAnimationDuration:
-                                              Duration(seconds: 2),
                                         );
                                         if (widget.isLogin) {
                                           Navigator.pop(context);
@@ -434,8 +424,6 @@ class _LoginState extends StateMVC<Login> {
                                       CustomSnackBar.error(
                                         message: error.toString(),
                                       ),
-                                      showOutAnimationDuration:
-                                          Duration(seconds: 2),
                                     );
                                   });
                                 }
@@ -447,8 +435,6 @@ class _LoginState extends StateMVC<Login> {
                                     message:
                                         "Veillez vous connecter pour une première fois avec votre numero de telephone",
                                   ),
-                                  showOutAnimationDuration:
-                                      Duration(seconds: 2),
                                 );
                               }
                             },

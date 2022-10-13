@@ -383,14 +383,12 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                                 }).catchError((error) {
                                   if (error.error == "404") {
                                     showTopSnackBar(
-                                      context,
-                                      CustomSnackBar.error(
-                                        message:
-                                            "Aucun Operateur trouvé pour ce pays",
-                                      ),
-                                      showOutAnimationDuration:
-                                          Duration(seconds: 2),
-                                    );
+                                        context,
+                                        CustomSnackBar.error(
+                                          message:
+                                              "Aucun Operateur trouvé pour ce pays",
+                                        ),
+                                        displayDuration: Duration(seconds: 2));
                                   }
                                   setState(() {
                                     _isLoading = false;
