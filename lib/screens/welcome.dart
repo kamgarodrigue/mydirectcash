@@ -86,7 +86,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ],
               ),
             ),
-            if (!autProvider.isOpen)
+            if (autProvider.isOpen)
               Positioned(
                   child: Column(
                 children: [

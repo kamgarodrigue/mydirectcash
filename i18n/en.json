@@ -128,13 +128,17 @@
 "Share":"share app",
 "en savoir plus":"Find out more",
 "Vous allez faire un transfert  de":"You are going to make a transfer of",
-"code secret":"Saisissez le code secret de 4 caracteres.",
+"code secret":"Enter the 4 character secret code.",
 "Choisir la Langue":"Choose Language",
 "resset":"Forgot your password?",
 "reset1":"Reset password - Verification",
 "Password1":"New Password",
 "code":"Code",
-"Changer de Mot de Passe":"Change password"
+"Changer de Mot de Passe":"Change password",
+"aide":"How can we help you?",
+"whatsappMessage":"Write to us on whatsapp and our agents will answer you.",
+"emailMessage":"Leave us an email and our teams will respond to you within 48 hours.",
+"FaqsMessage":"Consult our Frequently Asked Questions and quickly find a solution to your problem."
 
 
 

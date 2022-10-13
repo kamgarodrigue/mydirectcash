@@ -14,6 +14,7 @@ class AuthService extends ChangeNotifier {
   User? _currentUser;
   bool _isLoggedIn = false;
   bool _isOpen = false;
+  bool _istel = false;
   User? get currentUser => _currentUser;
   bool get authenticate {
     sharedPreferences().then((value) {
@@ -43,11 +44,49 @@ class AuthService extends ChangeNotifier {
     return this._isOpen;
   }
 
+  bool get tel {
+    sharedPreferences().then((value) {
+      if (json.decode("${value.getString("tel")}") != null) {
+        this._istel =
+            json.decode("${value.getString("tel")}") != null ? true : false;
+        //print(_isOpen);
+        notifyListeners();
+      }
+    });
+    return this._istel;
+  }
+
   Future login(Map credentials) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
     Dio.Response response =
         await dio().post("Authentication/Authenticate", data: credentials);
+    print(response.toString());
+    if (json.decode(response.toString())['Message'] == "Success") {
+      User user = User.fromJson(json.decode(response.toString())['Info']);
+      await pref.setString("user", response.toString());
+      await pref.setBool("open", true);
+      await pref.setString("tel", user.data!.phone!);
+    }
+
+    print(json.decode(response.toString()));
+    this._isLoggedIn = true;
+
+    notifyListeners();
+    return json.decode(response.toString())['Message'];
+  }
+
+  Future sendRaport(Map credentials) async {
+    Dio.Response response =
+        await dio().post("Collecteur/SendRequestSupport", data: credentials);
+    return json.decode(response.toString());
+  }
+
+  Future loginWithBiometric(Map credentials) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    Dio.Response response = await dio()
+        .post("Authentication/AuthenticateWithFingerPrint", data: credentials);
     print(response.toString());
     if (json.decode(response.toString())['Message'] == "Success") {
       User user = User.fromJson(json.decode(response.toString())['Info']);

@@ -7,6 +7,7 @@ import 'package:mydirectcash/Repository/OperationServices.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/screens/account_qr.dart';
 import 'package:mydirectcash/screens/home.dart';
+import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/welcome.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +18,7 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AppLanguage appLanguage = AppLanguage();
-  await appLanguage.fetchLocale();
+  //await appLanguage.fetchLocale();
 
   runApp(MultiProvider(
     providers: [
@@ -110,7 +111,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               if (auth.authenticate) {
                 return Home();
               } else {
-                return WelcomePage();
+                return Consumer<AuthService>(builder: (context, auth, child) {
+                  if (auth.tel) {
+                    return Login(
+                      isLogin: false,
+                    );
+                  } else {
+                    return WelcomePage();
+                  }
+                });
               } //flutter build apk  --split-per-abi
             },
           ),

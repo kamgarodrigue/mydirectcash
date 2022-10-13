@@ -32,6 +32,8 @@ PODS:
     - Braintree/PayPal (~> 5.6.3)
     - BraintreeDropIn (= 9.4.0)
     - Flutter
+  - local_auth_ios (0.0.1):
+    - Flutter
   - MTBBarcodeScanner (5.0.11)
   - qr_code_scanner (0.2.0):
     - Flutter
@@ -46,6 +48,7 @@ PODS:
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_braintree (from `.symlinks/plugins/flutter_braintree/ios`)
+  - local_auth_ios (from `.symlinks/plugins/local_auth_ios/ios`)
   - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
@@ -62,6 +65,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_braintree:
     :path: ".symlinks/plugins/flutter_braintree/ios"
+  local_auth_ios:
+    :path: ".symlinks/plugins/local_auth_ios/ios"
   qr_code_scanner:
     :path: ".symlinks/plugins/qr_code_scanner/ios"
   share_plus:
@@ -76,6 +81,7 @@ SPEC CHECKSUMS:
   BraintreeDropIn: 89df35f840004affa22ebb8f06b12d20615411bf
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_braintree: 72276002464c36b1d5a6266fbdb94c0b600e62fd
+  local_auth_ios: 0d333dde7780f669e66f19d2ff6005f3ea84008d
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68

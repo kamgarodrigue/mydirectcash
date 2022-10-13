@@ -18,8 +18,10 @@ import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:local_auth/local_auth.dart';
 
 class Login extends StatefulWidget {
   BuildContext? fatherContext;
@@ -61,6 +63,7 @@ class _LoginState extends StateMVC<Login> {
 
   final _keyform = GlobalKey<FormState>();
   bool _isverify = false;
+
   @override
   Widget build(BuildContext context) {
     return this.isRegister
@@ -359,29 +362,120 @@ class _LoginState extends StateMVC<Login> {
                           SizedBox(
                             height: 40,
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 25, vertical: 5),
-                            margin: EdgeInsets.symmetric(horizontal: 25),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.indigo.withOpacity(0.2),
-                            ),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/images/ico-emprunte.png',
-                                  width: 65,
-                                ),
-                                Text(
-                                    "${AppLocalizations.of(context)!.translate('Scannez')}",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: content_font,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                    ))
-                              ],
+                          InkWell(
+                            onTap: () async {
+                              SharedPreferences pref =
+                                  await SharedPreferences.getInstance();
+
+                              final LocalAuthentication auth =
+                                  LocalAuthentication();
+                              // ···
+                              final bool canAuthenticateWithBiometrics =
+                                  await auth.canCheckBiometrics;
+                              final bool canAuthenticate =
+                                  canAuthenticateWithBiometrics ||
+                                      await auth.isDeviceSupported();
+
+                              if (pref.getString("tel") != null) {
+                                final bool didAuthenticate =
+                                    await auth.authenticate(
+                                        localizedReason:
+                                            'Please authenticate to show account balance',
+                                        options: const AuthenticationOptions(
+                                            biometricOnly: true));
+                                if (didAuthenticate) {
+                                  setState(() {
+                                    this._isLoading = true;
+                                  });
+                                  context
+                                      .read<AuthService>()
+                                      .loginWithBiometric(
+                                          {"id": pref.getString("tel")}).then(
+                                    (value) {
+                                      setState(() {
+                                        this._isLoading = false;
+                                      });
+                                      if (value.toString() == "NotVerified") {
+                                        setState(() {
+                                          this._isverify = true;
+                                        });
+                                        showTopSnackBar(
+                                          context,
+                                          CustomSnackBar.success(
+                                            message: value.toString() +
+                                                " verifier votre compte",
+                                          ),
+                                          showOutAnimationDuration:
+                                              Duration(seconds: 2),
+                                        );
+                                      }
+                                      if (value.toString() == "Success") {
+                                        showTopSnackBar(
+                                          context,
+                                          CustomSnackBar.success(
+                                            message: value.toString(),
+                                          ),
+                                          showOutAnimationDuration:
+                                              Duration(seconds: 2),
+                                        );
+                                        if (widget.isLogin) {
+                                          Navigator.pop(context);
+                                          Navigator.pop(widget.fatherContext!);
+                                        }
+                                      }
+                                    },
+                                  ).catchError((error) {
+                                    print(" hmmmmm " + error.toString());
+                                    setState(() {
+                                      this._isLoading = false;
+                                    });
+                                    showTopSnackBar(
+                                      context,
+                                      CustomSnackBar.error(
+                                        message: error.toString(),
+                                      ),
+                                      showOutAnimationDuration:
+                                          Duration(seconds: 2),
+                                    );
+                                  });
+                                }
+                              } else {
+                                showTopSnackBar(
+                                  context,
+                                  CustomSnackBar.info(
+                                    maxLines: 3,
+                                    message:
+                                        "Veillez vous connecter pour une première fois avec votre numero de telephone",
+                                  ),
+                                  showOutAnimationDuration:
+                                      Duration(seconds: 2),
+                                );
+                              }
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 5),
+                              margin: EdgeInsets.symmetric(horizontal: 25),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Colors.indigo.withOpacity(0.2),
+                              ),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/ico-emprunte.png',
+                                    width: 65,
+                                  ),
+                                  Text(
+                                      "${AppLocalizations.of(context)!.translate('Scannez')}",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontFamily: content_font,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                      ))
+                                ],
+                              ),
                             ),
                           )
                         ],

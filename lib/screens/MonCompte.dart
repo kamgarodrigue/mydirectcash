@@ -18,6 +18,7 @@ import 'package:mydirectcash/widgets/choix_recharge.dart';
 import 'package:mydirectcash/widgets/last_transactions.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
 class MonCompte extends StatefulWidget {
@@ -151,8 +152,10 @@ class _HomeState extends State<MonCompte> {
                             ],
                           ),
                         ),
-                        Container(
-                          child: Icon(Icons.qr_code, size: 90),
+                        QrImage(
+                          data: authProvider.currentUser!.data!.Photo!,
+                          version: QrVersions.min,
+                          size: 90,
                         ),
                       ],
                     ),
@@ -382,8 +385,7 @@ class _HomeState extends State<MonCompte> {
                                         as RenderBox?;
 
                                     await Share.share(
-                                      "check out my website https://example.com",
-                                      subject: "Look what I made!",
+                                      "https://play.google.com/store/apps/details?id=cm.directcash.alliancefinancialsa.mydirectcashmobile",
                                       sharePositionOrigin:
                                           box!.localToGlobal(Offset.zero) &
                                               box.size,

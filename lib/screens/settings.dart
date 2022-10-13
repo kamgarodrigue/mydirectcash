@@ -13,6 +13,7 @@ import 'package:mydirectcash/screens/MonCompte.dart';
 
 import 'package:mydirectcash/screens/account_qr.dart';
 import 'package:mydirectcash/screens/achat_credit.dart';
+import 'package:mydirectcash/screens/aide_et_suport.dart';
 
 import 'package:mydirectcash/screens/guichet_remplir_info.dart';
 import 'package:mydirectcash/screens/om_momo.dart';
@@ -516,13 +517,22 @@ class _SettingsState extends State<Settings> {
                         ),
                       ],
                     )),
-                SettingsTabOption(
-                    icon: Icon(
-                      Icons.chevron_right,
-                      size: 18,
-                    ),
-                    title:
-                        "${AppLocalizations.of(context)!.translate("Aide et support")}"),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: Support()));
+                  },
+                  child: SettingsTabOption(
+                      icon: Icon(
+                        Icons.chevron_right,
+                        size: 18,
+                      ),
+                      title:
+                          "${AppLocalizations.of(context)!.translate("Aide et support")}"),
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -560,8 +570,8 @@ class _SettingsState extends State<Settings> {
                     final box = context.findRenderObject() as RenderBox?;
 
                     await Share.share(
-                      "check out my website https://example.com",
-                      subject: "Look what I made!",
+                      "https://play.google.com/store/apps/details?id=cm.directcash.alliancefinancialsa.mydirectcashmobile",
+                      subject: "",
                       sharePositionOrigin:
                           box!.localToGlobal(Offset.zero) & box.size,
                     );

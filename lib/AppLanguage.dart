@@ -3,7 +3,7 @@ import 'package:mydirectcash/Controllers/UserController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppLanguage extends ChangeNotifier {
-  Locale _appLocale = const Locale('en');
+  Locale _appLocale = const Locale('fr');
 
   Locale get appLocal => _appLocale;
   fetchLocale() async {

@@ -41,8 +41,8 @@ class TransactonService extends ChangeNotifier {
   }
 
   Future<List<Transaction>> getHistory(String number) async {
-    Dio.Response response = await dio()
-        .get("Transactions/Historiques/$number/2021-11-23/2021-11-27");
+    Dio.Response response =
+        await dio().get("Transactions/Historiques/LastFive/$number");
     print(response);
     return decodeTransaction(response.data);
   }

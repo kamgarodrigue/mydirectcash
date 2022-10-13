@@ -11,6 +11,7 @@ import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class AccountQR extends StatefulWidget {
   @override
@@ -165,8 +166,10 @@ class _AccountQRState extends State<AccountQR> {
                     ],
                   ),
                 ),
-                Container(
-                  child: Icon(Icons.qr_code, size: 300),
+                QrImage(
+                  data: authProvider.currentUser!.data!.Photo!,
+                  version: QrVersions.auto,
+                  size: 300.0,
                 ),
                 SizedBox(
                   height: 35,
