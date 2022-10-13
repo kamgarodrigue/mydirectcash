@@ -4,11 +4,11 @@ xmlns:tools="http://schemas.android.com/tools"
     <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
    <application
-        android:label="mydirectcash"
+        android:label="MydirectCash Mobile"
         android:name="${applicationName}"
         tools:replace="android:label"
-       
-        android:icon="@mipmap/ic_launcher">
+
+        android:icon="@mipmap/launcher_icon">
 
 
         <activity
