@@ -34,16 +34,63 @@ class _HomeState extends StateMVC<Home> {
   User? currrentUser = new User(data: DataUser(nom: "", phone: "", solde: ""));
   int conversion = 0;
   void setconversion(int value) {
-    setState(() {
-      conversion = value;
-    });
+    if (solde != 0) {
+      switch (value) {
+        case 0:
+          setState(() {
+            solde = context.read<AuthService>().currentUser!.data!.solde!;
+            if (solde.contains(".")) {
+              solde = double.tryParse(solde)!.toStringAsFixed(4);
+            }
+            conversion = value;
+          });
+
+          break;
+        case 1:
+          setState(() {
+            solde = (double.tryParse(context
+                        .read<AuthService>()
+                        .currentUser!
+                        .data!
+                        .solde!)! /
+                    600)
+                .toString();
+            if (solde.contains(".")) {
+              solde = double.tryParse(solde)!.toStringAsFixed(4);
+            }
+
+            conversion = value;
+          });
+
+          break;
+        case 2:
+          setState(() {
+            solde = (double.tryParse(context
+                        .read<AuthService>()
+                        .currentUser!
+                        .data!
+                        .solde!)! /
+                    640)
+                .toString();
+            if (solde.contains(".")) {
+              solde = double.tryParse(solde)!.toStringAsFixed(4);
+            }
+            conversion = value;
+          });
+
+          break;
+        default:
+      }
+    }
   }
 
+  String solde = "0";
   @override
   void initState() {
     super.initState();
 
     context.read<AuthService>().authenticate;
+    solde = solde = context.read<AuthService>().currentUser!.data!.solde!;
   }
 
   @override
@@ -215,7 +262,7 @@ class _HomeState extends StateMVC<Home> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10)),
                               width: MediaQuery.of(context).size.width,
-                              height: 200,
+                              height: 220,
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -239,11 +286,7 @@ class _HomeState extends StateMVC<Home> {
                                             height: 10,
                                           ),
                                           Text(
-                                            this
-                                                .currrentUser!
-                                                .data!
-                                                .solde
-                                                .toString(),
+                                            solde,
                                             textAlign: TextAlign.center,
                                             style: const TextStyle(
                                                 fontSize: 34,

@@ -408,11 +408,11 @@ class _SettingsState extends State<Settings> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    /*  Navigator.push(
+                    Navigator.push(
                         context,
                         PageTransition(
                             type: PageTransitionType.rightToLeft,
-                            child: Grille_Tarifaire_model()));*/
+                            child: Grille_Tarifaire_model()));
                   },
                   child: SettingsTabOption(
                       icon: Icon(

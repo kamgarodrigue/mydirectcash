@@ -32,16 +32,64 @@ class _HomeState extends State<MonCompte> {
   User? currrentUser = new User(data: DataUser(nom: "", phone: "", solde: ""));
   int conversion = 0;
   void setconversion(int value) {
-    setState(() {
-      conversion = value;
-    });
+    if (solde != 0) {
+      switch (value) {
+        case 0:
+          setState(() {
+            solde = context.read<AuthService>().currentUser!.data!.solde!;
+            if (solde.contains(".")) {
+              solde = double.tryParse(solde)!.toStringAsFixed(4);
+            }
+            conversion = value;
+          });
+
+          break;
+        case 1:
+          setState(() {
+            solde = (double.tryParse(context
+                        .read<AuthService>()
+                        .currentUser!
+                        .data!
+                        .solde!)! /
+                    600)
+                .toString();
+            if (solde.contains(".")) {
+              solde = double.tryParse(solde)!.toStringAsFixed(4);
+            }
+
+            conversion = value;
+          });
+
+          break;
+        case 2:
+          setState(() {
+            solde = (double.tryParse(context
+                        .read<AuthService>()
+                        .currentUser!
+                        .data!
+                        .solde!)! /
+                    640)
+                .toString();
+            if (solde.contains(".")) {
+              solde = double.tryParse(solde)!.toStringAsFixed(4);
+            }
+            conversion = value;
+          });
+
+          break;
+        default:
+      }
+    }
   }
+
+  String solde = "0";
 
   @override
   void initState() {
     super.initState();
 
     context.read<AuthService>().authenticate;
+    solde = solde = context.read<AuthService>().currentUser!.data!.solde!;
   }
 
   @override
@@ -144,6 +192,17 @@ class _HomeState extends State<MonCompte> {
                                       this.currrentUser!.data!.phone.toString(),
                                       style: const TextStyle(
                                           fontSize: 12,
+                                          fontFamily: content_font),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      "Id: " +
+                                          this.currrentUser!.data!.matricule!,
+                                      style: TextStyle(
+                                          color: blueColor,
+                                          fontSize: 14,
                                           fontFamily: content_font),
                                     ),
                                   ],
@@ -263,11 +322,7 @@ class _HomeState extends State<MonCompte> {
                                         height: 10,
                                       ),
                                       Text(
-                                        this
-                                            .currrentUser!
-                                            .data!
-                                            .solde
-                                            .toString(),
+                                        solde,
                                         textAlign: TextAlign.center,
                                         style: const TextStyle(
                                             fontSize: 34,

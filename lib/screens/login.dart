@@ -22,6 +22,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:local_auth_android/local_auth_android.dart';
+import 'package:local_auth_ios/local_auth_ios.dart';
 
 class Login extends StatefulWidget {
   BuildContext? fatherContext;
@@ -358,25 +360,34 @@ class _LoginState extends StateMVC<Login> {
                           ),
                           InkWell(
                             onTap: () async {
-                              SharedPreferences pref =
-                                  await SharedPreferences.getInstance();
-
                               final LocalAuthentication auth =
                                   LocalAuthentication();
-                              // ···
                               final bool canAuthenticateWithBiometrics =
                                   await auth.canCheckBiometrics;
                               final bool canAuthenticate =
                                   canAuthenticateWithBiometrics ||
                                       await auth.isDeviceSupported();
+                              SharedPreferences pref =
+                                  await SharedPreferences.getInstance();
 
-                              if (pref.getString("tel") != null) {
-                                final bool didAuthenticate =
-                                    await auth.authenticate(
+                              if (pref.getString("tel") != null &&
+                                  canAuthenticate) {
+                                final bool didAuthenticate = await auth
+                                    .authenticate(
                                         localizedReason:
                                             'Please authenticate to show account balance',
                                         options: const AuthenticationOptions(
-                                            biometricOnly: true));
+                                            biometricOnly: true),
+                                        authMessages: <AuthMessages>[
+                                      AndroidAuthMessages(
+                                        signInTitle:
+                                            'Oops! L authentification Biometrique est requise pour cette fonctionalite!',
+                                        cancelButton: 'Fermer',
+                                      ),
+                                      IOSAuthMessages(
+                                        cancelButton: 'No thanks',
+                                      ),
+                                    ]);
                                 if (didAuthenticate) {
                                   setState(() {
                                     this._isLoading = true;

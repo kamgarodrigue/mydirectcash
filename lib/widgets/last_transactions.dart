@@ -92,7 +92,7 @@ class _LastTransactionState extends State<LastTransaction> {
                         Padding(
                           padding: const EdgeInsets.only(left: 18, top: 0),
                           child: Text(
-                            'Vers TALLA jean (${transaction.historique[index].collecteur!.substring(0, 3)} ** ** **)',
+                            '${transaction.historique[index].collecteur!}',
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               fontSize: 10,

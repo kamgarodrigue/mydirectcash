@@ -126,6 +126,14 @@ class _AccountQRState extends State<AccountQR> {
                                           fontFamily: content_font),
                                     ),
                                     Text(
+                                      'Telephone',
+                                      style:
+                                          TextStyle(fontFamily: content_font),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
                                       'Identifiant',
                                       style:
                                           TextStyle(fontFamily: content_font),
@@ -154,6 +162,17 @@ class _AccountQRState extends State<AccountQR> {
                                       authProvider.currentUser!.data!.phone!,
                                       style: TextStyle(
                                           fontFamily: content_font,
+                                          color: greenColor),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      authProvider
+                                          .currentUser!.data!.matricule!,
+                                      style: TextStyle(
+                                          fontFamily: content_font,
+                                          
                                           color: greenColor),
                                     ),
                                   ],

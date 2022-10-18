@@ -57,6 +57,7 @@
 "Choisissez la facture à Payer": "Choisissez la facture à Payer",
 "Abonnement Canal":"Abonnement Canal+",
 "Effectuer votre réabonnement":"Effectuer votre réabonnement",
+"Payer votre facture Enéo":"Payer votre facture Enéo",
 "Payer votre quittance d'eau": "Payer votre quittance d'eau",
 "Choisissez le Bouquet de recharge":"Choisissez le Bouquet de recharge",
 "Saisissez votre numéro de contrat":"Saisissez votre numéro de contrat",
@@ -140,8 +141,8 @@
 "aide":"Comment pouvons nous vous aidez ?",
 "whatsappMessage":"Ecrivez nous sur whatsapp et nos agents vous répondrons.",
 "emailMessage":"Laisser nous un mail et nos équipes vous répondrons sous 48h.",
-"FaqsMessage":"Consultez notre Foire aux question et trouver vite une solution à votre problème."
-
+"FaqsMessage":"Consultez notre Foire aux question et trouver vite une solution à votre problème.",
+"Amount":"Amount"
 
 
 
