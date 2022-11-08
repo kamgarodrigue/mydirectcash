@@ -56,10 +56,10 @@
 				<key>CFBundleTypeRole</key>
 				<string>Editor</string>
 				<key>CFBundleURLName</key>
-				<string>com.your-company.your-app.payments</string>
+				<string>cm.directcash.alliancefinancialsa.mydirectcashmobile.payments</string>
 				<key>CFBundleURLSchemes</key>
 				<array>
-					<string>com.your-company.your-app.payments</string>
+					<string>cm.directcash.alliancefinancialsa.mydirectcashmobile.payments</string>
 				</array>
 			</dict>
 		</array>

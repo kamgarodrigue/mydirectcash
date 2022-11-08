@@ -29,6 +29,9 @@ import 'package:mydirectcash/widgets/settingstab_option.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -445,13 +448,29 @@ class _SettingsState extends State<Settings> {
                     ),
                     title:
                         "${AppLocalizations.of(context)!.translate("Guichet producteur")}"),
-                SettingsTabOption(
-                    icon: Icon(
-                      Icons.chevron_right,
-                      size: 18,
-                    ),
-                    title:
-                        "${AppLocalizations.of(context)!.translate("Comment ça marche ?")}"),
+                GestureDetector(
+                  onTap: () {
+                    var link = "https://youtu.be/xtv7lspYRaA";
+                    try {
+                      launch(link);
+                    } catch (e) {
+                      //To handle error and display error message
+                      showTopSnackBar(
+                          context,
+                          CustomSnackBar.error(
+                            message: "Unable to open whatsapp",
+                          ),
+                          displayDuration: Duration(seconds: 2));
+                    }
+                  },
+                  child: SettingsTabOption(
+                      icon: Icon(
+                        Icons.chevron_right,
+                        size: 18,
+                      ),
+                      title:
+                          "${AppLocalizations.of(context)!.translate("Comment ça marche ?")}"),
+                ),
                 InkWell(
                   onTap: () {
                     print("logout");

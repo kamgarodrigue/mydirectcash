@@ -45,7 +45,7 @@
 "Payement de facture":"Payment facture",
 "Achat de crédit":"Achat de crédit",
 "Choisissez le pays de destination":"Choisissez le pays de destination",
-"Choisissez le coupon crédit":"Choisissez le coupon crédit",
+"Choisissez le coupon crédit":"Choisissez l'operateur",
 "Choisir un pays":"Choisir un pays",
 "Saisissez le numéro bénéficiaire":"Saisissez le numéro bénéficiaire",
 
@@ -142,7 +142,12 @@
 "whatsappMessage":"Ecrivez nous sur whatsapp et nos agents vous répondrons.",
 "emailMessage":"Laisser nous un mail et nos équipes vous répondrons sous 48h.",
 "FaqsMessage":"Consultez notre Foire aux question et trouver vite une solution à votre problème.",
-"Amount":"Amount"
+"Amount":"Amount",
+"errorlogin":"Vos identifiants sont erronés, veillez entrez votre numero de telephone et mot de passe",
+"erreur":"Oups une erreur est survenue",
+"Chose operator":"Cliquez pour choisir l'operateur"
+
+
 
 
 

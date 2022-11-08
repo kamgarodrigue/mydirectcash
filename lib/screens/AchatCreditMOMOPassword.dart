@@ -196,7 +196,8 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                               showTopSnackBar(
                                   context,
                                   CustomSnackBar.error(
-                                    message: error.toString(),
+                                    message: AppLocalizations.of(context)!
+                                        .translate("erreur")!,
                                   ),
                                   displayDuration: Duration(seconds: 2));
                             });

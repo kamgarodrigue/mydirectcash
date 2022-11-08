@@ -167,6 +167,16 @@ class _OmMoMoState extends State<OmMoMo> {
                       TransactonService().depotMomo(data).then((value) {
                         setState(() {
                           this._isLoading = false;
+                          data = {
+                            "senderNumber": "",
+                            "operateur": isOm ? "CMORANGEOM" : "CMMTNMOMO",
+                            "Id": "",
+                            "pass": "",
+                            "reseau": "",
+                            "montant": "",
+                            "numero": "",
+                            "opType": "Depos"
+                          };
                         });
                         showTopSnackBar(
                           context,
@@ -174,7 +184,7 @@ class _OmMoMoState extends State<OmMoMo> {
                             message: value.toString(),
                           ),
                         );
-                        Navigator.pop(context);
+                        // Navigator.pop(context);
                       }).catchError((error) {
                         print(error);
                         setState(() {
@@ -183,7 +193,8 @@ class _OmMoMoState extends State<OmMoMo> {
                         showTopSnackBar(
                           context,
                           CustomSnackBar.error(
-                            message: error.toString(),
+                            message: AppLocalizations.of(context)!
+                                .translate("erreur")!,
                           ),
                         );
                       });
@@ -332,6 +343,16 @@ class _OmMoMoState extends State<OmMoMo> {
                       TransactonService().retraitMomo(data).then((value) {
                         setState(() {
                           this._isLoading = false;
+                          data = {
+                            "senderNumber": "",
+                            "operateur": isOm ? "CMORANGEOM" : "CMMTNMOMO",
+                            "Id": "",
+                            "pass": "",
+                            "reseau": "",
+                            "montant": "",
+                            "numero": "",
+                            "opType": "Retrait"
+                          };
                         });
                         print(value);
                         showTopSnackBar(
@@ -340,7 +361,7 @@ class _OmMoMoState extends State<OmMoMo> {
                             message: value.toString(),
                           ),
                         );
-                        Navigator.pop(context);
+                        // Navigator.pop(context);
                       }).catchError((error) {
                         setState(() {
                           this._isLoading = false;
@@ -349,7 +370,8 @@ class _OmMoMoState extends State<OmMoMo> {
                         showTopSnackBar(
                           context,
                           CustomSnackBar.error(
-                            message: error.toString(),
+                            message: AppLocalizations.of(context)!
+                                .translate("erreur")!,
                           ),
                         );
                       });
@@ -461,6 +483,20 @@ class _OmMoMoState extends State<OmMoMo> {
                     ),
                     SizedBox(
                       height: 30,
+                    ),
+                    Text(
+                      AppLocalizations.of(context)!
+                          .translate('Chose operator')
+                          .toString(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: title_font,
+                          color: blueColor,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 16,
                     ),
                     Container(
                       child: Row(

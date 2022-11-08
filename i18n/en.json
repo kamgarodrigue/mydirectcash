@@ -41,8 +41,8 @@
 "Payement de facture":"Bill payment",
 "Achat de crédit":"Credit purchase",
 "Choisissez le pays de destination":"Choose the destination country",
-"Choisissez le coupon crédit":"Choose the credit coupon",
-"Choisir un pays":"Choose a country",
+"Choisissez le coupon crédit":"Choisissez l'operateur",
+"Choisir un pays":"Choose operator",
 
 "Saisire montant":"Enter the Amount",
 "Numero du compte":"Account number",
@@ -138,7 +138,10 @@
 "aide":"How can we help you?",
 "whatsappMessage":"Write to us on whatsapp and our agents will answer you.",
 "emailMessage":"Leave us an email and our teams will respond to you within 48 hours.",
-"FaqsMessage":"Consult our Frequently Asked Questions and quickly find a solution to your problem."
+"FaqsMessage":"Consult our Frequently Asked Questions and quickly find a solution to your problem.",
+"errorlogin":"Your identifiers are incorrect, please enter your phone number and password",
+"erreur":"Oops an error occurred",
+"Chose operator":"Click to choose the operator"
 
 
 

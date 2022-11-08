@@ -159,7 +159,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                             "Choisissez le pays de destination")!),
                                   ),
                                   theme: CountryTheme(
-                                    isShowFlag: false,
+                                    isShowFlag: true,
                                     isShowTitle: false,
                                     isShowCode: false,
                                     isDownIcon: true,
@@ -175,6 +175,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                     });
                                     print(code!.name);
                                   },
+                                  isCentre: true,
                                   useUiOverlay: true,
                                   useSafeArea: false),
                             ],

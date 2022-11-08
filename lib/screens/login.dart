@@ -287,7 +287,8 @@ class _LoginState extends StateMVC<Login> {
                                                 showTopSnackBar(
                                                   context,
                                                   CustomSnackBar.error(
-                                                    message: error.toString(),
+                                                    message:
+                                                        "${AppLocalizations.of(context)!.translate('errorlogin')}",
                                                   ),
                                                 );
                                               });
