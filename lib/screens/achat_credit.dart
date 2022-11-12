@@ -222,29 +222,35 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                                   itemBuilder: (context) => [
                                     {
                                       'title': "CAMTEL",
-                                      "image": "assets/images/camtel.jpeg"
+                                      "image": "assets/images/camtel.jpeg",
+                                      "value":"Camtel"
                                     },
                                     {
                                       'title': "MTN",
-                                      "image": "assets/images/mtn.png"
+                                      "image": "assets/images/mtn.png",
+                                    "value":"MTN"
                                     },
                                     {
                                       'title': "NEXTEL",
-                                      "image": "assets/images/nextel.png"
+                                      "image": "assets/images/nextel.png",
+                                      "value":"Nextel"
                                     },
                                     {
                                       'title': "ORANGE",
-                                      "image": "assets/images/orange.png"
+                                      "image": "assets/images/orange.png",
+                                      "value":"Orange"
                                     },
                                     {
                                       'title': "YO0MEE",
-                                      "image": "assets/images/yoomee.png"
+                                      "image": "assets/images/yoomee.png",
+                                      "value":"Yoomee"
                                     },
                                   ]
                                       .map<PopupMenuItem>((e) => PopupMenuItem(
                                             onTap: () {
                                               setState(() {
                                                 coupon = e['title'];
+                                                this.data["reseau"]=e["value"];
                                                 //print(currentLang);
                                               });
                                               print(coupon);

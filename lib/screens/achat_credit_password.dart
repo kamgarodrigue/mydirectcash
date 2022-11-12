@@ -150,7 +150,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                         style:
                             TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
-                        initialValue: widget.data!["pass"],
+                       // initialValue: widget.data!["pass"],
                         onChanged: (value) {
                           setState(() {
                             widget.data!["pass"] = value;

@@ -16,6 +16,7 @@ class AuthService extends ChangeNotifier {
   bool _isOpen = false;
   bool _istel = false;
   User? get currentUser => _currentUser;
+  String? solde;
   bool get authenticate {
     sharedPreferences().then((value) {
       if (json.decode("${value.getString("user")}") != null) {
@@ -27,6 +28,7 @@ class AuthService extends ChangeNotifier {
                 null
             ? false
             : true;
+        print(_currentUser!.data!.solde);
         notifyListeners();
       }
     });
@@ -42,6 +44,42 @@ class AuthService extends ChangeNotifier {
       }
     });
     return this._isOpen;
+  }
+
+  setconversion(int value) {
+    switch (value) {
+      case 0:
+        solde = _currentUser!.data!.solde!;
+
+        if (_currentUser!.data!.solde!.contains(".")) {
+          solde =
+              double.tryParse(_currentUser!.data!.solde!)!.toStringAsFixed(2);
+        }
+        notifyListeners();
+        break;
+      case 1:
+        String val =
+            (double.tryParse(_currentUser!.data!.solde!)! / 600).toString();
+        solde = (double.tryParse(_currentUser!.data!.solde!)! / 600).toString();
+        if (val.contains(".")) {
+          solde = double.tryParse(val)!.toStringAsFixed(2);
+        }
+        print(solde);
+        notifyListeners();
+        break;
+      case 2:
+        String val =
+            (double.tryParse(_currentUser!.data!.solde!)! / 640).toString();
+        solde = (double.tryParse(_currentUser!.data!.solde!)! / 640).toString();
+        if (val.contains(".")) {
+          solde = double.tryParse(val)!.toStringAsFixed(2);
+          print(solde);
+        }
+
+        notifyListeners();
+        break;
+      default:
+    }
   }
 
   bool get tel {
@@ -67,11 +105,12 @@ class AuthService extends ChangeNotifier {
       await pref.setString("user", response.toString());
       await pref.setBool("open", true);
       await pref.setString("tel", user.data!.phone!);
+      notifyListeners();
     }
 
     print(json.decode(response.toString()));
     this._isLoggedIn = true;
-
+    setconversion(0);
     notifyListeners();
     return json.decode(response.toString())['Message'];
   }

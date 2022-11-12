@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:mydirectcash/AppLanguage.dart';
@@ -37,46 +39,20 @@ class _HomeState extends StateMVC<Home> {
     if (solde != 0) {
       switch (value) {
         case 0:
-          setState(() {
-            solde = context.read<AuthService>().currentUser!.data!.solde!;
-            if (solde.contains(".")) {
-              solde = double.tryParse(solde)!.toStringAsFixed(2);
-            }
-            conversion = value;
-          });
+          context.read<AuthService>().setconversion(value);
+
+          conversion = value;
 
           break;
         case 1:
-          setState(() {
-            solde = (double.tryParse(context
-                        .read<AuthService>()
-                        .currentUser!
-                        .data!
-                        .solde!)! /
-                    600)
-                .toString();
-            if (solde.contains(".")) {
-              solde = double.tryParse(solde)!.toStringAsFixed(2);
-            }
+          context.read<AuthService>().setconversion(value);
 
-            conversion = value;
-          });
+          conversion = value;
 
           break;
         case 2:
-          setState(() {
-            solde = (double.tryParse(context
-                        .read<AuthService>()
-                        .currentUser!
-                        .data!
-                        .solde!)! /
-                    640)
-                .toString();
-            if (solde.contains(".")) {
-              solde = double.tryParse(solde)!.toStringAsFixed(2);
-            }
-            conversion = value;
-          });
+          context.read<AuthService>().setconversion(value);
+          conversion = value;
 
           break;
         default:
@@ -88,9 +64,20 @@ class _HomeState extends StateMVC<Home> {
   @override
   void initState() {
     super.initState();
-
+    context.read<AuthService>().setconversion(0);
     context.read<AuthService>().authenticate;
-    solde = solde = context.read<AuthService>().currentUser!.data!.solde!;
+    setState(() {
+      solde = solde = context.read<AuthService>().currentUser!.data!.solde!;
+    });
+  }
+
+  Future reset() {
+    context.read<AuthService>().loginWithBiometric(
+        {"id": context.read<AuthService>().currentUser!.data!.phone});
+    context.read<TransactonService>().getHistory(
+        context.read<AuthService>().currentUser!.data!.phone.toString());
+    return context.read<TransactonService>().getHistory(
+        context.read<AuthService>().currentUser!.data!.phone.toString());
   }
 
   @override
@@ -107,9 +94,7 @@ class _HomeState extends StateMVC<Home> {
               elevation: 0,
             ),
             body: RefreshIndicator(
-              onRefresh: () => _userController!.utilisateur!.then((value) {
-                this.currrentUser = value;
-              }),
+              onRefresh: () => reset(),
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
@@ -286,7 +271,7 @@ class _HomeState extends StateMVC<Home> {
                                             height: 10,
                                           ),
                                           Text(
-                                            solde,
+                                            autProvider.solde!,
                                             textAlign: TextAlign.center,
                                             style: const TextStyle(
                                                 fontSize: 34,
