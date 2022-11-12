@@ -38,7 +38,7 @@ class _HomeState extends State<MonCompte> {
           setState(() {
             solde = context.read<AuthService>().currentUser!.data!.solde!;
             if (solde.contains(".")) {
-              solde = double.tryParse(solde)!.toStringAsFixed(4);
+              solde = double.tryParse(solde)!.toStringAsFixed(2);
             }
             conversion = value;
           });
@@ -54,7 +54,7 @@ class _HomeState extends State<MonCompte> {
                     600)
                 .toString();
             if (solde.contains(".")) {
-              solde = double.tryParse(solde)!.toStringAsFixed(4);
+              solde = double.tryParse(solde)!.toStringAsFixed(2);
             }
 
             conversion = value;
@@ -71,7 +71,7 @@ class _HomeState extends State<MonCompte> {
                     640)
                 .toString();
             if (solde.contains(".")) {
-              solde = double.tryParse(solde)!.toStringAsFixed(4);
+              solde = double.tryParse(solde)!.toStringAsFixed(2);
             }
             conversion = value;
           });

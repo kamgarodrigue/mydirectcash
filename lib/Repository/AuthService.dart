@@ -55,7 +55,6 @@ class AuthService extends ChangeNotifier {
           solde =
               double.tryParse(_currentUser!.data!.solde!)!.toStringAsFixed(2);
         }
-        notifyListeners();
         break;
       case 1:
         String val =
@@ -65,7 +64,7 @@ class AuthService extends ChangeNotifier {
           solde = double.tryParse(val)!.toStringAsFixed(2);
         }
         print(solde);
-        notifyListeners();
+
         break;
       case 2:
         String val =
@@ -76,10 +75,10 @@ class AuthService extends ChangeNotifier {
           print(solde);
         }
 
-        notifyListeners();
         break;
       default:
     }
+    //notifyListeners();
   }
 
   bool get tel {

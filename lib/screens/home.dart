@@ -64,8 +64,9 @@ class _HomeState extends StateMVC<Home> {
   @override
   void initState() {
     super.initState();
-    context.read<AuthService>().setconversion(0);
     context.read<AuthService>().authenticate;
+    context.read<AuthService>().setconversion(0);
+
     setState(() {
       solde = solde = context.read<AuthService>().currentUser!.data!.solde!;
     });
