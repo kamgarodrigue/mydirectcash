@@ -101,12 +101,12 @@ class _AccountQRState extends State<AccountQR> {
                         child: Container(
                           child: Row(
                             children: [
-                              const CircleAvatar(
-                                radius: 38,
-                                child: CircleAvatar(
-                                  radius: 37,
-                                  backgroundImage: AssetImage(
-                                      'assets/images/pexels-anna-nekrashevich-6802046.jpg'),
+                              Container(
+                                margin: EdgeInsets.only(top: 20),
+                                width: 100,
+                                height: 100,
+                                child: Image.asset(
+                                  'assets/images/logo-alliance-transparent.png',
                                 ),
                               ),
                               const SizedBox(
@@ -172,7 +172,6 @@ class _AccountQRState extends State<AccountQR> {
                                           .currentUser!.data!.matricule!,
                                       style: TextStyle(
                                           fontFamily: content_font,
-                                          
                                           color: greenColor),
                                     ),
                                   ],

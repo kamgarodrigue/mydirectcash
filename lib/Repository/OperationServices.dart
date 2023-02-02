@@ -36,10 +36,10 @@ class OperationServices extends ChangeNotifier {
     return decodeOperateur(response.data);
   }
 
-  Future<List<dynamic>> getTarifs() async {
+  Future<List<dynamic>> getTarifs(model) async {
     Dio.Response response = await dio().get("DirectcashOperations/getFees");
-    _tarifs =
-        response.data["collecteFees"].map<dynamic>((json) => json).toList();
+    print(response.data);
+    _tarifs = response.data[model].map<dynamic>((json) => json).toList();
     ;
     notifyListeners();
     return response.data["collecteFees"].map<dynamic>((json) => json).toList();

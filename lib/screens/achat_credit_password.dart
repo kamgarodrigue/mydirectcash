@@ -110,7 +110,18 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                     ),
                   ),
                   SizedBox(
-                    height: 50,
+                    height: 20,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    width: 100,
+                    height: 100,
+                    child: Image.asset(
+                      'assets/images/logo-alliance-transparent.png',
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                   Container(
                     child: Column(
@@ -150,7 +161,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                         style:
                             TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
-                       // initialValue: widget.data!["pass"],
+                        // initialValue: widget.data!["pass"],
                         onChanged: (value) {
                           setState(() {
                             widget.data!["pass"] = value;

@@ -12,7 +12,9 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class Grille_Tarifaire_model extends StatefulWidget {
-  Grille_Tarifaire_model({Key? key}) : super(key: key);
+  String title, model;
+  Grille_Tarifaire_model({Key? key, required this.model, required this.title})
+      : super(key: key);
 
   @override
   State<Grille_Tarifaire_model> createState() => _Grille_Tarifaire_modelState();
@@ -33,7 +35,10 @@ class _Grille_Tarifaire_modelState extends State<Grille_Tarifaire_model> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<OperationServices>().getTarifs().then((value) => print(value));
+    context
+        .read<OperationServices>()
+        .getTarifs(widget.model)
+        .then((value) => print(""));
   }
 
   @override
@@ -125,8 +130,7 @@ class _Grille_Tarifaire_modelState extends State<Grille_Tarifaire_model> {
                           ),
                         ),
                         SizedBox(width: 50),
-                        Text(
-                            "${AppLocalizations.of(context)!.translate('tarif')}",
+                        Text(widget.title,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

@@ -33,28 +33,20 @@ class _Grille_TarifaireState extends State<Grille_Tarifaire> {
   Widget build(BuildContext context) {
     List<dynamic> list = [
       {
-        "title":
-            "${AppLocalizations.of(context)!.translate('Achat de crédit')}",
-        "image": "assets/images/ico-achat-credit.png",
+        "title": AppLocalizations.of(context)!.translate('Envoi d\'argent'),
+        "image": 'assets/images/ico-transfert-dargent.png',
+        "model": "moneyXferFees"
       },
       {
-        "title":
-            "${AppLocalizations.of(context)!.translate('Payement Marchand')}",
-        "image": "assets/images/ico-paiement-marchand.png",
+        "title": "collecte",
+        "image": 'assets/images/ico-transfert-dargent.png',
+        "model": "collecteFees"
       },
+      {"title": "Eneo", "image": 'assets/images/eneo.png', "model": "eneoFees"},
       {
-        "title":
-            "${AppLocalizations.of(context)!.translate('Envoi d\'argent')}",
-        "image": "assets/images/ico-transfert-dargent.png",
-      },
-      {
-        "title": "${AppLocalizations.of(context)!.translate('ommom')}",
-        "image": "assets/images/ico-om_momo.png",
-      },
-      {
-        "title":
-            "${AppLocalizations.of(context)!.translate('Payement de facture')}",
-        "image": "assets/images/ico-facture.png",
+        "title": "Camwater",
+        "image": 'assets/images/cam_water.jpg',
+        "model": "camwaterFees"
       },
     ];
     return Scaffold(
@@ -153,7 +145,10 @@ class _Grille_TarifaireState extends State<Grille_Tarifaire> {
                               context,
                               PageTransition(
                                   type: PageTransitionType.rightToLeft,
-                                  child: Grille_Tarifaire_model()));
+                                  child: Grille_Tarifaire_model(
+                                    model: list[index]["model"],
+                                    title: list[index]['title'],
+                                  )));
                         },
                         child: Container(
                           child: Column(
@@ -162,7 +157,7 @@ class _Grille_TarifaireState extends State<Grille_Tarifaire> {
                             children: [
                               Image.asset(
                                 list[index]["image"],
-                                color: Colors.black,
+                                // color: Colors.black,
                                 width: 35,
                               ),
                               SizedBox(

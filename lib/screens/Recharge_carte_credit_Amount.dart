@@ -112,24 +112,15 @@ class _Recharge_carte_credit_AmountState
                     ),
                   ),
                   SizedBox(
-                    height: 50,
+                    height: 20,
                   ),
-                  /*
                   Container(
-                    child: Column(
-                      children: [
-                        Text(
-                            '${AppLocalizations.of(context)!.translate("Vous allez faire une recharge de")} ${widget.detail["amount"]} XAF ${AppLocalizations.of(context)!.translate("au numéro")} ${widget.dataTransaction!.toNumber!.substring(0, 3)} ** ** ${widget.dataTransaction!.toNumber!.substring(7, 9)}, ${AppLocalizations.of(context)!.translate("frais de")}  ${widget.detail["rate"]} XAF. ${AppLocalizations.of(context)!.translate("Montant total à débiter")}  ${widget.detail["totalAmount"]} XAF.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 12.5,
-                                fontFamily: content_font,
-                                fontWeight: FontWeight.w500)),
-                      ],
+                    margin: EdgeInsets.only(top: 20),
+                    width: 100,
+                    height: 100,
+                    child: Image.asset(
+                      'assets/images/logo-alliance-transparent.png',
                     ),
-                  ), */
-                  SizedBox(
-                    height: 30,
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 20),

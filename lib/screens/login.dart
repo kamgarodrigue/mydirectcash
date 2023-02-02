@@ -445,7 +445,7 @@ class _LoginState extends StateMVC<Login> {
                                   CustomSnackBar.info(
                                     maxLines: 3,
                                     message:
-                                        "Veillez vous connecter pour une première fois avec votre numero de telephone",
+                                        "Veuillez vous connecter pour une première fois avec votre numero de telephone",
                                   ),
                                 );
                               }

@@ -118,8 +118,13 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 50,
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    width: 100,
+                    height: 100,
+                    child: Image.asset(
+                      'assets/images/logo-alliance-transparent.png',
+                    ),
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 20),

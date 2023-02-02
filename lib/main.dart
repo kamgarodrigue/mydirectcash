@@ -17,24 +17,21 @@ import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  AppLanguage appLanguage = AppLanguage();
-  //await appLanguage.fetchLocale();
 
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => Authcontroller().auth),
+      ChangeNotifierProvider(create: (context) => AppLanguage()),
       ChangeNotifierProvider(create: (context) => TransactonService()),
       ChangeNotifierProvider(create: (context) => OperationServices())
     ],
-    child: MyApp(
-      appLanguage: appLanguage,
-    ),
+    child: MyApp(),
   ));
 }
 
 class MyApp extends StatefulWidget {
-  final AppLanguage appLanguage;
-  MyApp({required this.appLanguage});
+  //final AppLanguage appLanguage;
+  MyApp();
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -43,10 +40,12 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   bool _isInForeground = true;
   @override
-  bool isSupported(Locale locale) => ['en', 'fr'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      ['en', 'fr', 'es'].contains(locale.languageCode);
   @override
   void initState() {
     super.initState();
+    context.read<AppLanguage>().fetchLocale();
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -84,47 +83,46 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AppLanguage>(
-      create: (_) => widget.appLanguage,
-      child: Consumer<AppLanguage>(builder: (context, model, child) {
-        return MaterialApp(
-          title: 'My Direct Cash',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          locale: model.appLocal,
-          supportedLocales: const [
-            Locale('en', 'US'),
-            Locale('fr', ''),
-          ],
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            AppLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          home: Consumer<AuthService>(
-            builder: (context, auth, child) {
-              // WelcomePage()
-              if (auth.authenticate) {
-                return Home();
+    final appLanguage = context.watch<AppLanguage>();
+    print(appLanguage.appLocal);
+    return MaterialApp(
+      title: 'My Direct Cash',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      locale: appLanguage.appLocal,
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('fr', ''),
+        Locale('es', ''),
+      ],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        AppLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      home: Consumer<AuthService>(
+        builder: (context, auth, child) {
+          // WelcomePage()
+
+          if (auth.authenticate) {
+            return Home();
+          } else {
+            return Consumer<AuthService>(builder: (context, auth, child) {
+              if (auth.tel) {
+                return Login(
+                  isLogin: false,
+                );
               } else {
-                return Consumer<AuthService>(builder: (context, auth, child) {
-                  if (auth.tel) {
-                    return Login(
-                      isLogin: false,
-                    );
-                  } else {
-                    return WelcomePage();
-                  }
-                });
-              } //flutter build apk  --split-per-abi
-            },
-          ),
-        );
-      }),
+                return WelcomePage();
+              }
+            });
+          } //flutter build apk  --split-per-abi
+        },
+      ),
     );
   }
 }

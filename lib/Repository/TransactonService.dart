@@ -43,6 +43,8 @@ class TransactonService extends ChangeNotifier {
   Future<List<Transaction>> getHistory(String number) async {
     Dio.Response response =
         await dio().get("Transactions/Historiques/LastFive/$number");
+    print(
+        "http://172.107.60.78:3000/api/Transactions/Historiques/LastFive/$number");
     print(response);
     return decodeTransaction(response.data);
   }

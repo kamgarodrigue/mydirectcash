@@ -385,8 +385,13 @@ class _PayementFactureState extends State<PayementFacture> {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: 30,
+                        Container(
+                          margin: EdgeInsets.only(top: 20),
+                          width: 100,
+                          height: 100,
+                          child: Image.asset(
+                            'assets/images/logo-alliance-transparent.png',
+                          ),
                         ),
                         Container(
                           child: Row(

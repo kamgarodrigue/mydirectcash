@@ -30,7 +30,7 @@ class _OmMoMoState extends State<OmMoMo> {
     "opType": "Retrait"
   };
   bool isOm = true, _isLoading = false;
-  bool isDepot = true;
+  bool isDepot = false;
   bool _isOscure = true;
   void togle() {
     this.setState(() {
@@ -175,7 +175,7 @@ class _OmMoMoState extends State<OmMoMo> {
                             "reseau": "",
                             "montant": "",
                             "numero": "",
-                            "opType": "Depos"
+                            "opType": "Dépôt"
                           };
                         });
                         showTopSnackBar(
@@ -452,7 +452,7 @@ class _OmMoMoState extends State<OmMoMo> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 25),
@@ -479,6 +479,14 @@ class _OmMoMoState extends State<OmMoMo> {
                                   color: blueColor,
                                   fontWeight: FontWeight.w500))
                         ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      width: 100,
+                      height: 100,
+                      child: Image.asset(
+                        'assets/images/logo-alliance-transparent.png',
                       ),
                     ),
                     SizedBox(

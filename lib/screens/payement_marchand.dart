@@ -1,5 +1,7 @@
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/QRViewExample.dart';
 import 'package:mydirectcash/screens/login.dart';
@@ -31,6 +33,21 @@ class _PayementMarchandState extends State<PayementMarchand> {
       data["Client"] = code;
       isCanning = false;
     });
+  }
+
+  Future<void> barcodeScan() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+    if (!mounted) return;
+    setCode(barcodeScanRes);
   }
 
   @override
@@ -118,7 +135,18 @@ class _PayementMarchandState extends State<PayementMarchand> {
                     ),
                   ),
                   SizedBox(
-                    height: 40,
+                    height: 10,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    width: 100,
+                    height: 100,
+                    child: Image.asset(
+                      'assets/images/logo-alliance-transparent.png',
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 20),
@@ -135,15 +163,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      PageTransition(
-                                          type: PageTransitionType.rightToLeft,
-                                          child: QRViewExample(
-                                            getCode: setCode,
-                                          )));
-                                },
+                                onPressed: () => barcodeScan(),
                                 icon: Icon(Icons.qr_code_scanner,
                                     size: 17, color: Colors.blue)),
                             hintText: data["Client"] == ""

@@ -103,7 +103,18 @@ class _PayementMarchandMontantState extends State<PayementMarchandMontant> {
                     ),
                   ),
                   SizedBox(
-                    height: 50,
+                    height: 10,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    width: 100,
+                    height: 100,
+                    child: Image.asset(
+                      'assets/images/logo-alliance-transparent.png',
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 20),

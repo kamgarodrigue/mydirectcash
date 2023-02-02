@@ -90,14 +90,14 @@
 "Profil":"Profil",
 "Listes d'achats effectués":"Lists of purchases made",
 "Rechercher":"Research",
-"Envoi - Compte MyDirectCash":"Sending - MyDirectCash Account",
+"Envoi - Compte MyDirectCash":"Recharge - MyDirectCash Account",
 "frais de":"costs",
 "Montant total à débiter":"Total amount to be debited",
 "Scannez le QR Code de la caisse":"Scan the checkout QR Code",
 "ou":"Or",
 "Entrez le code de la caisse":"Enter cash register code",
 "Payement marchand":"Merchant payment",
-"Vers un compte DirectCash":"To a DirectCash account",
+"Vers un compte DirectCash":"Recharge an account DirectCash ",
 "detail1":"Your recipient will then receive the money directly into their account",
 "detail2": "The beneficiary will be able to receive the money at any DirectCash point",
 "Transfert DirectCash":"DirectCash transfer",
@@ -141,8 +141,8 @@
 "FaqsMessage":"Consult our Frequently Asked Questions and quickly find a solution to your problem.",
 "errorlogin":"Your identifiers are incorrect, please enter your phone number and password",
 "erreur":"Oops an error occurred",
-"Chose operator":"Click to choose the operator"
-
+"Chose operator":"Click to choose the service",
+"Espagnol":"Spanish"
 
 
 

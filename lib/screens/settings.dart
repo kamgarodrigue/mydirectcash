@@ -415,7 +415,7 @@ class _SettingsState extends State<Settings> {
                         context,
                         PageTransition(
                             type: PageTransitionType.rightToLeft,
-                            child: Grille_Tarifaire_model()));
+                            child: Grille_Tarifaire()));
                   },
                   child: SettingsTabOption(
                       icon: Icon(
@@ -518,6 +518,21 @@ class _SettingsState extends State<Settings> {
                               ),
                               title:
                                   "${AppLocalizations.of(context)!.translate("Englais")}"),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            UserController().sharedPreferences().then((value) {
+                              //  if (value.getString('language_code') != "fr")
+                              appLanguage.changeLanguage(const Locale("es"));
+                            });
+                          },
+                          child: SettingsTabOption(
+                              icon: Icon(
+                                Icons.chevron_right,
+                                size: 18,
+                              ),
+                              title:
+                                  "${AppLocalizations.of(context)!.translate("Espagnol")}"),
                         ),
                         InkWell(
                           onTap: () {
@@ -777,7 +792,7 @@ class _SettingsState extends State<Settings> {
                 Container(
                   margin: EdgeInsets.only(top: 0, bottom: 0),
                   child: Image.asset(
-                    'assets/images/ico-avatar.png',
+                    'assets/images/logo-alliance-transparent.png',
                     width: 130,
                   ),
                 ),

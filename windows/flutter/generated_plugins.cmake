@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   local_auth_windows
   share_plus_windows
   url_launcher_windows
+  webview_windows
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

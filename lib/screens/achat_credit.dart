@@ -138,7 +138,18 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                   ),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 20,
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  width: 100,
+                  height: 100,
+                  child: Image.asset(
+                    'assets/images/logo-alliance-transparent.png',
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Container(
                   color: Colors.transparent,
@@ -223,34 +234,35 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                                     {
                                       'title': "CAMTEL",
                                       "image": "assets/images/camtel.jpeg",
-                                      "value":"Camtel"
+                                      "value": "Camtel"
                                     },
                                     {
                                       'title': "MTN",
                                       "image": "assets/images/mtn.png",
-                                    "value":"MTN"
+                                      "value": "MTN"
                                     },
                                     {
                                       'title': "NEXTEL",
                                       "image": "assets/images/nextel.png",
-                                      "value":"Nextel"
+                                      "value": "Nextel"
                                     },
                                     {
                                       'title': "ORANGE",
                                       "image": "assets/images/orange.png",
-                                      "value":"Orange"
+                                      "value": "Orange"
                                     },
                                     {
                                       'title': "YO0MEE",
                                       "image": "assets/images/yoomee.png",
-                                      "value":"Yoomee"
+                                      "value": "Yoomee"
                                     },
                                   ]
                                       .map<PopupMenuItem>((e) => PopupMenuItem(
                                             onTap: () {
                                               setState(() {
                                                 coupon = e['title'];
-                                                this.data["reseau"]=e["value"];
+                                                this.data["reseau"] =
+                                                    e["value"];
                                                 //print(currentLang);
                                               });
                                               print(coupon);
