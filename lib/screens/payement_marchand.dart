@@ -1,9 +1,10 @@
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/QRViewExample.dart';
+import 'package:mydirectcash/screens/home%20copy.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/payement_marchant_montant.dart';
 import 'package:mydirectcash/screens/settings.dart';
@@ -26,6 +27,13 @@ class _PayementMarchandState extends State<PayementMarchand> {
     "Collecteur": "",
     "frais": ""
   };
+
+  Future scan() async {
+    setState(() {
+      isCanning = true;
+    });
+  }
+
   bool isCanning = false;
   void setCode(String code) {
     print(code);
@@ -35,27 +43,14 @@ class _PayementMarchandState extends State<PayementMarchand> {
     });
   }
 
-  Future<void> barcodeScan() async {
-    String barcodeScanRes;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.QR);
-
-      print(barcodeScanRes);
-    } on PlatformException {
-      barcodeScanRes = 'Failed to get platform version.';
-    }
-    if (!mounted) return;
-    setCode(barcodeScanRes);
-  }
-
   @override
   Widget build(BuildContext context) {
     print(data["Client"]);
     print("test + $isCanning ");
     return isCanning
-        ? QRViewExample(getCode: setCode)
+        ? QRViewExample(
+            getCode: setCode,
+          )
         : Scaffold(
             appBar: AppBar(
               toolbarHeight: 0,
@@ -163,7 +158,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
-                                onPressed: () => barcodeScan(),
+                                onPressed: () => scan(),
                                 icon: Icon(Icons.qr_code_scanner,
                                     size: 17, color: Colors.blue)),
                             hintText: data["Client"] == ""
@@ -243,13 +238,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              child: QRViewExample(
-                                getCode: setCode,
-                              )));
+                      scan();
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),

@@ -1,4 +1,4 @@
-package cm.directcash.alliancefinancialsa.mydirectcashmobile
+package cm.directcash.alliancefinancialsa.mydirectcashmobile1
 
 import androidx.annotation.NonNull
 import io.flutter.embedding.engine.FlutterEngine

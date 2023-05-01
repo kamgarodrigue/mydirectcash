@@ -94,10 +94,11 @@ class _ValidateAccountState extends State<ValidateAccount> {
                           horizontal: 30.0, vertical: 8),
                       child: RichText(
                         text: TextSpan(
-                            text: "Saisir le code envoye a ",
+                            text:
+                                "Saisir le code envoye  dans votre boite mail",
                             children: [
                               TextSpan(
-                                  text: "${widget.phoneNumber}",
+                                  text: "",
                                   style: const TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,

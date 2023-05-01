@@ -53,6 +53,7 @@
 		<string>io.flutter.embedded_views_preview</string>
 		<true/>
 		<string>CFBundleURLTypes</string>
+		
 		<array>
 			<dict>
 				<key>CFBundleTypeRole</key>
@@ -64,7 +65,17 @@
 					<string>cm.directcash.alliancefinancialsa.mydirectcashmobile.payments</string>
 				</array>
 			</dict>
+
 		</array>
+		<dict>
+  <key>io.flutter.embedded_views_preview</key>
+<true/>
+<key>NSCameraUsageDescription</key>
+<string>This app needs camera access to scan QR codes</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Camera permission is required for barcode scanning.</string>
+
+</dict>
 		<string>NSAppTransportSecurity</string>
 		<dict>
 			<key>NSAllowsArbitraryLoads</key>

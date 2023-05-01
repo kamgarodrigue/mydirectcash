@@ -49,7 +49,7 @@ class AuthService extends ChangeNotifier {
   setconversion(int value) {
     switch (value) {
       case 0:
-        solde = _currentUser!.data!.solde!;
+        solde = _currentUser!.data!.solde!.toString();
 
         if (_currentUser!.data!.solde!.contains(".")) {
           solde =
@@ -104,12 +104,13 @@ class AuthService extends ChangeNotifier {
       await pref.setString("user", response.toString());
       await pref.setBool("open", true);
       await pref.setString("tel", user.data!.phone!);
+      this._isLoggedIn = true;
+      setconversion(0);
       notifyListeners();
     }
 
     print(json.decode(response.toString()));
-    this._isLoggedIn = true;
-    setconversion(0);
+
     notifyListeners();
     return json.decode(response.toString())['Message'];
   }

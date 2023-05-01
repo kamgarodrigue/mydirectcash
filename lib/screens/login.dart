@@ -250,6 +250,7 @@ class _LoginState extends StateMVC<Login> {
                                                 setState(() {
                                                   this._isLoading = false;
                                                 });
+                                                print(value.toString());
                                                 if (value.toString() ==
                                                     "NotVerified") {
                                                   setState(() {

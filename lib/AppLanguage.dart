@@ -9,9 +9,9 @@ class AppLanguage extends ChangeNotifier {
   fetchLocale() {
     UserController().sharedPreferences().then((value) {
       if (value.getString('language_code') == null) {
-        changeLanguage(const Locale("en"));
+        changeLanguage(const Locale("fr"));
 
-        _appLocale = const Locale('en');
+        _appLocale = const Locale('fr');
         print(value.getString('language_code') == null);
       }
       _appLocale = Locale('${value.getString('language_code')}');
@@ -21,6 +21,7 @@ class AppLanguage extends ChangeNotifier {
   }
 
   void changeLanguage(Locale type) async {
+    print('himm' + type.languageCode);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (_appLocale == type) {
       print(_appLocale.languageCode + type.languageCode);
@@ -33,8 +34,8 @@ class AppLanguage extends ChangeNotifier {
     } else if (type == const Locale("en")) {
       _appLocale = const Locale("en");
       await prefs.setString('language_code', 'en');
-      await prefs.setString('countryCode', 'US');
-    } else {
+      //s await prefs.setString('countryCode', 'US');
+    } else if (type == const Locale("es")) {
       _appLocale = const Locale("es");
       await prefs.setString('language_code', 'es');
       await prefs.setString('countryCode', 'ES');
