@@ -16,6 +16,7 @@
             "name": "mydirectcash (profile mode)",
             "request": "launch",
             "type": "dart",
+            
             "flutterMode": "profile",
             "args": [
                 "--no-sound-null-safety"

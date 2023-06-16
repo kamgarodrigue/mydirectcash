@@ -1,5 +1,6 @@
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
+import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/login.dart';
@@ -8,6 +9,7 @@ import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 
@@ -207,6 +209,16 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                     .then((value) {
                                   setState(() {
                                     this._isLoading = false;
+                                  });
+
+                                  context
+                                      .read<AuthService>()
+                                      .loginWithBiometric({
+                                    "id": context
+                                        .read<AuthService>()
+                                        .currentUser!
+                                        .data!
+                                        .phone
                                   });
                                   showTopSnackBar(
                                     context,

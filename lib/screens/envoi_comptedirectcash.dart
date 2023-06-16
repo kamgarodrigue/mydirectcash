@@ -16,7 +16,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class EnvoiCompteDirectCash extends StatefulWidget {
-  const EnvoiCompteDirectCash({Key? key}) : super(key: key);
+  dynamic context2;
+  EnvoiCompteDirectCash({Key? key, this.context2}) : super(key: key);
 
   @override
   _EnvoiCompteDirectCashState createState() => _EnvoiCompteDirectCashState();
@@ -286,10 +287,13 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                                 context
                                     .read<TransactonService>()
                                     .getDetailEnvoiCompteDirectcash(
-                                        data.fromNumber, data.amount)
+                                        data.toNumber, data.amount)
                                     .then((value) {
                                   data.rate =
                                       json.decode(value.toString())['rate'];
+                                  data.id =
+                                      autProvider.currentUser!.data!.phone;
+                                  print(data.toJson());
                                   print(value);
 
                                   Navigator.push(
@@ -298,6 +302,10 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                                           type: PageTransitionType.rightToLeft,
                                           child: EnvoiCompteDirectCashPassword(
                                             data: data,
+                                            context1: context,
+                                            nom: json.decode(
+                                                value.toString())['nom'],
+                                            context2: widget.context2,
                                           )));
                                   setState(() {
                                     _isLoading = false;

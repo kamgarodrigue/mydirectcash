@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/Models/Operateur.dart';
 import 'package:mydirectcash/Repository/OperationServices.dart';

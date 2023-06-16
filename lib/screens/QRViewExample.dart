@@ -149,3 +149,6 @@ class _QRViewExampleState extends State<QRViewExample> {
     super.dispose();
   }
 }
+/*
+flutter bu
+ild ipa -- export-options-plist=ios/exportOptions.plist */

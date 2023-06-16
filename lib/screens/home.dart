@@ -9,13 +9,18 @@ import 'package:mydirectcash/Models/User.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
+import 'package:mydirectcash/screens/achat_credit.dart';
 import 'package:mydirectcash/screens/carousel_page.dart';
 import 'package:mydirectcash/screens/login.dart';
+import 'package:mydirectcash/screens/om_momo.dart';
+import 'package:mydirectcash/screens/payement_marchand.dart';
 import 'package:mydirectcash/screens/recharge_directcash.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/bottom_navigation.dart';
+import 'package:mydirectcash/widgets/choix_envoi_argent.dart';
+import 'package:mydirectcash/widgets/choix_facture_component.dart';
 import 'package:mydirectcash/widgets/choix_recharge.dart';
 import 'package:mydirectcash/widgets/last_transactions.dart';
 import 'package:mydirectcash/widgets/success_operation_component.dart';
@@ -23,17 +28,14 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
+  Home({Key? key}) : super(key: key);
+
   @override
-  _HomeState createState() => _HomeState();
+  State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends StateMVC<Home> {
-  _HomeState() : super(UserController()) {
-    _userController = UserController.userController;
-  }
-  UserController? _userController;
+class _HomeState extends State<Home> {
   bool showDollar = true;
-  User? currrentUser = new User(data: DataUser(nom: "", phone: "", solde: ""));
   int conversion = 0;
   void setconversion(int value) {
     if (solde != 0) {
@@ -55,6 +57,10 @@ class _HomeState extends StateMVC<Home> {
           conversion = value;
 
           break;
+        case 3:
+          conversion = value;
+
+          break;
         default:
       }
     }
@@ -65,11 +71,7 @@ class _HomeState extends StateMVC<Home> {
   void initState() {
     super.initState();
     context.read<AuthService>().authenticate;
-    context.read<AuthService>().setconversion(0);
-
-    setState(() {
-      solde = solde = context.read<AuthService>().currentUser!.data!.solde!;
-    });
+    //context.read<AuthService>().setconversion(0);
   }
 
   Future reset() {
@@ -83,8 +85,124 @@ class _HomeState extends StateMVC<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final autProvider = context.watch<AuthService>();
-    currrentUser = autProvider.currentUser;
+    AuthService autProvider = context.watch<AuthService>();
+
+    List<dynamic> list = [
+      {
+        "title": AppLocalizations.of(context)!.translate('Achat de crédit'),
+        "image": Image.asset(
+          'assets/images/ico-achat-credit.png',
+          color: blueColor,
+          width: 50,
+        ),
+        "onTap": () {
+          Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.rightToLeft, child: AchatCredit()));
+        }
+      },
+      {
+        "title": AppLocalizations.of(context)!.translate('Payement Marchand'),
+        "image": Image.asset(
+          'assets/images/ico-paiement-marchand.png',
+          color: blueColor,
+          width: 50,
+        ),
+        "onTap": () {
+          Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.rightToLeft,
+                  child: PayementMarchand()));
+        }
+      },
+      {
+        "title": AppLocalizations.of(context)!.translate('Envoi d\'argent'),
+        "image": Image.asset(
+          'assets/images/ico-transfert-dargent.png',
+          color: blueColor,
+          width: 50,
+        ),
+        "onTap": () {
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return ChoixEnvoiArgent();
+              });
+        }
+      },
+      {
+        "title": AppLocalizations.of(context)!.translate('Payement de facture'),
+        "image": Image.asset(
+          'assets/images/ico-facture.png',
+          color: blueColor,
+          width: 50,
+        ),
+        "onTap": () {
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return ChoixFacture();
+              });
+        },
+      },
+      {
+        "title": AppLocalizations.of(context)!.translate('title5'),
+        "image": Image.asset(
+          'assets/images/bank-solid-24.png',
+          color: blueColor,
+          width: 50,
+        ),
+        "onTap": () {
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return ChoixFacture();
+              });
+        },
+      },
+    ];
+    void gridNavigation(index) {
+      switch (index) {
+        case 0:
+          Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.rightToLeft, child: AchatCredit()));
+
+          break;
+        case 1:
+          Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.rightToLeft,
+                  child: PayementMarchand()));
+
+          break;
+        case 2:
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return ChoixEnvoiArgent();
+              });
+          break;
+        case 3:
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return ChoixFacture();
+              });
+          break;
+        case 5:
+          Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.rightToLeft, child: OmMoMo()));
+          break;
+        default:
+      }
+    }
 
     return Consumer<AuthService>(builder: (context, open, child) {
       if (open.isOpen) {
@@ -139,17 +257,15 @@ class _HomeState extends StateMVC<Home> {
                                             MainAxisAlignment.end,
                                         children: [
                                           Text(
-                                            currrentUser!.data!.nom.toString(),
+                                            autProvider.currentUser!.data!.nom
+                                                .toString(),
                                             style: TextStyle(
                                                 color: blueColor,
                                                 fontSize: 14,
                                                 fontFamily: title_font),
                                           ),
                                           Text(
-                                            this
-                                                .currrentUser!
-                                                .data!
-                                                .phone
+                                            autProvider.currentUser!.data!.phone
                                                 .toString(),
                                             style: const TextStyle(
                                                 fontSize: 12,
@@ -272,7 +388,10 @@ class _HomeState extends StateMVC<Home> {
                                             height: 10,
                                           ),
                                           Text(
-                                            autProvider.solde!,
+                                            context
+                                                .read<AuthService>()
+                                                .solde
+                                                .toString(),
                                             textAlign: TextAlign.center,
                                             style: const TextStyle(
                                                 fontSize: 34,
@@ -372,6 +491,33 @@ class _HomeState extends StateMVC<Home> {
                                                         )),
                                                   ),
                                                 ),
+                                                const SizedBox(width: 20),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setconversion(3);
+                                                  },
+                                                  child: CircleAvatar(
+                                                    backgroundColor:
+                                                        conversion == 3
+                                                            ? blueColor
+                                                            : Colors.grey,
+                                                    radius: 20,
+                                                    child: CircleAvatar(
+                                                        radius: 19,
+                                                        backgroundColor:
+                                                            conversion == 3
+                                                                ? Colors.white
+                                                                : Colors.grey,
+                                                        child: Icon(
+                                                          Icons
+                                                              .currency_bitcoin,
+                                                          color: conversion == 3
+                                                              ? blueColor
+                                                              : Colors.white,
+                                                          size: 20,
+                                                        )),
+                                                  ),
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -428,15 +574,67 @@ class _HomeState extends StateMVC<Home> {
                         ],
                       ),
                     ),*/
-
-                        this.currrentUser!.data!.phone != ""
+                        Container(
+                          height: 200,
+                          child: GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                              ),
+                              itemCount: list.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) => GestureDetector(
+                                    onTap: () {
+                                      gridNavigation(index);
+                                    },
+                                    child: Column(children: [
+                                      list[index]["image"],
+                                      Text(
+                                        list[index]["title"],
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: content_font,
+                                            fontSize: 10,
+                                            color: blueColor),
+                                      ),
+                                    ]),
+                                  )),
+                        ),
+                        Container(
+                            height: 40,
+                            padding: EdgeInsets.only(left: 105, right: 105),
+                            //color: Colors.amber,
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: OmMoMo()));
+                              },
+                              leading: Icon(
+                                Icons.arrow_left,
+                                color: blueColor,
+                                size: 40,
+                              ),
+                              title: Text(
+                                AppLocalizations.of(context)!
+                                    .translate('ommom')!,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontFamily: content_font,
+                                    fontSize: 10,
+                                    color: blueColor),
+                              ),
+                            ))
+                        /* this.currrentUser!.data!.phone != ""
                             ? LastTransaction(
                                 currrentUser: currrentUser,
                               )
-                            : Container()
+                            : Container()*/
                       ],
                     )),
-                    BottomNavigation()
+                    // BottomNavigation()
                   ],
                 ),
               ),

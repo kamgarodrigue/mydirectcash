@@ -29,9 +29,11 @@ class _ChoixEnvoiArgentState extends State<ChoixEnvoiArgent> {
                   context,
                   PageTransition(
                     type: PageTransitionType.rightToLeft,
-                    child: EnvoiDirectCash(),
+                    child: EnvoiDirectCash(
+                      context1: context,
+                    ),
                   )).then((value) {
-                Navigator.pop(context);
+                //Navigator.pop(context);
               });
             },
             child: Container(
@@ -90,13 +92,12 @@ class _ChoixEnvoiArgentState extends State<ChoixEnvoiArgent> {
           GestureDetector(
             onTap: () {
               Navigator.push(
-                      context,
-                      PageTransition(
-                          type: PageTransitionType.rightToLeft,
-                          child: EnvoiCompteDirectCash()))
-                  .then((value) {
-                Navigator.pop(context);
-              });
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.rightToLeft,
+                      child: EnvoiCompteDirectCash(
+                        context2: context,
+                      )));
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 25, vertical: 0),

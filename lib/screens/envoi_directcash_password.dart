@@ -1,6 +1,7 @@
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/Models/DetailTransaction.dart';
+import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/login.dart';
@@ -9,14 +10,21 @@ import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 
 class EnvoiDirectCashPassword extends StatefulWidget {
   DataTransaction? dataTransaction;
+  dynamic context1;
+  dynamic context2;
   final detail;
   EnvoiDirectCashPassword(
-      {Key? key, @required this.dataTransaction, required this.detail})
+      {Key? key,
+      @required this.dataTransaction,
+      required this.detail,
+      this.context1,
+      this.context2})
       : super(key: key);
 
   @override
@@ -157,11 +165,12 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                   Container(
                       margin: EdgeInsets.only(top: 20),
                       child: TextFormField(
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.number,
                         initialValue: widget.dataTransaction!.pass,
                         onChanged: (value) {
                           setState(() {
-                            widget.dataTransaction!.pass = value;
+                            widget.dataTransaction!.pIN = value;
+                            print(widget.dataTransaction!.pIN!.length);
                           });
                         },
                         obscureText: _isOscure1,
@@ -183,6 +192,16 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
+                  Text(
+                    widget.dataTransaction!.pIN!.length < 4 ||
+                            widget.dataTransaction!.pIN!.length > 4
+                        ? "le code doit comprendre 4 chiffre"
+                        : "",
+                    style: TextStyle(
+                        fontFamily: content_font,
+                        color: Color.fromARGB(255, 245, 49, 49),
+                        fontSize: 10),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -242,12 +261,24 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                   setState(() {
                                     this._isLoading = false;
                                   });
+
+                                  context
+                                      .read<AuthService>()
+                                      .loginWithBiometric({
+                                    "id": context
+                                        .read<AuthService>()
+                                        .currentUser!
+                                        .data!
+                                        .phone
+                                  });
                                   showTopSnackBar(
                                       context,
                                       CustomSnackBar.success(
                                         message: value.toString(),
                                       ),
                                       displayDuration: Duration(seconds: 2));
+                                  Navigator.pop(widget.context1);
+                                  Navigator.pop(widget.context2);
                                   Navigator.pop(context);
                                 }).catchError((error) {
                                   setState(() {

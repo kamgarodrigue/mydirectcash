@@ -354,7 +354,7 @@ class _OmMoMoState extends State<OmMoMo> {
                             "opType": "Retrait"
                           };
                         });
-                        print(value);
+                        print(value.toString());
                         showTopSnackBar(
                           context,
                           CustomSnackBar.success(

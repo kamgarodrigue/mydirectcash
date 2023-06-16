@@ -131,7 +131,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                       child: Column(
                         children: [
                           TextFormField(
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.text,
                               onChanged: (value) {
                                 setState(() {
                                   directCashCode = value;

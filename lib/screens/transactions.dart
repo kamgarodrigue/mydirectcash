@@ -510,7 +510,7 @@ class _TransactionsState extends State<Transactions> {
 
                       return TransactionContrainer(
                         destinataire:
-                            'Vers TALLA jean (${transactionProvider.historique[index].collecteur!.substring(0, 3)} ** ** **)',
+                            '(${transactionProvider.historique[index].collecteur!.substring(0, 3)})',
                         title: transaction.typeOperation!,
                         stringDate: transaction.jour!,
                         stringPrice: transaction.montant!,

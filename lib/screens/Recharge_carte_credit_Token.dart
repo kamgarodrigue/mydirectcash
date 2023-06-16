@@ -242,6 +242,15 @@ class _Recharge_carte_credit_TokenState
                                     if (result != null) {
                                       print('Nonce: ${result.nonce}');
                                       data["PaymentMethodNonce"] = result.nonce;
+                                      context
+                                          .read<AuthService>()
+                                          .loginWithBiometric({
+                                        "id": context
+                                            .read<AuthService>()
+                                            .currentUser!
+                                            .data!
+                                            .phone
+                                      });
                                     } else {
                                       print('PayPal flow was canceled.');
                                     }

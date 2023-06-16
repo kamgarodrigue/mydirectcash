@@ -377,6 +377,7 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
                                         child: AchatCreditPassword(
+                                            parentcontext: context,
                                             data: this.data)));
                               }
                               if (codeRegion != "CM") {

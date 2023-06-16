@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
+import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/login.dart';
@@ -10,10 +13,13 @@ import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:provider/provider.dart';
 
 class AchatCreditPassword extends StatefulWidget {
   Map? data;
-  AchatCreditPassword({Key? key, this.data}) : super(key: key);
+  dynamic parentcontext;
+  AchatCreditPassword({Key? key, this.data, this.parentcontext})
+      : super(key: key);
 
   @override
   _AchatCreditPasswordState createState() => _AchatCreditPasswordState();
@@ -127,7 +133,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                     child: Column(
                       children: [
                         Text(
-                            ' ${AppLocalizations.of(context)!.translate('Vous allez faire une recharge de')}  ${widget.data!["montant"]} XAF  ${AppLocalizations.of(context)!.translate('au numéro')}  ${widget.data!["numero"].substring(0, 3)} ** ** **',
+                            ' ${AppLocalizations.of(context)!.translate('Vous allez faire une recharge de')} ${widget.data!["montant"]} XAF  ${AppLocalizations.of(context)!.translate('au numéro')}  ${widget.data!["numero"].substring(0, 3)} ** ** **',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 12.5,
@@ -198,19 +204,30 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                                 setState(() {
                                   this._isLoading = true;
                                 });
+                                print(widget.data);
                                 TransactonService()
                                     .achatCredit(widget.data)
                                     .then((value) {
                                   setState(() {
                                     this._isLoading = false;
                                   });
+                                  context
+                                      .read<AuthService>()
+                                      .loginWithBiometric({
+                                    "id": context
+                                        .read<AuthService>()
+                                        .currentUser!
+                                        .data!
+                                        .phone
+                                  });
                                   showTopSnackBar(
                                       context,
                                       CustomSnackBar.success(
-                                        message: value.toString(),
+                                        message: "crédit envoyé avec succes",
                                       ),
                                       displayDuration: Duration(seconds: 2));
                                   Navigator.pop(context);
+                                  Navigator.pop(widget.parentcontext);
                                 }).catchError((error) {
                                   setState(() {
                                     this._isLoading = false;

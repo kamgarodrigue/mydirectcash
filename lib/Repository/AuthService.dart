@@ -28,7 +28,13 @@ class AuthService extends ChangeNotifier {
                 null
             ? false
             : true;
-        print(_currentUser!.data!.solde);
+        print(_isLoggedIn);
+        solde = _currentUser!.data!.solde!.toString();
+
+        if (_currentUser!.data!.solde!.contains(".")) {
+          solde =
+              double.tryParse(_currentUser!.data!.solde!)!.toStringAsFixed(2);
+        }
         notifyListeners();
       }
     });
@@ -54,7 +60,9 @@ class AuthService extends ChangeNotifier {
         if (_currentUser!.data!.solde!.contains(".")) {
           solde =
               double.tryParse(_currentUser!.data!.solde!)!.toStringAsFixed(2);
+          notifyListeners();
         }
+
         break;
       case 1:
         String val =
@@ -64,7 +72,7 @@ class AuthService extends ChangeNotifier {
           solde = double.tryParse(val)!.toStringAsFixed(2);
         }
         print(solde);
-
+        notifyListeners();
         break;
       case 2:
         String val =
@@ -74,7 +82,7 @@ class AuthService extends ChangeNotifier {
           solde = double.tryParse(val)!.toStringAsFixed(2);
           print(solde);
         }
-
+        notifyListeners();
         break;
       default:
     }
@@ -94,11 +102,13 @@ class AuthService extends ChangeNotifier {
   }
 
   Future login(Map credentials) async {
+    print(this._isLoggedIn);
     SharedPreferences pref = await SharedPreferences.getInstance();
 
     Dio.Response response =
         await dio().post("Authentication/Authenticate", data: credentials);
-    print(response.toString());
+    // print(response.toString());
+    print(response.data);
     if (json.decode(response.toString())['Message'] == "Success") {
       User user = User.fromJson(json.decode(response.toString())['Info']);
       await pref.setString("user", response.toString());
@@ -129,8 +139,11 @@ class AuthService extends ChangeNotifier {
     print(response.toString());
     if (json.decode(response.toString())['Message'] == "Success") {
       User user = User.fromJson(json.decode(response.toString())['Info']);
+      bool a = authenticate;
       await pref.setString("user", response.toString());
-      await pref.setBool("open", true);
+      // await pref.setBool("open", true);
+
+      notifyListeners();
     }
 
     print(json.decode(response.toString()));
@@ -206,7 +219,14 @@ class AuthService extends ChangeNotifier {
     this._isLoggedIn = false;
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.remove("user");
-    await pref.setBool("open", false);
+    await pref.remove("open");
+    await await pref.remove("tel");
     notifyListeners();
   }
+  /*
+  Swift Compiler Error (Xcode): No such module 'PPRiskMagnes'
+/Users/willdewin/developement/mydirectcash/ios/Pods/Braintree
+/Sources/PayPalDataCollector/Public/PayPalDataCollector/PPDat
+aCollector.swift:0:7
+  */
 }

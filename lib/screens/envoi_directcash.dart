@@ -18,7 +18,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class EnvoiDirectCash extends StatefulWidget {
-  const EnvoiDirectCash({Key? key}) : super(key: key);
+  dynamic context1;
+  EnvoiDirectCash({Key? key, this.context1}) : super(key: key);
 
   @override
   _EnvoiDirectCashState createState() => _EnvoiDirectCashState();
@@ -280,19 +281,24 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                 context
                                     .read<TransactonService>()
                                     .getDetailEnvoiDirectcash(
-                                        autProvider.currentUser!.data!.phone,
+                                        this.dataTransaction.toNumber,
                                         dataTransaction.amount)
                                     .then((value) {
                                   print(value);
                                   dataTransaction.fromNumber =
                                       autProvider.currentUser!.data!.phone;
+                                  dataTransaction.id =
+                                      autProvider.currentUser!.data!.phone;
                                   dataTransaction.rate =
                                       json.decode(value.toString())["rate"];
+                                  print(dataTransaction.toJson());
                                   Navigator.push(
                                       context,
                                       PageTransition(
                                           type: PageTransitionType.rightToLeft,
                                           child: EnvoiDirectCashPassword(
+                                            context1: widget.context1,
+                                            context2: context,
                                             dataTransaction: dataTransaction,
                                             detail:
                                                 json.decode(value.toString()),

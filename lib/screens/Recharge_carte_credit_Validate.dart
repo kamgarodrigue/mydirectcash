@@ -178,6 +178,7 @@ class _Recharge_carte_credit_ValidateState
                                   var detail = [];
                                   detail =
                                       value.data.map((json) => json).toList();
+                                  print(detail);
                                   Navigator.push(
                                       context,
                                       PageTransition(

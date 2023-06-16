@@ -86,62 +86,6 @@ class _WelcomePageState extends State<WelcomePage> {
                 ],
               ),
             ),
-            if (autProvider.isOpen)
-              Positioned(
-                  child: Column(
-                children: [
-                  InkWell(
-                    onTap: () {},
-                    child: SettingsTabOption(
-                        icon: Icon(
-                          Icons.chevron_right,
-                          size: 18,
-                        ),
-                        title:
-                            "${AppLocalizations.of(context)!.translate("Choisir la Langue")}"),
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(top: 8, left: 16),
-                      child: Column(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              UserController()
-                                  .sharedPreferences()
-                                  .then((value) {
-                                //  if (value.getString('language_code') != "en")
-                                appLanguage.changeLanguage(const Locale("en"));
-                              });
-                            },
-                            child: SettingsTabOption(
-                                icon: Icon(
-                                  Icons.chevron_right,
-                                  size: 18,
-                                ),
-                                title:
-                                    "${AppLocalizations.of(context)!.translate("Englais")}"),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              UserController()
-                                  .sharedPreferences()
-                                  .then((value) {
-                                //  if (value.getString('language_code') != "fr")
-                                appLanguage.changeLanguage(const Locale("fr"));
-                              });
-                            },
-                            child: SettingsTabOption(
-                                icon: Icon(
-                                  Icons.chevron_right,
-                                  size: 18,
-                                ),
-                                title:
-                                    "${AppLocalizations.of(context)!.translate("Francais")}"),
-                          ),
-                        ],
-                      )),
-                ],
-              )),
             Align(
               alignment: Alignment.bottomLeft,
               child: Container(

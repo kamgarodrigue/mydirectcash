@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' as Dio;
 import 'package:flutter/material.dart';
+import 'package:mydirectcash/Models/DetailTransaction.dart';
 import 'package:mydirectcash/Models/Transaction.dart';
 import 'package:mydirectcash/Models/User.dart';
 import 'package:mydirectcash/Repository/DioClient.dart';
@@ -28,6 +29,18 @@ class TransactonService extends ChangeNotifier {
     return response;
   }
 
+  Future EnvoiCompteDirectcash(DataTransaction data, nom) async {
+    Dio.Response response =
+        await dio().post("Collecteur/TransfertMoney", data: {
+      "receiver": data.toNumber,
+      "idsender": data.fromNumber,
+      "montant": data.amount,
+      "pass": data.pass,
+      "isClient": nom == "" ? 0 : 1
+    });
+    return response;
+  }
+
   Future getDetailEnvoiDirectcash(id, amount) async {
     Dio.Response response =
         await dio().get("DirectcashOperations/Detailled/$id/$amount");
@@ -35,9 +48,11 @@ class TransactonService extends ChangeNotifier {
   }
 
   Future getDetailFactureEneoCamwater(typeOp, id, numerodecontrat) async {
+    print("DirectcashOperations/BillDetailled/$typeOp/$id/$numerodecontrat");
     Dio.Response response = await dio()
         .get("DirectcashOperations/BillDetailled/$typeOp/$id/$numerodecontrat");
-    return response;
+    print(response.data);
+    return response.data;
   }
 
   Future<List<Transaction>> getHistory(String number) async {
@@ -45,7 +60,7 @@ class TransactonService extends ChangeNotifier {
         await dio().get("Transactions/Historiques/LastFive/$number");
     print(
         "http://172.107.60.78:3000/api/Transactions/Historiques/LastFive/$number");
-    print(response);
+
     return decodeTransaction(response.data);
   }
 
@@ -62,7 +77,8 @@ class TransactonService extends ChangeNotifier {
   Future achatCredit(Map? data) async {
     Dio.Response response =
         await dio().post("DirectcashOperations/Airtime", data: data);
-    return json.decode(response.toString());
+    print(response.data);
+    return response.data;
   }
 
   Future getTopupDetails(amount) async {

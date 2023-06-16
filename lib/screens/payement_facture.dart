@@ -16,6 +16,8 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class PayementFacture extends StatefulWidget {
   PayementFacture({required this.factureInfos});
@@ -166,6 +168,7 @@ class _PayementFactureState extends State<PayementFacture> {
   Widget build(BuildContext context) {
     detailFac["typeOP"] = widget.factureInfos["typeOP"];
     final authService = context.watch<AuthService>();
+
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -479,6 +482,12 @@ class _PayementFactureState extends State<PayementFacture> {
                                       setState(() {
                                         _isLoading = true;
                                       });
+                                      print(widget.factureInfos["typeOP"] +
+                                          ' ' +
+                                          authService
+                                              .currentUser!.data!.phone! +
+                                          " " +
+                                          detailFac["numeroDeContrat"]);
                                       context
                                           .read<TransactonService>()
                                           .getDetailFactureEneoCamwater(
@@ -488,29 +497,37 @@ class _PayementFactureState extends State<PayementFacture> {
                                             detailFac["numeroDeContrat"],
                                           )
                                           .then((value) {
-                                        List<dynamic> details = [];
-                                        final det = value.data;
-                                        details =
-                                            det.map((json) => json).toList();
-                                        print(details);
+                                        if (value.toString() == '[]' ||
+                                            value.toString() ==
+                                                "Instance of 'RequestOptions'") {
+                                          showTopSnackBar(
+                                            context,
+                                            CustomSnackBar.info(
+                                              message:
+                                                  "Aucune facture pour ce numéro de contrat",
+                                            ),
+                                          );
+                                        } else {
+                                          print(widget.factureInfos);
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                            builder: (context) {
+                                              return PayementFactureValidate(
+                                                  factureInfos:
+                                                      widget.factureInfos,
+                                                  detailFac: json.decode(
+                                                      value.toString()));
+                                            },
+                                          ));
+                                        }
+
                                         setState(() {
                                           _isLoading = false;
                                         });
-                                        if (details.isNotEmpty) {
-                                          Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                  type: PageTransitionType
-                                                      .rightToLeft,
-                                                  child:
-                                                      PayementFactureValidate(
-                                                    factureInfos:
-                                                        widget.factureInfos,
-                                                    detailFac: details[0],
-                                                  )));
-                                        }
+
+                                        //print(value);
                                       }).catchError((error) {
-                                        print(error);
+                                        //  print(error);
                                         setState(() {
                                           _isLoading = false;
                                         });
