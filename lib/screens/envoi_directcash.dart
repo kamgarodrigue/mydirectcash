@@ -187,7 +187,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                     });
                                     print(code!.name);
                                   },
-                                  isCentre: true,
+                                 
                                   useUiOverlay: true,
                                   useSafeArea: false),
                             ],

@@ -19,7 +19,8 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class AchatCredit extends StatefulWidget {
-  const AchatCredit({Key? key}) : super(key: key);
+  AchatCredit({Key? key}) : super(key: key);
+  var data;
 
   @override
   _AchatCreditState createState() => _AchatCreditState();
@@ -30,10 +31,12 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
     "montant": "",
     "numero": "",
     "Id": "",
-    "reseau": "MTN",
+    "reseau": "",
     "device": "123456",
-    "pass": "123456",
-    "imei": "5258889"
+    "pass": "",
+    "imei": "5258889",
+    "skucode": "",
+    "sendValue": ""
   };
   bool _isLoading = false;
   _AchatCreditState() : super(UserController()) {
@@ -207,158 +210,6 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                     ],
                   ),
                 ),
-                if (codeRegion == "CM")
-                  Container(
-                      margin: EdgeInsets.only(top: 20),
-                      color: Colors.transparent,
-                      child: Column(
-                        children: [
-                          Container(
-                              child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                    coupon! == ""
-                                        ? "${AppLocalizations.of(context)!.translate('Choisissez le coupon crédit')}"
-                                        : coupon!,
-                                    style: TextStyle(
-                                        color: coupon == ""
-                                            ? Colors.grey
-                                            : Colors.black,
-                                        fontSize: 14)),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(right: 20),
-                                child: PopupMenuButton(
-                                  itemBuilder: (context) => [
-                                    {
-                                      'title': "CAMTEL",
-                                      "image": "assets/images/camtel.jpeg",
-                                      "value": "Camtel"
-                                    },
-                                    {
-                                      'title': "MTN",
-                                      "image": "assets/images/mtn.png",
-                                      "value": "MTN"
-                                    },
-                                    {
-                                      'title': "NEXTEL",
-                                      "image": "assets/images/nextel.png",
-                                      "value": "Nextel"
-                                    },
-                                    {
-                                      'title': "ORANGE",
-                                      "image": "assets/images/orange.png",
-                                      "value": "Orange"
-                                    },
-                                    {
-                                      'title': "YO0MEE",
-                                      "image": "assets/images/yoomee.png",
-                                      "value": "Yoomee"
-                                    },
-                                  ]
-                                      .map<PopupMenuItem>((e) => PopupMenuItem(
-                                            onTap: () {
-                                              setState(() {
-                                                coupon = e['title'];
-                                                this.data["reseau"] =
-                                                    e["value"];
-                                                //print(currentLang);
-                                              });
-                                              print(coupon);
-                                            },
-                                            child: ListTile(
-                                              leading: Image.asset(
-                                                e["image"].toString(),
-                                                width: 30,
-                                              ),
-                                              title: Text(
-                                                e['title'].toString(),
-                                                style: new TextStyle(
-                                                  fontFamily: content_font,
-                                                  fontSize: 16,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w900,
-                                                ),
-                                              ),
-                                            ),
-                                          ))
-                                      .toList(),
-                                  offset: Offset(0.0, 30),
-                                  child: Icon(
-                                    Icons.expand_more,
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                              )
-                            ],
-                          )),
-                          Divider(
-                            height: 1.5,
-                            color: blueColor,
-                          ),
-                        ],
-                      )),
-                if (codeRegion == "CM")
-                  Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                              keyboardType: TextInputType.text,
-                              style: TextStyle(
-                                  fontFamily: content_font, fontSize: 13),
-                              textAlign: TextAlign.start,
-                              initialValue: data["numero"],
-                              onChanged: (value) {
-                                setState(() {
-                                  this.data["numero"] = value;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText:
-                                      "${AppLocalizations.of(context)!.translate('Saisissez le numéro bénéficiaire')}",
-                                  hintStyle: TextStyle(
-                                      fontFamily: content_font,
-                                      color: Colors.grey,
-                                      fontSize: 13))),
-                          Divider(
-                            height: 1.5,
-                            color: blueColor,
-                          ),
-                        ],
-                      )),
-                if (codeRegion == "CM")
-                  Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                              keyboardType: TextInputType.text,
-                              style: TextStyle(
-                                  fontFamily: content_font, fontSize: 13),
-                              textAlign: TextAlign.start,
-                              initialValue: data["montant"],
-                              onChanged: (value) {
-                                setState(() {
-                                  this.data["montant"] = value;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText:
-                                      "${AppLocalizations.of(context)!.translate("Saisire montant")}",
-                                  hintStyle: TextStyle(
-                                      fontFamily: content_font,
-                                      color: Colors.grey,
-                                      fontSize: 13))),
-                          Divider(
-                            height: 1.5,
-                            color: blueColor,
-                          ),
-                        ],
-                      )),
                 SizedBox(height: 50),
                 Container(
                   child: Row(
@@ -371,49 +222,38 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                                 primary: blueColor,
                                 padding: EdgeInsets.symmetric(horizontal: 50)),
                             onPressed: () {
-                              if (codeRegion == "CM") {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              context
+                                  .read<OperationServices>()
+                                  .getContryOperator(codeRegion)
+                                  .then((value) {
+                                print(value);
+                                setState(() {
+                                  _isLoading = false;
+                                });
                                 Navigator.push(
                                     context,
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
-                                        child: AchatCreditPassword(
-                                            parentcontext: context,
-                                            data: this.data)));
-                              }
-                              if (codeRegion != "CM") {
+                                        child: Achat_credit_operateur(
+                                          regionCode: codeRegion!,
+                                          data: data,
+                                        )));
+                              }).catchError((error) {
+                                showTopSnackBar(
+                                    context,
+                                    CustomSnackBar.error(
+                                      message:
+                                          "Aucun Operateur trouvé pour ce pays",
+                                    ),
+                                    displayDuration: Duration(seconds: 2));
+
                                 setState(() {
-                                  _isLoading = true;
+                                  _isLoading = false;
                                 });
-                                context
-                                    .read<OperationServices>()
-                                    .getContryOperator(codeRegion)
-                                    .then((value) {
-                                  print(value);
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
-                                  Navigator.push(
-                                      context,
-                                      PageTransition(
-                                          type: PageTransitionType.rightToLeft,
-                                          child: Achat_credit_operateur(
-                                            regionCode: codeRegion!,
-                                          )));
-                                }).catchError((error) {
-                                  if (error.error == "404") {
-                                    showTopSnackBar(
-                                        context,
-                                        CustomSnackBar.error(
-                                          message:
-                                              "Aucun Operateur trouvé pour ce pays",
-                                        ),
-                                        displayDuration: Duration(seconds: 2));
-                                  }
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
-                                });
-                              }
+                              });
                             },
                             child: Text(
                               "${AppLocalizations.of(context)!.translate('suivant')}",

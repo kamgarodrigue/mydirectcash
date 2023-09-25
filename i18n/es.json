@@ -14,6 +14,7 @@
                 "content4":
                     "Paga y liquida tus facturas de ENEO y CAMWATER así como tus renovaciones de CANAL+ estés donde estés desde tu móvil.",
                     "title5": "Compra de crédito de comunicación",
+                    "title7": "Services Bancaire",
                     "content5":
                         "Ahora di alto a la falta de crédito y recarga tu SIM a través de nuestra plataforma",         
                         "title6": "escritorio del productor",
@@ -148,8 +149,10 @@
   "erreur":"Vaya! ha ocurrido un error",
   "Chose operator":"Click para elegir el servicio",
   "Espagnol":"Español",
-  "Banking":"servicio bancario",
-  "achat":"Achat de crédit de communication & Data"
+  "montant":"Autres montants",
+  "Veuillez saisir le mot de passe pour valider la transastion1":"Veuillez saisir le numéro bénéficiaire et votre mot de passe pour valider la transastion"
+
+  
   
   
   

@@ -72,6 +72,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         await pref.setBool("open", false);
         print("app in detached");
         break;
+      case AppLifecycleState.hidden:
+        // TODO: Handle this case.
     }
   }
 

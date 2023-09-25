@@ -81,6 +81,13 @@ class TransactonService extends ChangeNotifier {
     return response.data;
   }
 
+  Future achatCreditInternational(Map? data) async {
+    Dio.Response response = await dio()
+        .post("DirectcashOperations/AirtimeInternational", data: data);
+    print(response.data);
+    return response.data;
+  }
+
   Future getTopupDetails(amount) async {
     Dio.Response response =
         await dio().get("DirectcashOperations/getTopupDetails/$amount");

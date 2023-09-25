@@ -5,7 +5,7 @@ import 'package:mydirectcash/screens/register.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:pin_entry_text_field/pin_entry_text_field.dart';
+
 
 class CodeCheckSim extends StatefulWidget {
   @override

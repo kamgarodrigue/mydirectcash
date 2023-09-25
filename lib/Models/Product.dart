@@ -23,11 +23,11 @@ class Product extends ChangeNotifier {
       urlImage: json["urlImage"] ?? "");
 
   Map<String, dynamic> toJson() => {
-        "urlImage": "null",
-        "skuCode": "AL_VF_TopUp_3.40",
-        'displayName': "ALL 300.01",
-        "maxReceiveValue": "300.01",
-        "maxSendValue": "300.01",
-        "receiveCurrencyIso": "ALL"
+        "urlImage": urlImage,
+        "skuCode": kuCode,
+        'displayName': displayName,
+        "maxReceiveValue": maxReceiveValue,
+        "maxSendValue": maxSendValue,
+        "receiveCurrencyIso": receiveCurrencyIso
       };
 }

@@ -11,8 +11,9 @@ import 'package:provider/provider.dart';
 
 class Achat_credit_operateur extends StatefulWidget {
   final String regionCode;
-
-  Achat_credit_operateur({Key? key, required this.regionCode})
+  var data;
+  Achat_credit_operateur(
+      {Key? key, required this.regionCode, required this.data})
       : super(key: key);
 
   @override
@@ -111,6 +112,10 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
                             setState(() {
                               _isLoading = true;
                             });
+                            widget.data["reseau"] = operationServices
+                                .operateurs[index].providerName;
+                            print(widget.data);
+
                             context
                                 .read<OperationServices>()
                                 .getOperatorsProduct(
@@ -126,6 +131,7 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
                                   PageTransition(
                                       type: PageTransitionType.rightToLeft,
                                       child: Achat_credit_coupon(
+                                        data: widget.data,
                                         regionCode: widget.regionCode,
                                         providerCode: operationServices
                                             .operateurs[index].providerCode!,

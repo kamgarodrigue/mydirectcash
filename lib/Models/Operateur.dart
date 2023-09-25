@@ -13,10 +13,10 @@ class Operateur {
       urlImage: json["urlImage"],
       validationRegex: json["validationRegex"]);
   Map<String, dynamic> toJson() => {
-        "regionCodes": "DZ",
-        "providerCode": "DJDZ",
-        "providerName": "Djezzy Algeria",
-        "validationRegex": "https://imagerepo.ding.com/logo/DJ/DZ.png",
-        "urlImage": ""
+        "regionCodes": regionCodes,
+        "providerCode": regionCodes,
+        "providerName": providerName!.split("")[0],
+        "validationRegex": validationRegex,
+        "urlImage": urlImage,
       };
 }

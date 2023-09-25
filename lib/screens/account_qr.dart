@@ -184,9 +184,8 @@ class _AccountQRState extends State<AccountQR> {
                     ],
                   ),
                 ),
-                QrImage(
+                QrImageView(
                   data: authProvider.currentUser!.data!.Photo!,
-                  version: QrVersions.auto,
                   size: 300.0,
                 ),
                 SizedBox(

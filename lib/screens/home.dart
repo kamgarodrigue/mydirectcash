@@ -148,7 +148,7 @@ class _HomeState extends State<Home> {
         },
       },
       {
-        "title": AppLocalizations.of(context)!.translate('title5'),
+        "title": AppLocalizations.of(context)!.translate('title7'),
         "image": Image.asset(
           'assets/images/bank-solid-24.png',
           color: blueColor,

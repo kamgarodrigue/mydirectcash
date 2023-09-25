@@ -211,11 +211,11 @@ class _HomeState extends State<MonCompte> {
                             ],
                           ),
                         ),
-                        QrImage(
+                        QrImageView(
                           data: authProvider.currentUser!.data!.Photo!,
                           version: QrVersions.min,
                           size: 90,
-                        ),
+                        )
                       ],
                     ),
                     const SizedBox(

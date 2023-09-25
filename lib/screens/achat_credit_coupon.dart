@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/Models/Operateur.dart';
 import 'package:mydirectcash/Repository/OperationServices.dart';
+import 'package:mydirectcash/screens/achat_credit_coupon_password.dart';
+import 'package:mydirectcash/screens/achat_credit_other.dart';
+import 'package:mydirectcash/screens/achat_credit_password.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:mydirectcash/app_localizations.dart';
 
 class Achat_credit_coupon extends StatefulWidget {
   final String regionCode;
   final String providerCode;
+  var data;
   Achat_credit_coupon(
-      {Key? key, required this.regionCode, required this.providerCode})
+      {Key? key,
+      required this.regionCode,
+      required this.providerCode,
+      required this.data})
       : super(key: key);
 
   @override
@@ -68,26 +76,27 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
                               color: blueColor,
                             )),
                         Container(
-                          width: 40,
+                          width: 110,
                           height: 50,
                           color: Colors.transparent,
                           child: Stack(children: [
                             Positioned(
                                 top: 12,
                                 child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type:
-                                                PageTransitionType.rightToLeft,
-                                            child: Settings()));
-                                  },
-                                  child: Image.asset(
-                                    'assets/images/ico-parametre.png',
-                                    width: 40,
-                                  ),
-                                ))
+                                    onTap: () {
+                                      if (widget.regionCode == "CM")
+                                        Navigator.push(
+                                            context,
+                                            PageTransition(
+                                                type: PageTransitionType
+                                                    .rightToLeft,
+                                                child: AchatCreditauther()));
+                                    },
+                                    child: Text(
+                                      ' ${AppLocalizations.of(context)!.translate("montant")} ${widget.data!["displayName"]} ',
+                                      style: TextStyle(
+                                          color: blueColor, fontSize: 14),
+                                    )))
                           ]),
                         )
                       ],
@@ -108,7 +117,23 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
                       children: List.generate(
                           operationServices.produits.length,
                           (index) => InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  widget.data["skucode"] =
+                                      operationServices.produits[index].kuCode;
+                                  widget.data["sendValue"] = operationServices
+                                      .produits[index].maxSendValue;
+                                  widget.data["displayName"] = operationServices
+                                      .produits[index].displayName;
+                                  print(operationServices.produits[index]
+                                      .toJson());
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          type: PageTransitionType.rightToLeft,
+                                          child: AchatCreditPasswordCoupon(
+                                            data: widget.data,
+                                          )));
+                                },
                                 child: Container(
                                   decoration: BoxDecoration(
                                       gradient: LinearGradient(
@@ -148,7 +173,7 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
                                 ),
                               )),
                     ),
-                  )
+                  ),
                 ])),
             Container(
                 child: _isLoading

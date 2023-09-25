@@ -28,12 +28,14 @@ class AuthService extends ChangeNotifier {
                 null
             ? false
             : true;
-        print(_isLoggedIn);
-        solde = _currentUser!.data!.solde!.toString();
 
-        if (_currentUser!.data!.solde!.contains(".")) {
-          solde =
-              double.tryParse(_currentUser!.data!.solde!)!.toStringAsFixed(2);
+        if (solde == null) {
+          solde = _currentUser!.data!.solde!.toString();
+
+          if (_currentUser!.data!.solde!.contains(".")) {
+            solde =
+                double.tryParse(_currentUser!.data!.solde!)!.toStringAsFixed(2);
+          }
         }
         notifyListeners();
       }
