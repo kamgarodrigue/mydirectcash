@@ -107,7 +107,7 @@ class _Recharge_carte_credit_TokenState
                         ),
                         SizedBox(width: 50),
                         Text(
-                            "${AppLocalizations.of(context)!.translate('Recharge Carte de crédit/Paypal')}",
+                            "${AppLocalizations.of(context)!.translate('Carte de crédit/Paypal1')}",
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

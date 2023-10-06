@@ -53,8 +53,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   google_maps_flutter: ^2.5.0
-  flutter_geocoder: ^0.2.2-nullsafety
   location: ^5.0.0
+  geocoding: ^2.1.0
+  webview_flutter: ^4.2.4
   
 
   

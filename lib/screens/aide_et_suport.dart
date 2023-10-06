@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/app_localizations.dart';
+import 'package:mydirectcash/screens/faq.dart';
 import 'package:mydirectcash/screens/rapport.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
@@ -198,7 +199,13 @@ class _SupportState extends State<Support> {
                         )),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: Faq()));
+                    },
                     child: Card(
                         elevation: 1,
                         child: Container(

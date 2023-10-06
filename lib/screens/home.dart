@@ -8,6 +8,7 @@ import 'package:mydirectcash/Models/Transaction.dart';
 import 'package:mydirectcash/Models/User.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
+import 'package:mydirectcash/Repository/localisation.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/achat_credit.dart';
 import 'package:mydirectcash/screens/carousel_page.dart';
@@ -72,6 +73,7 @@ class _HomeState extends State<Home> {
     super.initState();
     context.read<AuthService>().authenticate;
     //context.read<AuthService>().setconversion(0);
+    context.read<Localisation>().initLocation();
   }
 
   Future reset() {
@@ -320,7 +322,7 @@ class _HomeState extends State<Home> {
                                     onPressed: () {
                                       showDialog(
                                           context: context,
-                                          builder: (BuildContext context) {
+                                          builder: (context) {
                                             return ChoixRecharge();
                                           });
                                     },
@@ -602,9 +604,27 @@ class _HomeState extends State<Home> {
                         ),
                         Container(
                             height: 40,
-                            padding: EdgeInsets.only(left: 105, right: 105),
+                            alignment: Alignment.center,
                             //color: Colors.amber,
-                            child: ListTile(
+                            child: GestureDetector(
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.arrow_left,
+                                    color: blueColor,
+                                    size: 40,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .translate('auther')!,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontFamily: content_font,
+                                        fontSize: 15,
+                                        color: blueColor),
+                                  ),
+                                ],
+                              ),
                               onTap: () {
                                 Navigator.push(
                                     context,
@@ -612,20 +632,6 @@ class _HomeState extends State<Home> {
                                         type: PageTransitionType.rightToLeft,
                                         child: OmMoMo()));
                               },
-                              leading: Icon(
-                                Icons.arrow_left,
-                                color: blueColor,
-                                size: 40,
-                              ),
-                              title: Text(
-                                AppLocalizations.of(context)!
-                                    .translate('ommom')!,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontFamily: content_font,
-                                    fontSize: 10,
-                                    color: blueColor),
-                              ),
                             ))
                         /* this.currrentUser!.data!.phone != ""
                             ? LastTransaction(

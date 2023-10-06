@@ -5,6 +5,7 @@ import 'package:mydirectcash/Models/Transaction.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/OperationServices.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
+import 'package:mydirectcash/Repository/localisation.dart';
 import 'package:mydirectcash/screens/account_qr.dart';
 import 'package:mydirectcash/screens/home.dart';
 import 'package:mydirectcash/screens/login.dart';
@@ -23,7 +24,8 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => Authcontroller().auth),
       ChangeNotifierProvider(create: (context) => AppLanguage()),
       ChangeNotifierProvider(create: (context) => TransactonService()),
-      ChangeNotifierProvider(create: (context) => OperationServices())
+      ChangeNotifierProvider(create: (context) => OperationServices()),
+      ChangeNotifierProvider(create: (context) => Localisation()),
     ],
     child: MyApp(),
   ));
@@ -73,7 +75,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         print("app in detached");
         break;
       case AppLifecycleState.hidden:
-        // TODO: Handle this case.
+      // TODO: Handle this case.
     }
   }
 

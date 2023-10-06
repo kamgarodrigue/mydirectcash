@@ -6,6 +6,7 @@ import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/Apropos_de_nous.dart';
+import 'package:mydirectcash/screens/Cgu.dart';
 import 'package:mydirectcash/screens/En_sqvoir_plus.dart';
 import 'package:mydirectcash/screens/Grille_Tarifaire.dart';
 import 'package:mydirectcash/screens/Grille_Tarifaire_model.dart';
@@ -598,6 +599,22 @@ class _SettingsState extends State<Settings> {
                       ),
                       title:
                           "${AppLocalizations.of(context)!.translate("A propos de MyDirectCash")}"),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: Cgu()));
+                  },
+                  child: SettingsTabOption(
+                      icon: Icon(
+                        Icons.chevron_right,
+                        size: 18,
+                      ),
+                      title:
+                          "${AppLocalizations.of(context)!.translate("utilisation")}"),
                 ),
                 GestureDetector(
                   onTap: () async {

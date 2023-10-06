@@ -1,6 +1,7 @@
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/Repository/OperationServices.dart';
+import 'package:mydirectcash/Repository/localisation.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/achat_credit_coupon.dart';
 import 'package:mydirectcash/screens/achat_credit_operateur.dart';
@@ -56,13 +57,12 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
     // TODO: implement initState
     super.initState();
 
-    context.read<OperationServices>().getContryOperator("DZ").then((value) {
-      print(value);
-    });
+    context.read<Localisation>().initLocation();
   }
 
   @override
   Widget build(BuildContext context) {
+    final locat = context.watch<Localisation>();
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -227,7 +227,8 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                               });
                               context
                                   .read<OperationServices>()
-                                  .getContryOperator(codeRegion)
+                                  .getContryOperator(codeRegion,
+                                      locat.addres["country"] == "Cameroun")
                                   .then((value) {
                                 print(value);
                                 setState(() {

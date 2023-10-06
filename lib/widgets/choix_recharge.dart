@@ -23,7 +23,7 @@ class _ChoixRechargeState extends State<ChoixRecharge> {
   Widget build(BuildContext context) {
     return AlertDialog(
         title: Text(
-          "${AppLocalizations.of(context)!.translate('Recharger mon compte')}",
+          AppLocalizations.of(context)!.translate('Recharger mon compte')!,
           style: const TextStyle(
               color: Color(0xFFF1034A6),
               fontSize: 20,
@@ -45,7 +45,9 @@ class _ChoixRechargeState extends State<ChoixRecharge> {
                           child: Recharge_carte_credit_Amount()));
                 },
                 child: Text(
-                  "${AppLocalizations.of(context)!.translate('Carte de crédit/Paypal')}",
+                  AppLocalizations.of(context)!
+                      .translate('Carte de crédit/Paypal1')
+                      .toString(),
                   style: const TextStyle(
                       color: Colors.black,
                       fontSize: 14,
@@ -62,7 +64,7 @@ class _ChoixRechargeState extends State<ChoixRecharge> {
                           child: OmMoMo()));
                 },
                 child: Text(
-                  "${AppLocalizations.of(context)!.translate('Copmte OM/MOMO')}",
+                  "${AppLocalizations.of(context)!.translate('Copmte OM/MOMO1')}",
                   style: const TextStyle(
                       color: Colors.black,
                       fontSize: 14,

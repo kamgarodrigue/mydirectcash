@@ -25,7 +25,9 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<OperationServices>().getContryOperator(widget.regionCode);
+    context
+        .read<OperationServices>()
+        .getContryOperator(widget.regionCode, false);
   }
 
   bool _isLoading = false;

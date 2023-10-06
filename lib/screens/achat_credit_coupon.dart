@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/Models/Operateur.dart';
 import 'package:mydirectcash/Repository/OperationServices.dart';
+import 'package:mydirectcash/Repository/localisation.dart';
 import 'package:mydirectcash/screens/achat_credit_coupon_password.dart';
 import 'package:mydirectcash/screens/achat_credit_other.dart';
 import 'package:mydirectcash/screens/achat_credit_password.dart';
@@ -34,12 +35,15 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
     context
         .read<OperationServices>()
         .getOperatorsProduct(widget.regionCode, widget.providerCode);
+    context.read<Localisation>().initLocation();
   }
 
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     final operationServices = context.watch<OperationServices>();
+    final locat = context.watch<Localisation>();
+    print(locat);
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -84,7 +88,8 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
                                 top: 12,
                                 child: GestureDetector(
                                     onTap: () {
-                                      if (widget.regionCode == "CM")
+                                      if (widget.regionCode == "CM" &&
+                                          locat.addres["country"] == "Cameroun")
                                         Navigator.push(
                                             context,
                                             PageTransition(

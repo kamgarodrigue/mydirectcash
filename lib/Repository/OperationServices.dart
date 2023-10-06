@@ -30,10 +30,10 @@ class OperationServices extends ChangeNotifier {
     return decodeProdoct(response.data);
   }
 
-  Future<List<Operateur>> getContryOperator(regionCode) async {
+  Future<List<Operateur>> getContryOperator(regionCode, iscam) async {
     Dio.Response response =
         await dio().get("DirectcashOperations/GetCountryOperator/$regionCode");
-    return decodeOperateur(response.data);
+    return decodeOperateur(response.data, regionCode, iscam);
   }
 
   Future<List<dynamic>> getTarifs(model) async {
@@ -45,12 +45,44 @@ class OperationServices extends ChangeNotifier {
     return response.data["collecteFees"].map<dynamic>((json) => json).toList();
   }
 
-  List<Operateur> decodeOperateur(responseBody) {
+  List<Operateur> decodeOperateur(responseBody, regionCode, iscam) {
     final parsed = responseBody;
-    _operateurs =
-        parsed.map<Operateur>((json) => Operateur.fromJson(json)).toList();
+
+    List operateu = [
+      new Operateur(
+          providerCode: "",
+          providerName: "CAMTEL",
+          regionCodes: "CM",
+          urlImage: "assets/images/camtel.jpeg",
+          validationRegex: ""),
+      new Operateur(
+          providerCode: "",
+          providerName: "NEXTEL",
+          regionCodes: "CM",
+          urlImage: "assets/images/nextel.png",
+          validationRegex: ""),
+      new Operateur(
+          providerCode: "",
+          providerName: "YO0MEE",
+          regionCodes: "CM",
+          urlImage: "assets/images/yoomee.png",
+          validationRegex: ""),
+    ];
+
+    _operateurs = regionCode == "CM" || iscam
+        ? parsed
+            .map<Operateur>((json) => Operateur.fromJson(json))
+            .toList()
+            .addAll(operateu)
+        : parsed.map<Operateur>((json) => Operateur.fromJson(json)).toList();
     notifyListeners();
-    return parsed.map<Operateur>((json) => Operateur.fromJson(json)).toList();
+
+    return regionCode == "CM" || iscam
+        ? parsed
+            .map<Operateur>((json) => Operateur.fromJson(json))
+            .toList()
+            .addAll(operateu)
+        : parsed.map<Operateur>((json) => Operateur.fromJson(json)).toList();
   }
 
   List<Product> decodeProdoct(responseBody) {

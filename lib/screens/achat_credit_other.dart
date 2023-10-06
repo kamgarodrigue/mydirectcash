@@ -52,10 +52,6 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    context.read<OperationServices>().getContryOperator("DZ").then((value) {
-      print(value);
-    });
   }
 
   @override
