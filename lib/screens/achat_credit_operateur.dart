@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:mydirectcash/Models/Operateur.dart';
 import 'package:mydirectcash/Repository/OperationServices.dart';
 import 'package:mydirectcash/screens/achat_credit_coupon.dart';
+import 'package:mydirectcash/screens/achat_credit_other.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -111,41 +112,69 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(
                           onTap: () {
-                            setState(() {
-                              _isLoading = true;
-                            });
-                            widget.data["reseau"] = operationServices
-                                .operateurs[index].providerName;
-                            print(widget.data);
+                            if (operationServices
+                                    .operateurs[index].providerCode ==
+                                "") {
+                              var data = {
+                                "montant": "",
+                                "numero": "",
+                                "Id": "",
+                                "reseau": operationServices
+                                    .operateurs[index].providerName,
+                                "device": "123456",
+                                "pass": "",
+                                "imei": "5258889",
+                                "image": operationServices
+                                    .operateurs[index].urlImage!
+                              };
 
-                            context
-                                .read<OperationServices>()
-                                .getOperatorsProduct(
-                                    widget.regionCode,
-                                    operationServices
-                                        .operateurs[index].providerCode)
-                                .then((value) {
-                              setState(() {
-                                _isLoading = false;
-                              });
                               Navigator.push(
                                   context,
                                   PageTransition(
                                       type: PageTransitionType.rightToLeft,
-                                      child: Achat_credit_coupon(
-                                        data: widget.data,
-                                        regionCode: widget.regionCode,
-                                        providerCode: operationServices
-                                            .operateurs[index].providerCode!,
+                                      child: AchatCreditauther(
+                                        data: data,
                                       )));
-                              print(value);
-                            }).catchError((error) {
+                            } else {
                               setState(() {
-                                _isLoading = false;
+                                _isLoading = true;
                               });
+                              widget.data["reseau"] = operationServices
+                                  .operateurs[index].providerName!
+                                  .split(" ")[0];
+                              widget.data["image"] =
+                                  operationServices.operateurs[index].urlImage;
+                              print(widget.data);
 
-                              print(error);
-                            });
+                              context
+                                  .read<OperationServices>()
+                                  .getOperatorsProduct(
+                                      widget.regionCode,
+                                      operationServices
+                                          .operateurs[index].providerCode)
+                                  .then((value) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: Achat_credit_coupon(
+                                          data: widget.data,
+                                          regionCode: widget.regionCode,
+                                          providerCode: operationServices
+                                              .operateurs[index].providerCode!,
+                                        )));
+                                print(value);
+                              }).catchError((error) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+
+                                print(error);
+                              });
+                            }
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -157,9 +186,15 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
                                     ],
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter),
-                                image: DecorationImage(
-                                    image: NetworkImage(operationServices
-                                        .operateurs[index].urlImage!))),
+                                image: operationServices
+                                            .operateurs[index].providerCode !=
+                                        ""
+                                    ? DecorationImage(
+                                        image: NetworkImage(operationServices
+                                            .operateurs[index].urlImage!))
+                                    : DecorationImage(
+                                        image: AssetImage(operationServices
+                                            .operateurs[index].urlImage!))),
                           ),
                         );
                       },

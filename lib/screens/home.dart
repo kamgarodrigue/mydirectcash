@@ -164,6 +164,34 @@ class _HomeState extends State<Home> {
               });
         },
       },
+      {
+        "title": AppLocalizations.of(context)!.translate('autherS')!,
+        "image": Image.asset(
+          'assets/images/téléchargement.jpeg',
+          //color: blueColor,
+          width: 50,
+        ),
+        "onTap": () {
+          Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.rightToLeft, child: OmMoMo()));
+        },
+      },
+      {
+        "title": AppLocalizations.of(context)!.translate('auther')!,
+        "image": Image.asset(
+          'assets/images/téléchargement.png',
+          //color: blueColor,
+          width: 50,
+        ),
+        "onTap": () {
+          Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.rightToLeft, child: OmMoMo()));
+        },
+      },
     ];
     void gridNavigation(index) {
       switch (index) {
@@ -259,8 +287,8 @@ class _HomeState extends State<Home> {
                                             MainAxisAlignment.end,
                                         children: [
                                           Text(
-                                            autProvider.currentUser!.data!.nom
-                                                .toString(),
+                                            autProvider.currentUser!.data!.nom!
+                                                .toUpperCase(),
                                             style: TextStyle(
                                                 color: blueColor,
                                                 fontSize: 14,
@@ -602,37 +630,6 @@ class _HomeState extends State<Home> {
                                     ]),
                                   )),
                         ),
-                        Container(
-                            height: 40,
-                            alignment: Alignment.center,
-                            //color: Colors.amber,
-                            child: GestureDetector(
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.arrow_left,
-                                    color: blueColor,
-                                    size: 40,
-                                  ),
-                                  Text(
-                                    AppLocalizations.of(context)!
-                                        .translate('auther')!,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontFamily: content_font,
-                                        fontSize: 15,
-                                        color: blueColor),
-                                  ),
-                                ],
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        type: PageTransitionType.rightToLeft,
-                                        child: OmMoMo()));
-                              },
-                            ))
                         /* this.currrentUser!.data!.phone != ""
                             ? LastTransaction(
                                 currrentUser: currrentUser,

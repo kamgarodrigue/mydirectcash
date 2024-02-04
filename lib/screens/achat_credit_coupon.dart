@@ -89,13 +89,26 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
                                 child: GestureDetector(
                                     onTap: () {
                                       if (widget.regionCode == "CM" &&
-                                          locat.addres["country"] == "Cameroun")
+                                          locat.addres["country"] ==
+                                              "Cameroun") {
+                                        var data = {
+                                          "montant": "",
+                                          "numero": "",
+                                          "Id": "",
+                                          "reseau": widget.data["reseau"],
+                                          "device": "123456",
+                                          "pass": "",
+                                          "imei": "5258889"
+                                        };
                                         Navigator.push(
                                             context,
                                             PageTransition(
                                                 type: PageTransitionType
                                                     .rightToLeft,
-                                                child: AchatCreditauther()));
+                                                child: AchatCreditauther(
+                                                  data: data,
+                                                )));
+                                      }
                                     },
                                     child: Text(
                                       ' ${AppLocalizations.of(context)!.translate("montant")} ${widget.data!["displayName"]} ',

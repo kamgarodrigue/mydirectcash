@@ -29,8 +29,8 @@ class _ValidateAccountState extends State<ValidateAccount> {
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
 
-  bool hasError = false;
   String currentText = "";
+  bool hasError = false;
   final formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   @override

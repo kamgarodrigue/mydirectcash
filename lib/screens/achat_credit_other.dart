@@ -19,28 +19,20 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class AchatCreditauther extends StatefulWidget {
-  const AchatCreditauther({Key? key}) : super(key: key);
+  Map data;
+  AchatCreditauther({Key? key, required this.data}) : super(key: key);
 
   @override
   _AchatCreditState createState() => _AchatCreditState();
 }
 
 class _AchatCreditState extends StateMVC<AchatCreditauther> {
-  Map data = {
-    "montant": "",
-    "numero": "",
-    "Id": "",
-    "reseau": "MTN",
-    "device": "123456",
-    "pass": "123456",
-    "imei": "5258889"
-  };
   bool _isLoading = false;
   _AchatCreditState() : super(UserController()) {
     _userController = UserController.userController;
     _userController!.utilisateur!.then((value) {
       this.currrentUser = value;
-      data["Id"] = value.data!.phone;
+      widget.data["Id"] = value.data!.phone;
     });
   }
   UserController? _userController;
@@ -122,7 +114,7 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                       ),
                       SizedBox(width: 50),
                       Text(
-                          "${AppLocalizations.of(context)!.translate('Achat de crédit')}",
+                          "${AppLocalizations.of(context)!.translate('Achat de crédit')}-${widget.data["reseau"]}",
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -155,7 +147,7 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                         Container(
                             child: Row(
                           children: [
-                            Expanded(
+                            /*  Expanded(
                               child: Text(
                                   coupon! == ""
                                       ? "${AppLocalizations.of(context)!.translate('Choisissez le coupon crédit')}"
@@ -166,7 +158,7 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                                           : Colors.black,
                                       fontSize: 14)),
                             ),
-                            Padding(
+                             Padding(
                               padding: EdgeInsets.only(right: 20),
                               child: PopupMenuButton(
                                 itemBuilder: (context) => [
@@ -228,13 +220,9 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                                   color: Colors.blue,
                                 ),
                               ),
-                            )
+                            )*/
                           ],
                         )),
-                        Divider(
-                          height: 1.5,
-                          color: blueColor,
-                        ),
                       ],
                     )),
                 Container(
@@ -246,10 +234,10 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                             style: TextStyle(
                                 fontFamily: content_font, fontSize: 13),
                             textAlign: TextAlign.start,
-                            initialValue: data["numero"],
+                            initialValue: widget.data["numero"],
                             onChanged: (value) {
                               setState(() {
-                                this.data["numero"] = value;
+                                widget.data["numero"] = value;
                               });
                             },
                             decoration: InputDecoration(
@@ -275,10 +263,10 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                             style: TextStyle(
                                 fontFamily: content_font, fontSize: 13),
                             textAlign: TextAlign.start,
-                            initialValue: data["montant"],
+                            initialValue: widget.data["montant"],
                             onChanged: (value) {
                               setState(() {
-                                this.data["montant"] = value;
+                                widget.data["montant"] = value;
                               });
                             },
                             decoration: InputDecoration(
@@ -307,13 +295,17 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                                 primary: blueColor,
                                 padding: EdgeInsets.symmetric(horizontal: 50)),
                             onPressed: () {
+                              widget.data["reseau"] = widget.data["reseau"]
+                                  .toString()
+                                  .split(" ")[0];
+                              print(widget.data);
                               Navigator.push(
                                   context,
                                   PageTransition(
                                       type: PageTransitionType.rightToLeft,
                                       child: AchatCreditPassword(
                                           parentcontext: context,
-                                          data: this.data)));
+                                          data: widget.data)));
                             },
                             child: Text(
                               "${AppLocalizations.of(context)!.translate('suivant')}",

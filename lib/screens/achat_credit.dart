@@ -243,6 +243,7 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                                           data: data,
                                         )));
                               }).catchError((error) {
+                                print(error);
                                 showTopSnackBar(
                                     context,
                                     CustomSnackBar.error(
