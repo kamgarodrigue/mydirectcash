@@ -249,7 +249,7 @@ class _HomeState extends State<MonCompte> {
                             children: [
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    primary: blueColor,
+                                   backgroundColor:  blueColor,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 50)),
                                 onPressed: () {

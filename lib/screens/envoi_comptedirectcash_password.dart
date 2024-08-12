@@ -196,7 +196,7 @@ class _EnvoiCompteDirectCashPasswordState
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: blueColor,
+                             backgroundColor:  blueColor,
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
@@ -222,7 +222,7 @@ class _EnvoiCompteDirectCashPasswordState
                                         .phone
                                   });
                                   showTopSnackBar(
-                                      context,
+                                     Overlay.of(context),
                                       CustomSnackBar.success(
                                         message: json.decode(
                                             value.toString())['message'],
@@ -237,7 +237,7 @@ class _EnvoiCompteDirectCashPasswordState
                                   });
                                   print(error);
                                   showTopSnackBar(
-                                      context,
+                                     Overlay.of(context),
                                       CustomSnackBar.error(
                                         message: AppLocalizations.of(context)!
                                             .translate("erreur")!,

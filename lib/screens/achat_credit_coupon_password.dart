@@ -229,7 +229,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPasswordCoupon> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: blueColor,
+                               backgroundColor:  blueColor,
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
@@ -253,7 +253,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPasswordCoupon> {
                                         .phone
                                   });
                                   showTopSnackBar(
-                                      context,
+                                     Overlay.of(context),
                                       CustomSnackBar.success(
                                         message: "crédit envoyé avec succes",
                                       ),
@@ -266,7 +266,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPasswordCoupon> {
                                   });
                                   print(error);
                                   showTopSnackBar(
-                                      context,
+                                      Overlay.of(context),
                                       CustomSnackBar.error(
                                         message: AppLocalizations.of(context)!
                                             .translate("erreur")!,

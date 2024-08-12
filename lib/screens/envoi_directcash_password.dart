@@ -243,7 +243,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: blueColor,
+                                   backgroundColor:  blueColor,
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
@@ -272,7 +272,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                         .phone
                                   });
                                   showTopSnackBar(
-                                      context,
+                                      Overlay.of(context),
                                       CustomSnackBar.success(
                                         message: value.toString(),
                                       ),
@@ -286,7 +286,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                   });
                                   print(error);
                                   showTopSnackBar(
-                                      context,
+                                      Overlay.of(context),
                                       CustomSnackBar.error(
                                         message: AppLocalizations.of(context)!
                                             .translate("erreur")!,

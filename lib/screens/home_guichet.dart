@@ -298,7 +298,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: marronColor,
+                               backgroundColor:   marronColor,
                                 padding: EdgeInsets.symmetric(horizontal: 50)),
                             onPressed: () {
                               Navigator.push(
@@ -329,7 +329,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: marronColor,
+                               backgroundColor:  marronColor,
                                 padding: EdgeInsets.symmetric(horizontal: 75)),
                             onPressed: () {
                               Navigator.push(

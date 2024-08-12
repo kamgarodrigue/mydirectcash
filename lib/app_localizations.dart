@@ -6,11 +6,15 @@ import 'package:flutter/services.dart';
 
 class AppLocalizations {
   final Locale locale;
-
+ 
   AppLocalizations({
     required this.locale,
   });
 
+  print(String string)
+{
+  print(locale.toString());
+}
   // Helper method to keep the code in the widgets concise
   // Localizations are accessed using an InheritedWidget "of" syntax
   static AppLocalizations? of(BuildContext context) {

@@ -219,7 +219,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: blueColor,
+                                  backgroundColor:  blueColor,
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
@@ -235,7 +235,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                                     this._isLoading = false;
                                   });
                                   showTopSnackBar(
-                                    context,
+                                 Overlay.of(context),
                                     CustomSnackBar.success(
                                       message: "Recharge DirectCash reussi",
                                     ),
@@ -247,8 +247,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                                   });
                                   print(error);
                                   showTopSnackBar(
-                                    context,
-                                    CustomSnackBar.error(
+Overlay.of(context),                                    CustomSnackBar.error(
                                         message: "une erreur c est produite"),
                                   );
                                 });

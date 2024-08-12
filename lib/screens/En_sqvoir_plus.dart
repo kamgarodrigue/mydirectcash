@@ -33,27 +33,27 @@ class _En_sqvoir_plusState extends State<En_sqvoir_plus> {
   Widget build(BuildContext context) {
     slides = [
       {
-        'image': 'assets/images/pexels-anna-nekrashevich-6802046.jpg',
+        'image': 'assets/images/Transfert dargent.jpg',
         'title': "${AppLocalizations.of(context)!.translate('title1')}",
         'content': "${AppLocalizations.of(context)!.translate('content1')}"
       },
       {
-        'image': 'assets/images/pexels-anna-nekrashevich-6801872.jpg',
+        'image': 'assets/images/OM et MoMo.png',
         'title': "${AppLocalizations.of(context)!.translate('title2')}",
         'content': "${AppLocalizations.of(context)!.translate('content2')}"
       },
       {
-        'image': 'assets/images/nubelson-fernandes-laLxjCYtkFY-unsplash.jpg',
+        'image': 'assets/images/paiement marchand.jpg',
         'title': "${AppLocalizations.of(context)!.translate('title3')}",
         'content': "${AppLocalizations.of(context)!.translate('content3')}"
       },
       {
-        'image': 'assets/images/businessman-800x400.jpg',
+        'image': 'assets/images/payer facture.jpeg',
         'title': "${AppLocalizations.of(context)!.translate('title4')}",
         'content': "${AppLocalizations.of(context)!.translate('content4')}"
       },
       {
-        'image': 'assets/images/téléchargement.jpg',
+        'image': 'assets/images/Achat de Credit de communication.jpg',
         'title': "${AppLocalizations.of(context)!.translate('title5')}",
         'content': "${AppLocalizations.of(context)!.translate('content5')}"
       },

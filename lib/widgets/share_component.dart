@@ -334,7 +334,7 @@ class _ShareComponentState extends State<ShareComponent> {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.grey,
+                         backgroundColor:   Colors.grey,
                           padding: EdgeInsets.symmetric(horizontal: 50)),
                       onPressed: () {
                         Navigator.pop(context);

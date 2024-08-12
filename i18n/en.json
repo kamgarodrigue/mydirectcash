@@ -22,14 +22,14 @@
                       "Valider":"To validate",
                       "create":"Create an account",
                       "Ou":"Or",
-                      "Scannez":"Scan your borrowing" , 
+                      "Scannez":"Scan your fingerprint" , 
                       "loaderconex":"Connection in progress...",
                       "name":"Name",
                       "loadercreate":"Account creation in progress...",
    "email":"E-mail",
    "password1": "Create password",
    "condition":"By validating you accept the terms of use and our privacy policy",
-   "Lire":"Lire",
+   "Lire":"Read",
 "Jai déjà un compte":"I already have an account",
 "GUICHET":"Counter",
 "PRODUCTEURS":"Producers",
@@ -40,11 +40,10 @@
 "Envoi d'argent":"Sending money",
 "ommom":"OM/MoMo",
 "Payement de facture":"Bill Payment",
-"Achat de crédit":"Airtime purchase",
+"Achat de crédit":"Airtime Purchase",
 "Choisissez le pays de destination":"Choose the destination country",
 "Choisissez le coupon crédit":"Choose the operator",
-"Choisir un pays":"Choose operator",
-
+"Choisir un pays":"Choose a country",
 "Saisire montant":"Enter the Amount",
 "Numero du compte":"Account number",
 "Choisissez le type de transaction":"Choose the type of transaction",
@@ -96,7 +95,7 @@
 "Montant total à débiter":"Total amount to be debited",
 "Scannez le QR Code de la caisse":"Scan the QR Code",
 "ou":"Or",
-"Entrez le code de la caisse":"Enter cash register code",
+"Entrez le code de la caisse":"Enter checkout code/Transport and others",
 "Payement marchand":"Merchant Payment",
 "Vers un compte DirectCash":"Recharge a DirectCash account ",
 "detail1":"Your recipient will then receive the money directly into their account",
@@ -104,8 +103,8 @@
 "Transfert DirectCash":"DirectCash Transfer",
 "notification": "Fund your account using your OM/MoMo account or at a DirectCash point, by your Credit Card or PayPal account.",
 "Dernières transactions":"Latest transactions",
-"Saisissez l ancien indice":"Enter the old clue",
-"Saisissez le nouvel indice":"Enter the new clue",
+"Saisissez l ancien indice":"Enter the old index",
+"Saisissez le nouvel indice":"Enter the new index",
 "le nouvel indice dois être supérieur à l ancien":"The new index must be higher than the old one",
 "Montant Estimatif":"Estimated Amount",
 " Consomation ":"Consumption ",
@@ -146,15 +145,19 @@
 "Espagnol":"Spanish",
 "montant":"Other amounts",
 "Veuillez saisir le mot de passe pour valider la transastion1":"Please enter the beneficiary number and password to validate the transaction",
-"utilisation":"General conditions of use",
+"utilisation":"Terms of service",
 "Carte de crédit/Paypal1":"Credit Card/PayPal top-up",
 "Copmte OM/MOMO1":"OM/MoMo account",
-"auther":"Other types Transfer",
+"auther":"Other Types Transfers",
+"autherS":"Other services of payment",
+"Envoi de rapport":"Send report",
+"Notre équipe technique va se charger de votre problème":"Our technical team will assist you to resolve the issue",
+"Décrivez le problème rencontré":"Describe the problem encountered",
+"Rapport envoyé avec succes":"Report sent with success",
+"Envoyer un rapport":" Send a report",
+"Envois encour": "Sending in progress ...",
+        
 
-"autherS":"Autres services de paiement"
-
-
-
-
-                 
+"Contact": "Nom du Contact",
+"Numéro du contact": "Numéro du contact"
 }

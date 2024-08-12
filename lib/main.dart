@@ -6,7 +6,9 @@ import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/OperationServices.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/Repository/localisation.dart';
+import 'package:mydirectcash/screens/Apropos_de_nous.dart';
 import 'package:mydirectcash/screens/account_qr.dart';
+import 'package:mydirectcash/screens/aide_et_suport.dart';
 import 'package:mydirectcash/screens/home.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/welcome.dart';
@@ -89,6 +91,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final appLanguage = context.watch<AppLanguage>();
     print(appLanguage.appLocal);
+    print('toto');
     return MaterialApp(
       title: 'My Direct Cash',
       debugShowCheckedModeBanner: false,
@@ -108,7 +111,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         AppLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      home: Consumer<AuthService>(
+      home:tes()
+    );
+  }
+}
+Widget tes (){
+  return  Consumer<AuthService>(
         builder: (context, auth, child) {
           // WelcomePage()
 
@@ -126,7 +134,5 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             });
           } //flutter build apk  --split-per-abi
         },
-      ),
-    );
-  }
+      );
 }

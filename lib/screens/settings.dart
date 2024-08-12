@@ -195,7 +195,7 @@ class _SettingsState extends State<Settings> {
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: blueColor,
+                               backgroundColor:  blueColor,
                                 padding: EdgeInsets.symmetric(horizontal: 50)),
                             onPressed: () {},
                             child: Text(
@@ -442,7 +442,7 @@ class _SettingsState extends State<Settings> {
                       title:
                           "${AppLocalizations.of(context)!.translate("Simulation facture ENEO")}"),
                 ),
-                SettingsTabOption(
+               /* SettingsTabOption(
                     icon: Icon(
                       Icons.chevron_right,
                       size: 18,
@@ -472,6 +472,7 @@ class _SettingsState extends State<Settings> {
                       title:
                           "${AppLocalizations.of(context)!.translate("Comment ça marche ?")}"),
                 ),
+            */
                 InkWell(
                   onTap: () {
                     print("logout");
@@ -743,7 +744,7 @@ class _SettingsState extends State<Settings> {
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: blueColor,
+                           backgroundColor:  blueColor,
                                 padding: EdgeInsets.symmetric(horizontal: 50)),
                             onPressed: () {},
                             child: Text(

@@ -216,7 +216,7 @@ class _ValidateAccountState extends State<ValidateAccount> {
                               });
                               print(err);
                               showTopSnackBar(
-                                  context,
+                                  Overlay.of(context),
                                   CustomSnackBar.error(
                                     message: err.toString(),
                                   ),
@@ -265,7 +265,7 @@ class _ValidateAccountState extends State<ValidateAccount> {
                                 if (value.toString() == "Success") {
                                   widget.goToLogin!();
                                   showTopSnackBar(
-                                    context,
+                                   Overlay.of(context),
                                     CustomSnackBar.success(
                                       message: value.toString() +
                                           "  Votre compte a ete verifier",
@@ -273,7 +273,7 @@ class _ValidateAccountState extends State<ValidateAccount> {
                                   );
                                 } else {
                                   showTopSnackBar(
-                                    context,
+                                 Overlay.of(context),
                                     CustomSnackBar.success(
                                       message:
                                           value.toString() + "  Code invalide",
@@ -289,7 +289,7 @@ class _ValidateAccountState extends State<ValidateAccount> {
                                 });
                                 print("err" + err.toString());
                                 showTopSnackBar(
-                                  context,
+                                  Overlay.of(context),
                                   CustomSnackBar.error(
                                     message: err.toString(),
                                   ),

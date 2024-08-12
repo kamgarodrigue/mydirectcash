@@ -101,10 +101,9 @@
   "Montant total à débiter":"Importe total a debitar",
   "Scannez le QR Code de la caisse":"Escanea el código QR de pago",
   "ou":"O",
-  "Entrez le code de la caisse":"Introduce el código de caja",
+  "Entrez le code de la caisse":"Ingresar código de pago/Transporte y otros",
   "Payement marchand":"Pago comercial",
   "Vers un compte DirectCash":"Recargar una cuenta de DirectCash",
-  
   "detail1":"Su destinatario recibirá el dinero directamente en su cuenta.",
   "detail2": "El beneficiario podrá recibir el dinero en cualquier punto DirectCash",
   "Transfert DirectCash":"Transferencia DirectCash",
@@ -120,7 +119,7 @@
   "Recharge via DirectCash":"Recarga a través de DirectCash",
   "Saisissez le code DirectCash":"Ingrese el código DirectCash",
   "Saisissez votre code secret":"Introduzca su código de acceso",
-  "Code bancaire":"Codigo bancario",
+  "Code bancaire":"contraseña",
   "saisissez le montant":"Introduce el importe a recargar",
   "Saisissez votre numéro de compte":"Ingrese su número de cuenta",
   "Recharge via Virement bancaire":"Recarga por Transferencia Bancaria",
@@ -135,7 +134,7 @@
   "Vous allez faire un transfert  de":"Vas a transferir",
   "code secret":"Introduzca el código secreto de 4 caracteres.",
   "Choisir la Langue":"Elige lengua",
-  "resset":"¿Contraseña olvidada?",
+  "resset":"Contraseña olvidada?",
   "reset1":"Restablecer contraseña - Verificación",
   "Password1":"Nueva contraseña",
   "code":"Codificado" ,
@@ -145,7 +144,7 @@
   "emailMessage":"Déjanos un correo electrónico y nuestros equipos te responderán en 48 horas.",
   "FaqsMessage":"Consulta nuestras Preguntas Frecuentes y encuentra rápidamente una solución a tu problema.",
   "Amount":"Monto",
-  "errorlogin":"¡Error! Por favor ingrese su número de teléfono y contraseña",
+  "errorlogin":"Error! Por favor ingrese su número de teléfono y contraseña",
   "erreur":"Vaya! Ha ocurrido un error",
   "Chose operator":"Click para elegir el servicio",
   "Espagnol":"Español",
@@ -155,8 +154,13 @@
   "Carte de crédit/Paypal1":"Tarjeta de Crédito/PayPal",
 "Copmte OM/MOMO1":"Cuenta OM/MoMo",
 "auther":"Otros tipos de Transferencia",
-"autherS":"Autres services de paiement"
- 
+"autherS":"Otros servicios de pago",
+"Envoi de rapport":" Envíanos un reclamo",
+"Notre équipe technique va se charger de votre problème":" Nuestro equipo te ayudará",
+"Décrivez le problème rencontré":"Describir el problema encontrado",
+"Rapport envoyé avec succes":"Su reclamo ha sido enviado exitosamente",
+"Envoyer un rapport":"Enviar un reclamo",
+"Envois encour": "Envío en curso ..."
 
   
   

@@ -125,7 +125,7 @@ class _Resset_Password_VerificationState
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: blueColor,
+                                backgroundColor:  blueColor,
                                 padding: EdgeInsets.symmetric(horizontal: 50)),
                             onPressed: () {
                               setState(() {
@@ -149,7 +149,7 @@ class _Resset_Password_VerificationState
                               }).catchError((error) {
                                 print(error);
                                 showTopSnackBar(
-                                  context,
+                              Overlay.of(context),
                                   CustomSnackBar.error(
                                     message: error.toString(),
                                   ),

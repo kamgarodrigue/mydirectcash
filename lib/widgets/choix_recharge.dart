@@ -9,7 +9,7 @@ import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:flutter_braintree/flutter_braintree.dart';
+//import 'package:flutter_braintree/flutter_braintree.dart';
 
 class ChoixRecharge extends StatefulWidget {
   ChoixRecharge({Key? key}) : super(key: key);

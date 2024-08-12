@@ -197,7 +197,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: blueColor,
+                                backgroundColor:  blueColor,
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
@@ -221,7 +221,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                         .phone
                                   });
                                   showTopSnackBar(
-                                    context,
+                                    Overlay.of(context),
                                     CustomSnackBar.success(
                                       message: value.toString(),
                                     ),
@@ -233,7 +233,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                   });
                                   print(error);
                                   showTopSnackBar(
-                                    context,
+                                    Overlay.of(context),
                                     CustomSnackBar.error(
                                       message: error.toString(),
                                     ),

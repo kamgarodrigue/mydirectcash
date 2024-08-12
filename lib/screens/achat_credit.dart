@@ -57,7 +57,7 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
     // TODO: implement initState
     super.initState();
 
-    context.read<Localisation>().initLocation();
+   // context.read<Localisation>().initLocation();
   }
 
   @override
@@ -219,7 +219,7 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: blueColor,
+                                backgroundColor:  blueColor,
                                 padding: EdgeInsets.symmetric(horizontal: 50)),
                             onPressed: () {
                               setState(() {
@@ -245,7 +245,7 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                               }).catchError((error) {
                                 print(error);
                                 showTopSnackBar(
-                                    context,
+                                   Overlay.of(context),
                                     CustomSnackBar.error(
                                       message:
                                           "Aucun Operateur trouvé pour ce pays",

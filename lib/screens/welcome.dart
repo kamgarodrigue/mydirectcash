@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/AppLanguage.dart';
 import 'package:mydirectcash/Controllers/UserController.dart';
+import 'package:mydirectcash/Models/User.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/screens/carousel_page.dart';
 import 'package:mydirectcash/utils/colors.dart';
@@ -8,7 +9,7 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/widgets/settingstab_option.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
+
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -20,13 +21,13 @@ class _WelcomePageState extends State<WelcomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<AuthService>().isOpen;
+    
   }
 
   @override
   Widget build(BuildContext context) {
-    var appLanguage = Provider.of<AppLanguage>(context);
-    final autProvider = context.watch<AuthService>();
+
+    
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
@@ -66,7 +67,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "${AppLocalizations.of(context)!.translate('title')}",
+                              "${AppLocalizations.of(context)!.translate('title').toString()}",
                               style: const TextStyle(
                                   fontFamily: title_font,
                                   fontSize: 16,

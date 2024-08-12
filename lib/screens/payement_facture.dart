@@ -475,7 +475,7 @@ class _PayementFactureState extends State<PayementFacture> {
                                 children: [
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        primary: blueColor,
+                                        backgroundColor:  blueColor,
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 50)),
                                     onPressed: () {
@@ -501,7 +501,7 @@ class _PayementFactureState extends State<PayementFacture> {
                                             value.toString() ==
                                                 "Instance of 'RequestOptions'") {
                                           showTopSnackBar(
-                                            context,
+                                           Overlay.of(context),
                                             CustomSnackBar.info(
                                               message:
                                                   "Aucune facture pour ce numéro de contrat",

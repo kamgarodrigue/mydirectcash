@@ -7,10 +7,12 @@ import 'package:mydirectcash/screens/QRViewExample.dart';
 import 'package:mydirectcash/screens/home%20copy.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/payement_marchant_montant.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
+
 
 class PayementMarchand extends StatefulWidget {
   const PayementMarchand({Key? key}) : super(key: key);
@@ -25,8 +27,10 @@ class _PayementMarchandState extends State<PayementMarchand> {
     "Montant": "",
     "Client": "",
     "Collecteur": "",
-    "frais": ""
+    "frais": "",
+    "Caisse":""
   };
+  
 
   Future scan() async {
     setState(() {
@@ -42,6 +46,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
       isCanning = false;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -147,6 +152,36 @@ class _PayementMarchandState extends State<PayementMarchand> {
                       margin: EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
+                        initialValue: data["Caisse"],
+                        onChanged: (value) {
+                          setState(() {
+                            data["Caisse"] = value;
+                          });
+                        },
+                        style:
+                            TextStyle(fontFamily: content_font, fontSize: 13),
+                        textAlign: TextAlign.start,
+                        decoration: InputDecoration(
+                           // suffixIcon: IconButton(
+                               // onPressed: () => scan(),
+                               // icon: Icon(Icons.qr_code_scanner,
+                                  //  size: 17, color: Colors.blue)),
+                            hintText: data["Caisse"] == ""
+                                ? AppLocalizations.of(context)!
+                                    .translate("Entrez le code de la caisse")!
+                                : data["Caisse"],
+                            hintStyle: TextStyle(
+                                fontFamily: content_font,
+                                color: Colors.grey.shade500,
+                                fontSize: 13)),
+                      )),
+                                        SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: TextFormField(
+                        keyboardType: TextInputType.text,
                         initialValue: data["Client"],
                         onChanged: (value) {
                           setState(() {
@@ -157,19 +192,17 @@ class _PayementMarchandState extends State<PayementMarchand> {
                             TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                                onPressed: () => scan(),
-                                icon: Icon(Icons.qr_code_scanner,
-                                    size: 17, color: Colors.blue)),
+                           
                             hintText: data["Client"] == ""
                                 ? AppLocalizations.of(context)!
-                                    .translate("Entrez le code de la caisse")!
+                                    .translate("Phone")!
                                 : data["Client"],
                             hintStyle: TextStyle(
                                 fontFamily: content_font,
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
+
                   SizedBox(height: 50),
                   Container(
                     child: Row(
@@ -179,7 +212,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: blueColor,
+                                  backgroundColor:  blueColor,
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
@@ -237,9 +270,13 @@ class _PayementMarchandState extends State<PayementMarchand> {
                     height: 40,
                   ),
                   GestureDetector(
-                    onTap: () {
-                      scan();
-                    },
+                    onTap: () async {
+                    //  scan();
+//scanQRCode();
+      
+
+   
+                 },
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                       margin: EdgeInsets.symmetric(horizontal: 0),

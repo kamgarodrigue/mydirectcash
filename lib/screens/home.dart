@@ -27,6 +27,7 @@ import 'package:mydirectcash/widgets/last_transactions.dart';
 import 'package:mydirectcash/widgets/success_operation_component.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -73,9 +74,20 @@ class _HomeState extends State<Home> {
     super.initState();
     context.read<AuthService>().authenticate;
     //context.read<AuthService>().setconversion(0);
-    context.read<Localisation>().initLocation();
+   //  context.read<Localisation>().initLocation();
   }
 
+Future<PermissionStatus> _getCameraPermission() async {
+    var status = await Permission.camera.status;
+
+    if (!status.isGranted) {
+          print(status);
+        final result = await Permission.camera.request();
+        return result;
+    } else {
+      return status;
+    }
+}
   Future reset() {
     context.read<AuthService>().loginWithBiometric(
         {"id": context.read<AuthService>().currentUser!.data!.phone});
@@ -111,12 +123,16 @@ class _HomeState extends State<Home> {
           color: blueColor,
           width: 50,
         ),
-        "onTap": () {
-          Navigator.push(
+        "onTap": () async {
+
+  Navigator.push(
               context,
               PageTransition(
                   type: PageTransitionType.rightToLeft,
                   child: PayementMarchand()));
+  
+ 
+         
         }
       },
       {
@@ -164,25 +180,25 @@ class _HomeState extends State<Home> {
               });
         },
       },
-      {
-        "title": AppLocalizations.of(context)!.translate('autherS')!,
-        "image": Image.asset(
-          'assets/images/téléchargement.jpeg',
+      //{
+       // "title": AppLocalizations.of(context)!.translate('autherS')!,
+       //"image": Image.asset(
+         // 'assets/images/service transfert.png',
           //color: blueColor,
-          width: 50,
-        ),
-        "onTap": () {
-          Navigator.push(
-              context,
-              PageTransition(
-                  type: PageTransitionType.rightToLeft, child: OmMoMo()));
-        },
-      },
+        //  width: 50,
+       // ),
+        //"onTap": () {
+         // Navigator.push(
+           //   context,
+           //   PageTransition(
+             //     type: PageTransitionType.rightToLeft, child: OmMoMo()));
+       // },
+     // },
       {
         "title": AppLocalizations.of(context)!.translate('auther')!,
         "image": Image.asset(
-          'assets/images/téléchargement.png',
-          //color: blueColor,
+          'assets/images/Services de Paiement.png',
+         // color: blueColor,
           width: 50,
         ),
         "onTap": () {
@@ -193,6 +209,8 @@ class _HomeState extends State<Home> {
         },
       },
     ];
+
+    
     void gridNavigation(index) {
       switch (index) {
         case 0:
@@ -344,7 +362,7 @@ class _HomeState extends State<Home> {
                                 children: [
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        primary: blueColor,
+                                      backgroundColor:  blueColor,
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 50)),
                                     onPressed: () {
@@ -605,7 +623,8 @@ class _HomeState extends State<Home> {
                       ),
                     ),*/
                         Container(
-                          height: 200,
+                         // height: 200,
+                         padding: EdgeInsets.only(bottom: 16),
                           child: GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(

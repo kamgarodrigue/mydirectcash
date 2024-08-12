@@ -176,7 +176,7 @@ class _Resset_PasswordState extends State<Resset_Password> {
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: blueColor,
+                                 backgroundColor:  blueColor,
                                 padding: EdgeInsets.symmetric(horizontal: 50)),
                             onPressed: () {
                               setState(() {
@@ -192,7 +192,7 @@ class _Resset_PasswordState extends State<Resset_Password> {
                                   _isLoading = false;
                                 });
                                 showTopSnackBar(
-                                  context,
+                                  Overlay.of(context),
                                   CustomSnackBar.info(
                                     message: value.toString(),
                                   ),
@@ -202,7 +202,7 @@ class _Resset_PasswordState extends State<Resset_Password> {
                               }).catchError((error) {
                                 print(error);
                                 showTopSnackBar(
-                                  context,
+                                 Overlay.of(context),
                                   CustomSnackBar.error(
                                     message: error.toString(),
                                   ),

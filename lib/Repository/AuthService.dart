@@ -11,7 +11,8 @@ class AuthService extends ChangeNotifier {
     return pref;
   }
 
-  User? _currentUser;
+  User? _currentUser=User(data: DataUser(solde:"0"));
+
   bool _isLoggedIn = false;
   bool _isOpen = false;
   bool _istel = false;

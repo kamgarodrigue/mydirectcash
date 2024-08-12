@@ -72,7 +72,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               child: Center(
                 child: Text(
                   'Scan the item you would like to order!',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineLarge,
                   textAlign: TextAlign.center,
                 ),
               ),

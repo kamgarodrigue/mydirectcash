@@ -180,7 +180,7 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                       children: [
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: blueColor,
+                               backgroundColor:  blueColor,
                               padding: EdgeInsets.symmetric(horizontal: 50)),
                           onPressed: () {
                             TransactonService()
@@ -195,7 +195,7 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                               });
 
                               showTopSnackBar(
-                                  context,
+                                  Overlay.of(context),
                                   CustomSnackBar.success(
                                     message: value.toString(),
                                   ),
@@ -204,7 +204,7 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                             }).catchError((error) {
                               print(error);
                               showTopSnackBar(
-                                  context,
+                                  Overlay.of(context),
                                   CustomSnackBar.error(
                                     message: AppLocalizations.of(context)!
                                         .translate("erreur")!,

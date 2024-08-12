@@ -42,7 +42,9 @@ class _RegisterState extends State<Register> {
     "Ville": "",
     "Adresse": "",
     "Photo": "",
-    "Email": ""
+    "Email": "",
+    "contact":"",
+    "numeroConntact":""
   };
   bool _isOscure = true;
   bool _isverify = false;
@@ -203,6 +205,44 @@ class _RegisterState extends State<Register> {
                                         fontFamily: content_font,
                                         color: Colors.grey.shade500,
                                         fontSize: 14)),
+                              )), 
+                               Container(
+                              margin: EdgeInsets.only(top: 20),
+                              child: TextFormField(
+                                keyboardType: TextInputType.text,
+                                style: TextStyle(
+                                    fontFamily: content_font, fontSize: 14),
+                                textAlign: TextAlign.start,
+                                initialValue: dataUser["contact"],
+                                onChanged: (val) {
+                                  dataUser["contact"] = val;
+                                },
+                                decoration: InputDecoration(
+                                    hintText:
+                                        "${AppLocalizations.of(context)!.translate('Contact')}",
+                                    hintStyle: TextStyle(
+                                        fontFamily: content_font,
+                                        color: Colors.grey.shade500,
+                                        fontSize: 14)),
+                              )),
+                               Container(
+                              margin: EdgeInsets.only(top: 20),
+                              child: TextFormField(
+                                keyboardType: TextInputType.text,
+                                style: TextStyle(
+                                    fontFamily: content_font, fontSize: 14),
+                                textAlign: TextAlign.start,
+                                initialValue: dataUser["numeroConntact"],
+                                onChanged: (val) {
+                                  dataUser["numeroConntact"] = val;
+                                },
+                                decoration: InputDecoration(
+                                    hintText:
+                                        "${AppLocalizations.of(context)!.translate('Numéro du contact')}",
+                                    hintStyle: TextStyle(
+                                        fontFamily: content_font,
+                                        color: Colors.grey.shade500,
+                                        fontSize: 14)),
                               )),
                           /*  Container(
                     margin: EdgeInsets.only(top: 20),
@@ -233,7 +273,7 @@ class _RegisterState extends State<Register> {
                                   children: [
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          primary: blueColor,
+                                          backgroundColor:  blueColor,
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 50)),
                                       onPressed: () {
@@ -249,7 +289,7 @@ class _RegisterState extends State<Register> {
                                             this._isLoading = false;
                                           });
                                           showTopSnackBar(
-                                            context,
+                                          Overlay.of(context),
                                             CustomSnackBar.success(
                                               message: value.toString(),
                                             ),
@@ -264,7 +304,7 @@ class _RegisterState extends State<Register> {
                                             this._isLoading = false;
                                           });
                                           showTopSnackBar(
-                                            context,
+                                           Overlay.of(context),
                                             CustomSnackBar.error(
                                               message: error.toString(),
                                             ),

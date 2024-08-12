@@ -13,6 +13,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:mydirectcash/app_localizations.dart';
+
 
 class Rapport extends StatefulWidget {
   const Rapport({Key? key}) : super(key: key);
@@ -95,7 +97,8 @@ class _RapportState extends State<Rapport> {
                           ),
                         ),
                         SizedBox(width: 20),
-                        Text('Envoi de rapport',
+                        Text(   AppLocalizations.of(context)!
+                                .translate("Envoi de rapport")!,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -110,8 +113,9 @@ class _RapportState extends State<Rapport> {
                     height: 30,
                   ),
                   Container(
-                    child: Text(
-                        'Notre équipe technique va se charger de votre problème',
+                    child: Text( AppLocalizations.of(context)!
+                                .translate( "Notre équipe technique va se charger de votre problème")!
+,                       
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 12,
@@ -135,7 +139,8 @@ class _RapportState extends State<Rapport> {
                               controller: trxt,
                               onChanged: (value) {},
                               decoration: InputDecoration(
-                                  labelText: 'Décrivez le problème rencontré',
+                                  labelText: AppLocalizations.of(context)!
+                                .translate("Décrivez le problème rencontré")!,
                                   labelStyle: TextStyle(
                                       fontFamily: content_font,
                                       color: Colors.grey.shade500,
@@ -153,7 +158,7 @@ class _RapportState extends State<Rapport> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: blueColor,
+                                backgroundColor:  blueColor,
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
@@ -172,10 +177,11 @@ class _RapportState extends State<Rapport> {
                                     trxt.clear();
                                   });
                                   showTopSnackBar(
-                                    context,
+                                   Overlay.of(context),
                                     CustomSnackBar.success(
-                                      message: value.toString() +
-                                          "Rapport envoyé avec succes",
+                                      message: value.toString() +  AppLocalizations.of(context)!
+                                .translate("Rapport envoyé avec succes")!,
+                                          
                                     ),
                                   );
                                 }).catchError((errror) {
@@ -184,7 +190,7 @@ class _RapportState extends State<Rapport> {
                                     _isLoading = false;
                                   });
                                   showTopSnackBar(
-                                    context,
+                                    Overlay.of(context),
                                     CustomSnackBar.error(
                                       message: "Erreur $errror:",
                                     ),
@@ -192,7 +198,8 @@ class _RapportState extends State<Rapport> {
                                 });
                               },
                               child: Text(
-                                'Envoyer un rapport',
+                               AppLocalizations.of(context)!
+                                .translate("Envoyer un rapport")! ,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
@@ -210,7 +217,8 @@ class _RapportState extends State<Rapport> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: Text("Annuler",
+                        child: Text(   AppLocalizations.of(context)!
+                                .translate("annuler")! ,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontFamily: content_font,
@@ -223,7 +231,8 @@ class _RapportState extends State<Rapport> {
             ),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: "Envois encour ...")
+                    ? Loader(loadingTxt:  AppLocalizations.of(context)!
+                                .translate( "Envois encour")! )
                     : Container())
           ],
         ));

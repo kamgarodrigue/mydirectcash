@@ -11,7 +11,7 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_braintree/flutter_braintree.dart';
+//import 'package:flutter_braintree/flutter_braintree.dart';
 
 class Recharge_carte_credit_Token extends StatefulWidget {
   final List<dynamic> details;
@@ -191,7 +191,7 @@ class _Recharge_carte_credit_TokenState
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: blueColor,
+                                  backgroundColor:  blueColor,
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
@@ -225,7 +225,7 @@ class _Recharge_carte_credit_TokenState
                                           .decode(value.toString())["code"]
                                           .toString());
 
-                                  final request = BraintreePayPalRequest(
+                                /*  final request = BraintreePayPalRequest(
                                       amount: widget.details[1]
                                               ["convertedAmount"]
                                           .toString(),
@@ -261,7 +261,7 @@ class _Recharge_carte_credit_TokenState
                                       _isLoading = false;
                                     });
                                   });
-
+*/
                                   //{currencyCode: EUR, convertedAmount: 78125.0, convertedFees: 3125.0}]
                                 }).catchError((error) {
                                   print(error);

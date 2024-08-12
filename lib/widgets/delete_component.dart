@@ -101,7 +101,7 @@ class _DeleteComponentState extends State<DeleteComponent> {
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.grey,
+                           backgroundColor: Colors.grey,
                             padding: EdgeInsets.symmetric(horizontal: 40)),
                         onPressed: () {
                           Navigator.pop(context);
@@ -122,7 +122,7 @@ class _DeleteComponentState extends State<DeleteComponent> {
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: blueColor,
+                           backgroundColor:   blueColor,
                             padding: EdgeInsets.symmetric(horizontal: 40)),
                         onPressed: () {
                           Navigator.pop(context);

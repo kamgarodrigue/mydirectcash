@@ -3,6 +3,7 @@ import 'package:country_list_pick/country_selection_theme.dart';
 import 'package:country_list_pick/support/code_country.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:local_auth_darwin/types/auth_messages_ios.dart';
 import 'package:mydirectcash/Controllers/Authcontroller.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/app_localizations.dart';
@@ -23,7 +24,6 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
-import 'package:local_auth_ios/local_auth_ios.dart';
 
 class Login extends StatefulWidget {
   BuildContext? fatherContext;
@@ -234,7 +234,7 @@ class _LoginState extends StateMVC<Login> {
                                         children: [
                                           ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                                primary: blueColor,
+                                              backgroundColor:  blueColor,
                                                 padding: EdgeInsets.symmetric(
                                                     horizontal: 50)),
                                             onPressed: () {
@@ -257,7 +257,7 @@ class _LoginState extends StateMVC<Login> {
                                                     this._isverify = true;
                                                   });
                                                   showTopSnackBar(
-                                                    context,
+                                                    Overlay.of(context),
                                                     CustomSnackBar.success(
                                                       message: value
                                                               .toString() +
@@ -266,15 +266,15 @@ class _LoginState extends StateMVC<Login> {
                                                   );
                                                 }
                                                 if (value.toString() ==
-                                                    "Success") {
+                                                    "Succès") {
                                                   showTopSnackBar(
-                                                    context,
+                                                    Overlay.of(context),
                                                     CustomSnackBar.success(
                                                       message: value.toString(),
                                                     ),
                                                   );
                                                   if (widget.isLogin) {
-                                                    Navigator.pop(context);
+                                                Navigator.pop(context);
                                                     Navigator.pop(
                                                         widget.fatherContext!);
                                                   }
@@ -286,7 +286,7 @@ class _LoginState extends StateMVC<Login> {
                                                   this._isLoading = false;
                                                 });
                                                 showTopSnackBar(
-                                                  context,
+                                                  Overlay.of(context),
                                                   CustomSnackBar.error(
                                                     message:
                                                         "${AppLocalizations.of(context)!.translate('errorlogin')}",
@@ -407,16 +407,16 @@ class _LoginState extends StateMVC<Login> {
                                           this._isverify = true;
                                         });
                                         showTopSnackBar(
-                                          context,
+                                       Overlay.of(context),
                                           CustomSnackBar.success(
                                             message: value.toString() +
                                                 " verifier votre compte",
                                           ),
                                         );
                                       }
-                                      if (value.toString() == "Success") {
+                                      if (value.toString() == "Succès") {
                                         showTopSnackBar(
-                                          context,
+                                         Overlay.of(context),
                                           CustomSnackBar.success(
                                             message: value.toString(),
                                           ),
@@ -433,7 +433,7 @@ class _LoginState extends StateMVC<Login> {
                                       this._isLoading = false;
                                     });
                                     showTopSnackBar(
-                                      context,
+                                     Overlay.of(context),
                                       CustomSnackBar.error(
                                         message: error.toString(),
                                       ),
@@ -442,7 +442,7 @@ class _LoginState extends StateMVC<Login> {
                                 }
                               } else {
                                 showTopSnackBar(
-                                  context,
+                                Overlay.of(context),
                                   CustomSnackBar.info(
                                     maxLines: 3,
                                     message:

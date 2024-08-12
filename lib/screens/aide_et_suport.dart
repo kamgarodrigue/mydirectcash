@@ -118,12 +118,12 @@ class _SupportState extends State<Support> {
                         launch(whatsappUrl);
                       } catch (e) {
                         //To handle error and display error message
-                        showTopSnackBar(
-                            context,
-                            CustomSnackBar.error(
-                              message: "Unable to open whatsapp",
-                            ),
-                            displayDuration: Duration(seconds: 2));
+                       /// showTopSnackBar(
+                        // Overlay.of(context),
+                        //    CustomSnackBar.error(
+                        //      message: "Unable to open whatsapp",
+                         //   ),
+                           // displayDuration: Duration(seconds: 2));
                       }
                     },
                     child: Card(
@@ -219,7 +219,7 @@ class _SupportState extends State<Support> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                "Faqs",
+                                "FAQ",
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                     fontFamily: content_font,

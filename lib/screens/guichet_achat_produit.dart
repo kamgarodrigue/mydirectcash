@@ -141,7 +141,7 @@ class _GuichetAchatProduitState extends State<GuichetAchatProduit> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: marronColor,
+                                 backgroundColor:   marronColor,
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {

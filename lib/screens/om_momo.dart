@@ -158,7 +158,7 @@ class _OmMoMoState extends State<OmMoMo> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: blueColor,
+                        backgroundColor:  blueColor,
                         padding: EdgeInsets.symmetric(horizontal: 50)),
                     onPressed: () {
                       setState(() {
@@ -179,7 +179,7 @@ class _OmMoMoState extends State<OmMoMo> {
                           };
                         });
                         showTopSnackBar(
-                          context,
+                         Overlay.of(context),
                           CustomSnackBar.success(
                             message: value.toString(),
                           ),
@@ -191,7 +191,7 @@ class _OmMoMoState extends State<OmMoMo> {
                           this._isLoading = false;
                         });
                         showTopSnackBar(
-                          context,
+                      Overlay.of(context),
                           CustomSnackBar.error(
                             message: AppLocalizations.of(context)!
                                 .translate("erreur")!,
@@ -334,7 +334,7 @@ class _OmMoMoState extends State<OmMoMo> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: blueColor,
+                      backgroundColor:  blueColor,
                         padding: EdgeInsets.symmetric(horizontal: 50)),
                     onPressed: () {
                       setState(() {
@@ -356,7 +356,7 @@ class _OmMoMoState extends State<OmMoMo> {
                         });
                         print(value.toString());
                         showTopSnackBar(
-                          context,
+                          Overlay.of(context),
                           CustomSnackBar.success(
                             message: value.toString(),
                           ),
@@ -368,7 +368,7 @@ class _OmMoMoState extends State<OmMoMo> {
                         });
                         print(error);
                         showTopSnackBar(
-                          context,
+                          Overlay.of(context),
                           CustomSnackBar.error(
                             message: AppLocalizations.of(context)!
                                 .translate("erreur")!,
@@ -538,7 +538,7 @@ class _OmMoMoState extends State<OmMoMo> {
                                       child: new Text('',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2),
+                                              .headlineLarge),
                                     ),
                                   ),
                                 ))),
@@ -572,7 +572,7 @@ class _OmMoMoState extends State<OmMoMo> {
                                       child: new Text('',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline2),
+                                              .headlineLarge),
                                     ),
                                   ),
                                 ))),

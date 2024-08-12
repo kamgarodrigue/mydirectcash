@@ -15,8 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.4.0+26
-
+version: 2.4.0+29
 environment:
   sdk: '>=3.1.2 <4.0.0'
 
@@ -41,28 +40,36 @@ dependencies:
   dio: 
   provider: ^6.0.1
   shared_preferences: 
-  top_snackbar_flutter: ^2.1.1
-  pin_code_fields: ^7.4.0
+  top_snackbar_flutter: ^3.1.0
+  pin_code_fields: ^8.0.1
   #flutter_cupertino_localizations: ^1.0.1
   share_plus: ^5.0.0
   qr_flutter: ^4.0.0
-  local_auth: ^2.1.2
+  local_auth: ^2.2.0
   url_launcher: ^6.1.6
   qr_code_scanner: ^1.0.1
-  flutter_braintree: ^3.0.0
+  #flutter_braintree: ^4.0.0
   flutter_localizations:
     sdk: flutter
   google_maps_flutter: ^2.5.0
   location: ^5.0.0
   geocoding: ^2.1.0
   webview_flutter: ^4.2.4
+  permission_handler: ^11.3.1
+  mobile_scanner: ^4.0.1
+  local_auth_darwin: ^1.2.2
+ 
+  
   
 
   
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.10.0
+  flutter_launcher_icons: ^0.13.1
+    
+     
+   
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -73,6 +80,7 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+# flutter pub run flutter_launcher_icons -f pubspec.yaml
 
 # The following section is specific to Flutter.
 flutter:
@@ -131,4 +139,7 @@ flutter_icons:
   windows:
     generate: true
     image_path: "assets/images/logo-alliance.png"
-    icon_size: 48 # min:48, max:256, default: 48
+    icon_size: 48 # min:48, max:256, default: 
+
+flutter_launcher_icons:
+  remove_alpha_ios: true

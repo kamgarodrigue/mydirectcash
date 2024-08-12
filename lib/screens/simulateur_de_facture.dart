@@ -180,13 +180,13 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: blueColor,
+                                 backgroundColor:  blueColor,
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 if (indice2! < indice1!) {
                                   showTopSnackBar(
-                                    context,
+                              Overlay.of(context),
                                     CustomSnackBar.error(
                                       message:
                                           "${AppLocalizations.of(context)!.translate("le nouvel indice dois être supérieur à l ancien")}",

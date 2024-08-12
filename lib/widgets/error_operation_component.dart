@@ -56,8 +56,7 @@ class _ErrorOperationComponentState extends State<ErrorOperationComponent> {
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary:
-                                Colors.blueAccent.shade100.withOpacity(0.8),
+                           backgroundColor:   Colors.blueAccent.shade100.withOpacity(0.8),
                             padding: EdgeInsets.symmetric(horizontal: 20)),
                         onPressed: () {
                           Navigator.pop(context);
