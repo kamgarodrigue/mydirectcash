@@ -158,6 +158,15 @@
 "Envois encour": "Sending in progress ...",
         
 
-"Contact": "Nom du Contact",
-"Numéro du contact": "Numéro du contact"
+"Contact": "Contact name (In case of emergency )",
+"Numéro du contact": "Contact name",
+"Bienvenue":"WELCOME",
+"retour":"Retour",
+"Nui":"Numero d identifiants unique",
+"registe":"registre de commerce",
+"stetp1":"Information",
+"stetp2":"Identification",
+"stetp3":"Localisation",
+"Epargné Mon argent":"Epargné Mon argent",
+"Choisir mon partenaire":"Choisir mon partenaire"
 }

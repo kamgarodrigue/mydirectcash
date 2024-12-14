@@ -35,7 +35,7 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
     context
         .read<OperationServices>()
         .getOperatorsProduct(widget.regionCode, widget.providerCode);
-    context.read<Localisation>().initLocation();
+    //context.read<Localisation>().initLocation();
   }
 
   bool _isLoading = false;
@@ -48,12 +48,7 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
         appBar: AppBar(
           toolbarHeight: 0,
           backgroundColor: Colors.white,
-          leading: IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: Icon(
-                Icons.arrow_back,
-                color: blueColor,
-              )),
+         
           elevation: 0,
         ),
         body: Stack(
@@ -78,19 +73,20 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
                             icon: Icon(
                               Icons.arrow_back,
                               color: blueColor,
+                              size: 30,
                             )),
                         Container(
-                          width: 110,
+                         width: 200,
                           height: 50,
-                          color: Colors.transparent,
-                          child: Stack(children: [
-                            Positioned(
-                                top: 12,
-                                child: GestureDetector(
+                          alignment: Alignment.center,
+decoration: BoxDecoration(
+  borderRadius: BorderRadius.circular(10),
+    color: blueColor,
+),
+                        
+                          child:  GestureDetector(
                                     onTap: () {
-                                      if (widget.regionCode == "CM" &&
-                                          locat.addres["country"] ==
-                                              "Cameroun") {
+                                      if (widget.regionCode == "CM") {
                                         var data = {
                                           "montant": "",
                                           "numero": "",
@@ -111,11 +107,12 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
                                       }
                                     },
                                     child: Text(
-                                      ' ${AppLocalizations.of(context)!.translate("montant")} ${widget.data!["displayName"]} ',
+                                      ' ${AppLocalizations.of(context)!.translate("montant")}',
+                                      textAlign: TextAlign.end,
                                       style: TextStyle(
-                                          color: blueColor, fontSize: 14),
-                                    )))
-                          ]),
+                                          color: Colors.white, fontSize: 20),
+                                    ))
+                          
                         )
                       ],
                     ),

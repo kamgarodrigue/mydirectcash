@@ -39,12 +39,7 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
         appBar: AppBar(
           toolbarHeight: 0,
           backgroundColor: Colors.white,
-          leading: IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: Icon(
-                Icons.arrow_back,
-                color: blueColor,
-              )),
+          
           elevation: 0,
         ),
         body: Stack(
@@ -63,11 +58,12 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            icon: Icon(
+                        InkWell(
+                            onTap: () => Navigator.of(context).pop(),
+                            child: Icon(
                               Icons.arrow_back,
                               color: blueColor,
+                              size: 30,
                             )),
                         Container(
                           width: 40,

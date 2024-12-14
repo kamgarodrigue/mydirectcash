@@ -11,7 +11,7 @@ class AuthService extends ChangeNotifier {
     return pref;
   }
 
-  User? _currentUser=User(data: DataUser(solde:"0"));
+  User? _currentUser=User(data: DataUser(solde:"0",matricule: ""));
 
   bool _isLoggedIn = false;
   bool _isOpen = false;
@@ -19,7 +19,9 @@ class AuthService extends ChangeNotifier {
   User? get currentUser => _currentUser;
   String? solde;
   bool get authenticate {
+    //logout()
     sharedPreferences().then((value) {
+
       if (json.decode("${value.getString("user")}") != null) {
         _currentUser = User.fromJson(
             json.decode("${value.getString("user")}")['Info'] ?? {});
@@ -30,14 +32,14 @@ class AuthService extends ChangeNotifier {
             ? false
             : true;
 
-        if (solde == null) {
+      //print( this._isLoggedIn);
           solde = _currentUser!.data!.solde!.toString();
 
           if (_currentUser!.data!.solde!.contains(".")) {
             solde =
                 double.tryParse(_currentUser!.data!.solde!)!.toStringAsFixed(2);
           }
-        }
+        
         notifyListeners();
       }
     });
@@ -204,6 +206,7 @@ class AuthService extends ChangeNotifier {
 
   Future validation(Map data) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
+    print(data);
     Dio.Response response =
         await dio().post("Authentication/verifiedAccount", data: data);
     print("test" + response.toString());
@@ -220,9 +223,11 @@ class AuthService extends ChangeNotifier {
 
   Future<void> logout() async {
     this._isLoggedIn = false;
+
+  this.solde="0";
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.remove("user");
-    await pref.remove("open");
+    
     await await pref.remove("tel");
     notifyListeners();
   }
@@ -232,4 +237,121 @@ class AuthService extends ChangeNotifier {
 /Sources/PayPalDataCollector/Public/PayPalDataCollector/PPDat
 aCollector.swift:0:7
   */
+
+
+
+  
+
+
+Future<dynamic> registerWithKyc({
+  required String vnomClient,
+  required String vphone,
+  required String vpays,
+  required String vadresse,
+  required String vurlphoto,
+  required String vdeviceId,
+  required String vemail,
+  required String vpass,
+  required String p_identiteNo,
+  required String p_NUI,
+  required String p_Profession,
+  required String p_cniNo,
+  required String p_RegistreCom,
+  required String p_Datenaissance,
+  required String p_CNIContact,
+  required String p_phoneContact,
+  required String p_nomContact,
+   String? p_cniRectoPath,
+   String? p_cniVersoPath,
+   String? p_passportPath,
+   String? p_photoPath,
+  required String Ville,
+   required String sexe,
+ required String code
+}) async {
+ 
+  final formData =  Dio.FormData();
+
+  // Ajouter les champs texte
+  formData.fields.addAll([
+    MapEntry('vnomClient', vnomClient),
+    MapEntry('vphone', vphone),
+    MapEntry('vpays', vpays),
+    MapEntry('vadresse', vadresse),
+    MapEntry('vurlphoto', vurlphoto),
+    MapEntry('vdeviceId', vdeviceId),
+    MapEntry('vemail', vemail),
+    MapEntry('vpass', vpass),
+    MapEntry('p_identiteNo', p_identiteNo),
+    MapEntry('p_NUI', p_NUI),
+    MapEntry('p_Profession', p_Profession),
+    MapEntry('p_cniNo', p_cniNo),
+    MapEntry('p_RegistreCom', p_RegistreCom),
+    MapEntry('p_Datenaissance', p_Datenaissance),
+    MapEntry('p_CNIContact', p_CNIContact),
+    MapEntry('p_phoneContact', p_phoneContact),
+    MapEntry('p_nomContact', p_nomContact),
+    MapEntry('Ville', Ville),
+    MapEntry('sexe', sexe),
+    MapEntry('code', code)
+   
+  ]);
+
+
+// Créer une liste de fichiers à ajouter au formData
+List<MapEntry<String, Dio.MultipartFile>> files = [];
+
+// Vérifiez et ajoutez chaque fichier s'il existe
+if (p_cniRectoPath != null && p_cniRectoPath.isNotEmpty) {
+  files.add(MapEntry(
+    'p_cniRecto',
+    await Dio.MultipartFile.fromFile(p_cniRectoPath, filename: 'cni_recto.jpg'),
+  ));
+}
+
+if (p_cniVersoPath != null && p_cniVersoPath.isNotEmpty) {
+  files.add(MapEntry(
+    'p_cniVerso',
+    await Dio.MultipartFile.fromFile(p_cniVersoPath, filename: 'cni_verso.jpg'),
+  ));
+}
+
+if (p_passportPath != null && p_passportPath.isNotEmpty) {
+  files.add(MapEntry(
+    'p_passport',
+    await Dio.MultipartFile.fromFile(p_passportPath, filename: 'passport.jpg'),
+  ));
+}
+
+if (p_photoPath != null && p_photoPath.isNotEmpty) {
+  files.add(MapEntry(
+    'p_photo',
+    await Dio.MultipartFile.fromFile(p_photoPath, filename: 'photo.jpg'),
+  ));
+}
+
+// Ajouter les fichiers valides au formData
+formData.files.addAll(files);
+
+
+  try {
+    final response = await dio().post(
+      'https://apibackoffice.alliancefinancialsa.com/registerWithKyc', // Remplacez par votre URL d'API
+      data: formData,
+      options: Dio.Options(
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      ),
+    );
+
+
+return response.data['data'];
+    
+  } catch (e) {
+    print('Erreur: $e');
+    return 'Erreur: $e';
+  }
+}
+
 }

@@ -163,6 +163,34 @@
 
 
 
-"Contact": "Nom du Contact",
-"Numéro du contact": "Numéro du contact"
+"Contact": "Nom du Contact (en cas d'urgence)",
+"Numéro du contact": "Numéro du contact",
+"Bienvenue":"BIENVENUE",
+"retour":"Retour",
+"profession":"Profession",
+"dateNaissance":"Date de Naissance",
+"veille":"veillez remplire tout les champs",
+"Ville":"Ville",
+"codep":"Code postal",
+"Adresse":"Adresse",
+"CNI":"CNI",
+"CNI2":"numero CNI (en cas d/’urgence)",
+"CNI1":"numero CNI",
+
+"passeport":"passeport",
+"Selectionner le Passeport":"Selectionner le Passeport",
+"Selectionner le recto":"Selectionner le Recto de la cni",
+"Selectionner le verso":"Selectionner le Verso de la cni",
+"Selectionner le photo":"Selectionner votre profil",
+"confirmation du mot de passe":"confirmation du mot de passe",
+"Les mot de passe sont differents":"Les mot de passe sont differents",
+"Nui":"Numero d identifiants unique",
+"registe":"registre de commerce",
+"stetp1":"Information",
+"stetp2":"Identification",
+"stetp3":"Localisation",
+"Epargné Mon argent":"Epargné Mon argent",
+
+"Choisir mon partenaire":"Choisir mon partenaire"
+
 }

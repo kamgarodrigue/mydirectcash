@@ -7,6 +7,7 @@ import 'package:mydirectcash/Repository/OperationServices.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/Repository/localisation.dart';
 import 'package:mydirectcash/screens/Apropos_de_nous.dart';
+import 'package:mydirectcash/screens/MonCompte.dart';
 import 'package:mydirectcash/screens/account_qr.dart';
 import 'package:mydirectcash/screens/aide_et_suport.dart';
 import 'package:mydirectcash/screens/home.dart';
@@ -50,9 +51,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     context.read<AppLanguage>().fetchLocale();
-    WidgetsBinding.instance.addObserver(this);
+    
   }
-
+/*
   @override
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     super.didChangeAppLifecycleState(state);
@@ -80,18 +81,18 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       // TODO: Handle this case.
     }
   }
-
+*/
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+   
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final appLanguage = context.watch<AppLanguage>();
-    print(appLanguage.appLocal);
-    print('toto');
+     final auth = context.watch<AuthService>();
+    
     return MaterialApp(
       title: 'My Direct Cash',
       debugShowCheckedModeBanner: false,
@@ -111,28 +112,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         AppLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      home:tes()
+      home: auth.authenticate?Home():  WelcomePage(),
+              
+           
     );
   }
-}
-Widget tes (){
-  return  Consumer<AuthService>(
-        builder: (context, auth, child) {
-          // WelcomePage()
-
-          if (auth.authenticate) {
-            return Home();
-          } else {
-            return Consumer<AuthService>(builder: (context, auth, child) {
-              if (auth.tel) {
-                return Login(
-                  isLogin: false,
-                );
-              } else {
-                return WelcomePage();
-              }
-            });
-          } //flutter build apk  --split-per-abi
-        },
-      );
 }

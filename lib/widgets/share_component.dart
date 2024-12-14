@@ -155,7 +155,7 @@ class _ShareComponentState extends State<ShareComponent> {
                                   borderRadius: BorderRadius.circular(5)),
                               child: Image.asset(
                                 'assets/images/whatsapp-fill.png',
-                                width: 40,
+                                width:40,
                               ),
                             ),
                             SizedBox(

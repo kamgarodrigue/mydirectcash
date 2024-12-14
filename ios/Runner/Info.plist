@@ -123,6 +123,14 @@
     <key>NSSiriUsageDescription</key>
     <string>The example app would like access to Siri Kit to demonstrate requesting authorization.</string>
 
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Cette application a besoin d'accéder à votre photothèque pour sélectionner et télécharger des images.</string>
+
+<key>NSCameraUsageDescription</key>
+<string>Cette application a besoin d'accéder à votre caméra pour prendre des photos.</string>
+
+<key>NSMicrophoneUsageDescription</key>
+<string>Cette application a besoin d'accéder à votre microphone pour enregistrer des vidéos.</string>
 
 </dict>
 </plist>

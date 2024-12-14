@@ -1,44 +1,40 @@
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
-import 'package:mydirectcash/Repository/OperationServices.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
-import 'package:mydirectcash/screens/achat_credit_password.dart';
-import 'package:mydirectcash/screens/envoi_comptedirectcash_password.dart';
-import 'package:mydirectcash/screens/envoi_directcash_password.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
-import 'package:mydirectcash/widgets/success_operation_component.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 
-class RechargeDirectCash extends StatefulWidget {
-  const RechargeDirectCash({Key? key}) : super(key: key);
+class EpargnneMarchantValidate extends StatefulWidget {
+  Map? data;
+  EpargnneMarchantValidate({Key? key, this.data}) : super(key: key);
 
   @override
-  _RechargeDirectCashState createState() => _RechargeDirectCashState();
+  _PayementMarchandValidateState createState() =>
+      _PayementMarchandValidateState();
 }
 
-class _RechargeDirectCashState extends State<RechargeDirectCash> {
-  String directCashCode = "", codeSecret = "", psw = "";
+class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
   bool _isLoading = false;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    context.read<AuthService>().authenticate;
+  bool _isOscure = true;
+  void togle() {
+    this.setState(() {
+      this._isOscure = !_isOscure;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final autProvider = context.watch<AuthService>();
+    double debite = double.parse("${widget.data!["Montant"]}") +
+        double.parse("${widget.data!["frais"]}");
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -105,9 +101,11 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: 50),
                         Text(
-                            "${AppLocalizations.of(context)!.translate('Recharge via DirectCash')}",
+                             AppLocalizations.of(context)!
+                                .translate("Epargné Mon argent")!,
+                           
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -118,6 +116,9 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     margin: EdgeInsets.only(top: 20),
                     width: 100,
@@ -126,85 +127,63 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                       'assets/images/logo-alliance-transparent.png',
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                              keyboardType: TextInputType.text,
-                              onChanged: (value) {
-                                setState(() {
-                                  directCashCode = value;
-                                });
-                              },
-                              style: TextStyle(
-                                  fontFamily: content_font, fontSize: 13),
-                              textAlign: TextAlign.start,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText:
-                                      "${AppLocalizations.of(context)!.translate('Saisissez le code DirectCash')}",
-                                  hintStyle: TextStyle(
-                                      fontFamily: content_font,
-                                      color: Colors.grey,
-                                      fontSize: 13))),
-                          Divider(
-                            height: 1.5,
-                            color: blueColor,
-                          ),
-                        ],
-                      )),
-                  Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            keyboardType: TextInputType.text,
-                            onChanged: (value) {
-                              setState(() {
-                                codeSecret = value;
-                              });
-                            },
+                    child: Column(
+                      children: [
+                        Text(
+                            '${AppLocalizations.of(context)!.translate("Frais :")!} : ${widget.data!["Montant"]} XAF, ${AppLocalizations.of(context)!.translate("le montant total à débité est de")!} $debite XAF',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontFamily: content_font, fontSize: 13),
-                            textAlign: TextAlign.start,
-                            decoration: InputDecoration(
-                                suffixIcon: Icon(
-                                  Icons.visibility,
-                                  size: 16,
-                                ),
-                                hintText:
-                                    "${AppLocalizations.of(context)!.translate('Saisissez votre code secret')}",
-                                hintStyle: TextStyle(
-                                    fontFamily: content_font,
-                                    color: Colors.grey.shade500,
-                                    fontSize: 13)),
-                          ),
-                          Divider(
-                            height: 1.5,
-                            color: blueColor,
-                          ),
-                        ],
-                      )),
+                                fontSize: 12.5,
+                                fontFamily: content_font,
+                                color: blueColor,
+                                fontWeight: FontWeight.w600)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                              '${AppLocalizations.of(context)!.translate("Veuillez saisir le mot de passe pour valider la transastion")!}',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: content_font,
+                                  fontWeight: FontWeight.w500)),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Container(
                       margin: EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
+                        obscureText: _isOscure,
+                        initialValue: "${widget.data!["pass"]}",
                         onChanged: (value) {
                           setState(() {
-                            psw = value;
+                            widget.data!["pass"] = value;
                           });
                         },
                         style:
                             TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
-                            suffixIcon: Icon(
-                              Icons.visibility,
-                              size: 16,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                Icons.visibility,
+                                size: 16,
+                              ),
+                              onPressed: () => togle(),
                             ),
-                            hintText:
-                                "${AppLocalizations.of(context)!.translate("Password")}",
+                            hintText: AppLocalizations.of(context)!
+                                .translate("Password"),
                             hintStyle: TextStyle(
                                 fontFamily: content_font,
                                 color: Colors.grey.shade500,
@@ -219,47 +198,52 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor:  blueColor,
+                                backgroundColor:  blueColor,
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
-                                context
-                                    .read<TransactonService>()
-                                    .creditFromDirectcash(
-                                        directCashCode,
-                                        codeSecret,
-                                        psw,
-                                        autProvider.currentUser!.data!.phone)
+                                setState(() {
+                                  this._isLoading = true;
+                                });
+                                TransactonService()
+                                    .payerMarchant(widget.data)
                                     .then((value) {
-                                      print(value);
                                   setState(() {
                                     this._isLoading = false;
                                   });
+
+                                  context
+                                      .read<AuthService>()
+                                      .loginWithBiometric({
+                                    "id": context
+                                        .read<AuthService>()
+                                        .currentUser!
+                                        .data!
+                                        .phone
+                                  });
                                   showTopSnackBar(
-                                 Overlay.of(context),
+                                    Overlay.of(context),
                                     CustomSnackBar.success(
-                                      message: value["message"],
+                                      message: value.toString(),
                                     ),
                                   );
-                                  Navigator.pop(context);
+                                  // Navigator.pop(context);
                                 }).catchError((error) {
                                   setState(() {
                                     this._isLoading = false;
                                   });
                                   print(error);
                                   showTopSnackBar(
-Overlay.of(context),                                    CustomSnackBar.error(
-                                        message: "une erreur c est produite"),
+                                    Overlay.of(context),
+                                    CustomSnackBar.error(
+                                      message: error.toString(),
+                                    ),
                                   );
                                 });
-                                /*showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return SuccessOperationComponent();
-                                });*/
                               },
                               child: Text(
-                                "${AppLocalizations.of(context)!.translate('Valider')}",
+                                AppLocalizations.of(context)!
+                                    .translate("Valider")!,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
@@ -277,8 +261,7 @@ Overlay.of(context),                                    CustomSnackBar.error(
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: Text(
-                            "${AppLocalizations.of(context)!.translate("annuler")}",
+                        child: Text("Annuler",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontFamily: content_font,

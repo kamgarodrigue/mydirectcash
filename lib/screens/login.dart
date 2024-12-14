@@ -247,10 +247,11 @@ class _LoginState extends StateMVC<Login> {
                                                       listen: false)
                                                   .login(creds)
                                                   .then((value) {
+
                                                 setState(() {
                                                   this._isLoading = false;
                                                 });
-                                                print(value.toString());
+                                               print(value.toString());
                                                 if (value.toString() ==
                                                     "NotVerified") {
                                                   setState(() {
@@ -266,7 +267,8 @@ class _LoginState extends StateMVC<Login> {
                                                   );
                                                 }
                                                 if (value.toString() ==
-                                                    "Succès") {
+                                                    "Success") {
+                                                      
                                                   showTopSnackBar(
                                                     Overlay.of(context),
                                                     CustomSnackBar.success(
@@ -414,7 +416,7 @@ class _LoginState extends StateMVC<Login> {
                                           ),
                                         );
                                       }
-                                      if (value.toString() == "Succès") {
+                                      if (value.toString() == "Success") {
                                         showTopSnackBar(
                                          Overlay.of(context),
                                           CustomSnackBar.success(

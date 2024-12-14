@@ -29,7 +29,7 @@ class MonCompte extends StatefulWidget {
 class _HomeState extends State<MonCompte> {
   UserController? _userController;
   bool showDollar = true;
-  User? currrentUser = new User(data: DataUser(nom: "", phone: "", solde: ""));
+  User? currrentUser = new User(data: DataUser(nom: "", phone: "", solde: "",));
   int conversion = 0;
   void setconversion(int value) {
     if (solde != 0) {
@@ -212,7 +212,7 @@ class _HomeState extends State<MonCompte> {
                           ),
                         ),
                         QrImageView(
-                          data: authProvider.currentUser!.data!.Photo!,
+                          data: authProvider.currentUser!.data!.phone!,
                           version: QrVersions.min,
                           size: 90,
                         )

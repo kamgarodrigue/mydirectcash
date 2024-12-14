@@ -107,9 +107,10 @@ class TransactonService extends ChangeNotifier {
   }
 
   Future creditFromDirectcash(directCashCode, codeSecret, psw, id) async {
-    Map data = {"pin": codeSecret, "pass": psw, "directcode": psw, "id": id};
+    Map data = {"pin": codeSecret, "pass": psw, "directcode": directCashCode, "id": id};
+    print(data.toString());
     Dio.Response response =
-        await dio().post("DirectcashOperations/Airtime", data: data);
+        await dio().post("Collecteur/CreditFromDirectCash", data: data);
     return json.decode(response.toString());
   }
 

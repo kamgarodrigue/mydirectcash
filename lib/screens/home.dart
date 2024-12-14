@@ -10,6 +10,7 @@ import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/Repository/localisation.dart';
 import 'package:mydirectcash/app_localizations.dart';
+import 'package:mydirectcash/screens/Epargne/Epargne.dart';
 import 'package:mydirectcash/screens/achat_credit.dart';
 import 'package:mydirectcash/screens/carousel_page.dart';
 import 'package:mydirectcash/screens/login.dart';
@@ -75,6 +76,8 @@ class _HomeState extends State<Home> {
     context.read<AuthService>().authenticate;
     //context.read<AuthService>().setconversion(0);
    //  context.read<Localisation>().initLocation();
+ 
+
   }
 
 Future<PermissionStatus> _getCameraPermission() async {
@@ -89,16 +92,20 @@ Future<PermissionStatus> _getCameraPermission() async {
     }
 }
   Future reset() {
+    setconversion(0);
+    context.read<AuthService>().authenticate;
     context.read<AuthService>().loginWithBiometric(
         {"id": context.read<AuthService>().currentUser!.data!.phone});
     context.read<TransactonService>().getHistory(
         context.read<AuthService>().currentUser!.data!.phone.toString());
     return context.read<TransactonService>().getHistory(
         context.read<AuthService>().currentUser!.data!.phone.toString());
+        
   }
 
   @override
   Widget build(BuildContext context) {
+   
     AuthService autProvider = context.watch<AuthService>();
 
     List<dynamic> list = [
@@ -198,15 +205,36 @@ Future<PermissionStatus> _getCameraPermission() async {
         "title": AppLocalizations.of(context)!.translate('auther')!,
         "image": Image.asset(
           'assets/images/Services de Paiement.png',
-         // color: blueColor,
+          color: blueColor,
           width: 50,
         ),
         "onTap": () {
+        
           Navigator.push(
               context,
               PageTransition(
                   type: PageTransitionType.rightToLeft, child: OmMoMo()));
         },
+      },
+
+            {
+        "title": AppLocalizations.of(context)!.translate("Epargné Mon argent")!,
+        "image": Image.asset(
+          'assets/images/boite-depargne.png',
+          color: blueColor,
+          width: 50,
+        ),
+        "onTap": () {
+         
+  Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.rightToLeft,
+                  child: PayementMarchand()));
+  
+ 
+         
+         },
       },
     ];
 
@@ -248,6 +276,16 @@ Future<PermissionStatus> _getCameraPermission() async {
               PageTransition(
                   type: PageTransitionType.rightToLeft, child: OmMoMo()));
           break;
+
+          case 6:
+                 
+  Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.rightToLeft,
+                  child: Epargne()));
+  
+  break;
         default:
       }
     }
@@ -305,7 +343,7 @@ Future<PermissionStatus> _getCameraPermission() async {
                                             MainAxisAlignment.end,
                                         children: [
                                           Text(
-                                            autProvider.currentUser!.data!.nom!
+                                       "${AppLocalizations.of(context)!.translate('Bienvenue')} "    +   autProvider.currentUser!.data!.nom!
                                                 .toUpperCase(),
                                             style: TextStyle(
                                                 color: blueColor,
@@ -628,7 +666,8 @@ Future<PermissionStatus> _getCameraPermission() async {
                           child: GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
+                                crossAxisCount: 4,
+                                mainAxisSpacing: 0,
                               ),
                               itemCount: list.length,
                               shrinkWrap: true,

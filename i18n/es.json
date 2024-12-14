@@ -160,11 +160,20 @@
 "Décrivez le problème rencontré":"Describir el problema encontrado",
 "Rapport envoyé avec succes":"Su reclamo ha sido enviado exitosamente",
 "Envoyer un rapport":"Enviar un reclamo",
-"Envois encour": "Envío en curso ..."
+"Envois encour": "Envío en curso ...",
 
   
-  
-  
+"Contact": "Nombre de contacto (en caso  de urgencia)",
+"Numéro du contact": "Nombre de contacto",
+"Bienvenue":"BIENVENIDO",
+"retour":"Retour",
+"Nui":"Numero d identifiants unique",
+"registe":"registre de commerce",
+"stetp1":"Information",
+"stetp2":"Identification",
+"stetp3":"Localisation",
+"Epargné Mon argent":"Epargné Mon argent",
+"Choisir mon partenaire":"Choisir mon partenaire"
   
   
   }
