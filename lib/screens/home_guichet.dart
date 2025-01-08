@@ -9,6 +9,8 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class HomeGuichet extends StatefulWidget {
+  const HomeGuichet({super.key});
+
   @override
   _HomeGuichetState createState() => _HomeGuichetState();
 }
@@ -26,7 +28,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
@@ -34,7 +36,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
           children: [
             Expanded(
                 child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               children: [
                 Container(
                   child: Row(
@@ -42,7 +44,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Container(
+                        child: SizedBox(
                           height: 80,
                           child: Stack(
                             children: [
@@ -99,24 +101,24 @@ class _HomeGuichetState extends State<HomeGuichet> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 00,
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: const EdgeInsets.only(bottom: 20),
                         child: Container(
                           child: Row(
                             children: [
                               Container(
                                 height: 70,
                                 color: Colors.transparent,
-                                child: Column(
+                                child: const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -134,7 +136,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                                   ],
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Container(
@@ -164,21 +166,21 @@ class _HomeGuichetState extends State<HomeGuichet> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Container(
-                        child: Icon(Icons.qr_code, size: 90),
+                        child: const Icon(Icons.qr_code, size: 90),
                       )
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 Container(
                   color: Colors.transparent,
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -196,7 +198,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
@@ -219,14 +221,14 @@ class _HomeGuichetState extends State<HomeGuichet> {
                               radius: 19,
                               backgroundColor:
                                   showDollar ? marronColor : Colors.grey,
-                              child: Icon(
+                              child: const Icon(
                                 Icons.attach_money,
                                 color: Colors.white,
                                 size: 20,
                               )),
                         ),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       GestureDetector(
                         onTap: () {
                           setState(() {
@@ -241,7 +243,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                               radius: 19,
                               backgroundColor:
                                   !showDollar ? marronColor : Colors.grey,
-                              child: Icon(
+                              child: const Icon(
                                 Icons.euro,
                                 color: Colors.white,
                                 size: 20,
@@ -251,7 +253,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -263,7 +265,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             'Mon solde en Dollar',
                             textAlign: TextAlign.start,
                             style: TextStyle(
@@ -271,7 +273,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                           ),
                           Container(
                               width: 140,
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 5, vertical: 2),
                               decoration: BoxDecoration(
                                   border: Border.all(color: marronColor),
@@ -279,7 +281,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                               child: Text(
                                 showDollar ? '0.0 \$' : '0.0 €',
                                 textAlign: TextAlign.end,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 12, fontFamily: content_font),
                               ))
                         ],
@@ -287,7 +289,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Container(
@@ -299,7 +301,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                backgroundColor:   marronColor,
-                                padding: EdgeInsets.symmetric(horizontal: 50)),
+                                padding: const EdgeInsets.symmetric(horizontal: 50)),
                             onPressed: () {
                               Navigator.push(
                                   context,
@@ -307,7 +309,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                                       type: PageTransitionType.rightToLeft,
                                       child: GuichetAchatProduit()));
                             },
-                            child: Text(
+                            child: const Text(
                               'Achetez un produit',
                               style: TextStyle(
                                   color: Colors.white,
@@ -320,7 +322,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -330,7 +332,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                backgroundColor:  marronColor,
-                                padding: EdgeInsets.symmetric(horizontal: 75)),
+                                padding: const EdgeInsets.symmetric(horizontal: 75)),
                             onPressed: () {
                               Navigator.push(
                                   context,
@@ -338,7 +340,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                                       type: PageTransitionType.rightToLeft,
                                       child: Achats()));
                             },
-                            child: Text(
+                            child: const Text(
                               'Mes achats',
                               style: TextStyle(
                                   color: Colors.white,
@@ -351,11 +353,11 @@ class _HomeGuichetState extends State<HomeGuichet> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 80,
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     border: Border.all(color: marronColor),
                     borderRadius: BorderRadius.circular(5),
@@ -373,21 +375,21 @@ class _HomeGuichetState extends State<HomeGuichet> {
                               color: marronColor),
                         ),
                       ]),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 18, top: 5),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 18, top: 5),
                         child: Divider(
                           height: 1,
                           color: Colors.grey,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
-                      Row(
+                      const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 18, top: 0),
+                              padding: EdgeInsets.only(left: 18, top: 0),
                               child: Text(
                                 'Envoi d\'argent',
                                 textAlign: TextAlign.start,
@@ -407,11 +409,11 @@ class _HomeGuichetState extends State<HomeGuichet> {
                               ),
                             ),
                           ]),
-                      Row(
+                      const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 18, top: 0),
+                              padding: EdgeInsets.only(left: 18, top: 0),
                               child: Text(
                                 'Vers TALLA jean (6 55 ** ** **)',
                                 textAlign: TextAlign.start,
@@ -431,8 +433,8 @@ class _HomeGuichetState extends State<HomeGuichet> {
                               ),
                             ),
                           ]),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 18, top: 10),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 18, top: 10),
                         child: Divider(
                           height: 1,
                           color: Colors.grey,

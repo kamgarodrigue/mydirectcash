@@ -9,6 +9,8 @@ import 'package:mydirectcash/widgets/payement_option.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ChoixPayementModeComponent extends StatefulWidget {
+  const ChoixPayementModeComponent({super.key});
+
   @override
   _ChoixPayementModeComponentState createState() =>
       _ChoixPayementModeComponentState();
@@ -25,7 +27,7 @@ class _ChoixPayementModeComponentState
       child: ListView(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
             child: Text(
               'Choisissez le mode de paiement',
               style: TextStyle(
@@ -35,75 +37,75 @@ class _ChoixPayementModeComponentState
                   fontSize: 14),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 0,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
             child: GestureDetector(
                 onTap: () {},
                 child: PayementModeOption(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.chevron_right,
                       size: 18,
                     ),
                     title: 'Carte de crédit / Paypal')),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
             child: GestureDetector(
                 onTap: () {
                   Navigator.push(
                       context,
                       PageTransition(
                         type: PageTransitionType.rightToLeft,
-                        child: RechargeOM(),
+                        child: const RechargeOM(),
                       )).then((value) {
                     Navigator.pop(context);
                   });
                 },
                 child: PayementModeOption(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.chevron_right,
                       size: 18,
                     ),
                     title: 'Compte OM / MoMo')),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
             child: GestureDetector(
                 onTap: () {
                   Navigator.push(
                       context,
                       PageTransition(
                         type: PageTransitionType.rightToLeft,
-                        child: RechargeVirement(),
+                        child: const RechargeVirement(),
                       )).then((value) {
                     Navigator.pop(context);
                   });
                 },
                 child: PayementModeOption(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.chevron_right,
                       size: 18,
                     ),
                     title: 'Virement Bancaire')),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
             child: GestureDetector(
                 onTap: () {
                   Navigator.push(
                           context,
                           PageTransition(
                               type: PageTransitionType.rightToLeft,
-                              child: RechargeDirectCash()))
+                              child: const RechargeDirectCash()))
                       .then((value) {
                     Navigator.pop(context);
                   });
                 },
                 child: PayementModeOption(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.chevron_right,
                       size: 18,
                     ),

@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController extends ControllerMVC {
   factory UserController() {
-    if (_this == null) _this = UserController._();
+    _this ??= UserController._();
     return _this!;
   }
 

@@ -16,7 +16,7 @@ class _ErrorOperationComponentState extends State<ErrorOperationComponent> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        insetPadding: EdgeInsets.symmetric(horizontal: 20),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 20),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -24,16 +24,16 @@ class _ErrorOperationComponentState extends State<ErrorOperationComponent> {
               'assets/images/ico-echec.png',
               width: 50,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text('Echec',
+            const Text('Echec',
                 style: TextStyle(
                     fontFamily: content_font,
                     fontSize: 12,
                     color: Colors.red,
                     fontWeight: FontWeight.w500)),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Text(
@@ -45,7 +45,7 @@ class _ErrorOperationComponentState extends State<ErrorOperationComponent> {
                     height: 1.4,
                     color: Colors.grey.shade500,
                     fontWeight: FontWeight.w500)),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
@@ -57,14 +57,14 @@ class _ErrorOperationComponentState extends State<ErrorOperationComponent> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                            backgroundColor:   Colors.blueAccent.shade100.withOpacity(0.8),
-                            padding: EdgeInsets.symmetric(horizontal: 20)),
+                            padding: const EdgeInsets.symmetric(horizontal: 20)),
                         onPressed: () {
                           Navigator.pop(context);
                           Navigator.push(
                               context,
                               PageTransition(
                                   type: PageTransitionType.rightToLeft,
-                                  child: Rapport()));
+                                  child: const Rapport()));
                         },
                         child: Text(
                           'Envoyer un rapport',
@@ -79,7 +79,7 @@ class _ErrorOperationComponentState extends State<ErrorOperationComponent> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
@@ -87,7 +87,7 @@ class _ErrorOperationComponentState extends State<ErrorOperationComponent> {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Text("Annuler",
+                  child: const Text("Annuler",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: content_font,

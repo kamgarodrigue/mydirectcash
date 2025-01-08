@@ -8,6 +8,8 @@ import 'package:page_transition/page_transition.dart';
 
 
 class CodeCheckSim extends StatefulWidget {
+  const CodeCheckSim({super.key});
+
   @override
   _CodeCheckSimState createState() => _CodeCheckSimState();
 }
@@ -24,22 +26,22 @@ class _CodeCheckSimState extends State<CodeCheckSim> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
         child: ListView(
-          padding: EdgeInsets.symmetric(vertical: 20),
+          padding: const EdgeInsets.symmetric(vertical: 20),
           children: [
             Container(
               height: MediaQuery.of(context).size.height * 0.4,
-              padding: EdgeInsets.symmetric(horizontal: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               color: blueColor,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                      child: Text(
+                      child: const Text(
                     'Temps écoulé, votre SIM est dans le téléphone ? Si oui vérifiez votre connexion. Essayez à nouveau.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -48,13 +50,13 @@ class _CodeCheckSimState extends State<CodeCheckSim> {
                       color: Colors.white,
                     ),
                   )),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
                     child: OtpTextField(
                       keyboardType: TextInputType.number,
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                           fontSize: 14,
                           fontFamily: content_font,
                           color: Colors.white),
@@ -84,7 +86,7 @@ class _CodeCheckSimState extends State<CodeCheckSim> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 100),
+              padding: const EdgeInsets.only(top: 100),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -98,7 +100,7 @@ class _CodeCheckSimState extends State<CodeCheckSim> {
                               style: ElevatedButton.styleFrom(
                               backgroundColor:  blueColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -106,7 +108,7 @@ class _CodeCheckSimState extends State<CodeCheckSim> {
                                         type: PageTransitionType.rightToLeft,
                                         child: Register()));
                               },
-                              child: Text(
+                              child: const Text(
                                 'SUIVANT',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 14),
@@ -117,7 +119,7 @@ class _CodeCheckSimState extends State<CodeCheckSim> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(

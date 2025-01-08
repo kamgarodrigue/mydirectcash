@@ -13,6 +13,8 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class InfosCompteBancaire extends StatefulWidget {
+  const InfosCompteBancaire({super.key});
+
   @override
   _InfosCompteBancaireState createState() => _InfosCompteBancaireState();
 }
@@ -29,7 +31,7 @@ class _InfosCompteBancaireState extends State<InfosCompteBancaire> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
@@ -51,15 +53,15 @@ class _InfosCompteBancaireState extends State<InfosCompteBancaire> {
             ),*/
             Positioned(
               child: ListView(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: Container(
+                          child: SizedBox(
                             height: 100,
                             child: Stack(
                               children: [
@@ -96,13 +98,13 @@ class _InfosCompteBancaireState extends State<InfosCompteBancaire> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
                     color: Colors.transparent,
-                    child: Text(
+                    child: const Text(
                       'Informations du compte bancaire',
                       style: TextStyle(
                           fontFamily: content_font,
@@ -111,25 +113,25 @@ class _InfosCompteBancaireState extends State<InfosCompteBancaire> {
                           fontSize: 15.5),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
-                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      margin: const EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
                       color: Colors.transparent,
                       child: Column(
                         children: [
                           Container(
                               child: Row(
                             children: [
-                              Expanded(
+                              const Expanded(
                                 child: Text("Choisissez votre banque",
                                     style: TextStyle(
                                         color: Colors.grey, fontSize: 14)),
                               ),
                               Container(
-                                padding: EdgeInsets.only(right: 15),
+                                padding: const EdgeInsets.only(right: 15),
                                 child: DropdownButton<String>(
                                   isExpanded: false,
                                   underline: Container(),
@@ -146,7 +148,7 @@ class _InfosCompteBancaireState extends State<InfosCompteBancaire> {
                                       value: value,
                                       child: Text(
                                         value,
-                                        style: new TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: content_font,
                                           fontSize: 16,
                                           color: Colors.black,
@@ -165,16 +167,16 @@ class _InfosCompteBancaireState extends State<InfosCompteBancaire> {
                               ),
                             ],
                           )),
-                          Divider(height: 1.5, color: Colors.grey),
+                          const Divider(height: 1.5, color: Colors.grey),
                         ],
                       )),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
-                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      margin: const EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: TextFormField(
                         keyboardType: TextInputType.number,
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             hintText: 'Numéro de compte',
@@ -183,7 +185,7 @@ class _InfosCompteBancaireState extends State<InfosCompteBancaire> {
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Container(
@@ -196,7 +198,7 @@ class _InfosCompteBancaireState extends State<InfosCompteBancaire> {
                               style: ElevatedButton.styleFrom(
                                  backgroundColor:  marronColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -204,7 +206,7 @@ class _InfosCompteBancaireState extends State<InfosCompteBancaire> {
                                         type: PageTransitionType.rightToLeft,
                                         child: HomeGuichet()));
                               },
-                              child: Text(
+                              child: const Text(
                                 'Valider',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 14),
@@ -215,7 +217,7 @@ class _InfosCompteBancaireState extends State<InfosCompteBancaire> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(

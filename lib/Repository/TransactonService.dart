@@ -2,18 +2,20 @@ import 'package:dio/dio.dart' as Dio;
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/Models/DetailTransaction.dart';
 import 'package:mydirectcash/Models/Transaction.dart';
-import 'package:mydirectcash/Models/User.dart';
 import 'package:mydirectcash/Repository/DioClient.dart';
-import 'package:mydirectcash/screens/payement_facture.dart';
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TransactonService extends ChangeNotifier {
   List<Transaction> _historiques = [];
   List<Transaction> get historique => _historiques;
   Future transfertByDirectcash(Map data) async {
+    print(data);
+    print("...................");
     Dio.Response response =
         await dio().post("DirectcashOperations/Sendmoney", data: data);
+    print("...................");
+
+    print(json.decode(response.toString()));
     return json.decode(response.toString());
   }
 
@@ -107,7 +109,12 @@ class TransactonService extends ChangeNotifier {
   }
 
   Future creditFromDirectcash(directCashCode, codeSecret, psw, id) async {
-    Map data = {"pin": codeSecret, "pass": psw, "directcode": directCashCode, "id": id};
+    Map data = {
+      "pin": codeSecret,
+      "pass": psw,
+      "directcode": directCashCode,
+      "id": id
+    };
     print(data.toString());
     Dio.Response response =
         await dio().post("Collecteur/CreditFromDirectCash", data: data);

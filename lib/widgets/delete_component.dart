@@ -4,6 +4,8 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class DeleteComponent extends StatefulWidget {
+  const DeleteComponent({super.key});
+
   @override
   _DeleteComponentState createState() => _DeleteComponentState();
 }
@@ -11,14 +13,14 @@ class DeleteComponent extends StatefulWidget {
 class _DeleteComponentState extends State<DeleteComponent> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 3,
       child: ListView(
         children: [
           Container(
-            margin: EdgeInsets.only(left: 25, bottom: 20, top: 40, right: 25),
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            margin: const EdgeInsets.only(left: 25, bottom: 20, top: 40, right: 25),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: Colors.indigo.withOpacity(0.2),
@@ -30,7 +32,7 @@ class _DeleteComponentState extends State<DeleteComponent> {
                 children: [
                   Expanded(
                     child: Container(
-                      child: Column(
+                      child: const Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -50,7 +52,7 @@ class _DeleteComponentState extends State<DeleteComponent> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           '20 000,0 XAF',
                           textAlign: TextAlign.end,
                           style: TextStyle(
@@ -72,7 +74,7 @@ class _DeleteComponentState extends State<DeleteComponent> {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 25),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -88,11 +90,11 @@ class _DeleteComponentState extends State<DeleteComponent> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -102,11 +104,11 @@ class _DeleteComponentState extends State<DeleteComponent> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                            backgroundColor: Colors.grey,
-                            padding: EdgeInsets.symmetric(horizontal: 40)),
+                            padding: const EdgeInsets.symmetric(horizontal: 40)),
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text(
+                        child: const Text(
                           'Annuler',
                           style: TextStyle(color: Colors.white, fontSize: 14),
                         ),
@@ -114,7 +116,7 @@ class _DeleteComponentState extends State<DeleteComponent> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 00,
                 ),
                 Expanded(
@@ -123,11 +125,11 @@ class _DeleteComponentState extends State<DeleteComponent> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                            backgroundColor:   blueColor,
-                            padding: EdgeInsets.symmetric(horizontal: 40)),
+                            padding: const EdgeInsets.symmetric(horizontal: 40)),
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text(
+                        child: const Text(
                           'Supprimer',
                           style: TextStyle(color: Colors.white, fontSize: 14),
                         ),

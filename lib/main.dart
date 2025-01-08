@@ -36,14 +36,14 @@ Future<void> main() async {
 
 class MyApp extends StatefulWidget {
   //final AppLanguage appLanguage;
-  MyApp();
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  bool _isInForeground = true;
+  final bool _isInForeground = true;
   @override
   bool isSupported(Locale locale) =>
       ['en', 'fr', 'es'].contains(locale.languageCode);
@@ -98,6 +98,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        
       ),
       locale: appLanguage.appLocal,
       supportedLocales: const [

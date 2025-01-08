@@ -26,8 +26,8 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
   String? coupon = 'Choisissez le coupon crédit';
   bool _isOscure = true;
   void togle() {
-    this.setState(() {
-      this._isOscure = !_isOscure;
+    setState(() {
+      _isOscure = !_isOscure;
     });
   }
 
@@ -40,17 +40,17 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
           elevation: 0,
         ),
         body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/images/background.png'),
                   fit: BoxFit.cover)),
           child: ListView(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 10),
+                margin: const EdgeInsets.only(top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -79,7 +79,7 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Container(
@@ -96,7 +96,7 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                         color: blueColor,
                       ),
                     ),
-                    SizedBox(width: 50),
+                    const SizedBox(width: 50),
                     Text(
                         "${AppLocalizations.of(context)!.translate("Achat de crédit")}",
                         textAlign: TextAlign.center,
@@ -109,7 +109,7 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Container(
@@ -123,15 +123,15 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                             fontFamily: content_font,
                             color: blueColor,
                             fontWeight: FontWeight.w600)),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
                           ' ${AppLocalizations.of(context)!.translate("Veuillez saisir le mot de passe pour valider la transastion")} ',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 12,
                               fontFamily: content_font,
                               fontWeight: FontWeight.w500)),
@@ -139,15 +139,15 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
                     obscureText: _isOscure,
-                    style: TextStyle(fontFamily: content_font, fontSize: 13),
+                    style: const TextStyle(fontFamily: content_font, fontSize: 13),
                     textAlign: TextAlign.start,
                     initialValue: widget.data!["pass"],
                     onChanged: (value) {
@@ -157,7 +157,7 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                     },
                     decoration: InputDecoration(
                         suffixIcon: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.visibility,
                             size: 16,
                           ),
@@ -171,7 +171,7 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                             color: Colors.grey.shade500,
                             fontSize: 13)),
                   )),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -181,7 +181,7 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                                backgroundColor:  blueColor,
-                              padding: EdgeInsets.symmetric(horizontal: 50)),
+                              padding: const EdgeInsets.symmetric(horizontal: 50)),
                           onPressed: () {
                             TransactonService()
                                 .achatCredit(widget.data)
@@ -199,7 +199,7 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                                   CustomSnackBar.success(
                                     message: value.toString(),
                                   ),
-                                  displayDuration: Duration(seconds: 2));
+                                  displayDuration: const Duration(seconds: 2));
                               Navigator.pop(context);
                             }).catchError((error) {
                               print(error);
@@ -209,12 +209,12 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                                     message: AppLocalizations.of(context)!
                                         .translate("erreur")!,
                                   ),
-                                  displayDuration: Duration(seconds: 2));
+                                  displayDuration: const Duration(seconds: 2));
                             });
                           },
                           child: Text(
                             AppLocalizations.of(context)!.translate("Valider")!,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
+                            style: const TextStyle(color: Colors.white, fontSize: 14),
                           ),
                         ),
                       ],
@@ -222,7 +222,7 @@ class _AchatCreditMOMOPasswordState extends State<AchatCreditMOMOPassword> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(

@@ -29,17 +29,17 @@ class _RechargeOMState extends State<RechargeOM> {
           elevation: 0,
         ),
         body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/images/background.png'),
                   fit: BoxFit.cover)),
           child: ListView(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 10),
+                margin: const EdgeInsets.only(top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -68,7 +68,7 @@ class _RechargeOMState extends State<RechargeOM> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Container(
@@ -85,7 +85,7 @@ class _RechargeOMState extends State<RechargeOM> {
                         color: blueColor,
                       ),
                     ),
-                    SizedBox(width: 20),
+                    const SizedBox(width: 20),
                     Text('Recharge via OM/MoMo',
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
@@ -97,19 +97,19 @@ class _RechargeOMState extends State<RechargeOM> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   child: Column(
                     children: [
                       TextFormField(
                           keyboardType: TextInputType.number,
                           style:
-                              TextStyle(fontFamily: content_font, fontSize: 13),
+                              const TextStyle(fontFamily: content_font, fontSize: 13),
                           textAlign: TextAlign.start,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Saisissez le numéro à débiter',
                               hintStyle: TextStyle(
@@ -123,15 +123,15 @@ class _RechargeOMState extends State<RechargeOM> {
                     ],
                   )),
               Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   child: Column(
                     children: [
                       TextFormField(
                           keyboardType: TextInputType.number,
                           style:
-                              TextStyle(fontFamily: content_font, fontSize: 13),
+                              const TextStyle(fontFamily: content_font, fontSize: 13),
                           textAlign: TextAlign.start,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Saisissez le montant',
                               hintStyle: TextStyle(
@@ -145,13 +145,13 @@ class _RechargeOMState extends State<RechargeOM> {
                     ],
                   )),
               Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    style: TextStyle(fontFamily: content_font, fontSize: 13),
+                    style: const TextStyle(fontFamily: content_font, fontSize: 13),
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
-                        suffixIcon: Icon(
+                        suffixIcon: const Icon(
                           Icons.visibility,
                           size: 16,
                         ),
@@ -161,7 +161,7 @@ class _RechargeOMState extends State<RechargeOM> {
                             color: Colors.grey.shade500,
                             fontSize: 13)),
                   )),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -171,15 +171,15 @@ class _RechargeOMState extends State<RechargeOM> {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor:  blueColor,
-                              padding: EdgeInsets.symmetric(horizontal: 50)),
+                              padding: const EdgeInsets.symmetric(horizontal: 50)),
                           onPressed: () {
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return SuccessOperationComponent();
+                                  return const SuccessOperationComponent();
                                 });
                           },
-                          child: Text(
+                          child: const Text(
                             'Valider',
                             style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
@@ -189,7 +189,7 @@ class _RechargeOMState extends State<RechargeOM> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(

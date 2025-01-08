@@ -4,6 +4,8 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ShareComponent extends StatefulWidget {
+  const ShareComponent({super.key});
+
   @override
   _ShareComponentState createState() => _ShareComponentState();
 }
@@ -11,15 +13,15 @@ class ShareComponent extends StatefulWidget {
 class _ShareComponentState extends State<ShareComponent> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 2,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(left: 25, bottom: 20, top: 40, right: 25),
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            margin: const EdgeInsets.only(left: 25, bottom: 20, top: 40, right: 25),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: Colors.indigo.withOpacity(0.2),
@@ -31,7 +33,7 @@ class _ShareComponentState extends State<ShareComponent> {
                 children: [
                   Expanded(
                     child: Container(
-                      child: Column(
+                      child: const Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -51,7 +53,7 @@ class _ShareComponentState extends State<ShareComponent> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           '20 000,0 XAF',
                           textAlign: TextAlign.end,
                           style: TextStyle(
@@ -73,7 +75,7 @@ class _ShareComponentState extends State<ShareComponent> {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 25),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
             child: Text(
               'Partager la transaction via',
               style: TextStyle(
@@ -84,7 +86,7 @@ class _ShareComponentState extends State<ShareComponent> {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
             child: Column(
               children: [
                 Container(
@@ -95,7 +97,7 @@ class _ShareComponentState extends State<ShareComponent> {
                         child: Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade300,
                                   borderRadius: BorderRadius.circular(5)),
@@ -104,10 +106,10 @@ class _ShareComponentState extends State<ShareComponent> {
                                 width: 40,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
+                            const Text(
                               "WhatsApp",
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -122,7 +124,7 @@ class _ShareComponentState extends State<ShareComponent> {
                         child: Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade300,
                                   borderRadius: BorderRadius.circular(5)),
@@ -131,10 +133,10 @@ class _ShareComponentState extends State<ShareComponent> {
                                 width: 40,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
+                            const Text(
                               "WhatsApp",
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -149,7 +151,7 @@ class _ShareComponentState extends State<ShareComponent> {
                         child: Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade300,
                                   borderRadius: BorderRadius.circular(5)),
@@ -158,10 +160,10 @@ class _ShareComponentState extends State<ShareComponent> {
                                 width:40,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
+                            const Text(
                               "WhatsApp",
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -176,7 +178,7 @@ class _ShareComponentState extends State<ShareComponent> {
                         child: Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade300,
                                   borderRadius: BorderRadius.circular(5)),
@@ -185,10 +187,10 @@ class _ShareComponentState extends State<ShareComponent> {
                                 width: 40,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
+                            const Text(
                               "WhatsApp",
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -202,7 +204,7 @@ class _ShareComponentState extends State<ShareComponent> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -213,7 +215,7 @@ class _ShareComponentState extends State<ShareComponent> {
                         child: Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade300,
                                   borderRadius: BorderRadius.circular(5)),
@@ -222,10 +224,10 @@ class _ShareComponentState extends State<ShareComponent> {
                                 width: 40,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
+                            const Text(
                               "WhatsApp",
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -240,7 +242,7 @@ class _ShareComponentState extends State<ShareComponent> {
                         child: Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade300,
                                   borderRadius: BorderRadius.circular(5)),
@@ -249,10 +251,10 @@ class _ShareComponentState extends State<ShareComponent> {
                                 width: 40,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
+                            const Text(
                               "WhatsApp",
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -267,7 +269,7 @@ class _ShareComponentState extends State<ShareComponent> {
                         child: Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade300,
                                   borderRadius: BorderRadius.circular(5)),
@@ -276,10 +278,10 @@ class _ShareComponentState extends State<ShareComponent> {
                                 width: 40,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
+                            const Text(
                               "WhatsApp",
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -294,7 +296,7 @@ class _ShareComponentState extends State<ShareComponent> {
                         child: Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade300,
                                   borderRadius: BorderRadius.circular(5)),
@@ -303,10 +305,10 @@ class _ShareComponentState extends State<ShareComponent> {
                                 width: 40,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
+                            const Text(
                               "WhatsApp",
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -323,7 +325,7 @@ class _ShareComponentState extends State<ShareComponent> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
@@ -335,11 +337,11 @@ class _ShareComponentState extends State<ShareComponent> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                          backgroundColor:   Colors.grey,
-                          padding: EdgeInsets.symmetric(horizontal: 50)),
+                          padding: const EdgeInsets.symmetric(horizontal: 50)),
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text(
+                      child: const Text(
                         'Annuler le partage',
                         style: TextStyle(color: Colors.white, fontSize: 14),
                       ),

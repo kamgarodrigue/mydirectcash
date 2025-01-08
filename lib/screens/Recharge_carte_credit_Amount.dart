@@ -11,7 +11,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class Recharge_carte_credit_Amount extends StatefulWidget {
-  Recharge_carte_credit_Amount({Key? key}) : super(key: key);
+  const Recharge_carte_credit_Amount({Key? key}) : super(key: key);
 
   @override
   State<Recharge_carte_credit_Amount> createState() =>
@@ -25,8 +25,8 @@ class _Recharge_carte_credit_AmountState
   String montant = "";
 
   void togle() {
-    this.setState(() {
-      this._isOscure = !_isOscure;
+    setState(() {
+      _isOscure = !_isOscure;
     });
   }
 
@@ -41,17 +41,17 @@ class _Recharge_carte_credit_AmountState
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -81,7 +81,7 @@ class _Recharge_carte_credit_AmountState
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -98,7 +98,7 @@ class _Recharge_carte_credit_AmountState
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 50),
+                        const SizedBox(width: 50),
                         Text(
                             "${AppLocalizations.of(context)!.translate('Carte de crédit/Paypal1')}",
                             textAlign: TextAlign.center,
@@ -111,11 +111,11 @@ class _Recharge_carte_credit_AmountState
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     width: 100,
                     height: 100,
                     child: Image.asset(
@@ -123,7 +123,7 @@ class _Recharge_carte_credit_AmountState
                     ),
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         initialValue: montant,
@@ -134,7 +134,7 @@ class _Recharge_carte_credit_AmountState
                         },
                         //obscureText: _isOscure,
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             hintText: AppLocalizations.of(context)!
@@ -144,7 +144,7 @@ class _Recharge_carte_credit_AmountState
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -155,7 +155,7 @@ class _Recharge_carte_credit_AmountState
                               style: ElevatedButton.styleFrom(
                                backgroundColor:  blueColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 setState(() {
                                   _isLoading = true;
@@ -188,7 +188,7 @@ class _Recharge_carte_credit_AmountState
                               child: Text(
                                 AppLocalizations.of(context)!
                                     .translate("Valider")!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
                             ),
@@ -197,7 +197,7 @@ class _Recharge_carte_credit_AmountState
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(

@@ -30,7 +30,7 @@ class Localisation extends ChangeNotifier {
       }
     }
     _locationData = await locat.getLocation();
-    _location = new LatLng(_locationData!.latitude!, _locationData!.longitude!);
+    _location = LatLng(_locationData!.latitude!, _locationData!.longitude!);
     decodeAddress(location!).then((value) => _address = value);
     print(_address);
     notifyListeners();
@@ -40,11 +40,7 @@ class Localisation extends ChangeNotifier {
     locat.onLocationChanged.listen((position) {
       _location = LatLng(position.longitude!, position.latitude!);
       notifyListeners();
-      print(position.latitude.toString() +
-          ',' +
-          position.longitude.toString() +
-          ',' +
-          position.altitude.toString());
+      print('${position.latitude},${position.longitude},${position.altitude}');
     });
   }
 }

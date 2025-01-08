@@ -14,6 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class AccountQR extends StatefulWidget {
+  const AccountQR({super.key});
+
   @override
   _AccountQRState createState() => _AccountQRState();
 }
@@ -39,7 +41,7 @@ class _AccountQRState extends State<AccountQR> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
@@ -47,10 +49,10 @@ class _AccountQRState extends State<AccountQR> {
           children: [
             Expanded(
                 child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -58,7 +60,7 @@ class _AccountQRState extends State<AccountQR> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.arrow_back,
                             size: 20,
                           )),
@@ -87,22 +89,22 @@ class _AccountQRState extends State<AccountQR> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 120,
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: const EdgeInsets.only(bottom: 20),
                         child: Container(
                           child: Row(
                             children: [
                               Container(
-                                margin: EdgeInsets.only(top: 20),
+                                margin: const EdgeInsets.only(top: 20),
                                 width: 100,
                                 height: 100,
                                 child: Image.asset(
@@ -115,7 +117,7 @@ class _AccountQRState extends State<AccountQR> {
                               Container(
                                 height: 70,
                                 color: Colors.transparent,
-                                child: Column(
+                                child: const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -141,7 +143,7 @@ class _AccountQRState extends State<AccountQR> {
                                   ],
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Container(
@@ -164,7 +166,7 @@ class _AccountQRState extends State<AccountQR> {
                                           fontFamily: content_font,
                                           color: greenColor),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 8,
                                     ),
                                     Text(
@@ -188,7 +190,7 @@ class _AccountQRState extends State<AccountQR> {
                   data: authProvider.currentUser!.data!.Photo!,
                   size: 300.0,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 35,
                 ),
                 Container(

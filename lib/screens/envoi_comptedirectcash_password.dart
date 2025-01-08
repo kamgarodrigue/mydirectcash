@@ -40,8 +40,8 @@ class _EnvoiCompteDirectCashPasswordState
   bool _isLoading = false;
   bool _isOscure = true;
   void togle() {
-    this.setState(() {
-      this._isOscure = !_isOscure;
+    setState(() {
+      _isOscure = !_isOscure;
     });
   }
 
@@ -58,17 +58,17 @@ class _EnvoiCompteDirectCashPasswordState
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -98,7 +98,7 @@ class _EnvoiCompteDirectCashPasswordState
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -115,7 +115,7 @@ class _EnvoiCompteDirectCashPasswordState
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         Text(
                             AppLocalizations.of(context)!
                                 .translate("Envoi - Compte MyDirectCash")!,
@@ -129,18 +129,18 @@ class _EnvoiCompteDirectCashPasswordState
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     width: 100,
                     height: 100,
                     child: Image.asset(
                       'assets/images/logo-alliance-transparent.png',
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -149,18 +149,18 @@ class _EnvoiCompteDirectCashPasswordState
                         Text(
                             '${AppLocalizations.of(context)!.translate("Vous allez faire une recharge de")!} ${widget.data.amount} XAF ${AppLocalizations.of(context)!.translate("au numéro")!} ${widget.data.toNumber!.substring(0, 3)} ** ** ${widget.data.toNumber!.substring(7, 9)} de Nom: ${widget.nom}, frais de ${widget.data.rate} XAF. Montant total à débiter $totaldebite XAF.',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 12.5,
                                 fontFamily: content_font,
                                 fontWeight: FontWeight.w500)),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         obscureText: _isOscure,
@@ -171,11 +171,11 @@ class _EnvoiCompteDirectCashPasswordState
                           });
                         },
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.visibility,
                                 size: 16,
                               ),
@@ -187,7 +187,7 @@ class _EnvoiCompteDirectCashPasswordState
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -198,10 +198,10 @@ class _EnvoiCompteDirectCashPasswordState
                               style: ElevatedButton.styleFrom(
                              backgroundColor:  blueColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 setState(() {
-                                  this._isLoading = true;
+                                  _isLoading = true;
                                 });
                                 print(widget.data.toJson());
                                 TransactonService()
@@ -209,7 +209,7 @@ class _EnvoiCompteDirectCashPasswordState
                                         widget.data, widget.nom)
                                     .then((value) {
                                   setState(() {
-                                    this._isLoading = false;
+                                    _isLoading = false;
                                   });
                                   print(value);
                                   context
@@ -227,13 +227,13 @@ class _EnvoiCompteDirectCashPasswordState
                                         message: json.decode(
                                             value.toString())['message'],
                                       ),
-                                      displayDuration: Duration(seconds: 2));
+                                      displayDuration: const Duration(seconds: 2));
                                   Navigator.pop(widget.context1);
                                   Navigator.pop(widget.context2);
                                   Navigator.pop(context);
                                 }).catchError((error) {
                                   setState(() {
-                                    this._isLoading = false;
+                                    _isLoading = false;
                                   });
                                   print(error);
                                   showTopSnackBar(
@@ -242,7 +242,7 @@ class _EnvoiCompteDirectCashPasswordState
                                         message: AppLocalizations.of(context)!
                                             .translate("erreur")!,
                                       ),
-                                      displayDuration: Duration(seconds: 2));
+                                      displayDuration: const Duration(seconds: 2));
                                 });
                                 /* showModalBottomSheet(
                                 context: context,
@@ -253,7 +253,7 @@ class _EnvoiCompteDirectCashPasswordState
                               child: Text(
                                 AppLocalizations.of(context)!
                                     .translate("Valider")!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 17),
                               ),
                             ),
@@ -262,7 +262,7 @@ class _EnvoiCompteDirectCashPasswordState
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(

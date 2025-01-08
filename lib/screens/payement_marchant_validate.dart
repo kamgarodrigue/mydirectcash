@@ -5,6 +5,7 @@ import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/settings.dart';
+import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -26,15 +27,24 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
   bool _isLoading = false;
   bool _isOscure = true;
   void togle() {
-    this.setState(() {
-      this._isOscure = !_isOscure;
+    setState(() {
+      _isOscure = !_isOscure;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    double debite = double.parse("${widget.data!["Montant"]}") +
-        double.parse("${widget.data!["frais"]}");
+    double parseDouble(dynamic value) {
+      if (value == null || value.toString().isEmpty) {
+        return 0.0; // Default value if null or empty
+      }
+      return double.tryParse(value.toString()) ??
+          0.0; // Safely parse, fallback to 0.0 if invalid
+    }
+
+    double debite = parseDouble(widget.data!["Montant"]) +
+        parseDouble(widget.data!["frais"]);
+
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -44,17 +54,17 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -84,7 +94,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -101,7 +111,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 50),
+                        const SizedBox(width: 50),
                         Text(
                             AppLocalizations.of(context)!
                                 .translate("Payement marchand")!,
@@ -115,18 +125,18 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     width: 100,
                     height: 100,
                     child: Image.asset(
                       'assets/images/logo-alliance-transparent.png',
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -140,15 +150,16 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                 fontFamily: content_font,
                                 color: blueColor,
                                 fontWeight: FontWeight.w600)),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
-                              '${AppLocalizations.of(context)!.translate("Veuillez saisir le mot de passe pour valider la transastion")!}',
+                              AppLocalizations.of(context)!.translate(
+                                  "Veuillez saisir le mot de passe pour valider la transastion")!,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 12,
                                   fontFamily: content_font,
                                   fontWeight: FontWeight.w500)),
@@ -156,11 +167,11 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         obscureText: _isOscure,
@@ -170,13 +181,15 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                             widget.data!["pass"] = value;
                           });
                         },
-                        style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                        style: const TextStyle(
+                            fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
-                              icon: Icon(
-                                Icons.visibility,
+                               icon: Icon(
+                                _isOscure
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
                                 size: 16,
                               ),
                               onPressed: () => togle(),
@@ -188,7 +201,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -197,18 +210,18 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor:  blueColor,
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                  backgroundColor: blueColor,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50)),
                               onPressed: () {
                                 setState(() {
-                                  this._isLoading = true;
+                                  _isLoading = true;
                                 });
                                 TransactonService()
                                     .payerMarchant(widget.data)
                                     .then((value) {
                                   setState(() {
-                                    this._isLoading = false;
+                                    _isLoading = false;
                                   });
 
                                   context
@@ -220,30 +233,32 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                         .data!
                                         .phone
                                   });
-                                  showTopSnackBar(
-                                    Overlay.of(context),
-                                    CustomSnackBar.success(
-                                      message: value.toString(),
-                                    ),
-                                  );
+                                   DialogWidget.success(context,
+                                      title: "Succes !",
+                                      content: value.toString(),
+                                      color: greenColor, callback: () {
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                  });
                                   // Navigator.pop(context);
                                 }).catchError((error) {
                                   setState(() {
-                                    this._isLoading = false;
+                                    _isLoading = false;
                                   });
                                   print(error);
-                                  showTopSnackBar(
-                                    Overlay.of(context),
-                                    CustomSnackBar.error(
-                                      message: error.toString(),
-                                    ),
-                                  );
+                                     DialogWidget.error(context,
+                                      title: AppLocalizations.of(context)!
+                                          .translate("erreur")!,
+                                      content: error.toString(),
+                                      color: errorColor, callback: () {
+                                    Navigator.pop(context);
+                                  });
                                 });
                               },
                               child: Text(
                                 AppLocalizations.of(context)!
                                     .translate("Valider")!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
                             ),
@@ -252,7 +267,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(

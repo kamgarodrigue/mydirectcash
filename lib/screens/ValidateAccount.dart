@@ -93,18 +93,18 @@ class _ValidateAccountState extends State<ValidateAccount> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 30.0, vertical: 8),
                       child: RichText(
-                        text: TextSpan(
+                        text: const TextSpan(
                             text:
                                 "Saisir le code envoye  dans votre boite mail",
                             children: [
                               TextSpan(
                                   text: "",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15)),
                             ],
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: Colors.black54, fontSize: 15)),
                         textAlign: TextAlign.center,
                       ),
@@ -220,7 +220,7 @@ class _ValidateAccountState extends State<ValidateAccount> {
                                   CustomSnackBar.error(
                                     message: err.toString(),
                                   ),
-                                  displayDuration: Duration(seconds: 2));
+                                  displayDuration: const Duration(seconds: 2));
                             });
                           },
                           child: Text(
@@ -239,6 +239,19 @@ class _ValidateAccountState extends State<ValidateAccount> {
                     Container(
                       margin: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 30),
+                      decoration: BoxDecoration(
+                          color: blueColor,
+                          borderRadius: BorderRadius.circular(5),
+                          boxShadow: [
+                            BoxShadow(
+                                color: blueColor,
+                                offset: const Offset(1, -2),
+                                blurRadius: 5),
+                            BoxShadow(
+                                color: blueColor,
+                                offset: const Offset(-1, 2),
+                                blurRadius: 5)
+                          ]),
                       child: ButtonTheme(
                         height: 50,
                         child: TextButton(
@@ -313,19 +326,6 @@ class _ValidateAccountState extends State<ValidateAccount> {
                           )),
                         ),
                       ),
-                      decoration: BoxDecoration(
-                          color: blueColor,
-                          borderRadius: BorderRadius.circular(5),
-                          boxShadow: [
-                            BoxShadow(
-                                color: blueColor,
-                                offset: const Offset(1, -2),
-                                blurRadius: 5),
-                            BoxShadow(
-                                color: blueColor,
-                                offset: const Offset(-1, 2),
-                                blurRadius: 5)
-                          ]),
                     ),
                     const SizedBox(
                       height: 16,

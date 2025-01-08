@@ -7,7 +7,7 @@ import 'package:mydirectcash/Models/Product.dart';
 import 'package:mydirectcash/Repository/DioClient.dart';
 
 class OperationServices extends ChangeNotifier {
-  List _contry = [];
+  final List _contry = [];
   List<Operateur> _operateurs = [];
   List<Product> _produits = [];
   List<dynamic> _tarifs = [];
@@ -41,7 +41,6 @@ class OperationServices extends ChangeNotifier {
     Dio.Response response = await dio().get("DirectcashOperations/getFees");
     print(response.data);
     _tarifs = response.data[model].map<dynamic>((json) => json).toList();
-    ;
     notifyListeners();
     return response.data["collecteFees"].map<dynamic>((json) => json).toList();
   }
@@ -50,19 +49,19 @@ class OperationServices extends ChangeNotifier {
     final parsed = responseBody;
 
     Iterable<Operateur> operateu = [
-      new Operateur(
+      Operateur(
           providerCode: "",
           providerName: "Camtel",
           regionCodes: "CM",
           urlImage: "assets/images/camtel.jpeg",
           validationRegex: ""),
-      new Operateur(
+      Operateur(
           providerCode: "",
           providerName: "Nextel",
           regionCodes: "CM",
           urlImage: "assets/images/nextel.png",
           validationRegex: ""),
-      new Operateur(
+      Operateur(
           providerCode: "",
           providerName: "Yoomee",
           regionCodes: "CM",

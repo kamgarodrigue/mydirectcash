@@ -60,7 +60,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                             child: FutureBuilder(
                               future: controller?.getFlashStatus(),
                               builder: (context, snapshot) {
-                                return Text('Flash');
+                                return const Text('Flash');
                               },
                             )),
                       ),

@@ -32,7 +32,7 @@ class _PayementMarchandState extends State<Epargne> {
     "frais": "500",
     "Caisse":""
   };
-  dynamic microfi=null;
+  dynamic microfi;
 List bannk=[{
   "name":"Afriland First Bank ",
   "image":"assets/images/afriland.jpeg",
@@ -79,17 +79,17 @@ List bannk=[{
               elevation: 0,
             ),
             body: Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -119,7 +119,7 @@ List bannk=[{
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -136,7 +136,7 @@ List bannk=[{
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 40),
+                        const SizedBox(width: 40),
                         
                         Text(
                             AppLocalizations.of(context)!
@@ -151,22 +151,22 @@ List bannk=[{
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     width: 100,
                     height: 100,
                     child: Image.asset(
                       'assets/images/logo-alliance-transparent.png',
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         onTap: () {
                            showModalBottomSheet(
@@ -174,7 +174,7 @@ List bannk=[{
               builder: (BuildContext context) {
                 return Container(
                   child:  ListView(
-                    padding: EdgeInsets.only(top: 32),
+                    padding: const EdgeInsets.only(top: 32),
                     children:List.generate(bannk.length, (index) => Microfinance(image: bannk[index]["image"], name: bannk[index]["name"], slogant: "",ontap:() {
                    setState(() {
                       microfi=bannk[index];
@@ -195,7 +195,7 @@ List bannk=[{
                           });
                         },
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                            // suffixIcon: IconButton(
@@ -211,14 +211,14 @@ List bannk=[{
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
-                                        SizedBox(
+                                        const SizedBox(
                     height: 20,
                   ),
                   if(microfi!=null)
                 Microfinance(image: microfi["image"], name: microfi["name"], slogant: "",ontap: () {
                   
                 },),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -229,7 +229,7 @@ List bannk=[{
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:  blueColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -242,7 +242,7 @@ List bannk=[{
                               child: Text(
                                 AppLocalizations.of(context)!
                                     .translate("suivant")!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
                             ),
@@ -251,7 +251,7 @@ List bannk=[{
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(
@@ -263,11 +263,11 @@ List bannk=[{
                           color: Colors.grey.shade700,
                         )),
                         Container(
-                          margin: EdgeInsets.symmetric(horizontal: 8),
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
                           child: Text(
                               AppLocalizations.of(context)!.translate("ou")!,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontFamily: content_font,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -281,7 +281,7 @@ List bannk=[{
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   GestureDetector(
@@ -293,15 +293,15 @@ List bannk=[{
    
                  },
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-                      margin: EdgeInsets.symmetric(horizontal: 0),
+                      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                      margin: const EdgeInsets.symmetric(horizontal: 0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.indigo.withOpacity(0.2),
                       ),
                       child: Column(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.qr_code_2_outlined,
                             size: 100,
                           ),
@@ -309,7 +309,7 @@ List bannk=[{
                               AppLocalizations.of(context)!.translate(
                                   "Scannez le QR Code de la caisse")!,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontFamily: content_font,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,

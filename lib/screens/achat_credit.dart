@@ -43,7 +43,7 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
   _AchatCreditState() : super(UserController()) {
     _userController = UserController.userController;
     _userController!.utilisateur!.then((value) {
-      this.currrentUser = value;
+      currrentUser = value;
       data["Id"] = value.data!.phone;
     });
   }
@@ -57,7 +57,7 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
     // TODO: implement initState
     super.initState();
 
-   // context.read<Localisation>().initLocation();
+    // context.read<Localisation>().initLocation();
   }
 
   @override
@@ -71,17 +71,17 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
         ),
         body: Stack(children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/images/background.png'),
                     fit: BoxFit.cover)),
             child: ListView(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -110,7 +110,7 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
@@ -127,82 +127,80 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                           color: blueColor,
                         ),
                       ),
-                      SizedBox(width: 50),
+                      const SizedBox(width: 50),
                       Text(
-                          "${AppLocalizations.of(context)!.translate('Achat de crédit')}",
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontFamily: title_font,
-                              color: blueColor,
-                              fontWeight: FontWeight.w500))
+                        "${AppLocalizations.of(context)!.translate('Achat de crédit')}",
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: title_font,
+                            color: blueColor,
+                            fontWeight: FontWeight.w500),
+                      )
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   width: 100,
                   height: 100,
                   child: Image.asset(
                     'assets/images/logo-alliance-transparent.png',
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
                   color: Colors.transparent,
                   child: Column(
                     children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                  countryName! == ""
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                                countryName! == ""
+                                    ? "${AppLocalizations.of(context)!.translate('Choisissez le pays de destination')}"
+                                    : countryName!,
+                                style: TextStyle(
+                                    color: countryName == ""
+                                        ? Colors.grey
+                                        : Colors.black,
+                                    fontSize: 14)),
+                          ),
+                          CountryListPick(
+                              appBar: AppBar(
+                                backgroundColor: blueColor,
+                                title: Text(countryName! == ""
+                                    ? "${AppLocalizations.of(context)!.translate('Choisir un pays')}"
+                                    : countryName!),
+                              ),
+                              theme: CountryTheme(
+                                isShowFlag: false,
+                                isShowTitle: false,
+                                isShowCode: false,
+                                isDownIcon: true,
+                                showEnglishName: true,
+                              ),
+                              initialSelection: '+237',
+                              onChanged: (CountryCode? code) {
+                                setState(() {
+                                  countryName = code!.name == null
                                       ? "${AppLocalizations.of(context)!.translate('Choisissez le pays de destination')}"
-                                      : countryName!,
-                                  style: TextStyle(
-                                      color: countryName == ""
-                                          ? Colors.grey
-                                          : Colors.black,
-                                      fontSize: 14)),
-                            ),
-                            CountryListPick(
-                                appBar: AppBar(
-                                  backgroundColor: blueColor,
-                                  title: Text(countryName! == ""
-                                      ? "${AppLocalizations.of(context)!.translate('Choisir un pays')}"
-                                      : countryName!),
-                                ),
-                                theme: CountryTheme(
-                                  isShowFlag: false,
-                                  isShowTitle: false,
-                                  isShowCode: false,
-                                  isDownIcon: true,
-                                  showEnglishName: true,
-                                ),
-                                initialSelection: '+237',
-                                onChanged: (CountryCode? code) {
-                                  setState(() {
-                                    countryName = code!.name == null
-                                        ? "${AppLocalizations.of(context)!.translate('Choisissez le pays de destination')}"
-                                        : "${code.name} ($code)";
-                                    codeRegion = code.code;
-                                  });
-                                  print(code);
-                                  // print(countryName);
-                                },
-                                useUiOverlay: true,
-                                useSafeArea: false),
-                          ],
-                        ),
+                                      : "${code.name} ($code)";
+                                  codeRegion = code.code;
+                                });
+                                print(code);
+                              },
+                              useUiOverlay: true,
+                              useSafeArea: false),
+                        ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Divider(
                         height: 1.5,
                         color: blueColor,
@@ -210,7 +208,7 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                     ],
                   ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -219,8 +217,9 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor:  blueColor,
-                                padding: EdgeInsets.symmetric(horizontal: 50)),
+                                backgroundColor: blueColor,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 50)),
                             onPressed: () {
                               setState(() {
                                 _isLoading = true;
@@ -245,12 +244,13 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                               }).catchError((error) {
                                 print(error);
                                 showTopSnackBar(
-                                   Overlay.of(context),
-                                    CustomSnackBar.error(
+                                    Overlay.of(context),
+                                    const CustomSnackBar.error(
                                       message:
                                           "Aucun Operateur trouvé pour ce pays",
                                     ),
-                                    displayDuration: Duration(seconds: 2));
+                                    displayDuration:
+                                        const Duration(seconds: 2));
 
                                 setState(() {
                                   _isLoading = false;
@@ -259,8 +259,8 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                             },
                             child: Text(
                               "${AppLocalizations.of(context)!.translate('suivant')}",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 14),
                             ),
                           ),
                         ],

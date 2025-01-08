@@ -14,6 +14,8 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class GuichetAchatProduit extends StatefulWidget {
+  const GuichetAchatProduit({super.key});
+
   @override
   _GuichetAchatProduitState createState() => _GuichetAchatProduitState();
 }
@@ -30,7 +32,7 @@ class _GuichetAchatProduitState extends State<GuichetAchatProduit> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
@@ -52,15 +54,15 @@ class _GuichetAchatProduitState extends State<GuichetAchatProduit> {
             ),*/
             Positioned(
               child: ListView(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: Container(
+                          child: SizedBox(
                             height: 100,
                             child: Stack(
                               children: [
@@ -97,11 +99,11 @@ class _GuichetAchatProduitState extends State<GuichetAchatProduit> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 35),
+                    padding: const EdgeInsets.symmetric(horizontal: 35),
                     color: Colors.transparent,
                     child: Text(
                       'Achats de produits ',
@@ -112,16 +114,16 @@ class _GuichetAchatProduitState extends State<GuichetAchatProduit> {
                           fontSize: 15.5),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      margin: const EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             hintText: 'Saisissez le code du vendeur',
@@ -130,7 +132,7 @@ class _GuichetAchatProduitState extends State<GuichetAchatProduit> {
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Container(
@@ -143,7 +145,7 @@ class _GuichetAchatProduitState extends State<GuichetAchatProduit> {
                               style: ElevatedButton.styleFrom(
                                  backgroundColor:   marronColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -151,7 +153,7 @@ class _GuichetAchatProduitState extends State<GuichetAchatProduit> {
                                         type: PageTransitionType.rightToLeft,
                                         child: GuichetAchatProduitMontant()));
                               },
-                              child: Text(
+                              child: const Text(
                                 'Suivant',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 14),
@@ -162,7 +164,7 @@ class _GuichetAchatProduitState extends State<GuichetAchatProduit> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 35,
                   ),
                   Container(
@@ -174,8 +176,8 @@ class _GuichetAchatProduitState extends State<GuichetAchatProduit> {
                           color: Colors.black,
                         )),
                         Container(
-                          margin: EdgeInsets.symmetric(horizontal: 8),
-                          child: Text("Ou",
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          child: const Text("Ou",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: content_font,
@@ -188,17 +190,17 @@ class _GuichetAchatProduitState extends State<GuichetAchatProduit> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                    margin: const EdgeInsets.symmetric(horizontal: 30),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: greenColor.withOpacity(0.2),
                     ),
-                    child: Column(
+                    child: const Column(
                       children: [
                         Icon(Icons.qr_code, size: 60),
                         Text("Scannez le QR Code du vendeur",

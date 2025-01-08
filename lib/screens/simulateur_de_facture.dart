@@ -18,7 +18,7 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class Simulateur_de_facture extends StatefulWidget {
-  Simulateur_de_facture({Key? key}) : super(key: key);
+  const Simulateur_de_facture({Key? key}) : super(key: key);
 
   @override
   State<Simulateur_de_facture> createState() => _Simulateur_de_factureState();
@@ -40,17 +40,17 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -80,7 +80,7 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -97,7 +97,7 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         Text(
                             "${AppLocalizations.of(context)!.translate("Simulation facture ENEO")}",
                             textAlign: TextAlign.center,
@@ -110,11 +110,11 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: Column(
                         children: [
                           TextFormField(
@@ -125,14 +125,14 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                                       value == "" ? 0 : double.tryParse(value)!;
                                 });
                               },
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: content_font, fontSize: 13),
                               textAlign: TextAlign.start,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText:
                                       "${AppLocalizations.of(context)!.translate("Saisissez l ancien indice")}",
-                                  hintStyle: TextStyle(
+                                  hintStyle: const TextStyle(
                                       fontFamily: content_font,
                                       color: Colors.grey,
                                       fontSize: 13))),
@@ -143,7 +143,7 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                         ],
                       )),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: Column(
                         children: [
                           TextFormField(
@@ -154,14 +154,14 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                                       value == "" ? 0 : double.tryParse(value)!;
                                 });
                               },
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: content_font, fontSize: 13),
                               textAlign: TextAlign.start,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText:
                                       "${AppLocalizations.of(context)!.translate("Saisissez le nouvel indice")}",
-                                  hintStyle: TextStyle(
+                                  hintStyle: const TextStyle(
                                       fontFamily: content_font,
                                       color: Colors.grey,
                                       fontSize: 13))),
@@ -171,7 +171,7 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                           ),
                         ],
                       )),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -182,7 +182,7 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                               style: ElevatedButton.styleFrom(
                                  backgroundColor:  blueColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 if (indice2! < indice1!) {
                                   showTopSnackBar(
@@ -218,7 +218,7 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                               },
                               child: Text(
                                 "${AppLocalizations.of(context)!.translate("suivant")}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
                             ),
@@ -227,14 +227,14 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   if (isfacture)
                     Card(
                       elevation: 2,
                       child: Container(
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           height: 200,
                           child: Center(
                             child: Row(
@@ -246,15 +246,15 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                                     children: [
                                       Text(
                                           "${AppLocalizations.of(context)!.translate("Montant Estimatif")}",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.black54,
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold)),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(
+                                        padding: const EdgeInsets.only(
                                             right: 16, left: 16),
                                         child: RichText(
                                             text: TextSpan(children: [
@@ -265,28 +265,27 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                                                   fontSize: 17,
                                                   fontWeight: FontWeight.bold)),
                                           TextSpan(
-                                              text: " " +
-                                                  fac["montTTC"]!.toString(),
+                                              text: " ${fac["montTTC"]!}",
                                               style: TextStyle(
                                                   color: blueColor,
                                                   fontSize: 17,
                                                   fontWeight: FontWeight.bold))
                                         ])),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 16,
                                       ),
                                       Text(
                                           "${AppLocalizations.of(context)!.translate(" Consomation ")}",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.black54,
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold)),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(
+                                        padding: const EdgeInsets.only(
                                             right: 16, left: 16),
                                         child: RichText(
                                             text: TextSpan(children: [
@@ -310,20 +309,20 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                                 Expanded(
                                     child: Column(
                                   children: [
-                                    Text(" TVA( 19,25 %) ",
+                                    const Text(" TVA( 19,25 %) ",
                                         style: TextStyle(
                                             color: Colors.black54,
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold)),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     Padding(
                                       padding:
-                                          EdgeInsets.only(right: 16, left: 16),
+                                          const EdgeInsets.only(right: 16, left: 16),
                                       child: RichText(
                                           text: TextSpan(children: [
                                         TextSpan(
@@ -333,7 +332,7 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
                                                 fontSize: 17,
                                                 fontWeight: FontWeight.bold)),
                                         TextSpan(
-                                            text: " " + fac["taxe"]!.toString(),
+                                            text: " ${fac["taxe"]!}",
                                             style: TextStyle(
                                                 color: blueColor,
                                                 fontSize: 17,
@@ -361,23 +360,23 @@ class _Simulateur_de_factureState extends State<Simulateur_de_facture> {
     double consoKw = indice2 - indice1;
     double montTTC = 0;
     double taxe = 0;
-    double _prixInf50 = 50;
-    double _prixSup50 = 76;
-    double _locationCompteur = 500;
+    double prixInf50 = 50;
+    double prixSup50 = 76;
+    double locationCompteur = 500;
 
     await Future.delayed(const Duration(seconds: 1), () {
       if (indice2 < indice1) {
         showTopSnackBar(
           context,
-          CustomSnackBar.error(
+          const CustomSnackBar.error(
             message: "le nouvel indice dois être supérieur à l ancien",
           ),
         );
       } else {
         if (consoKw < 50) {
-          montTTC = consoKw * _prixInf50;
+          montTTC = consoKw * prixInf50;
         } else {
-          double montTHT = (consoKw * _prixSup50) + _locationCompteur;
+          double montTHT = (consoKw * prixSup50) + locationCompteur;
           taxe = montTHT * 19.25 / 100;
           montTTC = montTHT + taxe;
         }

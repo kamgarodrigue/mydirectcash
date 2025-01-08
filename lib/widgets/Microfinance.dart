@@ -12,12 +12,12 @@ class Microfinance extends StatelessWidget {
     return GestureDetector(
             onTap: ontap,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 00),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 00),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     
                     child: Image.asset(
                       fit:BoxFit.cover ,
@@ -26,7 +26,7 @@ class Microfinance extends StatelessWidget {
                       height: 50,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Expanded(
@@ -43,7 +43,7 @@ class Microfinance extends StatelessWidget {
                                 color: blueColor,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 2,
                           ),
                           Text( slogant,

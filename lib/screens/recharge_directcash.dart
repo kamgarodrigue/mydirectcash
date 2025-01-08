@@ -48,17 +48,17 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -88,7 +88,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -105,7 +105,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         Text(
                             "${AppLocalizations.of(context)!.translate('Recharge via DirectCash')}",
                             textAlign: TextAlign.center,
@@ -119,7 +119,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     width: 100,
                     height: 100,
                     child: Image.asset(
@@ -127,7 +127,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                     ),
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: Column(
                         children: [
                           TextFormField(
@@ -137,14 +137,14 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                                   directCashCode = value;
                                 });
                               },
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: content_font, fontSize: 13),
                               textAlign: TextAlign.start,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText:
                                       "${AppLocalizations.of(context)!.translate('Saisissez le code DirectCash')}",
-                                  hintStyle: TextStyle(
+                                  hintStyle: const TextStyle(
                                       fontFamily: content_font,
                                       color: Colors.grey,
                                       fontSize: 13))),
@@ -155,7 +155,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                         ],
                       )),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: Column(
                         children: [
                           TextFormField(
@@ -165,11 +165,11 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                                 codeSecret = value;
                               });
                             },
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: content_font, fontSize: 13),
                             textAlign: TextAlign.start,
                             decoration: InputDecoration(
-                                suffixIcon: Icon(
+                                suffixIcon: const Icon(
                                   Icons.visibility,
                                   size: 16,
                                 ),
@@ -187,7 +187,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                         ],
                       )),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         onChanged: (value) {
@@ -196,10 +196,10 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                           });
                         },
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
-                            suffixIcon: Icon(
+                            suffixIcon: const Icon(
                               Icons.visibility,
                               size: 16,
                             ),
@@ -210,7 +210,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -221,7 +221,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:  blueColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 context
                                     .read<TransactonService>()
@@ -233,7 +233,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                                     .then((value) {
                                       print(value);
                                   setState(() {
-                                    this._isLoading = false;
+                                    _isLoading = false;
                                   });
                                   showTopSnackBar(
                                  Overlay.of(context),
@@ -244,11 +244,11 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                                   Navigator.pop(context);
                                 }).catchError((error) {
                                   setState(() {
-                                    this._isLoading = false;
+                                    _isLoading = false;
                                   });
                                   print(error);
                                   showTopSnackBar(
-Overlay.of(context),                                    CustomSnackBar.error(
+Overlay.of(context),                                    const CustomSnackBar.error(
                                         message: "une erreur c est produite"),
                                   );
                                 });
@@ -260,7 +260,7 @@ Overlay.of(context),                                    CustomSnackBar.error(
                               },
                               child: Text(
                                 "${AppLocalizations.of(context)!.translate('Valider')}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
                             ),
@@ -269,7 +269,7 @@ Overlay.of(context),                                    CustomSnackBar.error(
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(

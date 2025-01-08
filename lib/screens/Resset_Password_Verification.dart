@@ -14,7 +14,7 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class Resset_Password_Verification extends StatefulWidget {
-  Resset_Password_Verification({Key? key}) : super(key: key);
+  const Resset_Password_Verification({Key? key}) : super(key: key);
 
   @override
   State<Resset_Password_Verification> createState() =>
@@ -45,16 +45,16 @@ class _Resset_Password_VerificationState
         ),
         body: Stack(children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/images/background.png'),
                     fit: BoxFit.cover)),
             child: ListView(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Container(
@@ -84,16 +84,16 @@ class _Resset_Password_VerificationState
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     child: Column(
                       children: [
                         TextFormField(
                             keyboardType: TextInputType.phone,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: content_font, fontSize: 13),
                             textAlign: TextAlign.start,
                             initialValue: phoneNumber,
@@ -106,7 +106,7 @@ class _Resset_Password_VerificationState
                                 border: InputBorder.none,
                                 hintText:
                                     "${AppLocalizations.of(context)!.translate('Phone')}",
-                                hintStyle: TextStyle(
+                                hintStyle: const TextStyle(
                                     fontFamily: content_font,
                                     color: Colors.grey,
                                     fontSize: 13))),
@@ -116,7 +116,7 @@ class _Resset_Password_VerificationState
                         ),
                       ],
                     )),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -126,7 +126,7 @@ class _Resset_Password_VerificationState
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:  blueColor,
-                                padding: EdgeInsets.symmetric(horizontal: 50)),
+                                padding: const EdgeInsets.symmetric(horizontal: 50)),
                             onPressed: () {
                               setState(() {
                                 _isLoading = true;
@@ -163,7 +163,7 @@ class _Resset_Password_VerificationState
                             child: Text(
                               "${AppLocalizations.of(context)!.translate('suivant')}",
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
+                                  const TextStyle(color: Colors.white, fontSize: 14),
                             ),
                           ),
                         ],

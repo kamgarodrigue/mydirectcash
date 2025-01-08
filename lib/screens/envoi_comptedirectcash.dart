@@ -27,7 +27,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
   String? countryName = '';
   String? operateur = "Choisissez l'opérateur";
 
-  DataTransaction data = new DataTransaction(
+  DataTransaction data = DataTransaction(
     amount: "",
     cNI: "",
     fromNumber: "",
@@ -61,17 +61,17 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -101,7 +101,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -118,7 +118,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         Text(
                             AppLocalizations.of(context)!
                                 .translate("Envoi - Compte MyDirectCash")!,
@@ -132,18 +132,18 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     width: 100,
                     height: 100,
                     child: Image.asset(
                       'assets/images/logo-alliance-transparent.png',
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -195,7 +195,8 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 10),
+                        
+                        const SizedBox(height: 10),
                         Divider(
                           height: 1.5,
                           color: blueColor,
@@ -205,7 +206,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                   ),
                   // if (codeRegion == "CM")
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: Column(
                         children: [
                           TextFormField(
@@ -216,7 +217,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                                   data.toNumber = value;
                                 });
                               },
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: content_font, fontSize: 13),
                               textAlign: TextAlign.start,
                               decoration: InputDecoration(
@@ -224,7 +225,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                                   hintText: AppLocalizations.of(context)!
                                       .translate(
                                           "Saisissez le numéro bénéficiaire")!,
-                                  hintStyle: TextStyle(
+                                  hintStyle: const TextStyle(
                                       fontFamily: content_font,
                                       color: Colors.grey,
                                       fontSize: 13))),
@@ -236,7 +237,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                       )),
                   //  if (codeRegion == "CM")
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: Column(
                         children: [
                           TextFormField(
@@ -247,14 +248,14 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                                   data.amount = value;
                                 });
                               },
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: content_font, fontSize: 13),
                               textAlign: TextAlign.start,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: AppLocalizations.of(context)!
                                       .translate("Saisire montant")!,
-                                  hintStyle: TextStyle(
+                                  hintStyle: const TextStyle(
                                       fontFamily: content_font,
                                       color: Colors.grey,
                                       fontSize: 13))),
@@ -264,7 +265,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                           ),
                         ],
                       )),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   // if (codeRegion == "CM")
                   Container(
                     child: Row(
@@ -276,7 +277,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                               style: ElevatedButton.styleFrom(
                                backgroundColor:  blueColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 setState(() {
                                   _isLoading = true;
@@ -320,7 +321,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                               child: Text(
                                 AppLocalizations.of(context)!
                                     .translate("suivant")!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
                             ),

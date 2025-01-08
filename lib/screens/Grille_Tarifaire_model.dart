@@ -21,13 +21,13 @@ class Grille_Tarifaire_model extends StatefulWidget {
 }
 
 class _Grille_Tarifaire_modelState extends State<Grille_Tarifaire_model> {
-  bool _isLoading = false;
+  final bool _isLoading = false;
   bool _isOscure = true;
   String montant = "";
 
   void togle() {
-    this.setState(() {
-      this._isOscure = !_isOscure;
+    setState(() {
+      _isOscure = !_isOscure;
     });
   }
 
@@ -72,17 +72,17 @@ class _Grille_Tarifaire_modelState extends State<Grille_Tarifaire_model> {
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -112,7 +112,7 @@ class _Grille_Tarifaire_modelState extends State<Grille_Tarifaire_model> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -129,7 +129,7 @@ class _Grille_Tarifaire_modelState extends State<Grille_Tarifaire_model> {
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 50),
+                        const SizedBox(width: 50),
                         Text(widget.title,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
@@ -141,7 +141,7 @@ class _Grille_Tarifaire_modelState extends State<Grille_Tarifaire_model> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   DataTable(
@@ -151,7 +151,7 @@ class _Grille_Tarifaire_modelState extends State<Grille_Tarifaire_model> {
                               label: Text(column[index]["title"],
                                   textAlign: TextAlign.center,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 17,
                                       fontFamily: title_font,
                                       color: Colors.black,

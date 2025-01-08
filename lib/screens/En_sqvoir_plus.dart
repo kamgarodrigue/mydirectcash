@@ -12,7 +12,7 @@ import 'package:mydirectcash/widgets/carousel_container.dart';
 import 'package:page_transition/page_transition.dart';
 
 class En_sqvoir_plus extends StatefulWidget {
-  En_sqvoir_plus({Key? key}) : super(key: key);
+  const En_sqvoir_plus({Key? key}) : super(key: key);
 
   @override
   State<En_sqvoir_plus> createState() => _En_sqvoir_plusState();
@@ -22,7 +22,7 @@ class _En_sqvoir_plusState extends State<En_sqvoir_plus> {
   static List<Map> slides = [];
   late CarouselSliderController _carouselSliderController;
 
-  GlobalKey<dynamic> _sliderKey = GlobalKey();
+  final GlobalKey<dynamic> _sliderKey = GlobalKey();
   @override
   void initState() {
     super.initState();
@@ -71,7 +71,7 @@ class _En_sqvoir_plusState extends State<En_sqvoir_plus> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            _carouselSliderController.nextPage(Duration(milliseconds: 500));
+            _carouselSliderController.nextPage(const Duration(milliseconds: 500));
           },
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -88,7 +88,7 @@ class _En_sqvoir_plusState extends State<En_sqvoir_plus> {
             Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
@@ -104,9 +104,9 @@ class _En_sqvoir_plusState extends State<En_sqvoir_plus> {
                     content: slide['content'],
                   );
                 },
-                slideTransform: TabletTransform(),
+                slideTransform: const TabletTransform(),
                 slideIndicator: CircularSlideIndicator(
-                    padding: EdgeInsets.only(bottom: 40, left: 25),
+                    padding: const EdgeInsets.only(bottom: 40, left: 25),
                     alignment: Alignment.bottomLeft,
                     indicatorBorderColor: Colors.transparent,
                     indicatorBackgroundColor: Colors.grey.shade400,
@@ -121,10 +121,10 @@ class _En_sqvoir_plusState extends State<En_sqvoir_plus> {
             Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                  padding: EdgeInsets.only(top: 16),
+                  padding: const EdgeInsets.only(top: 16),
                   child: IconButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: Icon(Icons.arrow_back, size: 30))),
+                      icon: const Icon(Icons.arrow_back, size: 30))),
             )
           ],
         ));

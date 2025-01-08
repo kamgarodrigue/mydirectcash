@@ -13,7 +13,7 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 class Resset_Password extends StatefulWidget {
   final dynamic data;
 
-  Resset_Password({Key? key, required this.data}) : super(key: key);
+  const Resset_Password({Key? key, required this.data}) : super(key: key);
 
   @override
   State<Resset_Password> createState() => _Resset_PasswordState();
@@ -42,16 +42,16 @@ class _Resset_PasswordState extends State<Resset_Password> {
         ),
         body: Stack(children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/images/background.png'),
                     fit: BoxFit.cover)),
             child: ListView(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Container(
@@ -81,7 +81,7 @@ class _Resset_PasswordState extends State<Resset_Password> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Padding(
@@ -103,16 +103,16 @@ class _Resset_PasswordState extends State<Resset_Password> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     child: Column(
                       children: [
                         TextFormField(
                             keyboardType: TextInputType.text,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: content_font, fontSize: 13),
                             textAlign: TextAlign.start,
                             initialValue: code,
@@ -125,7 +125,7 @@ class _Resset_PasswordState extends State<Resset_Password> {
                                 border: InputBorder.none,
                                 hintText:
                                     "${AppLocalizations.of(context)!.translate('code')}",
-                                hintStyle: TextStyle(
+                                hintStyle: const TextStyle(
                                     fontFamily: content_font,
                                     color: Colors.grey,
                                     fontSize: 13))),
@@ -135,16 +135,16 @@ class _Resset_PasswordState extends State<Resset_Password> {
                         ),
                       ],
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     child: Column(
                       children: [
                         TextFormField(
                             keyboardType: TextInputType.number,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: content_font, fontSize: 13),
                             textAlign: TextAlign.start,
                             initialValue: pass,
@@ -157,7 +157,7 @@ class _Resset_PasswordState extends State<Resset_Password> {
                                 border: InputBorder.none,
                                 hintText:
                                     "${AppLocalizations.of(context)!.translate("Password1")}",
-                                hintStyle: TextStyle(
+                                hintStyle: const TextStyle(
                                     fontFamily: content_font,
                                     color: Colors.grey,
                                     fontSize: 13))),
@@ -167,7 +167,7 @@ class _Resset_PasswordState extends State<Resset_Password> {
                         ),
                       ],
                     )),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -177,7 +177,7 @@ class _Resset_PasswordState extends State<Resset_Password> {
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                  backgroundColor:  blueColor,
-                                padding: EdgeInsets.symmetric(horizontal: 50)),
+                                padding: const EdgeInsets.symmetric(horizontal: 50)),
                             onPressed: () {
                               setState(() {
                                 _isLoading = true;
@@ -216,7 +216,7 @@ class _Resset_PasswordState extends State<Resset_Password> {
                             child: Text(
                               "${AppLocalizations.of(context)!.translate('Valider')}",
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
+                                  const TextStyle(color: Colors.white, fontSize: 14),
                             ),
                           ),
                         ],

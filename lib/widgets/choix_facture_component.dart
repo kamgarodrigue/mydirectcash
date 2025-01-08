@@ -6,6 +6,8 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ChoixFacture extends StatefulWidget {
+  const ChoixFacture({super.key});
+
   @override
   _ChoixFactureState createState() => _ChoixFactureState();
 }
@@ -13,14 +15,14 @@ class ChoixFacture extends StatefulWidget {
 class _ChoixFactureState extends State<ChoixFacture> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 2,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 25, horizontal: 25),
+            padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 25),
             child: Text(
               AppLocalizations.of(context)!
                   .translate('Choisissez la facture à Payer')
@@ -32,7 +34,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
                   fontSize: 14),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           GestureDetector(
@@ -42,7 +44,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
                   PageTransition(
                       type: PageTransitionType.rightToLeft,
                       child: PayementFacture(
-                        factureInfos: {
+                        factureInfos: const {
                           'image': 'assets/images/canal_plus.jpg',
                           'title': 'Abonnement Canal+',
                           'typeOP': 'canal',
@@ -53,7 +55,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
               });
             },
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -61,7 +63,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
                     'assets/images/canal_plus.jpg',
                     width: 50,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Expanded(
@@ -80,7 +82,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
                                 color: blueColor,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 2,
                           ),
                           Text(
@@ -101,7 +103,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           GestureDetector(
@@ -124,7 +126,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
               });
             },
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -132,7 +134,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
                     'assets/images/eneo.png',
                     width: 50,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Expanded(
@@ -149,7 +151,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
                                 color: blueColor,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 2,
                           ),
                           Text(
@@ -170,7 +172,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           GestureDetector(
@@ -193,7 +195,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
               });
             },
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -201,7 +203,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
                     'assets/images/cam_water.jpg',
                     width: 50,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Expanded(
@@ -218,7 +220,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
                                 color: blueColor,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 2,
                           ),
                           Text(

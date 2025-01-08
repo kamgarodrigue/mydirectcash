@@ -40,7 +40,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Scantastic'),
+        title: const Text('Scantastic'),
       ),
       body: Stack(
         // alignment: Alignment.center,

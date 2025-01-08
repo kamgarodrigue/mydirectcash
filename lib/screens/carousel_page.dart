@@ -12,6 +12,8 @@ import 'package:mydirectcash/widgets/carousel_container.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CarouselPage extends StatefulWidget {
+  const CarouselPage({super.key});
+
   @override
   _CarouselPageState createState() => _CarouselPageState();
 }
@@ -20,7 +22,7 @@ class _CarouselPageState extends State<CarouselPage> {
   late CarouselSliderController _carouselSliderController;
   static List<Map> slides = [];
 
-  GlobalKey<dynamic> _sliderKey = GlobalKey();
+  final GlobalKey<dynamic> _sliderKey = GlobalKey();
   @override
   void initState() {
     super.initState();
@@ -92,7 +94,7 @@ class _CarouselPageState extends State<CarouselPage> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
@@ -108,9 +110,9 @@ class _CarouselPageState extends State<CarouselPage> {
               content: slide['content'],
             );
           },
-          slideTransform: TabletTransform(),
+          slideTransform: const TabletTransform(),
           slideIndicator: CircularSlideIndicator(
-              padding: EdgeInsets.only(bottom: 40, left: 25),
+              padding: const EdgeInsets.only(bottom: 40, left: 25),
               alignment: Alignment.bottomLeft,
               indicatorBorderColor: Colors.transparent,
               indicatorBackgroundColor: Colors.grey.shade400,

@@ -12,6 +12,8 @@ import 'package:mydirectcash/widgets/share_component.dart';
 import 'package:page_transition/page_transition.dart';
 
 class Achats extends StatefulWidget {
+  const Achats({super.key});
+
   @override
   _AchatsState createState() => _AchatsState();
 }
@@ -131,15 +133,15 @@ class _AchatsState extends State<Achats> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
-              margin: EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              margin: const EdgeInsets.only(top: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -149,7 +151,7 @@ class _AchatsState extends State<Achats> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: Container(
+                          child: SizedBox(
                             height: 80,
                             child: Stack(
                               children: [
@@ -209,11 +211,11 @@ class _AchatsState extends State<Achats> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Text(
                       AppLocalizations.of(context)!
                           .translate("Listes d'achats effectués")!,
@@ -223,17 +225,17 @@ class _AchatsState extends State<Achats> {
                           fontFamily: title_font),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 0),
+                    padding: const EdgeInsets.symmetric(horizontal: 0),
                     child: Row(
                       children: [
                         Expanded(
                           child: Container(
                             height: 40,
-                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                                 border: Border.all(color: marronColor),
                                 borderRadius: BorderRadius.circular(5)),
@@ -241,18 +243,18 @@ class _AchatsState extends State<Achats> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.search,
                                   size: 20,
                                   color: Colors.grey,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Expanded(
                                     child: TextFormField(
                                         keyboardType: TextInputType.text,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontFamily: content_font,
                                             fontSize: 14),
                                         textAlign: TextAlign.start,
@@ -269,7 +271,7 @@ class _AchatsState extends State<Achats> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Icon(Icons.filter_list_outlined,
@@ -277,13 +279,13 @@ class _AchatsState extends State<Achats> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Expanded(

@@ -17,7 +17,7 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class PayementFactureValidate extends StatefulWidget {
-  PayementFactureValidate({required this.factureInfos, this.detailFac});
+  PayementFactureValidate({super.key, required this.factureInfos, this.detailFac});
   dynamic factureInfos;
   dynamic detailFac;
 
@@ -50,7 +50,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
   Widget build(BuildContext context) {
     final authService = context.watch<AuthService>();
     widget.detailFac["frais"] =
-        widget.detailFac["frais"] == null ? "0" : widget.detailFac["frais"];
+        widget.detailFac["frais"] ?? "0";
     widget.detailFac["amount"] = (double.tryParse(widget.detailFac["amount"])! +
             double.tryParse(widget.detailFac["frais"])!)
         .toString();
@@ -63,17 +63,17 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -103,7 +103,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -120,7 +120,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 50),
+                        const SizedBox(width: 50),
                         Text(
                             AppLocalizations.of(context)!
                                 .translate('Payement de facture')
@@ -135,7 +135,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(
@@ -143,10 +143,10 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Image.asset(
-                          widget.factureInfos['image'],
+                          "assets/images/canal_plus.jpg",
                           width: 50,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                         Expanded(
@@ -163,7 +163,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                                       color: blueColor,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 2,
                                 ),
                                 Text(
@@ -181,7 +181,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Container(
@@ -193,34 +193,29 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                                     .translate(
                                         "Vous êtes sur le point d'acheter le bouquet ACCESS pour 3 mois")
                                     .toString()
-                                : AppLocalizations.of(context)!
-                                        .translate("Frais :")
-                                        .toString() +
-                                    '${widget.detailFac["frais"]} XAF ' +
-                                    AppLocalizations.of(context)!
+                                : '${AppLocalizations.of(context)!
+                                        .translate("Frais :")}${widget.detailFac["frais"]} XAF ${AppLocalizations.of(context)!
                                         .translate(
-                                            "le montant total à débité est de")
-                                        .toString() +
-                                    '${widget.detailFac["amount"]} XAF',
+                                            "le montant total à débité est de")}${widget.detailFac["amount"]} XAF',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 12.5,
                                 fontFamily: content_font,
                                 color: blueColor,
                                 fontWeight: FontWeight.w600)),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         if (widget.factureInfos['title'] != 'Bouquet ACCESS')
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Text(
                                 AppLocalizations.of(context)!
                                     .translate(
                                         "Veuillez saisir le mot de passe pour valider la transastion")
                                     .toString(),
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 12,
                                     fontFamily: content_font,
                                     fontWeight: FontWeight.w500)),
@@ -228,11 +223,11 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         initialValue: widget.detailFac["numeroDeContrat"],
@@ -242,7 +237,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                           });
                         },
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             hintText: AppLocalizations.of(context)!
@@ -255,7 +250,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                                 fontSize: 13)),
                       )),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         initialValue: widget.detailFac["pass"],
@@ -265,10 +260,10 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                           });
                         },
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
-                            suffixIcon: Icon(
+                            suffixIcon: const Icon(
                               Icons.visibility,
                               size: 16,
                             ),
@@ -280,7 +275,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -291,7 +286,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:  blueColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 setState(() {
                                   _isLoading = true;
@@ -325,7 +320,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                                         })
                                     .catchError((error) {
                                   setState(() {
-                                    this._isLoading = false;
+                                    _isLoading = false;
                                   });
                                   print(error);
                                   showTopSnackBar(
@@ -340,7 +335,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                                 AppLocalizations.of(context)!
                                     .translate("Valider")
                                     .toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
                             ),
@@ -349,7 +344,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(

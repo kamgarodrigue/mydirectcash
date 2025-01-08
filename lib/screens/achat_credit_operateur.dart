@@ -45,16 +45,16 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
         body: Stack(
           children: [
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/images/background.png'),
                         fit: BoxFit.cover)),
                 child: Column(children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -91,7 +91,7 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   Expanded(
@@ -175,7 +175,7 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
                           child: Container(
                             decoration: BoxDecoration(
                                 color: blueColor.withOpacity(0.9),
-                                gradient: LinearGradient(
+                                gradient: const LinearGradient(
                                     colors: [
                                       Color.fromRGBO(255, 255, 255, 1),
                                       Color.fromRGBO(3, 169, 244, 1),

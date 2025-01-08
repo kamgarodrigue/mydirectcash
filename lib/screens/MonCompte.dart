@@ -22,6 +22,8 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
 class MonCompte extends StatefulWidget {
+  const MonCompte({super.key});
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -29,7 +31,7 @@ class MonCompte extends StatefulWidget {
 class _HomeState extends State<MonCompte> {
   UserController? _userController;
   bool showDollar = true;
-  User? currrentUser = new User(data: DataUser(nom: "", phone: "", solde: "",));
+  User? currrentUser = User(data: DataUser(nom: "", phone: "", solde: "",));
   int conversion = 0;
   void setconversion(int value) {
     if (solde != 0) {
@@ -104,7 +106,7 @@ class _HomeState extends State<MonCompte> {
         ),
         body: RefreshIndicator(
           onRefresh: () => _userController!.utilisateur!.then((value) {
-            this.currrentUser = value;
+            currrentUser = value;
           }),
           child: Container(
             height: MediaQuery.of(context).size.height,
@@ -126,7 +128,7 @@ class _HomeState extends State<MonCompte> {
                         children: [
                           IconButton(
                               onPressed: () => Navigator.of(context).pop(),
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.arrow_back,
                                 size: 20,
                               )),
@@ -164,7 +166,7 @@ class _HomeState extends State<MonCompte> {
                           child: Row(
                             children: [
                               Container(
-                                margin: EdgeInsets.only(top: 20),
+                                margin: const EdgeInsets.only(top: 20),
                                 width: 100,
                                 height: 100,
                                 child: Image.asset(
@@ -189,17 +191,16 @@ class _HomeState extends State<MonCompte> {
                                           fontFamily: title_font),
                                     ),
                                     Text(
-                                      this.currrentUser!.data!.phone.toString(),
+                                      currrentUser!.data!.phone.toString(),
                                       style: const TextStyle(
                                           fontSize: 12,
                                           fontFamily: content_font),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 8,
                                     ),
                                     Text(
-                                      "Id: " +
-                                          this.currrentUser!.data!.matricule!,
+                                      "Id: ${this.currrentUser!.data!.matricule!}",
                                       style: TextStyle(
                                           color: blueColor,
                                           fontSize: 14,
@@ -238,7 +239,7 @@ class _HomeState extends State<MonCompte> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     Container(
@@ -276,7 +277,7 @@ class _HomeState extends State<MonCompte> {
                       leading: CircleAvatar(
                         radius: 15,
                         backgroundColor: blueColor,
-                        child: Icon(
+                        child: const Icon(
                           Icons.priority_high,
                           color: Colors.white,
                         ),
@@ -295,7 +296,7 @@ class _HomeState extends State<MonCompte> {
                     ),
                     Card(
                       child: Container(
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10)),
                           width: MediaQuery.of(context).size.width,
@@ -318,7 +319,7 @@ class _HomeState extends State<MonCompte> {
                                             fontWeight: FontWeight.w500,
                                             fontFamily: content_font),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       Text(
@@ -328,7 +329,7 @@ class _HomeState extends State<MonCompte> {
                                             fontSize: 34,
                                             fontFamily: title_font),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       Container(
@@ -427,7 +428,7 @@ class _HomeState extends State<MonCompte> {
                                 ),
                                 Text(
                                   "${AppLocalizations.of(context)!.translate("Solde en attente:")}  XAF O",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -500,7 +501,7 @@ class _HomeState extends State<MonCompte> {
                       ),
                     ),*/
 
-                    this.currrentUser!.data!.phone != ""
+                    currrentUser!.data!.phone != ""
                         ? LastTransaction(
                             currrentUser: currrentUser,
                           )

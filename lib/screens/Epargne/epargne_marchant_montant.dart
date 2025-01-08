@@ -20,7 +20,7 @@ class EpargneMarchandMontant extends StatefulWidget {
 }
 
 class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
-  bool _isLoading = false;
+  final bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,17 +32,17 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -72,7 +72,7 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -89,7 +89,7 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 50),
+                        const SizedBox(width: 50),
                         Text(
                              AppLocalizations.of(context)!
                                 .translate("Epargné Mon argent")!,
@@ -104,22 +104,22 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     width: 100,
                     height: 100,
                     child: Image.asset(
                       'assets/images/logo-alliance-transparent.png',
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.number,
                         initialValue: "${widget.data!["Montant"]}",
@@ -129,7 +129,7 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
                           });
                         },
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             hintText: AppLocalizations.of(context)!
@@ -139,7 +139,7 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -150,7 +150,7 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
                               style: ElevatedButton.styleFrom(
                                  backgroundColor:  blueColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -163,7 +163,7 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
                               child: Text(
                                 AppLocalizations.of(context)!
                                     .translate("suivant")!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
                             ),
@@ -172,7 +172,7 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 
 class PayementModeOption extends StatefulWidget {
-  PayementModeOption({required this.icon, required this.title});
+  PayementModeOption({super.key, required this.icon, required this.title});
   Icon icon;
   String title;
 
@@ -14,7 +14,7 @@ class _PayementModeOptionState extends State<PayementModeOption> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 8),
       height: 35,
       color: Colors.white,
       child: Column(
@@ -25,12 +25,12 @@ class _PayementModeOptionState extends State<PayementModeOption> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 widget.icon,
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
-                Text('${widget.title}',
+                Text(widget.title,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 14,
                         fontFamily: content_font,
                         fontWeight: FontWeight.w500))

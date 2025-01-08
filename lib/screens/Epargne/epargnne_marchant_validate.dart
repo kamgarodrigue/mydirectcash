@@ -26,8 +26,8 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
   bool _isLoading = false;
   bool _isOscure = true;
   void togle() {
-    this.setState(() {
-      this._isOscure = !_isOscure;
+    setState(() {
+      _isOscure = !_isOscure;
     });
   }
 
@@ -44,17 +44,17 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -84,7 +84,7 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -101,7 +101,7 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 50),
+                        const SizedBox(width: 50),
                         Text(
                              AppLocalizations.of(context)!
                                 .translate("Epargné Mon argent")!,
@@ -116,18 +116,18 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     width: 100,
                     height: 100,
                     child: Image.asset(
                       'assets/images/logo-alliance-transparent.png',
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -141,15 +141,15 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                                 fontFamily: content_font,
                                 color: blueColor,
                                 fontWeight: FontWeight.w600)),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
-                              '${AppLocalizations.of(context)!.translate("Veuillez saisir le mot de passe pour valider la transastion")!}',
+                              AppLocalizations.of(context)!.translate("Veuillez saisir le mot de passe pour valider la transastion")!,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 12,
                                   fontFamily: content_font,
                                   fontWeight: FontWeight.w500)),
@@ -157,11 +157,11 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         obscureText: _isOscure,
@@ -172,11 +172,11 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                           });
                         },
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.visibility,
                                 size: 16,
                               ),
@@ -189,7 +189,7 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -200,16 +200,16 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:  blueColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 setState(() {
-                                  this._isLoading = true;
+                                  _isLoading = true;
                                 });
                                 TransactonService()
                                     .payerMarchant(widget.data)
                                     .then((value) {
                                   setState(() {
-                                    this._isLoading = false;
+                                    _isLoading = false;
                                   });
 
                                   context
@@ -230,7 +230,7 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                                   // Navigator.pop(context);
                                 }).catchError((error) {
                                   setState(() {
-                                    this._isLoading = false;
+                                    _isLoading = false;
                                   });
                                   print(error);
                                   showTopSnackBar(
@@ -244,7 +244,7 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                               child: Text(
                                 AppLocalizations.of(context)!
                                     .translate("Valider")!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
                             ),
@@ -253,7 +253,7 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(

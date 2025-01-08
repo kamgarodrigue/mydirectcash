@@ -20,7 +20,7 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class PayementFacture extends StatefulWidget {
-  PayementFacture({required this.factureInfos});
+  PayementFacture({super.key, required this.factureInfos});
   dynamic factureInfos;
   //assets/images/ico-parametre.png
 
@@ -47,7 +47,7 @@ class _PayementFactureState extends State<PayementFacture> {
     super.initState();
     Canal().geBouquetCanal().then((value) {
       setState(() {
-        this.boquets = value;
+        boquets = value;
       });
     });
     context.read<AuthService>().authenticate;
@@ -95,20 +95,28 @@ class _PayementFactureState extends State<PayementFacture> {
                 )));
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
         decoration: BoxDecoration(
           color: Colors.grey.shade300,
           borderRadius: BorderRadius.circular(5),
         ),
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(
-              "${boquets[index].image}",
-              width: 50,
-            ),
-            SizedBox(
+            // problem here on image
+            // Image.asset(
+            //   "${boquets[index].image}",
+            //   width: 50,
+            // ),
+             Container(
+                    height: 50,
+                    width: 50,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(image: AssetImage("assets/images/canal_plus.jpg"))
+                    ),
+                  ),
+            const SizedBox(
               width: 20,
             ),
             Expanded(
@@ -125,7 +133,7 @@ class _PayementFactureState extends State<PayementFacture> {
                           color: blueColor,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 2,
                     ),
                     Text(
@@ -140,8 +148,8 @@ class _PayementFactureState extends State<PayementFacture> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 25),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 25),
               child: Text(
                 '1 mois',
                 style: TextStyle(
@@ -180,7 +188,7 @@ class _PayementFactureState extends State<PayementFacture> {
             Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
@@ -189,8 +197,8 @@ class _PayementFactureState extends State<PayementFacture> {
                       child: Column(
                         children: [
                           Container(
-                            margin: EdgeInsets.only(top: 10),
-                            padding: EdgeInsets.symmetric(horizontal: 25),
+                            margin: const EdgeInsets.only(top: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 25),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -220,11 +228,11 @@ class _PayementFactureState extends State<PayementFacture> {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 25),
+                            padding: const EdgeInsets.symmetric(horizontal: 25),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -238,7 +246,7 @@ class _PayementFactureState extends State<PayementFacture> {
                                     color: blueColor,
                                   ),
                                 ),
-                                SizedBox(width: 50),
+                                const SizedBox(width: 50),
                                 Text(
                                     AppLocalizations.of(context)!
                                         .translate('Payement de facture')
@@ -253,11 +261,11 @@ class _PayementFactureState extends State<PayementFacture> {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 25),
+                            padding: const EdgeInsets.symmetric(horizontal: 25),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -265,7 +273,7 @@ class _PayementFactureState extends State<PayementFacture> {
                                   widget.factureInfos['image'],
                                   width: 50,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 20,
                                 ),
                                 Expanded(
@@ -284,7 +292,7 @@ class _PayementFactureState extends State<PayementFacture> {
                                               color: blueColor,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 2,
                                         ),
                                         Text(
@@ -302,7 +310,7 @@ class _PayementFactureState extends State<PayementFacture> {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
                           Expanded(
@@ -323,10 +331,10 @@ class _PayementFactureState extends State<PayementFacture> {
                       ),
                     )
                   : ListView(
-                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top: 10),
+                          margin: const EdgeInsets.only(top: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -356,7 +364,7 @@ class _PayementFactureState extends State<PayementFacture> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Container(
@@ -373,7 +381,7 @@ class _PayementFactureState extends State<PayementFacture> {
                                   color: blueColor,
                                 ),
                               ),
-                              SizedBox(width: 50),
+                              const SizedBox(width: 50),
                               Text(
                                   AppLocalizations.of(context)!
                                       .translate('Payement de facture')
@@ -389,7 +397,7 @@ class _PayementFactureState extends State<PayementFacture> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 20),
+                          margin: const EdgeInsets.only(top: 20),
                           width: 100,
                           height: 100,
                           child: Image.asset(
@@ -398,13 +406,13 @@ class _PayementFactureState extends State<PayementFacture> {
                         ),
                         Container(
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Image.asset(
                                 widget.factureInfos['image'],
                                 width: 50,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
                               Expanded(
@@ -422,7 +430,7 @@ class _PayementFactureState extends State<PayementFacture> {
                                             color: blueColor,
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 2,
                                       ),
                                       Text(
@@ -440,11 +448,11 @@ class _PayementFactureState extends State<PayementFacture> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 50,
                         ),
                         Container(
-                            margin: EdgeInsets.only(top: 20),
+                            margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
                               keyboardType: TextInputType.text,
                               initialValue: detailFac["numeroDeContrat"],
@@ -453,7 +461,7 @@ class _PayementFactureState extends State<PayementFacture> {
                                   detailFac["numeroDeContrat"] = value;
                                 });
                               },
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: content_font, fontSize: 13),
                               textAlign: TextAlign.start,
                               decoration: InputDecoration(
@@ -466,7 +474,7 @@ class _PayementFactureState extends State<PayementFacture> {
                                       color: Colors.grey.shade500,
                                       fontSize: 13)),
                             )),
-                        SizedBox(height: 50),
+                        const SizedBox(height: 50),
                         Container(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -476,7 +484,7 @@ class _PayementFactureState extends State<PayementFacture> {
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:  blueColor,
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             horizontal: 50)),
                                     onPressed: () {
                                       setState(() {
@@ -502,7 +510,7 @@ class _PayementFactureState extends State<PayementFacture> {
                                                 "Instance of 'RequestOptions'") {
                                           showTopSnackBar(
                                            Overlay.of(context),
-                                            CustomSnackBar.info(
+                                            const CustomSnackBar.info(
                                               message:
                                                   "Aucune facture pour ce numéro de contrat",
                                             ),
@@ -537,7 +545,7 @@ class _PayementFactureState extends State<PayementFacture> {
                                       AppLocalizations.of(context)!
                                           .translate('suivant')
                                           .toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white, fontSize: 14),
                                     ),
                                   ),

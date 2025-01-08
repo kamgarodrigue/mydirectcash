@@ -10,6 +10,8 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class PhoneNumberEntry extends StatefulWidget {
+  const PhoneNumberEntry({super.key});
+
   @override
   _PhoneNumberEntryState createState() => _PhoneNumberEntryState();
 }
@@ -24,16 +26,16 @@ class _PhoneNumberEntryState extends State<PhoneNumberEntry> {
         elevation: 0,
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
         child: ListView(
           children: [
-            Container(
+            SizedBox(
               width: 140,
               height: 140,
               child: Image.asset(
@@ -42,7 +44,7 @@ class _PhoneNumberEntryState extends State<PhoneNumberEntry> {
             ),
             Container(
               color: Colors.transparent,
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -60,7 +62,7 @@ class _PhoneNumberEntryState extends State<PhoneNumberEntry> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 80,
             ),
             Container(
@@ -68,7 +70,7 @@ class _PhoneNumberEntryState extends State<PhoneNumberEntry> {
               child: CountryListPick(
                   appBar: AppBar(
                     backgroundColor: blueColor,
-                    title: Text(
+                    title: const Text(
                       'Choisir un pays',
                       style: TextStyle(fontFamily: title_font, fontSize: 18),
                     ),
@@ -85,13 +87,13 @@ class _PhoneNumberEntryState extends State<PhoneNumberEntry> {
                   useUiOverlay: true,
                   useSafeArea: false),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
               child: TextFormField(
                 keyboardType: TextInputType.number,
-                style: TextStyle(fontFamily: content_font, fontSize: 13),
+                style: const TextStyle(fontFamily: content_font, fontSize: 13),
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
                     hintText: 'Numéro de téléphone',
@@ -101,7 +103,7 @@ class _PhoneNumberEntryState extends State<PhoneNumberEntry> {
                         fontSize: 14)),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 35,
             ),
             Container(
@@ -113,7 +115,7 @@ class _PhoneNumberEntryState extends State<PhoneNumberEntry> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                            backgroundColor:  blueColor,
-                            padding: EdgeInsets.symmetric(horizontal: 50)),
+                            padding: const EdgeInsets.symmetric(horizontal: 50)),
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -121,7 +123,7 @@ class _PhoneNumberEntryState extends State<PhoneNumberEntry> {
                                   type: PageTransitionType.rightToLeft,
                                   child: CodeEntry()));
                         },
-                        child: Text(
+                        child: const Text(
                           'SUIVANT',
                           style: TextStyle(color: Colors.white, fontSize: 14),
                         ),
@@ -131,7 +133,7 @@ class _PhoneNumberEntryState extends State<PhoneNumberEntry> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
@@ -143,7 +145,7 @@ class _PhoneNumberEntryState extends State<PhoneNumberEntry> {
                       fontSize: 12,
                       color: Colors.grey.shade500)),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Container(

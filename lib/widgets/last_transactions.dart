@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 class LastTransaction extends StatefulWidget {
   User? currrentUser;
-  LastTransaction({this.currrentUser});
+  LastTransaction({super.key, this.currrentUser});
   @override
   _LastTransactionState createState() => _LastTransactionState();
 }
@@ -28,7 +28,7 @@ class _LastTransactionState extends State<LastTransaction> {
   Widget build(BuildContext context) {
     final transaction = context.watch<TransactonService>();
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border.all(color: blueColor),
         borderRadius: BorderRadius.circular(5),
@@ -47,14 +47,14 @@ class _LastTransactionState extends State<LastTransaction> {
                   color: blueColor),
             ),
           ]),
-          Padding(
-            padding: const EdgeInsets.only(left: 18, top: 5),
+          const Padding(
+            padding: EdgeInsets.only(left: 18, top: 5),
             child: Divider(
               height: 1,
               color: Colors.grey,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Column(
@@ -70,7 +70,7 @@ class _LastTransactionState extends State<LastTransaction> {
                           child: Text(
                             "${transaction.historique[index].typeOperation}",
                             textAlign: TextAlign.start,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 13,
                               fontFamily: content_font,
                             ),
@@ -79,7 +79,7 @@ class _LastTransactionState extends State<LastTransaction> {
                         Text(
                           "${transaction.historique[index].montant}",
                           textAlign: TextAlign.start,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 12,
                             fontFamily: content_font,
                             fontWeight: FontWeight.w800,
@@ -92,9 +92,9 @@ class _LastTransactionState extends State<LastTransaction> {
                         Padding(
                           padding: const EdgeInsets.only(left: 18, top: 0),
                           child: Text(
-                            '${transaction.historique[index].collecteur!}',
+                            transaction.historique[index].collecteur!,
                             textAlign: TextAlign.start,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 10,
                               fontFamily: content_font,
                             ),
@@ -103,21 +103,21 @@ class _LastTransactionState extends State<LastTransaction> {
                         Text(
                           '${transaction.historique[index].jour}',
                           textAlign: TextAlign.start,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 10,
                             fontFamily: content_font,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       ]),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 18, top: 5),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 18, top: 5),
                     child: Divider(
                       height: 1,
                       color: Colors.grey,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                 ],

@@ -30,17 +30,17 @@ class _RechargeVirementState extends State<RechargeVirement> {
           elevation: 0,
         ),
         body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/images/background.png'),
                   fit: BoxFit.cover)),
           child: ListView(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 10),
+                margin: const EdgeInsets.only(top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -69,7 +69,7 @@ class _RechargeVirementState extends State<RechargeVirement> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Container(
@@ -86,7 +86,7 @@ class _RechargeVirementState extends State<RechargeVirement> {
                         color: blueColor,
                       ),
                     ),
-                    SizedBox(width: 20),
+                    const SizedBox(width: 20),
                     Text(
                         "${AppLocalizations.of(context)!.translate('Recharge via Virement bancaire')}",
                         textAlign: TextAlign.center,
@@ -100,7 +100,7 @@ class _RechargeVirementState extends State<RechargeVirement> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20),
                 width: 100,
                 height: 100,
                 child: Image.asset(
@@ -108,7 +108,7 @@ class _RechargeVirementState extends State<RechargeVirement> {
                 ),
               ),
               Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   color: Colors.transparent,
                   child: Column(
                     children: [
@@ -118,15 +118,15 @@ class _RechargeVirementState extends State<RechargeVirement> {
                           Expanded(
                             child: Text(
                                 "${AppLocalizations.of(context)!.translate('Choisissez votre banque')}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.grey, fontSize: 14)),
                           ),
                           Container(
-                            padding: EdgeInsets.only(right: 15),
+                            padding: const EdgeInsets.only(right: 15),
                             child: DropdownButton<String>(
                               isExpanded: false,
                               underline: Container(),
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.expand_more,
                                 color: Colors.blue,
                               ),
@@ -138,7 +138,7 @@ class _RechargeVirementState extends State<RechargeVirement> {
                                   value: value,
                                   child: Text(
                                     value,
-                                    style: new TextStyle(
+                                    style: const TextStyle(
                                       fontFamily: content_font,
                                       fontSize: 16,
                                       color: Colors.black,
@@ -164,19 +164,19 @@ class _RechargeVirementState extends State<RechargeVirement> {
                     ],
                   )),
               Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   child: Column(
                     children: [
                       TextFormField(
                           keyboardType: TextInputType.number,
                           style:
-                              TextStyle(fontFamily: content_font, fontSize: 13),
+                              const TextStyle(fontFamily: content_font, fontSize: 13),
                           textAlign: TextAlign.start,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText:
                                   "${AppLocalizations.of(context)!.translate('Saisissez votre numéro de compte')}",
-                              hintStyle: TextStyle(
+                              hintStyle: const TextStyle(
                                   fontFamily: content_font,
                                   color: Colors.grey,
                                   fontSize: 13))),
@@ -187,19 +187,19 @@ class _RechargeVirementState extends State<RechargeVirement> {
                     ],
                   )),
               Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   child: Column(
                     children: [
                       TextFormField(
                           keyboardType: TextInputType.number,
                           style:
-                              TextStyle(fontFamily: content_font, fontSize: 13),
+                              const TextStyle(fontFamily: content_font, fontSize: 13),
                           textAlign: TextAlign.start,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText:
                                   "${AppLocalizations.of(context)!.translate('saisissez le montant')}",
-                              hintStyle: TextStyle(
+                              hintStyle: const TextStyle(
                                   fontFamily: content_font,
                                   color: Colors.grey,
                                   fontSize: 13))),
@@ -210,13 +210,13 @@ class _RechargeVirementState extends State<RechargeVirement> {
                     ],
                   )),
               Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    style: TextStyle(fontFamily: content_font, fontSize: 13),
+                    style: const TextStyle(fontFamily: content_font, fontSize: 13),
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
-                        suffixIcon: Icon(
+                        suffixIcon: const Icon(
                           Icons.visibility,
                           size: 16,
                         ),
@@ -227,7 +227,7 @@ class _RechargeVirementState extends State<RechargeVirement> {
                             color: Colors.grey.shade500,
                             fontSize: 13)),
                   )),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -237,17 +237,17 @@ class _RechargeVirementState extends State<RechargeVirement> {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor:  blueColor,
-                              padding: EdgeInsets.symmetric(horizontal: 50)),
+                              padding: const EdgeInsets.symmetric(horizontal: 50)),
                           onPressed: () {
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return ErrorOperationComponent();
+                                  return const ErrorOperationComponent();
                                 });
                           },
                           child: Text(
                             "${AppLocalizations.of(context)!.translate('Valider')}",
-                            style: TextStyle(color: Colors.white, fontSize: 14),
+                            style: const TextStyle(color: Colors.white, fontSize: 14),
                           ),
                         ),
                       ],
@@ -255,7 +255,7 @@ class _RechargeVirementState extends State<RechargeVirement> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(

@@ -5,7 +5,7 @@ class DashedBorderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Color(0xFFD9D9D9)
+      ..color = const Color(0xFFD9D9D9)
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 

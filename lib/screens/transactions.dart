@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 
 class Transactions extends StatefulWidget {
   final phone;
-  Transactions({required this.phone});
+  const Transactions({super.key, required this.phone});
   @override
   _TransactionsState createState() => _TransactionsState();
 }
@@ -115,7 +115,7 @@ class _TransactionsState extends State<Transactions> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
@@ -126,13 +126,13 @@ class _TransactionsState extends State<Transactions> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
                             onPressed: () => Navigator.of(context).pop(),
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_back,
                               size: 20,
                             )),
@@ -157,11 +157,11 @@ class _TransactionsState extends State<Transactions> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 00,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: Text(
                       'Liste des transactions',
                       style: TextStyle(
@@ -170,17 +170,17 @@ class _TransactionsState extends State<Transactions> {
                           fontFamily: title_font),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: Row(
                       children: [
                         Expanded(
                           child: Container(
                             height: 40,
-                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                                 border: Border.all(color: blueColor),
                                 borderRadius: BorderRadius.circular(5)),
@@ -188,18 +188,18 @@ class _TransactionsState extends State<Transactions> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.search,
                                   size: 20,
                                   color: Colors.grey,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Expanded(
                                     child: TextFormField(
                                         keyboardType: TextInputType.text,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontFamily: content_font,
                                             fontSize: 14),
                                         textAlign: TextAlign.start,
@@ -214,7 +214,7 @@ class _TransactionsState extends State<Transactions> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Container(
@@ -234,7 +234,7 @@ class _TransactionsState extends State<Transactions> {
                                 value: value,
                                 child: Text(
                                   value,
-                                  style: new TextStyle(
+                                  style: const TextStyle(
                                     fontFamily: content_font,
                                     fontSize: 12,
                                     color: Colors.black,
@@ -251,7 +251,7 @@ class _TransactionsState extends State<Transactions> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   SingleChildScrollView(
@@ -270,8 +270,8 @@ class _TransactionsState extends State<Transactions> {
                             });
                           },
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.only(left: 10),
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            margin: const EdgeInsets.only(left: 10),
                             decoration: BoxDecoration(
                                 color: rechargeModule ? blueColor : Colors.grey,
                                 borderRadius: BorderRadius.circular(5)),
@@ -284,10 +284,10 @@ class _TransactionsState extends State<Transactions> {
                                   'assets/images/ico-achat-credit.png',
                                   width: 30,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 0,
                                 ),
-                                Text(
+                                const Text(
                                   "Recharge",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -311,8 +311,8 @@ class _TransactionsState extends State<Transactions> {
                             });
                           },
                           child: Container(
-                            margin: EdgeInsets.only(left: 20),
-                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: const EdgeInsets.only(left: 20),
+                            padding: const EdgeInsets.symmetric(vertical: 5),
                             decoration: BoxDecoration(
                                 color: servicesModule ? blueColor : Colors.grey,
                                 borderRadius: BorderRadius.circular(5)),
@@ -325,7 +325,7 @@ class _TransactionsState extends State<Transactions> {
                                   'assets/images/ico-paiement-marchand.png',
                                   width: 30,
                                 ),
-                                Text(
+                                const Text(
                                   "Services",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -349,8 +349,8 @@ class _TransactionsState extends State<Transactions> {
                             });
                           },
                           child: Container(
-                            margin: EdgeInsets.only(left: 20),
-                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: const EdgeInsets.only(left: 20),
+                            padding: const EdgeInsets.symmetric(vertical: 5),
                             decoration: BoxDecoration(
                                 color: envoiModule ? blueColor : Colors.grey,
                                 borderRadius: BorderRadius.circular(5)),
@@ -363,7 +363,7 @@ class _TransactionsState extends State<Transactions> {
                                   'assets/images/ico-transfert-dargent.png',
                                   width: 30,
                                 ),
-                                Text(
+                                const Text(
                                   "Envoi",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -387,8 +387,8 @@ class _TransactionsState extends State<Transactions> {
                             });
                           },
                           child: Container(
-                            margin: EdgeInsets.only(left: 20),
-                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: const EdgeInsets.only(left: 20),
+                            padding: const EdgeInsets.symmetric(vertical: 5),
                             decoration: BoxDecoration(
                                 color: airtimeModule ? blueColor : Colors.grey,
                                 borderRadius: BorderRadius.circular(5)),
@@ -401,10 +401,10 @@ class _TransactionsState extends State<Transactions> {
                                   'assets/images/ico-achat-credit.png',
                                   width: 30,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 0,
                                 ),
-                                Text(
+                                const Text(
                                   "Airtime",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -428,8 +428,8 @@ class _TransactionsState extends State<Transactions> {
                             });
                           },
                           child: Container(
-                            margin: EdgeInsets.only(left: 20),
-                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: const EdgeInsets.only(left: 20),
+                            padding: const EdgeInsets.symmetric(vertical: 5),
                             decoration: BoxDecoration(
                                 color: om_momoModule ? blueColor : Colors.grey,
                                 borderRadius: BorderRadius.circular(5)),
@@ -442,7 +442,7 @@ class _TransactionsState extends State<Transactions> {
                                   'assets/images/ico-om_momo.png',
                                   width: 30,
                                 ),
-                                Text(
+                                const Text(
                                   "OM/MoMo",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -466,8 +466,8 @@ class _TransactionsState extends State<Transactions> {
                             });
                           },
                           child: Container(
-                            margin: EdgeInsets.only(left: 20, right: 10),
-                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: const EdgeInsets.only(left: 20, right: 10),
+                            padding: const EdgeInsets.symmetric(vertical: 5),
                             decoration: BoxDecoration(
                                 color: payementModule ? blueColor : Colors.grey,
                                 borderRadius: BorderRadius.circular(5)),
@@ -480,7 +480,7 @@ class _TransactionsState extends State<Transactions> {
                                   'assets/images/ico-facture.png',
                                   width: 30,
                                 ),
-                                Text(
+                                const Text(
                                   "Facture",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -498,7 +498,7 @@ class _TransactionsState extends State<Transactions> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Expanded(

@@ -12,7 +12,7 @@ import 'package:page_transition/page_transition.dart';
 //import 'package:flutter_braintree/flutter_braintree.dart';
 
 class ChoixRecharge extends StatefulWidget {
-  ChoixRecharge({Key? key}) : super(key: key);
+  const ChoixRecharge({Key? key}) : super(key: key);
 
   @override
   State<ChoixRecharge> createState() => _ChoixRechargeState();
@@ -25,12 +25,12 @@ class _ChoixRechargeState extends State<ChoixRecharge> {
         title: Text(
           AppLocalizations.of(context)!.translate('Recharger mon compte')!,
           style: const TextStyle(
-              color: Color(0xFFF1034A6),
+              color: Color(0xfff1034a6),
               fontSize: 20,
               fontWeight: FontWeight.w600,
               fontFamily: content_font),
         ),
-        content: Container(
+        content: SizedBox(
           height: 200,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +78,7 @@ class _ChoixRechargeState extends State<ChoixRecharge> {
                       context,
                       PageTransition(
                           type: PageTransitionType.rightToLeft,
-                          child: RechargeVirement()));
+                          child: const RechargeVirement()));
                 },
                 child: Text(
                   "${AppLocalizations.of(context)!.translate('Virement Bancaire')}",
@@ -95,7 +95,7 @@ class _ChoixRechargeState extends State<ChoixRecharge> {
                       context,
                       PageTransition(
                           type: PageTransitionType.rightToLeft,
-                          child: RechargeDirectCash()));
+                          child: const RechargeDirectCash()));
                 },
                 child: Text(
                   "${AppLocalizations.of(context)!.translate('Transfert DirectCash')}",
@@ -111,21 +111,21 @@ class _ChoixRechargeState extends State<ChoixRecharge> {
                 children: [
                   TextButton(
                     style: ButtonStyle(
-                        padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        padding: WidgetStateProperty.all(
+                          const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                         ),
-                        minimumSize: MaterialStateProperty.all(
-                          Size(15, 0),
+                        minimumSize: WidgetStateProperty.all(
+                          const Size(15, 0),
                         ),
                         overlayColor:
-                            MaterialStateProperty.all((Colors.transparent)),
+                            WidgetStateProperty.all((Colors.transparent)),
                         backgroundColor:
-                            MaterialStateProperty.all((Colors.transparent)),
+                            WidgetStateProperty.all((Colors.transparent)),
                         shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                            WidgetStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15),
-                                    side: BorderSide(color: Colors.white)))),
+                                    side: const BorderSide(color: Colors.white)))),
                     child: Text(
                       '${AppLocalizations.of(context)!.translate("annuler")} ',
                       style: TextStyle(

@@ -16,12 +16,12 @@ class AppLanguage extends ChangeNotifier {
       }
       _appLocale = Locale('${value.getString('language_code')}');
       changeLanguage(_appLocale);
-      print("lan " + _appLocale.languageCode);
+      print("lan ${_appLocale.languageCode}");
     });
   }
 
   void changeLanguage(Locale type) async {
-    print('himm' + type.languageCode);
+    print('himm${type.languageCode}');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (_appLocale == type) {
       print(_appLocale.languageCode + type.languageCode);

@@ -24,7 +24,7 @@ class PayementMarchand extends StatefulWidget {
 class _PayementMarchandState extends State<PayementMarchand> {
   Map data = {
     "pass": "",
-    "Montant": "",
+    "Montant": 0.0,
     "Client": "",
     "Collecteur": "",
     "frais": "",
@@ -63,17 +63,17 @@ class _PayementMarchandState extends State<PayementMarchand> {
               elevation: 0,
             ),
             body: Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -103,7 +103,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -120,7 +120,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 50),
+                        const SizedBox(width: 50),
                         Text(
                             AppLocalizations.of(context)!
                                 .translate("Payement marchand")!,
@@ -134,22 +134,22 @@ class _PayementMarchandState extends State<PayementMarchand> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     width: 100,
                     height: 100,
                     child: Image.asset(
                       'assets/images/logo-alliance-transparent.png',
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         initialValue: data["Caisse"],
@@ -159,7 +159,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                           });
                         },
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                            // suffixIcon: IconButton(
@@ -175,11 +175,11 @@ class _PayementMarchandState extends State<PayementMarchand> {
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
-                                        SizedBox(
+                                        const SizedBox(
                     height: 20,
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         initialValue: data["Client"],
@@ -189,7 +189,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                           });
                         },
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                            
@@ -203,7 +203,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                                 fontSize: 13)),
                       )),
 
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -214,7 +214,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:  blueColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -227,7 +227,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                               child: Text(
                                 AppLocalizations.of(context)!
                                     .translate("suivant")!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
                             ),
@@ -236,7 +236,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(
@@ -248,11 +248,11 @@ class _PayementMarchandState extends State<PayementMarchand> {
                           color: Colors.grey.shade700,
                         )),
                         Container(
-                          margin: EdgeInsets.symmetric(horizontal: 8),
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
                           child: Text(
                               AppLocalizations.of(context)!.translate("ou")!,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontFamily: content_font,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -266,7 +266,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   GestureDetector(
@@ -278,15 +278,15 @@ class _PayementMarchandState extends State<PayementMarchand> {
    
                  },
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-                      margin: EdgeInsets.symmetric(horizontal: 0),
+                      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                      margin: const EdgeInsets.symmetric(horizontal: 0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.indigo.withOpacity(0.2),
                       ),
                       child: Column(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.qr_code_2_outlined,
                             size: 100,
                           ),
@@ -294,7 +294,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                               AppLocalizations.of(context)!.translate(
                                   "Scannez le QR Code de la caisse")!,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontFamily: content_font,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,

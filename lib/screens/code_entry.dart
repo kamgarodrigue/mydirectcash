@@ -7,6 +7,8 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CodeEntry extends StatefulWidget {
+  const CodeEntry({super.key});
+
   @override
   _CodeEntryState createState() => _CodeEntryState();
 }
@@ -23,16 +25,16 @@ class _CodeEntryState extends State<CodeEntry> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
         child: ListView(
-          padding: EdgeInsets.only(bottom: 20),
+          padding: const EdgeInsets.only(bottom: 20),
           children: [
             Container(
               height: MediaQuery.of(context).size.height * 0.4,
-              padding: EdgeInsets.symmetric(horizontal: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               color: blueColor,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -40,11 +42,11 @@ class _CodeEntryState extends State<CodeEntry> {
                   Container(
                     child: RichText(
                       textAlign: TextAlign.center,
-                      text: TextSpan(
+                      text: const TextSpan(
                         text: 'Nous avons envoyé un code pin de 6 chiffres au ',
                         style:
                             TextStyle(fontSize: 12, fontFamily: content_font),
-                        children: const <TextSpan>[
+                        children: <TextSpan>[
                           TextSpan(
                               text: '6 82 ** ** **',
                               style: TextStyle(fontWeight: FontWeight.bold)),
@@ -53,13 +55,13 @@ class _CodeEntryState extends State<CodeEntry> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
                     child: OtpTextField(
                       keyboardType: TextInputType.number,
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                           fontSize: 14,
                           fontFamily: content_font,
                           color: Colors.white),
@@ -89,7 +91,7 @@ class _CodeEntryState extends State<CodeEntry> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 100),
+              padding: const EdgeInsets.only(top: 100),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -103,7 +105,7 @@ class _CodeEntryState extends State<CodeEntry> {
                               style: ElevatedButton.styleFrom(
                             backgroundColor:  blueColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -111,7 +113,7 @@ class _CodeEntryState extends State<CodeEntry> {
                                         type: PageTransitionType.rightToLeft,
                                         child: CodeCheckSim()));
                               },
-                              child: Text(
+                              child: const Text(
                                 'SUIVANT',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 14),
@@ -122,7 +124,7 @@ class _CodeEntryState extends State<CodeEntry> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -136,17 +138,17 @@ class _CodeEntryState extends State<CodeEntry> {
                                 fontWeight: FontWeight.w600,
                                 color: blueColor))),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  Container(
+                  SizedBox(
                       width: 50,
                       child: Image.asset('assets/images/ico-attente.png')),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 60),
+                    padding: const EdgeInsets.symmetric(horizontal: 60),
                     child: Column(
                       children: [
                         Text(
@@ -159,11 +161,11 @@ class _CodeEntryState extends State<CodeEntry> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       children: [
                         Text('Rassurez vous que la SIM est dans le téléphone',

@@ -10,6 +10,8 @@ import 'package:mydirectcash/widgets/choix_facture_component.dart';
 import 'package:page_transition/page_transition.dart';
 
 class BottomNavigation extends StatefulWidget {
+  const BottomNavigation({super.key});
+
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
 }
@@ -42,13 +44,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     'assets/images/ico-achat-credit.png',
                     width: 35,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
                     "${AppLocalizations.of(context)!.translate('Achat de crédit')}",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: content_font,
                         fontSize: 10,
                         color: Colors.white),
@@ -63,7 +65,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                   context,
                   PageTransition(
                       type: PageTransitionType.rightToLeft,
-                      child: PayementMarchand()));
+                      child: const PayementMarchand()));
             },
             child: Container(
               color: Colors.transparent,
@@ -76,13 +78,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     'assets/images/ico-paiement-marchand.png',
                     width: 35,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
                     "${AppLocalizations.of(context)!.translate('Payement Marchand')}",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: content_font,
                         fontSize: 10,
                         color: Colors.white),
@@ -110,13 +112,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     'assets/images/ico-transfert-dargent.png',
                     width: 35,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
                     "${AppLocalizations.of(context)!.translate('Envoi d\'argent')}",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: content_font,
                         fontSize: 10,
                         color: Colors.white),
@@ -143,13 +145,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     'assets/images/ico-om_momo.png',
                     width: 35,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
                     "${AppLocalizations.of(context)!.translate('ommom')}",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: content_font,
                         fontSize: 10,
                         color: Colors.white),
@@ -177,13 +179,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     'assets/images/ico-facture.png',
                     width: 35,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
                     "${AppLocalizations.of(context)!.translate('Payement de facture')}",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: content_font,
                         fontSize: 10,
                         color: Colors.white),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:mydirectcash/Controllers/UserController.dart';
 import 'package:mydirectcash/Models/DetailTransaction.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
@@ -28,8 +29,10 @@ class EnvoiDirectCash extends StatefulWidget {
 class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
   String? countryName = 'Choisissez le pays de destination';
   String? coupon = 'Choisissez le coupon crédit';
+  Contact? _selectedContact;
+  TextEditingController _controller = TextEditingController();
 
-  DataTransaction dataTransaction = new DataTransaction(
+  DataTransaction dataTransaction = DataTransaction(
     amount: "",
     cNI: "",
     fromNumber: "",
@@ -44,8 +47,51 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
   @override
   void initState() {
     super.initState();
-
+    _controller.text = "";
     context.read<AuthService>().authenticate;
+  }
+
+  @override
+  void dispose() {
+    _controller
+        .dispose(); // Dispose of the controller when the widget is removed
+    super.dispose();
+  }
+
+  Future<void> _pickContact() async {
+    try {
+      // Request permission and pick a contact
+      if (await FlutterContacts.requestPermission()) {
+        final contact = await FlutterContacts.openExternalPick();
+        if (contact != null && contact.phones.isNotEmpty) {
+          setState(() {
+            // Update the text field and the data map with the selected phone number
+            String selectedNumber = contact.phones.first.number;
+            _controller.text = selectedNumber;
+            dataTransaction.toNumber = selectedNumber;
+          });
+        } else {
+          // Show a message if the contact doesn't have a phone number
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                content: Text(
+                    "${AppLocalizations.of(context)!.translate('Saisissez le numéro bénéficiaire')}")),
+          );
+        }
+      } else {
+        // Handle permission denied case
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text(
+                  "${AppLocalizations.of(context)!.translate('Saisissez le numéro bénéficiaire')}")),
+        );
+      }
+    } catch (e) {
+      // Handle errors
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to pick a contact: $e')),
+      );
+    }
   }
 
   @override
@@ -60,17 +106,17 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -100,7 +146,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -117,7 +163,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 50),
+                        const SizedBox(width: 50),
                         Text(
                             AppLocalizations.of(context)!
                                 .translate("Transfert DirectCash")!,
@@ -131,18 +177,18 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     width: 100,
                     height: 100,
                     child: Image.asset(
                       'assets/images/logo-alliance-transparent.png',
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -187,13 +233,12 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                     });
                                     print(code!.name);
                                   },
-                                 
                                   useUiOverlay: true,
                                   useSafeArea: false),
                             ],
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Divider(
                           height: 1.5,
                           color: blueColor,
@@ -202,29 +247,41 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                     ),
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: Column(
                         children: [
+                    
                           TextFormField(
-                              keyboardType: TextInputType.number,
-                              initialValue: dataTransaction.toNumber,
-                              onChanged: (value) {
-                                setState(() {
-                                  this.dataTransaction.toNumber = value;
-                                });
-                              },
-                              style: TextStyle(
-                                  fontFamily: content_font, fontSize: 13),
-                              textAlign: TextAlign.start,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: AppLocalizations.of(context)!
-                                      .translate(
-                                          "Saisissez le numéro bénéficiaire")!,
-                                  hintStyle: TextStyle(
-                                      fontFamily: content_font,
-                                      color: Colors.grey,
-                                      fontSize: 13))),
+                            controller:
+                                _controller, // Use the controller to manage the text field
+                            keyboardType: TextInputType.text,
+                            style: const TextStyle(
+                                fontFamily: content_font, fontSize: 13),
+                            textAlign: TextAlign.start,
+                            onChanged: (value) {
+                              setState(() {
+                                dataTransaction.toNumber =
+                                    value; // Update the data map when the text changes
+                              });
+                            },
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon:  Icon(
+                                  Icons.perm_contact_calendar_sharp,
+                                  size: 24,
+                                  color: blueColor,
+                                ),
+                                onPressed: _pickContact, // Open contact picker
+                              ),
+                              border: InputBorder.none,
+                              hintText:
+                                  "${AppLocalizations.of(context)!.translate('Saisissez le numéro bénéficiaire')}",
+                              hintStyle: const TextStyle(
+                                  fontFamily: content_font,
+                                  color: Colors.grey,
+                                  fontSize: 13),
+                            ),
+                          ),
                           Divider(
                             height: 1.5,
                             color: blueColor,
@@ -232,7 +289,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                         ],
                       )),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: Column(
                         children: [
                           TextFormField(
@@ -240,17 +297,17 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                               initialValue: dataTransaction.amount,
                               onChanged: (value) {
                                 setState(() {
-                                  this.dataTransaction.amount = value;
+                                  dataTransaction.amount = value;
                                 });
                               },
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: content_font, fontSize: 13),
                               textAlign: TextAlign.start,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: AppLocalizations.of(context)!
                                       .translate("Saisire montant")!,
-                                  hintStyle: TextStyle(
+                                  hintStyle: const TextStyle(
                                       fontFamily: content_font,
                                       color: Colors.grey,
                                       fontSize: 13))),
@@ -260,7 +317,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                           ),
                         ],
                       )),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -269,9 +326,9 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                 backgroundColor:  blueColor,
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                  backgroundColor: blueColor,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50)),
                               onPressed: () {
                                 print(autProvider.currentUser!.data!.phone);
                                 setState(() {
@@ -281,7 +338,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                 context
                                     .read<TransactonService>()
                                     .getDetailEnvoiDirectcash(
-                                        this.dataTransaction.toNumber,
+                                        dataTransaction.toNumber,
                                         dataTransaction.amount)
                                     .then((value) {
                                   print(value);
@@ -316,7 +373,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                 AppLocalizations.of(context)!
                                     .translate("suivant")
                                     .toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
                             ),

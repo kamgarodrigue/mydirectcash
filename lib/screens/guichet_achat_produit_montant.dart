@@ -14,6 +14,8 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class GuichetAchatProduitMontant extends StatefulWidget {
+  const GuichetAchatProduitMontant({super.key});
+
   @override
   _GuichetAchatProduitMontantState createState() =>
       _GuichetAchatProduitMontantState();
@@ -32,7 +34,7 @@ class _GuichetAchatProduitMontantState
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
@@ -54,15 +56,15 @@ class _GuichetAchatProduitMontantState
             ),*/
             Positioned(
               child: ListView(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: Container(
+                          child: SizedBox(
                             height: 100,
                             child: Stack(
                               children: [
@@ -99,11 +101,11 @@ class _GuichetAchatProduitMontantState
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 35),
+                    padding: const EdgeInsets.symmetric(horizontal: 35),
                     color: Colors.transparent,
                     child: Text(
                       'Achats de produits ',
@@ -114,16 +116,16 @@ class _GuichetAchatProduitMontantState
                           fontSize: 15.5),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 20),
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      margin: const EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             hintText: 'Saisissez le montant de vos achats',
@@ -132,7 +134,7 @@ class _GuichetAchatProduitMontantState
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Container(
@@ -145,7 +147,7 @@ class _GuichetAchatProduitMontantState
                               style: ElevatedButton.styleFrom(
                                  backgroundColor:   marronColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -153,7 +155,7 @@ class _GuichetAchatProduitMontantState
                                         type: PageTransitionType.rightToLeft,
                                         child: GuichetAchatProduitConf()));
                               },
-                              child: Text(
+                              child: const Text(
                                 'Suivant',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 14),
@@ -164,7 +166,7 @@ class _GuichetAchatProduitMontantState
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 35,
                   ),
                   Container(

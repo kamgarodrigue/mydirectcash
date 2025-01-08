@@ -4,7 +4,7 @@ import 'package:mydirectcash/utils/fonts.dart';
 
 class CarouselContainer extends StatefulWidget {
   CarouselContainer(
-      {required this.image, required this.title, required this.content});
+      {super.key, required this.image, required this.title, required this.content});
   String image, title, content;
   @override
   _CarouselContainerState createState() => _CarouselContainerState();
@@ -13,7 +13,7 @@ class CarouselContainer extends StatefulWidget {
 class _CarouselContainerState extends State<CarouselContainer> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: ListView(
         // crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,7 +21,7 @@ class _CarouselContainerState extends State<CarouselContainer> {
           Container(
             height: MediaQuery.of(context).size.height / 2,
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(bottom: 50),
+            padding: const EdgeInsets.only(bottom: 50),
             decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(widget.image), fit: BoxFit.cover),
@@ -41,26 +41,26 @@ class _CarouselContainerState extends State<CarouselContainer> {
           ),
           Container(
             //height: MediaQuery.of(context).size.height / 2.2,
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
             color: Colors.transparent,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${widget.title}',
+                  widget.title,
                   style: TextStyle(
                       fontFamily: title_font,
                       fontWeight: FontWeight.bold,
                       color: blueColor,
                       fontSize: 16),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Text(
-                  '${widget.content}',
-                  style: TextStyle(
+                  widget.content,
+                  style: const TextStyle(
                       fontFamily: content_font,
                       fontSize: 12,
                       fontWeight: FontWeight.w500),

@@ -11,7 +11,7 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Support extends StatefulWidget {
-  Support({Key? key}) : super(key: key);
+  const Support({Key? key}) : super(key: key);
 
   @override
   State<Support> createState() => _SupportState();
@@ -26,12 +26,12 @@ class _SupportState extends State<Support> {
           Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/images/background.png'),
                     fit: BoxFit.cover)),
             child: ListView(
-                padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
                 children: [
                   Container(
                     child: Row(
@@ -39,7 +39,7 @@ class _SupportState extends State<Support> {
                       children: [
                         IconButton(
                             onPressed: () => Navigator.of(context).pop(),
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_back,
                             )),
                         Container(
@@ -68,7 +68,7 @@ class _SupportState extends State<Support> {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: 140,
                     height: 140,
                     child: Image.asset(
@@ -76,7 +76,7 @@ class _SupportState extends State<Support> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
                     color: Colors.transparent,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -97,7 +97,7 @@ class _SupportState extends State<Support> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   Text(
@@ -108,7 +108,7 @@ class _SupportState extends State<Support> {
                         fontWeight: FontWeight.bold,
                         fontSize: 17),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 32,
                   ),
                   InkWell(
@@ -133,15 +133,15 @@ class _SupportState extends State<Support> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20)),
                           width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(
+                              const Text(
                                 "Whatsapp",
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     color: Color.fromRGBO(37, 211, 102, 1),
                                     fontFamily: content_font,
                                     fontWeight: FontWeight.bold,
@@ -164,7 +164,7 @@ class _SupportState extends State<Support> {
                           context,
                           PageTransition(
                               type: PageTransitionType.rightToLeft,
-                              child: Rapport()));
+                              child: const Rapport()));
                     },
                     child: Card(
                         elevation: 1,
@@ -173,7 +173,7 @@ class _SupportState extends State<Support> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20)),
                           width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -204,7 +204,7 @@ class _SupportState extends State<Support> {
                           context,
                           PageTransition(
                               type: PageTransitionType.rightToLeft,
-                              child: Faq()));
+                              child: const Faq()));
                     },
                     child: Card(
                         elevation: 1,
@@ -213,15 +213,15 @@ class _SupportState extends State<Support> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20)),
                           width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(
+                              const Text(
                                 "FAQ",
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontFamily: content_font,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 17),

@@ -38,7 +38,9 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
     //context.read<Localisation>().initLocation();
   }
 
-  bool _isLoading = false;
+ 
+
+  final bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     final operationServices = context.watch<OperationServices>();
@@ -48,23 +50,22 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
         appBar: AppBar(
           toolbarHeight: 0,
           backgroundColor: Colors.white,
-         
           elevation: 0,
         ),
         body: Stack(
           children: [
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/images/background.png'),
                         fit: BoxFit.cover)),
                 child: Wrap(children: [
                   Container(
                     height: MediaQuery.of(context).size.height * .07,
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -76,48 +77,45 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
                               size: 30,
                             )),
                         Container(
-                         width: 200,
-                          height: 50,
-                          alignment: Alignment.center,
-decoration: BoxDecoration(
-  borderRadius: BorderRadius.circular(10),
-    color: blueColor,
-),
-                        
-                          child:  GestureDetector(
-                                    onTap: () {
-                                      if (widget.regionCode == "CM") {
-                                        var data = {
-                                          "montant": "",
-                                          "numero": "",
-                                          "Id": "",
-                                          "reseau": widget.data["reseau"],
-                                          "device": "123456",
-                                          "pass": "",
-                                          "imei": "5258889"
-                                        };
-                                        Navigator.push(
-                                            context,
-                                            PageTransition(
-                                                type: PageTransitionType
-                                                    .rightToLeft,
-                                                child: AchatCreditauther(
-                                                  data: data,
-                                                )));
-                                      }
-                                    },
-                                    child: Text(
-                                      ' ${AppLocalizations.of(context)!.translate("montant")}',
-                                      textAlign: TextAlign.end,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                    ))
-                          
-                        )
+                            width: 200,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: blueColor,
+                            ),
+                            child: GestureDetector(
+                                onTap: () {
+                                  if (widget.regionCode == "CM") {
+                                    var data = {
+                                      "montant": "",
+                                      "numero": "",
+                                      "Id": "",
+                                      "reseau": widget.data["reseau"],
+                                      "device": "123456",
+                                      "pass": "",
+                                      "imei": "5258889"
+                                    };
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type:
+                                                PageTransitionType.rightToLeft,
+                                            child: AchatCreditauther(
+                                              data: data,
+                                            )));
+                                  }
+                                },
+                                child: Text(
+                                  ' ${AppLocalizations.of(context)!.translate("montant")}',
+                                  textAlign: TextAlign.end,
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                )))
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     // padding: EdgeInsets.only(bottom: 200),
                     height: MediaQuery.of(context).size.height * .87,
                     child: GridView(
@@ -151,7 +149,7 @@ decoration: BoxDecoration(
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      gradient: LinearGradient(
+                                      gradient: const LinearGradient(
                                           colors: [
                                             Color.fromRGBO(255, 255, 255, 1),
                                             Color.fromRGBO(3, 169, 244, 1),
@@ -175,7 +173,7 @@ decoration: BoxDecoration(
                                                 operationServices
                                                     .produits[index]
                                                     .displayName!,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 25,
                                                     fontWeight:

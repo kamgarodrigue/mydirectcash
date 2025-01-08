@@ -12,6 +12,7 @@ import 'package:mydirectcash/Repository/localisation.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/Epargne/Epargne.dart';
 import 'package:mydirectcash/screens/achat_credit.dart';
+import 'package:mydirectcash/screens/achat_de_credit_selection_page.dart';
 import 'package:mydirectcash/screens/carousel_page.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/om_momo.dart';
@@ -21,6 +22,7 @@ import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/bottom_navigation.dart';
+import 'package:mydirectcash/widgets/choix_de_recharge.dart';
 import 'package:mydirectcash/widgets/choix_envoi_argent.dart';
 import 'package:mydirectcash/widgets/choix_facture_component.dart';
 import 'package:mydirectcash/widgets/choix_recharge.dart';
@@ -31,7 +33,7 @@ import 'package:provider/provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -136,7 +138,7 @@ Future<PermissionStatus> _getCameraPermission() async {
               context,
               PageTransition(
                   type: PageTransitionType.rightToLeft,
-                  child: PayementMarchand()));
+                  child: const PayementMarchand()));
   
  
          
@@ -230,7 +232,7 @@ Future<PermissionStatus> _getCameraPermission() async {
               context,
               PageTransition(
                   type: PageTransitionType.rightToLeft,
-                  child: PayementMarchand()));
+                  child: const PayementMarchand()));
   
  
          
@@ -245,7 +247,8 @@ Future<PermissionStatus> _getCameraPermission() async {
           Navigator.push(
               context,
               PageTransition(
-                  type: PageTransitionType.rightToLeft, child: AchatCredit()));
+                  // type: PageTransitionType.rightToLeft, child: AchatCredit()));
+                  type: PageTransitionType.rightToLeft, child:  AchatDeCreditSelectionPage()));
 
           break;
         case 1:
@@ -253,7 +256,7 @@ Future<PermissionStatus> _getCameraPermission() async {
               context,
               PageTransition(
                   type: PageTransitionType.rightToLeft,
-                  child: PayementMarchand()));
+                  child: const PayementMarchand()));
 
           break;
         case 2:
@@ -283,7 +286,7 @@ Future<PermissionStatus> _getCameraPermission() async {
               context,
               PageTransition(
                   type: PageTransitionType.rightToLeft,
-                  child: Epargne()));
+                  child: const Epargne()));
   
   break;
         default:
@@ -323,7 +326,7 @@ Future<PermissionStatus> _getCameraPermission() async {
                                 child: Row(
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.only(top: 20),
+                                      margin: const EdgeInsets.only(top: 20),
                                       width: 100,
                                       height: 100,
                                       child: Image.asset(
@@ -343,8 +346,8 @@ Future<PermissionStatus> _getCameraPermission() async {
                                             MainAxisAlignment.end,
                                         children: [
                                           Text(
-                                       "${AppLocalizations.of(context)!.translate('Bienvenue')} "    +   autProvider.currentUser!.data!.nom!
-                                                .toUpperCase(),
+                                       "${AppLocalizations.of(context)!.translate('Bienvenue')} ${autProvider.currentUser!.data!.nom!
+                                                .toUpperCase()}",
                                             style: TextStyle(
                                                 color: blueColor,
                                                 fontSize: 14,
@@ -404,11 +407,18 @@ Future<PermissionStatus> _getCameraPermission() async {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 50)),
                                     onPressed: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return ChoixRecharge();
-                                          });
+                                      // showDialog(
+                                      //     context: context,
+                                      //     builder: (context) {
+                                      //       return ChoixRecharge();
+                                      //     });
+
+                                       Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              type: PageTransitionType.bottomToTop,
+                                              child:
+                                                  ChoixDeRecharge()));
                                     },
                                     child: Text(
                                       "${AppLocalizations.of(context)!.translate('Recharger mon compte')}",
@@ -427,7 +437,7 @@ Future<PermissionStatus> _getCameraPermission() async {
                           leading: CircleAvatar(
                             radius: 15,
                             backgroundColor: blueColor,
-                            child: Icon(
+                            child: const Icon(
                               Icons.priority_high,
                               color: Colors.white,
                             ),
@@ -446,7 +456,7 @@ Future<PermissionStatus> _getCameraPermission() async {
                         ),
                         Card(
                           child: Container(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10)),
                               width: MediaQuery.of(context).size.width,
@@ -470,7 +480,7 @@ Future<PermissionStatus> _getCameraPermission() async {
                                                 fontWeight: FontWeight.w500,
                                                 fontFamily: content_font),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
@@ -483,7 +493,7 @@ Future<PermissionStatus> _getCameraPermission() async {
                                                 fontSize: 34,
                                                 fontFamily: title_font),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Container(
@@ -615,7 +625,7 @@ Future<PermissionStatus> _getCameraPermission() async {
                                     ),
                                     Text(
                                       "${AppLocalizations.of(context)!.translate("Solde en attente:")}  XAF O",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -662,7 +672,7 @@ Future<PermissionStatus> _getCameraPermission() async {
                     ),*/
                         Container(
                          // height: 200,
-                         padding: EdgeInsets.only(bottom: 16),
+                         padding: const EdgeInsets.only(bottom: 16),
                           child: GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(

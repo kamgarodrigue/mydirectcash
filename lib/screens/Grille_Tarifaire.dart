@@ -12,20 +12,20 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class Grille_Tarifaire extends StatefulWidget {
-  Grille_Tarifaire({Key? key}) : super(key: key);
+  const Grille_Tarifaire({Key? key}) : super(key: key);
 
   @override
   State<Grille_Tarifaire> createState() => _Grille_TarifaireState();
 }
 
 class _Grille_TarifaireState extends State<Grille_Tarifaire> {
-  bool _isLoading = false;
+  final bool _isLoading = false;
   bool _isOscure = true;
   String montant = "";
 
   void togle() {
-    this.setState(() {
-      this._isOscure = !_isOscure;
+    setState(() {
+      _isOscure = !_isOscure;
     });
   }
 
@@ -58,17 +58,17 @@ class _Grille_TarifaireState extends State<Grille_Tarifaire> {
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/background.png'),
                       fit: BoxFit.cover)),
               child: ListView(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -98,7 +98,7 @@ class _Grille_TarifaireState extends State<Grille_Tarifaire> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -115,7 +115,7 @@ class _Grille_TarifaireState extends State<Grille_Tarifaire> {
                             color: blueColor,
                           ),
                         ),
-                        SizedBox(width: 50),
+                        const SizedBox(width: 50),
                         Text(
                             "${AppLocalizations.of(context)!.translate('tarif')}",
                             textAlign: TextAlign.center,
@@ -128,7 +128,7 @@ class _Grille_TarifaireState extends State<Grille_Tarifaire> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   GridView.builder(
@@ -160,13 +160,13 @@ class _Grille_TarifaireState extends State<Grille_Tarifaire> {
                                 // color: Colors.black,
                                 width: 35,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                               Text(
                                 list[index]['title'],
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontFamily: content_font,
                                     fontSize: 10,
                                     color: Colors.black),

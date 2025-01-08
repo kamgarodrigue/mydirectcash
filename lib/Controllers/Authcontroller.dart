@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Authcontroller extends ControllerMVC {
   factory Authcontroller() {
-    if (_this == null) _this = Authcontroller._();
+    _this ??= Authcontroller._();
     return _this!;
   }
 //export PATH="$PATH:`pwd`/flutter/bin"
@@ -17,7 +17,7 @@ class Authcontroller extends ControllerMVC {
 
   Authcontroller._();
   static Authcontroller get authController => _this!;
-  AuthService auth = new AuthService();
+  AuthService auth = AuthService();
   /* User? userFrombd(User user) {
     return user.data == null ? null : User(data: user.data);
   }

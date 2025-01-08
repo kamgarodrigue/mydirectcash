@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Loader extends StatelessWidget {
-  Loader(
+  const Loader(
       {Key? key,
       this.opacity = 0.5,
       this.dismissibles = false,
@@ -38,11 +38,11 @@ class Loader extends StatelessWidget {
                 ),
               ),
             ),*/
-            CircularProgressIndicator(),
+            const CircularProgressIndicator(),
             Container(
               margin: const EdgeInsets.only(top: 5),
               child: Text(loadingTxt,
-                  style: TextStyle(color: Colors.white70, fontSize: 18)),
+                  style: const TextStyle(color: Colors.white70, fontSize: 18)),
             ),
           ],
         )),

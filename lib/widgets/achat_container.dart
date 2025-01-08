@@ -4,7 +4,7 @@ import 'package:mydirectcash/utils/fonts.dart';
 
 class AchatContainer extends StatefulWidget {
   AchatContainer(
-      {required this.numFacture,
+      {super.key, required this.numFacture,
       required this.title,
       required this.stringDate,
       required this.stringPrice,
@@ -23,7 +23,7 @@ class _AchatContainerState extends State<AchatContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 25, vertical: 2),
+      margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 2),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -39,19 +39,19 @@ class _AchatContainerState extends State<AchatContainer> {
                     child: CircleAvatar(
                       backgroundColor: greenColor,
                       radius: 10,
-                      child: Icon(
+                      child: const Icon(
                         Icons.share,
                         size: 12,
                         color: Colors.white,
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 2,
                   ),
                   GestureDetector(
                     onTap: widget.onPressDelete,
-                    child: Icon(
+                    child: const Icon(
                       Icons.delete,
                       size: 15,
                       color: Colors.grey,
@@ -61,12 +61,12 @@ class _AchatContainerState extends State<AchatContainer> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
               color: Colors.transparent,
               child: Column(
                 children: [
@@ -74,7 +74,7 @@ class _AchatContainerState extends State<AchatContainer> {
                     height: 1,
                     color: blueColor.withOpacity(0.8),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Container(
@@ -89,15 +89,15 @@ class _AchatContainerState extends State<AchatContainer> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${widget.title}',
-                                  style: TextStyle(
+                                  widget.title,
+                                  style: const TextStyle(
                                       fontFamily: title_font,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14),
                                 ),
-                                SizedBox(height: 2),
+                                const SizedBox(height: 2),
                                 Text(
-                                  '${widget.numFacture}',
+                                  widget.numFacture,
                                   style: TextStyle(
                                       fontFamily: content_font,
                                       fontWeight: FontWeight.bold,
@@ -114,21 +114,21 @@ class _AchatContainerState extends State<AchatContainer> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${widget.stringPrice}',
+                                widget.stringPrice,
                                 textAlign: TextAlign.end,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontFamily: title_font,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14),
                               ),
-                              Text('${widget.stringDate}',
+                              Text(widget.stringDate,
                                   style: TextStyle(
                                       fontFamily: content_font,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.grey.shade600,
                                       fontSize: 11)),
                               Text(
-                                '${widget.stringSolde}',
+                                widget.stringSolde,
                                 style: TextStyle(
                                     fontFamily: content_font,
                                     fontWeight: FontWeight.bold,
@@ -141,7 +141,7 @@ class _AchatContainerState extends State<AchatContainer> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Container(

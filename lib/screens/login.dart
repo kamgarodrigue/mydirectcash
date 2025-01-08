@@ -28,7 +28,7 @@ import 'package:local_auth_android/local_auth_android.dart';
 class Login extends StatefulWidget {
   BuildContext? fatherContext;
   bool isLogin;
-  Login({this.fatherContext, required this.isLogin});
+  Login({super.key, this.fatherContext, required this.isLogin});
   @override
   _LoginState createState() => _LoginState();
 }
@@ -41,15 +41,15 @@ class _LoginState extends StateMVC<Login> {
   bool isRegister = false;
   setRegister() {
     setState(() {
-      this.isRegister = !isRegister;
+      isRegister = !isRegister;
     });
-    print(this.isRegister);
+    print(isRegister);
   }
 
   bool _isOscure = true;
   void togle() {
-    this.setState(() {
-      this._isOscure = !_isOscure;
+    setState(() {
+      _isOscure = !_isOscure;
     });
   }
 
@@ -57,9 +57,9 @@ class _LoginState extends StateMVC<Login> {
   // Map creds = {'id': "33662044955", 'pass': "123456"};
   Map creds = {'id': "", 'pass': ""};
   completeidAndPass(String id, String pass) {
-    this.setState(() {
-      this.creds['id'] = id;
-      this.creds['pass'] = pass;
+    setState(() {
+      creds['id'] = id;
+      creds['pass'] = pass;
     });
   }
 
@@ -68,10 +68,10 @@ class _LoginState extends StateMVC<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return this.isRegister
+    return isRegister
         ? Register(
-            goToLogin: this.setRegister,
-            completpROfile: this.completeidAndPass,
+            goToLogin: setRegister,
+            completpROfile: completeidAndPass,
           )
         : _isverify
             ? ValidateAccount(
@@ -97,15 +97,15 @@ class _LoginState extends StateMVC<Login> {
                     Container(
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage('assets/images/background.png'),
                               fit: BoxFit.cover)),
                       child: ListView(
-                        padding: EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         children: [
                           Container(
-                            margin: EdgeInsets.only(top: 20),
+                            margin: const EdgeInsets.only(top: 20),
                             width: 140,
                             height: 140,
                             child: Image.asset(
@@ -113,7 +113,7 @@ class _LoginState extends StateMVC<Login> {
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 25),
+                            padding: const EdgeInsets.symmetric(horizontal: 25),
                             color: Colors.transparent,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -134,7 +134,7 @@ class _LoginState extends StateMVC<Login> {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Form(
@@ -142,20 +142,27 @@ class _LoginState extends StateMVC<Login> {
                             child: Column(
                               children: [
                                 Container(
-                                    margin: EdgeInsets.only(top: 20),
+                                    margin: const EdgeInsets.only(top: 20),
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 25),
+                                        const EdgeInsets.symmetric(horizontal: 25),
                                     child: TextFormField(
                                       keyboardType: TextInputType.number,
                                       initialValue: creds['id'],
                                       onChanged: (value) {
                                         creds['id'] = value;
                                       },
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontFamily: content_font,
                                           fontSize: 14),
                                       textAlign: TextAlign.start,
+                                        cursorColor: blueColor,
                                       decoration: InputDecoration(
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: blueColor,
+                                              width: 2,
+                                            ),
+                                          ),
                                           hintText:
                                               "${AppLocalizations.of(context)!.translate('Phone')}",
                                           hintStyle: TextStyle(
@@ -164,9 +171,9 @@ class _LoginState extends StateMVC<Login> {
                                               fontSize: 14)),
                                     )),
                                 Container(
-                                    margin: EdgeInsets.only(top: 20),
+                                    margin: const EdgeInsets.only(top: 20),
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 25),
+                                        const EdgeInsets.symmetric(horizontal: 25),
                                     child: TextFormField(
                                       keyboardType: TextInputType.text,
                                       initialValue: creds['pass'],
@@ -174,14 +181,21 @@ class _LoginState extends StateMVC<Login> {
                                         creds['pass'] = value;
                                       },
                                       obscureText: _isOscure,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontFamily: content_font,
                                           fontSize: 14),
                                       textAlign: TextAlign.start,
+                                        cursorColor: blueColor,
                                       decoration: InputDecoration(
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: blueColor,
+                                              width: 2,
+                                            ),
+                                          ),
                                           suffixIcon: IconButton(
-                                            icon: Icon(
-                                              Icons.visibility,
+                                            icon:  Icon(
+                                              _isOscure ? Icons.visibility : Icons.visibility_off,
                                               size: 16,
                                             ),
                                             onPressed: () => togle(),
@@ -193,7 +207,7 @@ class _LoginState extends StateMVC<Login> {
                                               color: Colors.grey.shade500,
                                               fontSize: 14)),
                                     )),
-                                SizedBox(
+                                const SizedBox(
                                   height: 40,
                                 ),
                                 Container(
@@ -223,7 +237,7 @@ class _LoginState extends StateMVC<Login> {
                                               color:
                                                   blueColor.withOpacity(0.7)))),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 40,
                                 ),
                                 Container(
@@ -235,13 +249,13 @@ class _LoginState extends StateMVC<Login> {
                                           ElevatedButton(
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:  blueColor,
-                                                padding: EdgeInsets.symmetric(
+                                                padding: const EdgeInsets.symmetric(
                                                     horizontal: 50)),
                                             onPressed: () {
                                               print(
                                                   "${AppLocalizations.of(context)!.translate('login')}");
                                               setState(() {
-                                                this._isLoading = true;
+                                                _isLoading = true;
                                               });
                                               Provider.of<AuthService>(context,
                                                       listen: false)
@@ -249,20 +263,18 @@ class _LoginState extends StateMVC<Login> {
                                                   .then((value) {
 
                                                 setState(() {
-                                                  this._isLoading = false;
+                                                  _isLoading = false;
                                                 });
                                                print(value.toString());
                                                 if (value.toString() ==
                                                     "NotVerified") {
                                                   setState(() {
-                                                    this._isverify = true;
+                                                    _isverify = true;
                                                   });
                                                   showTopSnackBar(
                                                     Overlay.of(context),
                                                     CustomSnackBar.success(
-                                                      message: value
-                                                              .toString() +
-                                                          " verifier votre compte",
+                                                      message: "$value verifier votre compte",
                                                     ),
                                                   );
                                                 }
@@ -282,10 +294,9 @@ class _LoginState extends StateMVC<Login> {
                                                   }
                                                 }
                                               }).catchError((error) {
-                                                print(" hmmmmm " +
-                                                    error.toString());
+                                                print(" hmmmmm $error");
                                                 setState(() {
-                                                  this._isLoading = false;
+                                                  _isLoading = false;
                                                 });
                                                 showTopSnackBar(
                                                   Overlay.of(context),
@@ -298,7 +309,7 @@ class _LoginState extends StateMVC<Login> {
                                             },
                                             child: Text(
                                               "${AppLocalizations.of(context)!.translate('Valider')}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14),
                                             ),
@@ -311,13 +322,13 @@ class _LoginState extends StateMVC<Login> {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 35,
                           ),
                           Container(
                             child: GestureDetector(
                                 onTap: () {
-                                  this.setRegister();
+                                  setRegister();
                                   /* Navigator.push(
                               context,
                               PageTransition(
@@ -333,7 +344,7 @@ class _LoginState extends StateMVC<Login> {
                                         fontWeight: FontWeight.w600,
                                         color: blueColor))),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 35,
                           ),
                           Container(
@@ -343,11 +354,11 @@ class _LoginState extends StateMVC<Login> {
                                     child:
                                         Container(height: 2, color: blueColor)),
                                 Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 8),
+                                  margin: const EdgeInsets.symmetric(horizontal: 8),
                                   child: Text(
                                       "${AppLocalizations.of(context)!.translate('Ou')}",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontFamily: content_font,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600,
@@ -359,7 +370,7 @@ class _LoginState extends StateMVC<Login> {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 40,
                           ),
                           InkWell(
@@ -383,18 +394,18 @@ class _LoginState extends StateMVC<Login> {
                                         options: const AuthenticationOptions(
                                             biometricOnly: true),
                                         authMessages: <AuthMessages>[
-                                      AndroidAuthMessages(
+                                      const AndroidAuthMessages(
                                         signInTitle:
                                             'Oops! L authentification Biometrique est requise pour cette fonctionalite!',
                                         cancelButton: 'Fermer',
                                       ),
-                                      IOSAuthMessages(
+                                      const IOSAuthMessages(
                                         cancelButton: 'No thanks',
                                       ),
                                     ]);
                                 if (didAuthenticate) {
                                   setState(() {
-                                    this._isLoading = true;
+                                    _isLoading = true;
                                   });
                                   context
                                       .read<AuthService>()
@@ -402,17 +413,16 @@ class _LoginState extends StateMVC<Login> {
                                           {"id": pref.getString("tel")}).then(
                                     (value) {
                                       setState(() {
-                                        this._isLoading = false;
+                                        _isLoading = false;
                                       });
                                       if (value.toString() == "NotVerified") {
                                         setState(() {
-                                          this._isverify = true;
+                                          _isverify = true;
                                         });
                                         showTopSnackBar(
                                        Overlay.of(context),
                                           CustomSnackBar.success(
-                                            message: value.toString() +
-                                                " verifier votre compte",
+                                            message: "$value verifier votre compte",
                                           ),
                                         );
                                       }
@@ -430,9 +440,9 @@ class _LoginState extends StateMVC<Login> {
                                       }
                                     },
                                   ).catchError((error) {
-                                    print(" hmmmmm " + error.toString());
+                                    print(" hmmmmm $error");
                                     setState(() {
-                                      this._isLoading = false;
+                                      _isLoading = false;
                                     });
                                     showTopSnackBar(
                                      Overlay.of(context),
@@ -445,7 +455,7 @@ class _LoginState extends StateMVC<Login> {
                               } else {
                                 showTopSnackBar(
                                 Overlay.of(context),
-                                  CustomSnackBar.info(
+                                  const CustomSnackBar.info(
                                     maxLines: 3,
                                     message:
                                         "Veuillez vous connecter pour une première fois avec votre numero de telephone",
@@ -454,9 +464,9 @@ class _LoginState extends StateMVC<Login> {
                               }
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 25, vertical: 5),
-                              margin: EdgeInsets.symmetric(horizontal: 25),
+                              margin: const EdgeInsets.symmetric(horizontal: 25),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 color: Colors.indigo.withOpacity(0.2),
@@ -470,7 +480,7 @@ class _LoginState extends StateMVC<Login> {
                                   Text(
                                       "${AppLocalizations.of(context)!.translate('Scannez')}",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontFamily: content_font,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600,
@@ -485,6 +495,7 @@ class _LoginState extends StateMVC<Login> {
                     Container(
                         child: _isLoading
                             ? Loader(
+                              color: blueColor,
                                 loadingTxt:
                                     "${AppLocalizations.of(context)!.translate('loaderconex')}")
                             : Container())

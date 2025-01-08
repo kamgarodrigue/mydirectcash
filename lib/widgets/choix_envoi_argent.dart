@@ -8,6 +8,8 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ChoixEnvoiArgent extends StatefulWidget {
+  const ChoixEnvoiArgent({super.key});
+
   @override
   _ChoixEnvoiArgentState createState() => _ChoixEnvoiArgentState();
 }
@@ -17,7 +19,7 @@ class _ChoixEnvoiArgentState extends State<ChoixEnvoiArgent> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey.shade200,
-      padding: EdgeInsets.symmetric(vertical: 40),
+      padding: const EdgeInsets.symmetric(vertical: 40),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 3,
       child: Column(
@@ -37,19 +39,19 @@ class _ChoixEnvoiArgentState extends State<ChoixEnvoiArgent> {
               });
             },
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 00),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 00),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     color: blueColor.withOpacity(0.2),
                     child: Image.asset(
                       'assets/images/ico-directcash.png',
                       width: 40,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Expanded(
@@ -67,7 +69,7 @@ class _ChoixEnvoiArgentState extends State<ChoixEnvoiArgent> {
                                 color: blueColor,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 2,
                           ),
                           Text(
@@ -86,7 +88,7 @@ class _ChoixEnvoiArgentState extends State<ChoixEnvoiArgent> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           GestureDetector(
@@ -100,19 +102,19 @@ class _ChoixEnvoiArgentState extends State<ChoixEnvoiArgent> {
                       )));
             },
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     color: blueColor.withOpacity(0.2),
                     child: Image.asset(
                       'assets/images/ico-compte-direct.png',
                       width: 40,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Expanded(
@@ -130,7 +132,7 @@ class _ChoixEnvoiArgentState extends State<ChoixEnvoiArgent> {
                                 color: blueColor,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 2,
                           ),
                           Text(

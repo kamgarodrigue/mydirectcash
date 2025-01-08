@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:mydirectcash/screens/AchatCreditMOMOPassword.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
@@ -14,6 +15,8 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:mydirectcash/app_localizations.dart';
 
 class OmMoMo extends StatefulWidget {
+  const OmMoMo({super.key});
+
   @override
   _OmMoMoState createState() => _OmMoMoState();
 }
@@ -32,15 +35,17 @@ class _OmMoMoState extends State<OmMoMo> {
   bool isOm = true, _isLoading = false;
   bool isDepot = false;
   bool _isOscure = true;
+  TextEditingController _controller = TextEditingController();
   void togle() {
-    this.setState(() {
-      this._isOscure = !_isOscure;
+    setState(() {
+      _isOscure = !_isOscure;
     });
   }
 
   @override
   void initState() {
     super.initState();
+    _controller.text = "";
     UserController().utilisateur!.then((value) {
       print(value.data!.phone);
       setState(() {
@@ -49,33 +54,109 @@ class _OmMoMoState extends State<OmMoMo> {
     });
   }
 
+  @override
+  void dispose() {
+    _controller
+        .dispose(); // Dispose of the controller when the widget is removed
+    super.dispose();
+  }
+
+  Future<void> _pickContact() async {
+    try {
+      // Request permission and pick a contact
+      if (await FlutterContacts.requestPermission()) {
+        final contact = await FlutterContacts.openExternalPick();
+        if (contact != null && contact.phones.isNotEmpty) {
+          setState(() {
+            // Update the text field and the data map with the selected phone number
+            String selectedNumber = contact.phones.first.number;
+            _controller.text = selectedNumber;
+            data["senderNumber"] = selectedNumber;
+          });
+        } else {
+          // Show a message if the contact doesn't have a phone number
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                content: Text(
+                    "${AppLocalizations.of(context)!.translate('Saisissez le numéro bénéficiaire')}")),
+          );
+        }
+      } else {
+        // Handle permission denied case
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text(
+                  "${AppLocalizations.of(context)!.translate('Saisissez le numéro bénéficiaire')}")),
+        );
+      }
+    } catch (e) {
+      // Handle errors
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to pick a contact: $e')),
+      );
+    }
+  }
+
   Widget depot() {
     print('object');
     return Column(
       children: [
         Container(
-            margin: EdgeInsets.only(top: 30),
-            padding: EdgeInsets.symmetric(horizontal: 25),
+            margin: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
+                // TextFormField(
+                //     keyboardType: TextInputType.text,
+                //     initialValue: data["senderNumber"],
+                //     onChanged: (value) {
+                //       setState(() {
+                //         data["senderNumber"] = value;
+                //       });
+                //     },
+                //     style:
+                //         const TextStyle(fontFamily: content_font, fontSize: 13),
+                //     textAlign: TextAlign.start,
+                //     decoration: InputDecoration(
+                //         border: InputBorder.none,
+                //         hintText: AppLocalizations.of(context)!
+                //             .translate('Saisissez le numéro bénéficiaire'),
+                //         hintStyle: const TextStyle(
+                //             fontFamily: content_font,
+                //             color: Colors.grey,
+                //             fontSize: 13))),
+
                 TextFormField(
-                    keyboardType: TextInputType.text,
-                    initialValue: data["senderNumber"],
-                    onChanged: (value) {
-                      setState(() {
-                        data["senderNumber"] = value;
-                      });
-                    },
-                    style: TextStyle(fontFamily: content_font, fontSize: 13),
-                    textAlign: TextAlign.start,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: AppLocalizations.of(context)!
-                            .translate('Saisissez le numéro bénéficiaire'),
-                        hintStyle: TextStyle(
-                            fontFamily: content_font,
-                            color: Colors.grey,
-                            fontSize: 13))),
+                  controller:
+                      _controller, // Use the controller to manage the text field
+                  keyboardType: TextInputType.text,
+                  style:
+                      const TextStyle(fontFamily: content_font, fontSize: 13),
+                  textAlign: TextAlign.start,
+                  onChanged: (value) {
+                    setState(() {
+                      data["senderNumber"] = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        Icons.perm_contact_calendar_sharp,
+                        size: 24,
+                        color: blueColor,
+                      ),
+                      onPressed: _pickContact, // Open contact picker
+                    ),
+                    border: InputBorder.none,
+                    hintText:
+                        "${AppLocalizations.of(context)!.translate('Saisissez le numéro bénéficiaire')}",
+                    hintStyle: const TextStyle(
+                        fontFamily: content_font,
+                        color: Colors.grey,
+                        fontSize: 13),
+                  ),
+                ),
+
                 Divider(
                   height: 1.5,
                   color: blueColor,
@@ -83,8 +164,8 @@ class _OmMoMoState extends State<OmMoMo> {
               ],
             )),
         Container(
-            margin: EdgeInsets.only(top: 20),
-            padding: EdgeInsets.symmetric(horizontal: 25),
+            margin: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
                 TextFormField(
@@ -95,13 +176,14 @@ class _OmMoMoState extends State<OmMoMo> {
                         data["montant"] = value;
                       });
                     },
-                    style: TextStyle(fontFamily: content_font, fontSize: 13),
+                    style:
+                        const TextStyle(fontFamily: content_font, fontSize: 13),
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: AppLocalizations.of(context)!
                             .translate('Saisire montant'),
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                             fontFamily: content_font,
                             color: Colors.grey,
                             fontSize: 13))),
@@ -112,8 +194,8 @@ class _OmMoMoState extends State<OmMoMo> {
               ],
             )),
         Container(
-            margin: EdgeInsets.only(top: 20),
-            padding: EdgeInsets.symmetric(horizontal: 25),
+            margin: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
                 TextFormField(
@@ -125,11 +207,12 @@ class _OmMoMoState extends State<OmMoMo> {
                         data["pass"] = value;
                       });
                     },
-                    style: TextStyle(fontFamily: content_font, fontSize: 13),
+                    style:
+                        const TextStyle(fontFamily: content_font, fontSize: 13),
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
                         suffixIcon: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.visibility,
                             size: 16,
                           ),
@@ -138,7 +221,7 @@ class _OmMoMoState extends State<OmMoMo> {
                         border: InputBorder.none,
                         hintText:
                             AppLocalizations.of(context)!.translate('Password'),
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                             fontFamily: content_font,
                             color: Colors.grey,
                             fontSize: 13))),
@@ -148,9 +231,9 @@ class _OmMoMoState extends State<OmMoMo> {
                 ),
               ],
             )),
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -158,15 +241,17 @@ class _OmMoMoState extends State<OmMoMo> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor:  blueColor,
-                        padding: EdgeInsets.symmetric(horizontal: 50)),
+                        backgroundColor: blueColor,
+                        padding: const EdgeInsets.symmetric(horizontal: 50)),
                     onPressed: () {
+                                              print(data);
+
                       setState(() {
-                        this._isLoading = true;
+                        _isLoading = true;
                       });
                       TransactonService().depotMomo(data).then((value) {
                         setState(() {
-                          this._isLoading = false;
+                          _isLoading = false;
                           data = {
                             "senderNumber": "",
                             "operateur": isOm ? "CMORANGEOM" : "CMMTNMOMO",
@@ -179,7 +264,7 @@ class _OmMoMoState extends State<OmMoMo> {
                           };
                         });
                         showTopSnackBar(
-                         Overlay.of(context),
+                          Overlay.of(context),
                           CustomSnackBar.success(
                             message: value.toString(),
                           ),
@@ -188,10 +273,10 @@ class _OmMoMoState extends State<OmMoMo> {
                       }).catchError((error) {
                         print(error);
                         setState(() {
-                          this._isLoading = false;
+                          _isLoading = false;
                         });
                         showTopSnackBar(
-                      Overlay.of(context),
+                          Overlay.of(context),
                           CustomSnackBar.error(
                             message: AppLocalizations.of(context)!
                                 .translate("erreur")!,
@@ -211,7 +296,7 @@ class _OmMoMoState extends State<OmMoMo> {
                       AppLocalizations.of(context)!
                           .translate('Valider')
                           .toString(),
-                      style: TextStyle(color: Colors.white, fontSize: 14),
+                      style: const TextStyle(color: Colors.white, fontSize: 14),
                     ),
                   ),
                 ],
@@ -227,8 +312,8 @@ class _OmMoMoState extends State<OmMoMo> {
     return Column(
       children: [
         Container(
-            margin: EdgeInsets.only(top: 30),
-            padding: EdgeInsets.symmetric(horizontal: 25),
+            margin: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
                 TextFormField(
@@ -239,14 +324,15 @@ class _OmMoMoState extends State<OmMoMo> {
                         data["Id"] = value;
                       });
                     },
-                    style: TextStyle(fontFamily: content_font, fontSize: 13),
+                    style:
+                        const TextStyle(fontFamily: content_font, fontSize: 13),
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: AppLocalizations.of(context)!
                             .translate('Numero du compte')
                             .toString(),
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                             fontFamily: content_font,
                             color: Colors.grey,
                             fontSize: 13))),
@@ -257,8 +343,8 @@ class _OmMoMoState extends State<OmMoMo> {
               ],
             )),
         Container(
-            margin: EdgeInsets.only(top: 20),
-            padding: EdgeInsets.symmetric(horizontal: 25),
+            margin: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
                 TextFormField(
@@ -269,14 +355,15 @@ class _OmMoMoState extends State<OmMoMo> {
                         data["montant"] = value;
                       });
                     },
-                    style: TextStyle(fontFamily: content_font, fontSize: 13),
+                    style:
+                        const TextStyle(fontFamily: content_font, fontSize: 13),
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: AppLocalizations.of(context)!
                             .translate('Saisire montant')
                             .toString(),
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                             fontFamily: content_font,
                             color: Colors.grey,
                             fontSize: 13))),
@@ -287,8 +374,8 @@ class _OmMoMoState extends State<OmMoMo> {
               ],
             )),
         Container(
-            margin: EdgeInsets.only(top: 20),
-            padding: EdgeInsets.symmetric(horizontal: 25),
+            margin: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
                 TextFormField(
@@ -300,11 +387,12 @@ class _OmMoMoState extends State<OmMoMo> {
                         data["pass"] = value;
                       });
                     },
-                    style: TextStyle(fontFamily: content_font, fontSize: 13),
+                    style:
+                        const TextStyle(fontFamily: content_font, fontSize: 13),
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
                         suffixIcon: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.visibility,
                             size: 16,
                           ),
@@ -314,7 +402,7 @@ class _OmMoMoState extends State<OmMoMo> {
                         hintText: AppLocalizations.of(context)!
                             .translate('Password')
                             .toString(),
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                             fontFamily: content_font,
                             color: Colors.grey,
                             fontSize: 13))),
@@ -324,9 +412,9 @@ class _OmMoMoState extends State<OmMoMo> {
                 ),
               ],
             )),
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -334,15 +422,15 @@ class _OmMoMoState extends State<OmMoMo> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:  blueColor,
-                        padding: EdgeInsets.symmetric(horizontal: 50)),
+                        backgroundColor: blueColor,
+                        padding: const EdgeInsets.symmetric(horizontal: 50)),
                     onPressed: () {
                       setState(() {
-                        this._isLoading = true;
+                        _isLoading = true;
                       });
                       TransactonService().retraitMomo(data).then((value) {
                         setState(() {
-                          this._isLoading = false;
+                          _isLoading = false;
                           data = {
                             "senderNumber": "",
                             "operateur": isOm ? "CMORANGEOM" : "CMMTNMOMO",
@@ -364,7 +452,7 @@ class _OmMoMoState extends State<OmMoMo> {
                         // Navigator.pop(context);
                       }).catchError((error) {
                         setState(() {
-                          this._isLoading = false;
+                          _isLoading = false;
                         });
                         print(error);
                         showTopSnackBar(
@@ -388,7 +476,7 @@ class _OmMoMoState extends State<OmMoMo> {
                       AppLocalizations.of(context)!
                           .translate('Valider')
                           .toString(),
-                      style: TextStyle(color: Colors.white, fontSize: 14),
+                      style: const TextStyle(color: Colors.white, fontSize: 14),
                     ),
                   ),
                 ],
@@ -402,6 +490,7 @@ class _OmMoMoState extends State<OmMoMo> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -413,15 +502,15 @@ class _OmMoMoState extends State<OmMoMo> {
             Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/images/background.png'),
                         fit: BoxFit.cover)),
                 child: ListView(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 10),
-                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      margin: const EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -451,11 +540,11 @@ class _OmMoMoState extends State<OmMoMo> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -469,7 +558,7 @@ class _OmMoMoState extends State<OmMoMo> {
                               color: blueColor,
                             ),
                           ),
-                          SizedBox(width: 50),
+                          const SizedBox(width: 50),
                           Text('OM / MoMo',
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
@@ -482,14 +571,14 @@ class _OmMoMoState extends State<OmMoMo> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       width: 100,
                       height: 100,
                       child: Image.asset(
                         'assets/images/logo-alliance-transparent.png',
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Text(
@@ -503,86 +592,77 @@ class _OmMoMoState extends State<OmMoMo> {
                           fontSize: 12,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Container(
-                      child: Row(
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
                         children: [
-                          Expanded(
-                              child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isOm = true;
-                                data["operateur"] = "CMORANGEOM";
-                              });
-                              print(data["operateur"]);
-                            },
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                          'assets/images/om.png',
-                                        ),
-                                        fit: BoxFit.cover)),
-                                child: new ClipRect(
-                                    child: new BackdropFilter(
-                                  filter: new ImageFilter.blur(
-                                      sigmaX: isOm ? 0.0 : 2.0,
-                                      sigmaY: isOm ? 0.0 : 2.0),
-                                  child: new Container(
-                                    padding: EdgeInsets.all(0),
-                                    decoration: new BoxDecoration(
-                                        color: Colors.black.withOpacity(0.2)),
-                                    child: new Center(
-                                      child: new Text('',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineLarge),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isOm = true;
+                                    data["operateur"] = "CMORANGEOM";
+                                  });
+                                  print(data["operateur"]);
+                                },
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 100,
+                                      width: size.width * 0.3,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: isOm ? 5 : 0,
+                                            color: Colors.blueAccent),
+                                        borderRadius: BorderRadius.circular(20),
+                                        image: const DecorationImage(
+                                            image: AssetImage(
+                                                'assets/images/orange-money.png'),
+                                            fit: BoxFit.cover),
+                                      ),
                                     ),
-                                  ),
-                                ))),
-                          )),
-                          Expanded(
-                              child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isOm = false;
-                                data["operateur"] = "CMMTNMOMO";
-                              });
-                              print(data["operateur"]);
-                            },
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                          'assets/images/mtn_momo.png',
-                                        ),
-                                        fit: BoxFit.cover)),
-                                child: new ClipRect(
-                                    child: new BackdropFilter(
-                                  filter: new ImageFilter.blur(
-                                      sigmaX: !isOm ? 0.0 : 2.0,
-                                      sigmaY: !isOm ? 0.0 : 2.0),
-                                  child: new Container(
-                                    padding: EdgeInsets.all(0),
-                                    decoration: new BoxDecoration(
-                                        color: Colors.black.withOpacity(0.2)),
-                                    child: new Center(
-                                      child: new Text('',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineLarge),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isOm = false;
+                                    data["operateur"] = "CMMTNMOMO";
+                                  });
+                                  print(data["operateur"]);
+                                },
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 100,
+                                      width: size.width * 0.3,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: !isOm ? 5 : 0,
+                                            color: Colors.blueAccent),
+                                        borderRadius: BorderRadius.circular(20),
+                                        image: const DecorationImage(
+                                            image: AssetImage(
+                                                'assets/images/mobile-money.png'),
+                                            fit: BoxFit.cover),
+                                      ),
                                     ),
-                                  ),
-                                ))),
-                          )),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -592,7 +672,7 @@ class _OmMoMoState extends State<OmMoMo> {
                                 : 'assets/images/mobile_money.png',
                             width: 70,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
                           Expanded(
@@ -623,7 +703,7 @@ class _OmMoMoState extends State<OmMoMo> {
                                                   AppLocalizations.of(context)!
                                                       .translate('Dépôt')
                                                       .toString(),
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontFamily:
                                                           content_font)),
                                               GestureDetector(
@@ -644,7 +724,7 @@ class _OmMoMoState extends State<OmMoMo> {
                                             ],
                                           ),
                                         ),
-                                        SizedBox(width: 30),
+                                        const SizedBox(width: 30),
                                         Container(
                                           child: Row(
                                             children: [
@@ -652,7 +732,7 @@ class _OmMoMoState extends State<OmMoMo> {
                                                   AppLocalizations.of(context)!
                                                       .translate('Retrait')
                                                       .toString(),
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontFamily:
                                                           content_font)),
                                               GestureDetector(
@@ -683,7 +763,7 @@ class _OmMoMoState extends State<OmMoMo> {
                         ],
                       ),
                     ),
-                    this.isDepot ? depot() : retrait(),
+                    isDepot ? depot() : retrait(),
                   ],
                 )),
             Container(

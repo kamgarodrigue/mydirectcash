@@ -14,6 +14,8 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class GuichetAchatProduitConf extends StatefulWidget {
+  const GuichetAchatProduitConf({super.key});
+
   @override
   _GuichetAchatProduitConfState createState() =>
       _GuichetAchatProduitConfState();
@@ -31,7 +33,7 @@ class _GuichetAchatProduitConfState extends State<GuichetAchatProduitConf> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
@@ -53,15 +55,15 @@ class _GuichetAchatProduitConfState extends State<GuichetAchatProduitConf> {
             ),*/
             Positioned(
               child: ListView(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: Container(
+                          child: SizedBox(
                             height: 100,
                             child: Stack(
                               children: [
@@ -98,11 +100,11 @@ class _GuichetAchatProduitConfState extends State<GuichetAchatProduitConf> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 35),
+                    padding: const EdgeInsets.symmetric(horizontal: 35),
                     color: Colors.transparent,
                     child: Text(
                       'Achats de produits ',
@@ -113,12 +115,12 @@ class _GuichetAchatProduitConfState extends State<GuichetAchatProduitConf> {
                           fontSize: 15.5),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 35),
-                    child: Column(
+                    padding: const EdgeInsets.symmetric(horizontal: 35),
+                    child: const Column(
                       children: [
                         Text(
                             'Vous allez faire des achats de 20 000XAF chez OU688******, frais de 150 XAF. Montant total à débiter 20 150 XAF',
@@ -130,20 +132,20 @@ class _GuichetAchatProduitConfState extends State<GuichetAchatProduitConf> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(
-                      padding: EdgeInsets.symmetric(horizontal: 35),
-                      margin: EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 35),
+                      margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         style:
-                            TextStyle(fontFamily: content_font, fontSize: 13),
+                            const TextStyle(fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             focusColor: marronColor,
-                            suffixIcon: Icon(
+                            suffixIcon: const Icon(
                               Icons.visibility,
                               size: 16,
                             ),
@@ -153,7 +155,7 @@ class _GuichetAchatProduitConfState extends State<GuichetAchatProduitConf> {
                                 color: Colors.grey.shade500,
                                 fontSize: 13)),
                       )),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Container(
@@ -166,7 +168,7 @@ class _GuichetAchatProduitConfState extends State<GuichetAchatProduitConf> {
                               style: ElevatedButton.styleFrom(
                                  backgroundColor:   marronColor,
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 50)),
+                                      const EdgeInsets.symmetric(horizontal: 50)),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -174,7 +176,7 @@ class _GuichetAchatProduitConfState extends State<GuichetAchatProduitConf> {
                                         type: PageTransitionType.rightToLeft,
                                         child: HomeGuichet()));
                               },
-                              child: Text(
+                              child: const Text(
                                 'Valider',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 14),
@@ -185,7 +187,7 @@ class _GuichetAchatProduitConfState extends State<GuichetAchatProduitConf> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 35,
                   ),
                   Container(

@@ -12,6 +12,8 @@ import 'package:page_transition/page_transition.dart';
 
 
 class WelcomePage extends StatefulWidget {
+  const WelcomePage({super.key});
+
   @override
   _WelcomePageState createState() => _WelcomePageState();
 }
@@ -39,8 +41,8 @@ class _WelcomePageState extends State<WelcomePage> {
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
             color: Colors.white,
-            image: const DecorationImage(
-                image: const AssetImage('assets/images/background.png'),
+            image: DecorationImage(
+                image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
         child: Stack(
           children: [
@@ -67,7 +69,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "${AppLocalizations.of(context)!.translate('title').toString()}",
+                              AppLocalizations.of(context)!.translate('title').toString(),
                               style: const TextStyle(
                                   fontFamily: title_font,
                                   fontSize: 16,
