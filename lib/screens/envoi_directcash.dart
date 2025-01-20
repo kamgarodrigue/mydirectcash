@@ -1,16 +1,11 @@
-import 'dart:convert';
-
-import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:mydirectcash/Controllers/UserController.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mydirectcash/Models/DetailTransaction.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
-import 'package:mydirectcash/screens/achat_credit_password.dart';
 import 'package:mydirectcash/screens/envoi_directcash_password.dart';
-import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
@@ -20,7 +15,8 @@ import 'package:provider/provider.dart';
 
 class EnvoiDirectCash extends StatefulWidget {
   dynamic context1;
-  EnvoiDirectCash({Key? key, this.context1}) : super(key: key);
+  Map? data;
+  EnvoiDirectCash({Key? key, this.context1, this.data}) : super(key: key);
 
   @override
   _EnvoiDirectCashState createState() => _EnvoiDirectCashState();
@@ -32,6 +28,8 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
   Contact? _selectedContact;
   TextEditingController _controller = TextEditingController();
 
+  PhoneNumber number = PhoneNumber(isoCode: 'CM', phoneNumber: '');
+
   DataTransaction dataTransaction = DataTransaction(
     amount: "",
     cNI: "",
@@ -42,6 +40,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
     rate: "",
     toNumber: "",
   );
+  Map? param;
   bool _isLoading = false;
   String codeRegion = "";
   @override
@@ -50,6 +49,18 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
     _controller.text = "";
     context.read<AuthService>().authenticate;
   }
+
+  Map data = {
+    "vClientID": "",
+    "vAmount": "",
+    "vRate": 0.0,
+    "vFromNumber": "",
+    "vToNumber": "",
+    "Direct_Code": "",
+    "vCNI": " ",
+    "vPIN": "",
+    "vrxtype": "",
+  };
 
   @override
   void dispose() {
@@ -68,7 +79,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
             // Update the text field and the data map with the selected phone number
             String selectedNumber = contact.phones.first.number;
             _controller.text = selectedNumber;
-            dataTransaction.toNumber = selectedNumber;
+            data['vToNumber'] = selectedNumber;
           });
         } else {
           // Show a message if the contact doesn't have a phone number
@@ -149,6 +160,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                   const SizedBox(
                     height: 20,
                   ),
+
                   Container(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,113 +203,139 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    color: Colors.transparent,
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text('$countryName',
-                                    style: TextStyle(
-                                        color: countryName ==
-                                                AppLocalizations.of(context)!
-                                                    .translate(
-                                                        "Choisissez le pays de destination")!
-                                            ? Colors.grey
-                                            : Colors.black,
-                                        fontSize: 14)),
-                              ),
-                              CountryListPick(
-                                  appBar: AppBar(
-                                    backgroundColor: blueColor,
-                                    title: Text(AppLocalizations.of(context)!
-                                        .translate(
-                                            "Choisissez le pays de destination")!),
-                                  ),
-                                  theme: CountryTheme(
-                                    isShowFlag: true,
-                                    isShowTitle: false,
-                                    isShowCode: false,
-                                    isDownIcon: true,
-                                    showEnglishName: false,
-                                  ),
-                                  initialSelection: '+237',
-                                  onChanged: (CountryCode? code) {
-                                    setState(() {
-                                      countryName = code!.name == null
-                                          ? AppLocalizations.of(context)!.translate(
-                                              "Choisissez le pays de destination")!
-                                          : "${code.name} ($code)";
-                                    });
-                                    print(code!.name);
-                                  },
-                                  useUiOverlay: true,
-                                  useSafeArea: false),
-                            ],
+                  // Container(
+                  //   color: Colors.transparent,
+                  //   child: Column(
+                  //     children: [
+                  //       Container(
+                  //         child: Row(
+                  //           children: [
+                  //             Expanded(
+                  //               child: Text('$countryName',
+                  //                   style: TextStyle(
+                  //                       color: countryName ==
+                  //                               AppLocalizations.of(context)!
+                  //                                   .translate(
+                  //                                       "Choisissez le pays de destination")!
+                  //                           ? Colors.grey
+                  //                           : Colors.black,
+                  //                       fontSize: 14)),
+                  //             ),
+                  //             CountryListPick(
+                  //                 appBar: AppBar(
+                  //                   backgroundColor: blueColor,
+                  //                   title: Text(AppLocalizations.of(context)!
+                  //                       .translate(
+                  //                           "Choisissez le pays de destination")!),
+                  //                 ),
+                  //                 theme: CountryTheme(
+                  //                   isShowFlag: true,
+                  //                   isShowTitle: false,
+                  //                   isShowCode: false,
+                  //                   isDownIcon: true,
+                  //                   showEnglishName: false,
+                  //                 ),
+                  //                 initialSelection: '+237',
+                  //                 onChanged: (CountryCode? code) {
+                  //                   setState(() {
+                  //                     countryName = code!.name == null
+                  //                         ? AppLocalizations.of(context)!.translate(
+                  //                             "Choisissez le pays de destination")!
+                  //                         : "${code.name} ($code)";
+                  //                   });
+                  //                   print(code!.name);
+                  //                 },
+                  //                 useUiOverlay: true,
+                  //                 useSafeArea: false),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //       const SizedBox(height: 10),
+                  //       Divider(
+                  //         height: 1.5,
+                  //         color: blueColor,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  Padding(
+                    padding: const EdgeInsets.all(0),
+                    child: InternationalPhoneNumberInput(
+                      onInputChanged: (PhoneNumber number) {
+                        print(number.phoneNumber);
+                        if (number.isoCode == "CM") {
+                          setState(() {
+                            data['vToNumber'] = number.phoneNumber;
+                            data['vrxtype'] = "1";
+                          });
+                        } else {
+                          setState(() {
+                            data['vToNumber'] = number.phoneNumber;
+                            data['vrxtype'] = "2";
+                          });
+                        }
+                      },
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return "Ajoutez un numero !";
+                        }
+                        if (value.length < 9 || value.length > 14) {
+                          return "Numero invalid !";
+                        }
+                      },
+                      onInputValidated: (bool isValid) {
+                        print(isValid);
+                      },
+                      selectorConfig: const SelectorConfig(
+                        selectorType: PhoneInputSelectorType.DROPDOWN,
+                        setSelectorButtonAsPrefixIcon: true,
+                        leadingPadding: 8.0,
+                        showFlags: true,
+                        useEmoji: true,
+                      ),
+                      ignoreBlank: false,
+                      autoValidateMode: AutovalidateMode.disabled,
+                      selectorTextStyle: const TextStyle(color: Colors.black),
+                      initialValue: number,
+                      textFieldController: _controller,
+                      formatInput: false,
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: true, decimal: true),
+                      inputDecoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.perm_contact_calendar_sharp,
+                            size: 24,
+                            color: blueColor,
                           ),
+                          onPressed: _pickContact, // Open contact picker
                         ),
-                        const SizedBox(height: 10),
-                        Divider(
-                          height: 1.5,
-                          color: blueColor,
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: blueColor, width: 2),
                         ),
-                      ],
+                        labelText:
+                            "${AppLocalizations.of(context)!.translate('Phone')}",
+                      ),
+                      onSaved: (PhoneNumber number) {
+                        print('On Saved: $number');
+                        setState(
+                          () {
+                            data['vToNumber'] = number.phoneNumber;
+                          },
+                        );
+                      },
                     ),
                   ),
                   Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: Column(
                         children: [
-                    
-                          TextFormField(
-                            controller:
-                                _controller, // Use the controller to manage the text field
-                            keyboardType: TextInputType.text,
-                            style: const TextStyle(
-                                fontFamily: content_font, fontSize: 13),
-                            textAlign: TextAlign.start,
-                            onChanged: (value) {
-                              setState(() {
-                                dataTransaction.toNumber =
-                                    value; // Update the data map when the text changes
-                              });
-                            },
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                icon:  Icon(
-                                  Icons.perm_contact_calendar_sharp,
-                                  size: 24,
-                                  color: blueColor,
-                                ),
-                                onPressed: _pickContact, // Open contact picker
-                              ),
-                              border: InputBorder.none,
-                              hintText:
-                                  "${AppLocalizations.of(context)!.translate('Saisissez le numéro bénéficiaire')}",
-                              hintStyle: const TextStyle(
-                                  fontFamily: content_font,
-                                  color: Colors.grey,
-                                  fontSize: 13),
-                            ),
-                          ),
-                          Divider(
-                            height: 1.5,
-                            color: blueColor,
-                          ),
-                        ],
-                      )),
-                  Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: Column(
-                        children: [
                           TextFormField(
                               keyboardType: TextInputType.number,
-                              initialValue: dataTransaction.amount,
+                              // initialValue:  widget.data?['vAmount'] == 0 ? "" ,
                               onChanged: (value) {
                                 setState(() {
-                                  dataTransaction.amount = value;
+                                  data['vAmount'] = value;
                                 });
                               },
                               style: const TextStyle(
@@ -333,22 +371,22 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                 print(autProvider.currentUser!.data!.phone);
                                 setState(() {
                                   _isLoading = true;
+                                  param = {
+                                    "amount": data['vAmount'],
+                                    "to": data['vToNumber'],
+                                    "transactionType": data['vrxtype'],
+                                  };
                                 });
 
-                                context
-                                    .read<TransactonService>()
-                                    .getDetailEnvoiDirectcash(
-                                        dataTransaction.toNumber,
-                                        dataTransaction.amount)
+                                TransactonService()
+                                    .getDetailEnvoiDirectcash(param)
                                     .then((value) {
-                                  print(value);
-                                  dataTransaction.fromNumber =
+                                  data['vFromNumber'] =
                                       autProvider.currentUser!.data!.phone;
-                                  dataTransaction.id =
+                                  data["vClientID"] =
                                       autProvider.currentUser!.data!.phone;
-                                  dataTransaction.rate =
-                                      json.decode(value.toString())["rate"];
-                                  print(dataTransaction.toJson());
+                                  data["vRate"] = value["data"]["fees"];
+                                  print(data);
                                   Navigator.push(
                                       context,
                                       PageTransition(
@@ -357,8 +395,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                             context1: widget.context1,
                                             context2: context,
                                             dataTransaction: dataTransaction,
-                                            detail:
-                                                json.decode(value.toString()),
+                                            data: data,
                                           )));
                                   setState(() {
                                     _isLoading = false;

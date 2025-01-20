@@ -16,7 +16,9 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 
 class PayementMarchandValidate extends StatefulWidget {
   Map? data;
-  PayementMarchandValidate({Key? key, this.data}) : super(key: key);
+  String? agentName;
+  PayementMarchandValidate({Key? key, this.data, this.agentName})
+      : super(key: key);
 
   @override
   _PayementMarchandValidateState createState() =>
@@ -42,7 +44,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
           0.0; // Safely parse, fallback to 0.0 if invalid
     }
 
-    double debite = parseDouble(widget.data!["Montant"]) +
+    double debite = parseDouble(widget.data!["vAmount"]) +
         parseDouble(widget.data!["frais"]);
 
     return Scaffold(
@@ -143,7 +145,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                     child: Column(
                       children: [
                         Text(
-                            '${AppLocalizations.of(context)!.translate("Frais :")!} : ${widget.data!["Montant"]} XAF, ${AppLocalizations.of(context)!.translate("le montant total à débité est de")!} $debite XAF',
+                            '${AppLocalizations.of(context)!.translate("yourAre")}  ${widget.data!["vAmount"]} XAF, ${AppLocalizations.of(context)!.translate("to")} ${widget.agentName} ${AppLocalizations.of(context)!.translate("le montant total à débité est de")!} $debite XAF',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 12.5,
@@ -175,10 +177,10 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         obscureText: _isOscure,
-                        initialValue: "${widget.data!["pass"]}",
+                        // initialValue: "${widget.data!["pass"]}",
                         onChanged: (value) {
                           setState(() {
-                            widget.data!["pass"] = value;
+                            widget.data!["vPIN"] = value;
                           });
                         },
                         style: const TextStyle(
@@ -186,7 +188,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
-                               icon: Icon(
+                              icon: Icon(
                                 _isOscure
                                     ? Icons.visibility
                                     : Icons.visibility_off,
@@ -220,33 +222,64 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                 TransactonService()
                                     .payerMarchant(widget.data)
                                     .then((value) {
+                          
                                   setState(() {
                                     _isLoading = false;
                                   });
+                                  if (value['message'] ==
+                                      "Tous les paramètres sont requis.") {
+                                    DialogWidget.error(context,
+                                        title: "Succes !",
+                                        content: value['message'],
+                                        color: blueColor, callback: () {
+                                      Navigator.pop(context); 
+                                      Navigator.pop(context); 
+                                    });
+                                  } 
+                                  else if (value['message'] ==
+                                      "Requête traitée avec succès.") {
+                                      DialogWidget.success(context,
+                                        title: value['message'],
+                                        content: value['data'][0]['sender'],
+                                        color: greenColor, callback: () {
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    });
+                                  }
+                                  else if (value['message'] ==
+                                      "erreur") {
+                                      DialogWidget.error(context,
+                                        title: value['message'],
+                                        content: value['data']['vErrorMessage'],
+                                        color: blueColor, callback: () {
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    });
+                                  }
 
-                                  context
-                                      .read<AuthService>()
-                                      .loginWithBiometric({
-                                    "id": context
-                                        .read<AuthService>()
-                                        .currentUser!
-                                        .data!
-                                        .phone
-                                  });
-                                   DialogWidget.success(context,
-                                      title: "Succes !",
-                                      content: value.toString(),
-                                      color: greenColor, callback: () {
-                                    Navigator.pop(context);
-                                    Navigator.pop(context);
-                                  });
+                                  // context
+                                  //     .read<AuthService>()
+                                  //     .loginWithBiometric({
+                                  //   "id": context
+                                  //       .read<AuthService>()
+                                  //       .currentUser!
+                                  //       .data!
+                                  //       .phone
+                                  // });
+                                  // DialogWidget.success(context,
+                                  //     title: "Succes !",
+                                  //     content: value.toString(),
+                                  //     color: greenColor, callback: () {
+                                  //   Navigator.pop(context);
+                                  //   Navigator.pop(context);
+                                  // });
                                   // Navigator.pop(context);
                                 }).catchError((error) {
                                   setState(() {
                                     _isLoading = false;
                                   });
                                   print(error);
-                                     DialogWidget.error(context,
+                                  DialogWidget.error(context,
                                       title: AppLocalizations.of(context)!
                                           .translate("erreur")!,
                                       content: error.toString(),

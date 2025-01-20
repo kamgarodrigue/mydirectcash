@@ -1,33 +1,20 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:mydirectcash/AppLanguage.dart';
-import 'package:mydirectcash/Controllers/UserController.dart';
-import 'package:mydirectcash/Models/Transaction.dart';
-import 'package:mydirectcash/Models/User.dart';
+
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
-import 'package:mydirectcash/Repository/localisation.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/Epargne/Epargne.dart';
 import 'package:mydirectcash/screens/achat_credit.dart';
 import 'package:mydirectcash/screens/achat_de_credit_selection_page.dart';
-import 'package:mydirectcash/screens/carousel_page.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/om_momo.dart';
 import 'package:mydirectcash/screens/payement_marchand.dart';
-import 'package:mydirectcash/screens/recharge_directcash.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
-import 'package:mydirectcash/widgets/bottom_navigation.dart';
 import 'package:mydirectcash/widgets/choix_de_recharge.dart';
 import 'package:mydirectcash/widgets/choix_envoi_argent.dart';
 import 'package:mydirectcash/widgets/choix_facture_component.dart';
-import 'package:mydirectcash/widgets/choix_recharge.dart';
-import 'package:mydirectcash/widgets/last_transactions.dart';
-import 'package:mydirectcash/widgets/success_operation_component.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -77,22 +64,21 @@ class _HomeState extends State<Home> {
     super.initState();
     context.read<AuthService>().authenticate;
     //context.read<AuthService>().setconversion(0);
-   //  context.read<Localisation>().initLocation();
- 
-
+    //  context.read<Localisation>().initLocation();
   }
 
-Future<PermissionStatus> _getCameraPermission() async {
+  Future<PermissionStatus> _getCameraPermission() async {
     var status = await Permission.camera.status;
 
     if (!status.isGranted) {
-          print(status);
-        final result = await Permission.camera.request();
-        return result;
+      print(status);
+      final result = await Permission.camera.request();
+      return result;
     } else {
       return status;
     }
-}
+  }
+
   Future reset() {
     setconversion(0);
     context.read<AuthService>().authenticate;
@@ -102,12 +88,10 @@ Future<PermissionStatus> _getCameraPermission() async {
         context.read<AuthService>().currentUser!.data!.phone.toString());
     return context.read<TransactonService>().getHistory(
         context.read<AuthService>().currentUser!.data!.phone.toString());
-        
   }
 
   @override
   Widget build(BuildContext context) {
-   
     AuthService autProvider = context.watch<AuthService>();
 
     List<dynamic> list = [
@@ -133,15 +117,11 @@ Future<PermissionStatus> _getCameraPermission() async {
           width: 50,
         ),
         "onTap": () async {
-
-  Navigator.push(
+          Navigator.push(
               context,
               PageTransition(
                   type: PageTransitionType.rightToLeft,
                   child: const PayementMarchand()));
-  
- 
-         
         }
       },
       {
@@ -190,19 +170,19 @@ Future<PermissionStatus> _getCameraPermission() async {
         },
       },
       //{
-       // "title": AppLocalizations.of(context)!.translate('autherS')!,
-       //"image": Image.asset(
-         // 'assets/images/service transfert.png',
-          //color: blueColor,
-        //  width: 50,
-       // ),
-        //"onTap": () {
-         // Navigator.push(
-           //   context,
-           //   PageTransition(
-             //     type: PageTransitionType.rightToLeft, child: OmMoMo()));
-       // },
-     // },
+      // "title": AppLocalizations.of(context)!.translate('autherS')!,
+      //"image": Image.asset(
+      // 'assets/images/service transfert.png',
+      //color: blueColor,
+      //  width: 50,
+      // ),
+      //"onTap": () {
+      // Navigator.push(
+      //   context,
+      //   PageTransition(
+      //     type: PageTransitionType.rightToLeft, child: OmMoMo()));
+      // },
+      // },
       {
         "title": AppLocalizations.of(context)!.translate('auther')!,
         "image": Image.asset(
@@ -211,7 +191,6 @@ Future<PermissionStatus> _getCameraPermission() async {
           width: 50,
         ),
         "onTap": () {
-        
           Navigator.push(
               context,
               PageTransition(
@@ -219,7 +198,7 @@ Future<PermissionStatus> _getCameraPermission() async {
         },
       },
 
-            {
+      {
         "title": AppLocalizations.of(context)!.translate("Epargné Mon argent")!,
         "image": Image.asset(
           'assets/images/boite-depargne.png',
@@ -227,20 +206,15 @@ Future<PermissionStatus> _getCameraPermission() async {
           width: 50,
         ),
         "onTap": () {
-         
-  Navigator.push(
+          Navigator.push(
               context,
               PageTransition(
                   type: PageTransitionType.rightToLeft,
                   child: const PayementMarchand()));
-  
- 
-         
-         },
+        },
       },
     ];
 
-    
     void gridNavigation(index) {
       switch (index) {
         case 0:
@@ -248,7 +222,8 @@ Future<PermissionStatus> _getCameraPermission() async {
               context,
               PageTransition(
                   // type: PageTransitionType.rightToLeft, child: AchatCredit()));
-                  type: PageTransitionType.rightToLeft, child:  AchatDeCreditSelectionPage()));
+                  type: PageTransitionType.rightToLeft,
+                  child: AchatDeCreditSelectionPage()));
 
           break;
         case 1:
@@ -280,15 +255,14 @@ Future<PermissionStatus> _getCameraPermission() async {
                   type: PageTransitionType.rightToLeft, child: OmMoMo()));
           break;
 
-          case 6:
-                 
-  Navigator.push(
+        case 6:
+          Navigator.push(
               context,
               PageTransition(
                   type: PageTransitionType.rightToLeft,
                   child: const Epargne()));
-  
-  break;
+
+          break;
         default:
       }
     }
@@ -346,8 +320,7 @@ Future<PermissionStatus> _getCameraPermission() async {
                                             MainAxisAlignment.end,
                                         children: [
                                           Text(
-                                       "${AppLocalizations.of(context)!.translate('Bienvenue')} ${autProvider.currentUser!.data!.nom!
-                                                .toUpperCase()}",
+                                            "${AppLocalizations.of(context)!.translate('Bienvenue')} ${autProvider.currentUser!.data!.nom?.toUpperCase()}",
                                             style: TextStyle(
                                                 color: blueColor,
                                                 fontSize: 14,
@@ -403,7 +376,7 @@ Future<PermissionStatus> _getCameraPermission() async {
                                 children: [
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor:  blueColor,
+                                        backgroundColor: blueColor,
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 50)),
                                     onPressed: () {
@@ -413,12 +386,12 @@ Future<PermissionStatus> _getCameraPermission() async {
                                       //       return ChoixRecharge();
                                       //     });
 
-                                       Navigator.push(
+                                      Navigator.push(
                                           context,
                                           PageTransition(
-                                              type: PageTransitionType.bottomToTop,
-                                              child:
-                                                  ChoixDeRecharge()));
+                                              type: PageTransitionType
+                                                  .bottomToTop,
+                                              child: ChoixDeRecharge()));
                                     },
                                     child: Text(
                                       "${AppLocalizations.of(context)!.translate('Recharger mon compte')}",
@@ -624,7 +597,7 @@ Future<PermissionStatus> _getCameraPermission() async {
                                       height: 16,
                                     ),
                                     Text(
-                                      "${AppLocalizations.of(context)!.translate("Solde en attente:")}  XAF O",
+                                      "${AppLocalizations.of(context)!.translate("Solde en attente:")}  XAF ${context.read<AuthService>().pendingsolde.toString()}",
                                       style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500),
@@ -671,8 +644,8 @@ Future<PermissionStatus> _getCameraPermission() async {
                       ),
                     ),*/
                         Container(
-                         // height: 200,
-                         padding: const EdgeInsets.only(bottom: 16),
+                          // height: 200,
+                          padding: const EdgeInsets.only(bottom: 16),
                           child: GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(

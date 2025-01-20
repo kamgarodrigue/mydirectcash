@@ -45,6 +45,20 @@ class OperationServices extends ChangeNotifier {
     return response.data["collecteFees"].map<dynamic>((json) => json).toList();
   }
 
+  Future getAgentByPhone(String agentPhone) async {
+    Dio.Response response = await dio().get(
+      "https://apibackoffice.alliancefinancialsa.com/api/agent-by-phone/$agentPhone",
+    );
+    return response.data;
+  }
+
+  Future getBank() async {
+    Dio.Response response = await dio().get(
+        "https://apibackoffice.alliancefinancialsa.com/microfinanceAgents");
+    print(response.data);
+    return response.data;
+  }
+
   List<Operateur> decodeOperateur(responseBody, regionCode, iscam) {
     final parsed = responseBody;
 

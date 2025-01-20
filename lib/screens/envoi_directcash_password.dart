@@ -11,17 +11,16 @@ import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-
 class EnvoiDirectCashPassword extends StatefulWidget {
   DataTransaction? dataTransaction;
   dynamic context1;
   dynamic context2;
-  final detail;
+  Map? data;
   EnvoiDirectCashPassword(
       {Key? key,
       @required this.dataTransaction,
-      required this.detail,
       this.context1,
+      this.data,
       this.context2})
       : super(key: key);
 
@@ -49,7 +48,6 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.detail);
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -148,7 +146,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                     child: Column(
                       children: [
                         Text(
-                            '${AppLocalizations.of(context)!.translate("Vous allez faire un transfert  de")} ${widget.detail["amount"]} XAF ${AppLocalizations.of(context)!.translate("au numéro")} ${widget.dataTransaction!.toNumber!.substring(0, 3)} ** ** ${widget.dataTransaction!.toNumber!.substring(7, 9)}, ${AppLocalizations.of(context)!.translate("frais de")}  ${widget.detail["rate"]} XAF. ${AppLocalizations.of(context)!.translate("Montant total à débiter")}  ${widget.detail["totalAmount"]} XAF.',
+                            '${AppLocalizations.of(context)!.translate("Vous allez faire un transfert  de")} ${widget.data?["vAmount"]} XAF ${AppLocalizations.of(context)!.translate("au numéro")} ${widget.data?["vToNumber"].toString().substring(0, 3)} ** ** ${widget.data?["vFromNumber"].toString().substring(7, 9)}, ${AppLocalizations.of(context)!.translate("frais de")}  ${widget.data?["vRate"]} XAF. ${AppLocalizations.of(context)!.translate("Montant total à débiter")}  ${double.parse(widget.data?["vRate"]) + double.parse(widget.data?["vAmount"])} XAF.',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 fontSize: 12.5,
@@ -164,11 +162,10 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                       margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.number,
-                        initialValue: widget.dataTransaction!.pass,
+                        // initialValue: widget.dataTransaction!.pass,
                         onChanged: (value) {
                           setState(() {
-                            widget.dataTransaction!.pIN = value;
-                            print(widget.dataTransaction!.pIN!.length);
+                            widget.data?['Direct_Code'] = value;
                           });
                         },
                         obscureText: _isOscure1,
@@ -209,10 +206,10 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                       margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
-                        initialValue: widget.dataTransaction!.pass,
+                        // initialValue: widget.dataTransaction!.pass,
                         onChanged: (value) {
                           setState(() {
-                            widget.dataTransaction!.pass = value;
+                            widget.data?["vPIN"] = value;
                           });
                         },
                         obscureText: _isOscure,
@@ -249,38 +246,52 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 50)),
                               onPressed: () {
-                                print(widget.dataTransaction!
-                                    .toJson()
-                                    .toString());
+                                print(widget.data);
                                 setState(() {
                                   _isLoading = true;
                                 });
-                                print(widget.dataTransaction!.toJson());
                                 TransactonService()
-                                    .transfertByDirectcash(
-                                        widget.dataTransaction!.toJson())
+                                    .transfertByDirectcash(widget.data)
                                     .then((value) {
+                                  print(value);
                                   setState(() {
                                     _isLoading = false;
                                   });
+                                  if (value['message'] == "Erreur interne du serveur lors de l'appel de la procédure stockée.") {
+                                      DialogWidget.success(
+                                      context,
+                                      title: AppLocalizations.of(context)!
+                                          .translate("erreur")!,
+                                      content: value["message"],
+                                      color: blueColor,
+                                      callback: () {
+                                        // Navigator.pop(widget.context1);
+                                        // Navigator.pop(widget.context2);
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  } else {
+                                      DialogWidget.success(
+                                      context,
+                                      title: "Succes !",
+                                      content: value["message"],
+                                      color: greenColor,
+                                      callback: () {
+                                        Navigator.pop(widget.context1);
+                                        Navigator.pop(widget.context2);
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  }
 
-                                  context
-                                      .read<AuthService>()
-                                      .loginWithBiometric({
-                                    "id": context
-                                        .read<AuthService>()
-                                        .currentUser!
-                                        .data!
-                                        .phone
-                                  });
                                   DialogWidget.success(
                                     context,
                                     title: "Succes",
-                                    content: value['responseMessage'],
+                                    content: value,
                                     color: greenColor,
                                     callback: () {
-                                      Navigator.pop(widget.context1);
-                                      Navigator.pop(widget.context2);
+                                      // Navigator.pop(widget.context1);
+                                      // Navigator.pop(widget.context2);
                                       Navigator.pop(context);
                                     },
                                   );

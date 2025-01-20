@@ -5,6 +5,7 @@ import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/settings.dart';
+import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -15,7 +16,9 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 
 class EpargnneMarchantValidate extends StatefulWidget {
   Map? data;
-  EpargnneMarchantValidate({Key? key, this.data}) : super(key: key);
+  String? agentName;
+  EpargnneMarchantValidate({Key? key, this.data, this.agentName})
+      : super(key: key);
 
   @override
   _PayementMarchandValidateState createState() =>
@@ -33,8 +36,7 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
 
   @override
   Widget build(BuildContext context) {
-    double debite = double.parse("${widget.data!["Montant"]}") +
-        double.parse("${widget.data!["frais"]}");
+    double debite = double.parse("${widget.data!["vAmount"]}");
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -103,9 +105,8 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                         ),
                         const SizedBox(width: 50),
                         Text(
-                             AppLocalizations.of(context)!
+                            AppLocalizations.of(context)!
                                 .translate("Epargné Mon argent")!,
-                           
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -134,7 +135,7 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                     child: Column(
                       children: [
                         Text(
-                            '${AppLocalizations.of(context)!.translate("Frais :")!} : ${widget.data!["Montant"]} XAF, ${AppLocalizations.of(context)!.translate("le montant total à débité est de")!} $debite XAF',
+                            '${AppLocalizations.of(context)!.translate("yourAre")}  ${widget.data!["vAmount"]} XAF, ${AppLocalizations.of(context)!.translate("to")} ${widget.agentName} ${AppLocalizations.of(context)!.translate("le montant total à débité est de")!} $debite XAF',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 12.5,
@@ -147,7 +148,8 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
-                              AppLocalizations.of(context)!.translate("Veuillez saisir le mot de passe pour valider la transastion")!,
+                              AppLocalizations.of(context)!.translate(
+                                  "Veuillez saisir le mot de passe pour valider la transastion")!,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                   fontSize: 12,
@@ -165,14 +167,14 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         obscureText: _isOscure,
-                        initialValue: "${widget.data!["pass"]}",
+                        initialValue: "${widget.data!["vPIN"]}",
                         onChanged: (value) {
                           setState(() {
-                            widget.data!["pass"] = value;
+                            widget.data!["vPIN"] = value;
                           });
                         },
-                        style:
-                            const TextStyle(fontFamily: content_font, fontSize: 13),
+                        style: const TextStyle(
+                            fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
@@ -198,48 +200,80 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor:  blueColor,
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 50)),
-                              onPressed: () {
-                                setState(() {
-                                  _isLoading = true;
-                                });
-                                TransactonService()
-                                    .payerMarchant(widget.data)
-                                    .then((value) {
+                                  backgroundColor: blueColor,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50)),
+                             
+                                onPressed:
+                                () {
                                   setState(() {
-                                    _isLoading = false;
+                                    _isLoading = true;
                                   });
+                                  TransactonService()
+                                      .payerMarchant(widget.data)
+                                      .then((value) {
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                    if (value['message'] ==
+                                        "Tous les paramètres sont requis.") {
+                                      DialogWidget.error(context,
+                                          title: "Succes !",
+                                          content: value['message'],
+                                          color: blueColor, callback: () {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      });
+                                    } else if (value['message'] ==
+                                        "Succes") {
+                                      DialogWidget.success(context,
+                                          title: value['message'],
+                                          content: value['data']['sender'],
+                                          color: greenColor, callback: () {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      });
+                                    } else if (value['message'] == "erreur") {
+                                      DialogWidget.error(context,
+                                          title: value['message'],
+                                          content: value['data']
+                                              ['vErrorMessage'],
+                                          color: blueColor, callback: () {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      });
+                                    }
 
-                                  context
-                                      .read<AuthService>()
-                                      .loginWithBiometric({
-                                    "id": context
-                                        .read<AuthService>()
-                                        .currentUser!
-                                        .data!
-                                        .phone
+                                    // context
+                                    //     .read<AuthService>()
+                                    //     .loginWithBiometric({
+                                    //   "id": context
+                                    //       .read<AuthService>()
+                                    //       .currentUser!
+                                    //       .data!
+                                    //       .phone
+                                    // });
+                                    // DialogWidget.success(context,
+                                    //     title: "Succes !",
+                                    //     content: value.toString(),
+                                    //     color: greenColor, callback: () {
+                                    //   Navigator.pop(context);
+                                    //   Navigator.pop(context);
+                                    // });
+                                    // Navigator.pop(context);
+                                  }).catchError((error) {
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                    print(error);
+                                    DialogWidget.error(context,
+                                        title: AppLocalizations.of(context)!
+                                            .translate("erreur")!,
+                                        content: error.toString(),
+                                        color: errorColor, callback: () {
+                                      Navigator.pop(context);
+                                    });
                                   });
-                                  showTopSnackBar(
-                                    Overlay.of(context),
-                                    CustomSnackBar.success(
-                                      message: value.toString(),
-                                    ),
-                                  );
-                                  // Navigator.pop(context);
-                                }).catchError((error) {
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
-                                  print(error);
-                                  showTopSnackBar(
-                                    Overlay.of(context),
-                                    CustomSnackBar.error(
-                                      message: error.toString(),
-                                    ),
-                                  );
-                                });
                               },
                               child: Text(
                                 AppLocalizations.of(context)!

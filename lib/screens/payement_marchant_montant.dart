@@ -11,7 +11,8 @@ import 'package:page_transition/page_transition.dart';
 
 class PayementMarchandMontant extends StatefulWidget {
   Map? data;
-  PayementMarchandMontant({Key? key, this.data}) : super(key: key);
+  String? agentName;
+  PayementMarchandMontant({Key? key, this.data, String? agentName}) : super(key: key);
 
   @override
   _PayementMarchandMontantState createState() =>
@@ -126,8 +127,8 @@ class _PayementMarchandMontantState extends State<PayementMarchandMontant> {
                             widget.data!["Montant"] = value;
                           });
                         },
-                        style:
-                            const TextStyle(fontFamily: content_font, fontSize: 13),
+                        style: const TextStyle(
+                            fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             hintText: AppLocalizations.of(context)!
@@ -146,9 +147,9 @@ class _PayementMarchandMontantState extends State<PayementMarchandMontant> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                 backgroundColor:  blueColor,
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 50)),
+                                  backgroundColor: blueColor,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50)),
                               onPressed: () {
                                 Navigator.push(
                                     context,

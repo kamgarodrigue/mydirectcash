@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/envoi_comptedirectcash.dart';
+import 'package:mydirectcash/screens/envoi_dargent_type_selection.dart';
 import 'package:mydirectcash/screens/envoi_directcash.dart';
-import 'package:mydirectcash/screens/payement_facture.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
@@ -44,7 +44,8 @@ class _ChoixEnvoiArgentState extends State<ChoixEnvoiArgent> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     color: blueColor.withOpacity(0.2),
                     child: Image.asset(
                       'assets/images/ico-directcash.png',
@@ -107,7 +108,8 @@ class _ChoixEnvoiArgentState extends State<ChoixEnvoiArgent> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     color: blueColor.withOpacity(0.2),
                     child: Image.asset(
                       'assets/images/ico-compte-direct.png',

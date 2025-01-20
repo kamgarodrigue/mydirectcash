@@ -8,15 +8,12 @@ import 'dart:convert';
 class TransactonService extends ChangeNotifier {
   List<Transaction> _historiques = [];
   List<Transaction> get historique => _historiques;
-  Future transfertByDirectcash(Map data) async {
+  Future transfertByDirectcash(Map? data) async {
     print(data);
-    print("...................");
+    print("===============================================================");
     Dio.Response response =
-        await dio().post("DirectcashOperations/Sendmoney", data: data);
-    print("...................");
-
-    print(json.decode(response.toString()));
-    return json.decode(response.toString());
+        await dio().post("https://apibackoffice.alliancefinancialsa.com/envoiDirectcash", data: data);
+    return response.data;
   }
 
   Future PayementFactureCamwaterEneo(id, device, data) async {
@@ -43,10 +40,14 @@ class TransactonService extends ChangeNotifier {
     return response;
   }
 
-  Future getDetailEnvoiDirectcash(id, amount) async {
-    Dio.Response response =
-        await dio().get("DirectcashOperations/Detailled/$id/$amount");
-    return response;
+  Future getDetailEnvoiDirectcash(Map? data) async {
+    print(data);
+
+    Dio.Response response = await dio().post(
+        "https://apibackoffice.alliancefinancialsa.com/getRateMD",
+        data: data);
+    print(response.data);
+    return response.data;
   }
 
   Future getDetailFactureEneoCamwater(typeOp, id, numerodecontrat) async {
@@ -58,10 +59,9 @@ class TransactonService extends ChangeNotifier {
   }
 
   Future<List<Transaction>> getHistory(String number) async {
-    Dio.Response response =
-        await dio().get("Transactions/Historiques/LastFive/$number");
-    print(
-        "http://172.107.60.78:3000/api/Transactions/Historiques/LastFive/$number");
+    Dio.Response response = await dio().get(
+        "https://apibackoffice.alliancefinancialsa.com/Transactions/Historiques/LastFive/$number");
+    print(response.data);
 
     return decodeTransaction(response.data);
   }
@@ -122,9 +122,12 @@ class TransactonService extends ChangeNotifier {
   }
 
   Future payerMarchant(Map? data) async {
-    Dio.Response response =
-        await dio().post("DirectcashOperations/Airtime", data: data);
-    return json.decode(response.toString());
+    print(data);
+    Dio.Response response = await dio().post(
+        "https://apibackoffice.alliancefinancialsa.com/Colecte_And_PaymentMarchant_MD",
+        data: data);
+    print(response.data);
+    return response.data;
   }
 
   Future depotMomo(Map? data) async {

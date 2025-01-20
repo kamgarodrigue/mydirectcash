@@ -5,6 +5,7 @@ import 'package:mydirectcash/screens/Epargne/epargnne_marchant_validate.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/payement_marchant_validate.dart';
 import 'package:mydirectcash/screens/settings.dart';
+import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -12,7 +13,9 @@ import 'package:page_transition/page_transition.dart';
 
 class EpargneMarchandMontant extends StatefulWidget {
   Map? data;
-  EpargneMarchandMontant({Key? key, this.data}) : super(key: key);
+  String? agentName;
+  EpargneMarchandMontant({Key? key, this.data, this.agentName})
+      : super(key: key);
 
   @override
   _PayementMarchandMontantState createState() =>
@@ -91,9 +94,8 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
                         ),
                         const SizedBox(width: 50),
                         Text(
-                             AppLocalizations.of(context)!
+                            AppLocalizations.of(context)!
                                 .translate("Epargné Mon argent")!,
-                           
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -122,14 +124,20 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
                       margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.number,
-                        initialValue: "${widget.data!["Montant"]}",
+                        // initialValue: "${widget.data?["vAmount"]}",
                         onChanged: (value) {
                           setState(() {
-                            widget.data!["Montant"] = value;
+                            widget.data?["vAmount"] = value;
                           });
                         },
-                        style:
-                            const TextStyle(fontFamily: content_font, fontSize: 13),
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return AppLocalizations.of(context)!
+                                .translate("Saisire montant")!;
+                          }
+                        },
+                        style: const TextStyle(
+                            fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             hintText: AppLocalizations.of(context)!
@@ -148,17 +156,29 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                 backgroundColor:  blueColor,
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 50)),
+                                  backgroundColor: blueColor,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50)),
                               onPressed: () {
-                                Navigator.push(
+                                if (widget.data?["vAmount"] == 0) {
+                                  DialogWidget.error(
                                     context,
-                                    PageTransition(
-                                        type: PageTransitionType.rightToLeft,
-                                        child: EpargnneMarchantValidate(
-                                          data: widget.data,
-                                        )));
+                                    title: "",
+                                    content: AppLocalizations.of(context)!
+                                        .translate('veille'),
+                                    color: blueColor,
+                                    callback: () => Navigator.pop(context),
+                                  );
+                                } else {
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          type: PageTransitionType.rightToLeft,
+                                          child: EpargnneMarchantValidate(
+                                            data: widget.data,
+                                            agentName: widget.agentName,
+                                          )));
+                                }
                               },
                               child: Text(
                                 AppLocalizations.of(context)!

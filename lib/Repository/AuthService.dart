@@ -19,29 +19,19 @@ class AuthService extends ChangeNotifier {
   bool _istel = false;
   User? get currentUser => _currentUser;
   String? solde;
+  String? pendingsolde;
   bool get authenticate {
     //logout()
     sharedPreferences().then((value) {
-      if (json.decode("${value.getString("user")}") != null) {
-        _currentUser = User.fromJson(
-            json.decode("${value.getString("user")}")['Info'] ?? {});
-        _isLoggedIn = User.fromJson(
-                        json.decode("${value.getString("user")}")['Info'] ?? {})
-                    .data ==
-                null
-            ? false
-            : true;
-
-        //print( this._isLoggedIn);
-        solde = _currentUser!.data!.solde!.toString();
-
-        if (_currentUser!.data!.solde!.contains(".")) {
-          solde =
-              double.tryParse(_currentUser!.data!.solde!)!.toStringAsFixed(2);
-        }
-
-        notifyListeners();
+      _currentUser = User.fromJson(jsonDecode(value.getString("user") ?? '{}'));
+      _isLoggedIn = _currentUser?.data?.statut == null ? false : true;
+      solde = _currentUser?.data!.solde.toString();
+      pendingsolde = _currentUser?.data!.pendingsolde.toString();
+      if (_currentUser!.data!.solde!.contains(".")) {
+        solde = double.tryParse(_currentUser!.data!.solde!)!.toStringAsFixed(2);
       }
+
+      notifyListeners();
     });
     return _isLoggedIn;
   }
@@ -106,28 +96,52 @@ class AuthService extends ChangeNotifier {
     return _istel;
   }
 
-  Future login(Map credentials) async {
-    print(_isLoggedIn);
-    SharedPreferences pref = await SharedPreferences.getInstance();
+  // Future login(Map credentials) async {
+  //   print(_isLoggedIn);
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
 
-    Dio.Response response =
-        await dio().post("Authentication/Authenticate", data: credentials);
-    // print(response.toString());
+  //   Dio.Response response =
+  //       await dio().post("Authentication/Authenticate", data: credentials);
+  //   // print(response.toString());
+  //   print(response.data);
+  //   if (json.decode(response.toString())['Message'] == "Success") {
+  //     User user = User.fromJson(json.decode(response.toString())['Info']);
+  //     await pref.setString("user", response.toString());
+  //     await pref.setBool("open", true);
+  //     await pref.setString("tel", user.data!.phone!);
+  //     _isLoggedIn = true;
+  //     setconversion(0);
+  //     notifyListeners();
+  //   }
+
+  //   print(json.decode(response.toString()));
+
+  //   notifyListeners();
+  //   return json.decode(response.toString())['Message'];
+  // }
+  Future login(Map credentials) async {
+    print(
+        "================================== credentials ============================================");
+    print(credentials);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    Dio.Response response = await dio().post(
+        "https://apibackoffice.alliancefinancialsa.com/login",
+        data: credentials);
+
     print(response.data);
-    if (json.decode(response.toString())['Message'] == "Success") {
-      User user = User.fromJson(json.decode(response.toString())['Info']);
-      await pref.setString("user", response.toString());
+
+    if (response.data["message"] == "Authentification réussie.") {
+      User user = User.fromJson(response.data['info']);
+      await pref.setString("user", jsonEncode(response.data['info']));
       await pref.setBool("open", true);
       await pref.setString("tel", user.data!.phone!);
       _isLoggedIn = true;
       setconversion(0);
-      notifyListeners();
+      // notifyListeners();
     }
 
-    print(json.decode(response.toString()));
-
     notifyListeners();
-    return json.decode(response.toString())['Message'];
+    return response.data['message'];
   }
 
   Future sendRaport(Map credentials) async {

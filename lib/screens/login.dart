@@ -55,11 +55,20 @@ class _LoginState extends StateMVC<Login> {
 
   bool _isLoading = false;
   // Map creds = {'id': "33662044955", 'pass': "123456"};
-  Map creds = {'id': "", 'pass': ""};
+  // Map creds = {'id': "", 'pass': ""};
+  // completeidAndPass(String id, String pass) {
+  //   setState(() {
+  //     creds['id'] = id;
+  //     creds['pass'] = pass;
+  //   });
+  // }
+
+  Map creds = {'id': "", 'vpass': "", 'deviceid': " "};
   completeidAndPass(String id, String pass) {
     setState(() {
       creds['id'] = id;
-      creds['pass'] = pass;
+      creds['vpass'] = pass;
+      creds['deviceid'] = " ";
     });
   }
 
@@ -143,8 +152,8 @@ class _LoginState extends StateMVC<Login> {
                               children: [
                                 Container(
                                     margin: const EdgeInsets.only(top: 20),
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 25),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25),
                                     child: TextFormField(
                                       keyboardType: TextInputType.number,
                                       initialValue: creds['id'],
@@ -155,7 +164,7 @@ class _LoginState extends StateMVC<Login> {
                                           fontFamily: content_font,
                                           fontSize: 14),
                                       textAlign: TextAlign.start,
-                                        cursorColor: blueColor,
+                                      cursorColor: blueColor,
                                       decoration: InputDecoration(
                                           focusedBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -170,22 +179,61 @@ class _LoginState extends StateMVC<Login> {
                                               color: Colors.grey.shade500,
                                               fontSize: 14)),
                                     )),
+                                // Container(
+                                //     margin: const EdgeInsets.only(top: 20),
+                                //     padding: const EdgeInsets.symmetric(
+                                //         horizontal: 25),
+                                //     child: TextFormField(
+                                //       keyboardType: TextInputType.text,
+                                //       initialValue: creds['pass'],
+                                //       onChanged: (value) {
+                                //         creds['pass'] = value;
+                                //       },
+                                //       obscureText: _isOscure,
+                                //       style: const TextStyle(
+                                //           fontFamily: content_font,
+                                //           fontSize: 14),
+                                //       textAlign: TextAlign.start,
+                                //       cursorColor: blueColor,
+                                //       decoration: InputDecoration(
+                                //           focusedBorder: UnderlineInputBorder(
+                                //             borderSide: BorderSide(
+                                //               color: blueColor,
+                                //               width: 2,
+                                //             ),
+                                //           ),
+                                //           suffixIcon: IconButton(
+                                //             icon: Icon(
+                                //               _isOscure
+                                //                   ? Icons.visibility
+                                //                   : Icons.visibility_off,
+                                //               size: 16,
+                                //             ),
+                                //             onPressed: () => togle(),
+                                //           ),
+                                //           hintText:
+                                //               "${AppLocalizations.of(context)!.translate('Password')}",
+                                //           hintStyle: TextStyle(
+                                //               fontFamily: content_font,
+                                //               color: Colors.grey.shade500,
+                                //               fontSize: 14)),
+                                //     )),
                                 Container(
                                     margin: const EdgeInsets.only(top: 20),
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 25),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25),
                                     child: TextFormField(
                                       keyboardType: TextInputType.text,
-                                      initialValue: creds['pass'],
+                                      initialValue: creds['vpass'],
                                       onChanged: (value) {
-                                        creds['pass'] = value;
+                                        creds['vpass'] = value;
                                       },
                                       obscureText: _isOscure,
                                       style: const TextStyle(
                                           fontFamily: content_font,
                                           fontSize: 14),
                                       textAlign: TextAlign.start,
-                                        cursorColor: blueColor,
+                                      cursorColor: blueColor,
                                       decoration: InputDecoration(
                                           focusedBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -194,8 +242,10 @@ class _LoginState extends StateMVC<Login> {
                                             ),
                                           ),
                                           suffixIcon: IconButton(
-                                            icon:  Icon(
-                                              _isOscure ? Icons.visibility : Icons.visibility_off,
+                                            icon: Icon(
+                                              _isOscure
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off,
                                               size: 16,
                                             ),
                                             onPressed: () => togle(),
@@ -248,9 +298,10 @@ class _LoginState extends StateMVC<Login> {
                                         children: [
                                           ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor:  blueColor,
-                                                padding: const EdgeInsets.symmetric(
-                                                    horizontal: 50)),
+                                                backgroundColor: blueColor,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 50)),
                                             onPressed: () {
                                               print(
                                                   "${AppLocalizations.of(context)!.translate('login')}");
@@ -261,39 +312,57 @@ class _LoginState extends StateMVC<Login> {
                                                       listen: false)
                                                   .login(creds)
                                                   .then((value) {
-
                                                 setState(() {
                                                   _isLoading = false;
                                                 });
-                                               print(value.toString());
-                                                if (value.toString() ==
-                                                    "NotVerified") {
+                                                if (value ==
+                                                    "utilisateur non verifié") {
                                                   setState(() {
                                                     _isverify = true;
                                                   });
                                                   showTopSnackBar(
                                                     Overlay.of(context),
-                                                    CustomSnackBar.success(
-                                                      message: "$value verifier votre compte",
+                                                    const CustomSnackBar.info(
+                                                      message:
+                                                          "Verifier votre compte !",
                                                     ),
                                                   );
-                                                }
-                                                if (value.toString() ==
-                                                    "Success") {
-                                                      
+                                                } else if (value ==
+                                                    "Aucun utilisateur trouvé ou identifiant incorrect.") {
                                                   showTopSnackBar(
                                                     Overlay.of(context),
-                                                    CustomSnackBar.success(
-                                                      message: value.toString(),
+                                                    const CustomSnackBar.error(
+                                                      message:
+                                                          "Aucun utilisateur trouvé ou identifiant incorrect.",
+                                                    ),
+                                                  );
+                                                } else if (value ==
+                                                    "Le mot de passe est incorrect!") {
+                                                  showTopSnackBar(
+                                                    Overlay.of(context),
+                                                    const CustomSnackBar.error(
+                                                      message:
+                                                          "Le mot de passe est incorrect!",
+                                                    ),
+                                                  );
+                                                } 
+                                                else if (value ==
+                                                    "Authentification réussie.") {
+                                                  showTopSnackBar(
+                                                    Overlay.of(context),
+                                                    const CustomSnackBar
+                                                        .success(
+                                                      message: "Succes",
                                                     ),
                                                   );
                                                   if (widget.isLogin) {
-                                                Navigator.pop(context);
+                                                    Navigator.pop(context);
                                                     Navigator.pop(
                                                         widget.fatherContext!);
                                                   }
                                                 }
-                                              }).catchError((error) {
+                                              }
+                                              ).catchError((error) {
                                                 print(" hmmmmm $error");
                                                 setState(() {
                                                   _isLoading = false;
@@ -354,7 +423,8 @@ class _LoginState extends StateMVC<Login> {
                                     child:
                                         Container(height: 2, color: blueColor)),
                                 Container(
-                                  margin: const EdgeInsets.symmetric(horizontal: 8),
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 8),
                                   child: Text(
                                       "${AppLocalizations.of(context)!.translate('Ou')}",
                                       textAlign: TextAlign.center,
@@ -415,20 +485,22 @@ class _LoginState extends StateMVC<Login> {
                                       setState(() {
                                         _isLoading = false;
                                       });
-                                      if (value.toString() == "NotVerified") {
+                                      if (value == "NotVerified") {
                                         setState(() {
                                           _isverify = true;
                                         });
                                         showTopSnackBar(
-                                       Overlay.of(context),
+                                          Overlay.of(context),
                                           CustomSnackBar.success(
-                                            message: "$value verifier votre compte",
+                                            message:
+                                                "$value verifier votre compte",
                                           ),
                                         );
                                       }
-                                      if (value.toString() == "Success") {
+                                      if (value ==
+                                          "Authentification réussie.") {
                                         showTopSnackBar(
-                                         Overlay.of(context),
+                                          Overlay.of(context),
                                           CustomSnackBar.success(
                                             message: value.toString(),
                                           ),
@@ -445,7 +517,7 @@ class _LoginState extends StateMVC<Login> {
                                       _isLoading = false;
                                     });
                                     showTopSnackBar(
-                                     Overlay.of(context),
+                                      Overlay.of(context),
                                       CustomSnackBar.error(
                                         message: error.toString(),
                                       ),
@@ -454,7 +526,7 @@ class _LoginState extends StateMVC<Login> {
                                 }
                               } else {
                                 showTopSnackBar(
-                                Overlay.of(context),
+                                  Overlay.of(context),
                                   const CustomSnackBar.info(
                                     maxLines: 3,
                                     message:
@@ -466,7 +538,8 @@ class _LoginState extends StateMVC<Login> {
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 25, vertical: 5),
-                              margin: const EdgeInsets.symmetric(horizontal: 25),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 25),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 color: Colors.indigo.withOpacity(0.2),
@@ -495,7 +568,7 @@ class _LoginState extends StateMVC<Login> {
                     Container(
                         child: _isLoading
                             ? Loader(
-                              color: blueColor,
+                                color: blueColor,
                                 loadingTxt:
                                     "${AppLocalizations.of(context)!.translate('loaderconex')}")
                             : Container())

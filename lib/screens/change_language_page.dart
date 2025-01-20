@@ -136,8 +136,7 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
                     ),
                     const SizedBox(width: 50),
                     Text(
-                      // "${AppLocalizations.of(context)!.translate('Achat de crédit')}",
-                      "Type de Transaction",
+                      "${AppLocalizations.of(context)!.translate('Langue')}",
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

@@ -951,7 +951,7 @@ class _SettingsState extends State<Settings> {
                       title:
                           "${AppLocalizations.of(context)!.translate("Mes transactions")}",
                       nextPage: Transactions(
-                        phone: authProvider.currentUser!.data!.phone!,
+                        phone: authProvider.currentUser?.data?.phone,
                       ),
                     ),
                     _buildSettingTile(
@@ -1013,7 +1013,7 @@ class _SettingsState extends State<Settings> {
                       minLeadingWidth: 10,
                       title: Text(
                           "${AppLocalizations.of(context)!.translate("Share")}",
-                          style: const TextStyle(fontSize: 16)),
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                       trailing: const Icon(
                         Icons.arrow_forward_ios,
                         size: 16,
@@ -1040,7 +1040,7 @@ class _SettingsState extends State<Settings> {
                       minLeadingWidth: 10,
                       title: Text(
                           "${AppLocalizations.of(context)!.translate("Se déconnecter")}",
-                          style: const TextStyle(fontSize: 16)),
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                       trailing: const Icon(
                         Icons.arrow_forward_ios,
                         size: 16,
