@@ -9,10 +9,9 @@ class TransactonService extends ChangeNotifier {
   List<Transaction> _historiques = [];
   List<Transaction> get historique => _historiques;
   Future transfertByDirectcash(Map? data) async {
-    print(data);
-    print("===============================================================");
-    Dio.Response response =
-        await dio().post("https://apibackoffice.alliancefinancialsa.com/envoiDirectcash", data: data);
+    Dio.Response response = await dio().post(
+        "https://apibackoffice.alliancefinancialsa.com/envoiDirectcash",
+        data: data);
     return response.data;
   }
 
@@ -28,40 +27,32 @@ class TransactonService extends ChangeNotifier {
     return response;
   }
 
-  Future EnvoiCompteDirectcash(DataTransaction data, nom) async {
-    Dio.Response response =
-        await dio().post("Collecteur/TransfertMoney", data: {
-      "receiver": data.toNumber,
-      "idsender": data.fromNumber,
-      "montant": data.amount,
-      "pass": data.pass,
-      "isClient": nom == "" ? 0 : 1
-    });
-    return response;
+  Future EnvoiCompteDirectcash(Map? data) async {
+    Dio.Response response = await dio().post(
+      "https://apibackoffice.alliancefinancialsa.com/clientToclient",
+      data: data,
+    );
+    return response.data;
   }
 
   Future getDetailEnvoiDirectcash(Map? data) async {
-    print(data);
-
+   
     Dio.Response response = await dio().post(
-        "https://apibackoffice.alliancefinancialsa.com/getRateMD",
-        data: data);
-    print(response.data);
+      "https://apibackoffice.alliancefinancialsa.com/getRateMD",
+      data: data,
+    );
     return response.data;
   }
 
   Future getDetailFactureEneoCamwater(typeOp, id, numerodecontrat) async {
-    print("DirectcashOperations/BillDetailled/$typeOp/$id/$numerodecontrat");
     Dio.Response response = await dio()
         .get("DirectcashOperations/BillDetailled/$typeOp/$id/$numerodecontrat");
-    print(response.data);
     return response.data;
   }
 
   Future<List<Transaction>> getHistory(String number) async {
     Dio.Response response = await dio().get(
         "https://apibackoffice.alliancefinancialsa.com/Transactions/Historiques/LastFive/$number");
-    print(response.data);
 
     return decodeTransaction(response.data);
   }
@@ -79,14 +70,12 @@ class TransactonService extends ChangeNotifier {
   Future achatCredit(Map? data) async {
     Dio.Response response =
         await dio().post("DirectcashOperations/Airtime", data: data);
-    print(response.data);
     return response.data;
   }
 
   Future achatCreditInternational(Map? data) async {
     Dio.Response response = await dio()
         .post("DirectcashOperations/AirtimeInternational", data: data);
-    print(response.data);
     return response.data;
   }
 
@@ -115,23 +104,19 @@ class TransactonService extends ChangeNotifier {
       "directcode": directCashCode,
       "id": id
     };
-    print(data.toString());
     Dio.Response response =
         await dio().post("Collecteur/CreditFromDirectCash", data: data);
     return json.decode(response.toString());
   }
 
   Future payerMarchant(Map? data) async {
-    print(data);
     Dio.Response response = await dio().post(
         "https://apibackoffice.alliancefinancialsa.com/Colecte_And_PaymentMarchant_MD",
         data: data);
-    print(response.data);
     return response.data;
   }
 
   Future depotMomo(Map? data) async {
-    print("${data!["Id"]}");
     Dio.Response response =
         await dio().post("DirectcashOperations/Retrait", data: data);
     return json.decode(response.toString());

@@ -368,7 +368,6 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 50)),
                               onPressed: () {
-                                print(autProvider.currentUser!.data!.phone);
                                 setState(() {
                                   _isLoading = true;
                                   param = {
@@ -386,7 +385,6 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                   data["vClientID"] =
                                       autProvider.currentUser!.data!.phone;
                                   data["vRate"] = value["data"]["fees"];
-                                  print(data);
                                   Navigator.push(
                                       context,
                                       PageTransition(

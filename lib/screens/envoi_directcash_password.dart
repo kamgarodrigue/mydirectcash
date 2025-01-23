@@ -246,14 +246,12 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 50)),
                               onPressed: () {
-                                print(widget.data);
                                 setState(() {
                                   _isLoading = true;
                                 });
                                 TransactonService()
                                     .transfertByDirectcash(widget.data)
                                     .then((value) {
-                                  print(value);
                                   setState(() {
                                     _isLoading = false;
                                   });
@@ -263,38 +261,38 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                       title: AppLocalizations.of(context)!
                                           .translate("erreur")!,
                                       content: value["message"],
-                                      color: blueColor,
+                                      color: errorColor,
                                       callback: () {
                                         // Navigator.pop(widget.context1);
                                         // Navigator.pop(widget.context2);
                                         Navigator.pop(context);
                                       },
                                     );
-                                  } else {
+                                  } else if(value["message"] == "Succes") {
                                       DialogWidget.success(
                                       context,
-                                      title: "Succes !",
-                                      content: value["message"],
+                                      title: value["message"],
+                                      content: value['data']['sender'],
                                       color: greenColor,
                                       callback: () {
-                                        Navigator.pop(widget.context1);
                                         Navigator.pop(widget.context2);
                                         Navigator.pop(context);
                                       },
                                     );
                                   }
+                                  else if(value["message"] == "Mot de passe ou PIN incorrect.") {
+                                      DialogWidget.success(
+                                      context,
+                                      title: "",
+                                      content: value['message'],
+                                      color: errorColor,
+                                      callback: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  }
 
-                                  DialogWidget.success(
-                                    context,
-                                    title: "Succes",
-                                    content: value,
-                                    color: greenColor,
-                                    callback: () {
-                                      // Navigator.pop(widget.context1);
-                                      // Navigator.pop(widget.context2);
-                                      Navigator.pop(context);
-                                    },
-                                  );
+                                  
                                 }).catchError((error) {
                                   setState(() {
                                     _isLoading = false;

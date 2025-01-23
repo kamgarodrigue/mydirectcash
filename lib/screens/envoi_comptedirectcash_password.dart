@@ -8,6 +8,7 @@ import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/settings.dart';
+import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -18,7 +19,7 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 
 class EnvoiCompteDirectCashPassword extends StatefulWidget {
-  DataTransaction data;
+  Map? data;
   dynamic context1;
   dynamic context2;
   String nom;
@@ -47,8 +48,8 @@ class _EnvoiCompteDirectCashPasswordState
 
   @override
   Widget build(BuildContext context) {
-    final totaldebite = double.tryParse(widget.data.amount!)! +
-        double.tryParse(widget.data.rate!)!;
+    final totaldebite = double.tryParse(widget.data?['vAmount'])! +
+        double.tryParse(widget.data?["vRate"])!;
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -147,7 +148,7 @@ class _EnvoiCompteDirectCashPasswordState
                     child: Column(
                       children: [
                         Text(
-                            '${AppLocalizations.of(context)!.translate("Vous allez faire une recharge de")!} ${widget.data.amount} XAF ${AppLocalizations.of(context)!.translate("au numéro")!} ${widget.data.toNumber!.substring(0, 3)} ** ** ${widget.data.toNumber!.substring(7, 9)} de Nom: ${widget.nom}, frais de ${widget.data.rate} XAF. Montant total à débiter $totaldebite XAF.',
+                            '${AppLocalizations.of(context)!.translate("Vous allez faire une recharge de")!} ${widget.data?['vAmount']} XAF ${AppLocalizations.of(context)!.translate("au numéro")!} ${widget.data?['vToNumber'].toString().substring(0, 3)} ** ** ${widget..data?['vToNumber'].toString().substring(7, 9)} de Nom: ${widget.nom}, frais de ${widget.data?['vRate']} XAF. Montant total à débiter $totaldebite XAF.',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 fontSize: 12.5,
@@ -164,14 +165,14 @@ class _EnvoiCompteDirectCashPasswordState
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         obscureText: _isOscure,
-                        initialValue: widget.data.pass,
+                        // initialValue: widget.data.pass,
                         onChanged: (value) {
                           setState(() {
-                            widget.data.pass = value;
+                            widget.data?['vPIN'] = value;
                           });
                         },
-                        style:
-                            const TextStyle(fontFamily: content_font, fontSize: 13),
+                        style: const TextStyle(
+                            fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
@@ -196,59 +197,87 @@ class _EnvoiCompteDirectCashPasswordState
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                             backgroundColor:  blueColor,
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 50)),
+                                  backgroundColor: blueColor,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50)),
                               onPressed: () {
                                 setState(() {
                                   _isLoading = true;
                                 });
-                                print(widget.data.toJson());
                                 TransactonService()
-                                    .EnvoiCompteDirectcash(
-                                        widget.data, widget.nom)
+                                    .EnvoiCompteDirectcash(widget.data)
                                     .then((value) {
                                   setState(() {
                                     _isLoading = false;
                                   });
-                                  print(value);
-                                  context
-                                      .read<AuthService>()
-                                      .loginWithBiometric({
-                                    "id": context
-                                        .read<AuthService>()
-                                        .currentUser!
-                                        .data!
-                                        .phone
-                                  });
-                                  showTopSnackBar(
-                                     Overlay.of(context),
-                                      CustomSnackBar.success(
-                                        message: json.decode(
-                                            value.toString())['message'],
-                                      ),
-                                      displayDuration: const Duration(seconds: 2));
-                                  Navigator.pop(widget.context1);
-                                  Navigator.pop(widget.context2);
-                                  Navigator.pop(context);
+                                  if (value["message"] ==
+                                      "Mot de passe ou PIN incorrect.") {
+                                    DialogWidget.success(
+                                      context,
+                                      title: "",
+                                      content: value['message'],
+                                      color: errorColor,
+                                      callback: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  } else if (value['message'] ==
+                                      "Erreur interne du serveur lors de l'appel de la procédure stockée.") {
+                                    DialogWidget.success(
+                                      context,
+                                      title: AppLocalizations.of(context)!
+                                          .translate("erreur")!,
+                                      content: value["message"],
+                                      color: errorColor,
+                                      callback: () {
+                                        // Navigator.pop(widget.context1);
+                                        // Navigator.pop(widget.context2);
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  } else if (value['message'] ==
+                                      "Client inexistant") {
+                                    DialogWidget.success(
+                                      context,
+                                      title: AppLocalizations.of(context)!
+                                          .translate("erreur")!,
+                                      content: value["message"],
+                                      color: errorColor,
+                                      callback: () {
+                                        // Navigator.pop(widget.context1);
+                                        // Navigator.pop(widget.context2);
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  } else if (value["message"] == "Succes") {
+                                    DialogWidget.success(
+                                      context,
+                                      title: value["message"],
+                                      content: value['data']['sender'],
+                                      color: greenColor,
+                                      callback: () {
+                                        Navigator.pop(widget.context2);
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  }
                                 }).catchError((error) {
                                   setState(() {
                                     _isLoading = false;
                                   });
                                   print(error);
-                                  showTopSnackBar(
-                                     Overlay.of(context),
-                                      CustomSnackBar.error(
-                                        message: AppLocalizations.of(context)!
-                                            .translate("erreur")!,
-                                      ),
-                                      displayDuration: const Duration(seconds: 2));
+
+                                  DialogWidget.error(
+                                    context,
+                                    title: AppLocalizations.of(context)!
+                                        .translate("erreur")!,
+                                    content: '',
+                                    color: errorColor,
+                                    callback: () {
+                                      Navigator.pop(context);
+                                    },
+                                  );
                                 });
-                                /* showModalBottomSheet(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return ChoixPayementModeComponent();
-                                });*/
                               },
                               child: Text(
                                 AppLocalizations.of(context)!

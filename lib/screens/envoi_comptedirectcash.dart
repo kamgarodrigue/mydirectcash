@@ -9,6 +9,7 @@ import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/envoi_comptedirectcash_password.dart';
 
 import 'package:mydirectcash/screens/settings.dart';
+import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -27,16 +28,28 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
   String? countryName = '';
   String? operateur = "Choisissez l'opérateur";
 
-  DataTransaction data = DataTransaction(
-    amount: "",
-    cNI: "",
-    fromNumber: "",
-    id: "",
-    pIN: "",
-    pass: "",
-    rate: "",
-    toNumber: "",
-  );
+  // DataTransaction data = DataTransaction(
+  //   amount: "",
+  //   cNI: "",
+  //   fromNumber: "",
+  //   id: "",
+  //   pIN: "",
+  //   pass: "",
+  //   rate: "",
+  //   toNumber: "",
+  // );
+
+  Map data = {
+    "vClientID": "",
+    "vAmount": "",
+    "vRate": 0.0,
+    "vFromNumber": "",
+    "vToNumber": "",
+    "vCNI": " ",
+    "vPIN": "",
+    "vrxtype": "",
+  };
+  Map? param;
   bool _isLoading = false;
   @override
   void initState() {
@@ -182,20 +195,21 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                                   initialSelection: '+237',
                                   onChanged: (CountryCode? code) {
                                     setState(() {
+                                      code.toString() == "+237"
+                                          ? data["vrxtype"] = "11"
+                                          : data["vrxtype"] = "12";
                                       countryName = code!.name == null
                                           ? AppLocalizations.of(context)!.translate(
                                               "Choisissez le pays de destination")!
                                           : "${code.name} ($code)";
                                       codeRegion = code.code!;
                                     });
-                                    print(code!.name);
                                   },
                                   useUiOverlay: true,
                                   useSafeArea: false),
                             ],
                           ),
                         ),
-                        
                         const SizedBox(height: 10),
                         Divider(
                           height: 1.5,
@@ -211,10 +225,10 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                         children: [
                           TextFormField(
                               keyboardType: TextInputType.number,
-                              initialValue: data.toNumber,
+                              // initialValue: data.toNumber,
                               onChanged: (value) {
                                 setState(() {
-                                  data.toNumber = value;
+                                  data["vToNumber"] = value;
                                 });
                               },
                               style: const TextStyle(
@@ -242,10 +256,10 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                         children: [
                           TextFormField(
                               keyboardType: TextInputType.number,
-                              initialValue: data.amount,
+                              // initialValue: data.amount,
                               onChanged: (value) {
                                 setState(() {
-                                  data.amount = value;
+                                  data['vAmount'] = value;
                                 });
                               },
                               style: const TextStyle(
@@ -275,39 +289,61 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                               backgroundColor:  blueColor,
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 50)),
+                                  backgroundColor: blueColor,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50)),
                               onPressed: () {
                                 setState(() {
                                   _isLoading = true;
+                                  param = {
+                                    "amount": data['vAmount'],
+                                    "to": data['vToNumber'],
+                                    "transactionType": data['vrxtype'],
+                                  };
                                 });
-                                data.fromNumber =
-                                    autProvider.currentUser!.data!.phone;
-                                // print(data.toJson());
-                                context
-                                    .read<TransactonService>()
-                                    .getDetailEnvoiCompteDirectcash(
-                                        data.toNumber, data.amount)
+                                TransactonService()
+                                    .getDetailEnvoiDirectcash(param)
                                     .then((value) {
-                                  data.rate =
-                                      json.decode(value.toString())['rate'];
-                                  data.id =
+                                  data['vFromNumber'] =
                                       autProvider.currentUser!.data!.phone;
-                                  print(data.toJson());
-                                  print(value);
+                                  data["vClientID"] =
+                                      autProvider.currentUser!.data!.phone;
+                                  data["vRate"] = value["data"]["fees"];
+                                  if (value['data']['nameReceiver']
+                                          .toString()
+                                          .length <
+                                      4) {
+                                    DialogWidget.success(context,
+                                        title: "",
+                                        content: "Le compte n'existe pas!",
+                                        color: blueColor, callback: () {
+                                      Navigator.pop(context);
+                                    });
+                                  } else if (data['vToNumber'] ==
+                                      data['vFromNumber']) {
+                                    DialogWidget.success(context,
+                                        title: "Transaction impossible!",
+                                        content:
+                                            "veuillez saissir un autre numéro de téléphone",
+                                        color: blueColor, callback: () {
+                                      Navigator.pop(context);
+                                    });
+                                  } else {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type:
+                                                PageTransitionType.rightToLeft,
+                                            child:
+                                                EnvoiCompteDirectCashPassword(
+                                              data: data,
+                                              context1: context,
+                                              nom: value['data']
+                                                  ['nameReceiver'],
+                                              context2: widget.context2,
+                                            )));
+                                  }
 
-                                  Navigator.push(
-                                      context,
-                                      PageTransition(
-                                          type: PageTransitionType.rightToLeft,
-                                          child: EnvoiCompteDirectCashPassword(
-                                            data: data,
-                                            context1: context,
-                                            nom: json.decode(
-                                                value.toString())['nom'],
-                                            context2: widget.context2,
-                                          )));
                                   setState(() {
                                     _isLoading = false;
                                   });
