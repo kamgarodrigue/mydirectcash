@@ -63,6 +63,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     context.read<AuthService>().authenticate;
+    solde = context.read<AuthService>().solde.toString();
     //context.read<AuthService>().setconversion(0);
     //  context.read<Localisation>().initLocation();
   }
@@ -82,12 +83,14 @@ class _HomeState extends State<Home> {
   Future reset() {
     setconversion(0);
     context.read<AuthService>().authenticate;
-    context.read<AuthService>().loginWithBiometric(
-        {"id": context.read<AuthService>().currentUser!.data!.phone});
-    context.read<TransactonService>().getHistory(
-        context.read<AuthService>().currentUser!.data!.phone.toString());
-    return context.read<TransactonService>().getHistory(
-        context.read<AuthService>().currentUser!.data!.phone.toString());
+    String? id = context.read<AuthService>().currentUser!.data!.phone;
+    AuthService().loginWithBiometric(id).then((value) {
+    
+      setState(() {
+         solde = value["data"]["solde"].toString();
+      });
+    });
+    return context.read<AuthService>().loginWithBiometric(id);
   }
 
   @override
@@ -457,10 +460,7 @@ class _HomeState extends State<Home> {
                                             height: 10,
                                           ),
                                           Text(
-                                            context
-                                                .read<AuthService>()
-                                                .solde
-                                                .toString(),
+                                            solde,
                                             textAlign: TextAlign.center,
                                             style: const TextStyle(
                                                 fontSize: 34,

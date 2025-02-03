@@ -1,52 +1,43 @@
-import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
-import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
-import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 
-class PayementMarchandValidate extends StatefulWidget {
-  Map? data;
-  String? agentName;
-  PayementMarchandValidate({Key? key, this.data, this.agentName})
-      : super(key: key);
+class RetraitValidation extends StatefulWidget {
+  Map? retrait;
+  RetraitValidation({
+    Key? key,
+    this.retrait,
+  }) : super(key: key);
 
   @override
-  _PayementMarchandValidateState createState() =>
-      _PayementMarchandValidateState();
+  _RetraitValidationState createState() => _RetraitValidationState();
 }
 
-class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
+class _RetraitValidationState extends State<RetraitValidation> {
   bool _isLoading = false;
   bool _isOscure = true;
+
   void togle() {
     setState(() {
       _isOscure = !_isOscure;
     });
   }
 
+  Map data = {
+    "vClientID": "",
+    "vPIN": "",
+    "vTRXID": "",
+    "vTO_NUMBER": "",
+  };
+
   @override
   Widget build(BuildContext context) {
-    double parseDouble(dynamic value) {
-      if (value == null || value.toString().isEmpty) {
-        return 0.0; // Default value if null or empty
-      }
-      return double.tryParse(value.toString()) ??
-          0.0; // Safely parse, fallback to 0.0 if invalid
-    }
-
-    double debite = parseDouble(widget.data!["vAmount"]) +
-        parseDouble(widget.data!["frais"]);
-
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -116,7 +107,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                         const SizedBox(width: 50),
                         Text(
                             AppLocalizations.of(context)!
-                                .translate("Payement marchand")!,
+                                .translate("Recharge via DirectCash")!,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -145,44 +136,38 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                     child: Column(
                       children: [
                         Text(
-                            '${AppLocalizations.of(context)!.translate("yourAre")}  ${widget.data!["vAmount"]} XAF, ${AppLocalizations.of(context)!.translate("to")} ${widget.agentName} ${AppLocalizations.of(context)!.translate("le montant total à débité est de")!} $debite XAF',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 12.5,
-                                fontFamily: content_font,
-                                color: blueColor,
-                                fontWeight: FontWeight.w600)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Text(
-                              AppLocalizations.of(context)!.translate(
-                                  "Veuillez saisir le mot de passe pour valider la transastion")!,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: content_font,
-                                  fontWeight: FontWeight.w500)),
+                          '${AppLocalizations.of(context)!.translate("Vous allez faire une recharge de")} '
+                          '${widget.retrait?["Amount"]} XAF '
+                          '${AppLocalizations.of(context)!.translate("au numéro")} '
+                          '${widget.retrait?["ToNumber"].toString().substring(0, 4)} ** ** '
+                          '${widget.retrait?["ToNumber"].toString().substring(widget.retrait!["ToNumber"].toString().length - 2)}, '
+                          '${AppLocalizations.of(context)!.translate("frais de")} '
+                          '${widget.retrait?["Rate"]} XAF. '
+                          '${AppLocalizations.of(context)!.translate("Montant total à débiter")} '
+                          '${double.parse(widget.retrait!["Rate"].toString()) + double.parse(widget.retrait!["Amount"].toString())} XAF.',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 12.5,
+                              fontFamily: content_font,
+                              fontWeight: FontWeight.w500),
                         )
                       ],
                     ),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 20,
                   ),
                   Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
-                        obscureText: _isOscure,
-                        // initialValue: "${widget.data!["pass"]}",
+                        // initialValue: widget.dataTransaction!.pass,
                         onChanged: (value) {
                           setState(() {
-                            widget.data!["vPIN"] = value;
+                            data["vPIN"] = value;
                           });
                         },
+                        obscureText: _isOscure,
                         style: const TextStyle(
                             fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
@@ -197,7 +182,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                               onPressed: () => togle(),
                             ),
                             hintText: AppLocalizations.of(context)!
-                                .translate("Password"),
+                                .translate("Password")!,
                             hintStyle: TextStyle(
                                 fontFamily: content_font,
                                 color: Colors.grey.shade500,
@@ -217,86 +202,76 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                       horizontal: 50)),
                               onPressed: () {
                                 setState(() {
+                                  data["vTRXID"] =
+                                      widget.retrait?["TransferID"];
+                                  data["vClientID"] =
+                                      widget.retrait?["AgentID"];
+                                  data["vTO_NUMBER"] =
+                                      widget.retrait?["ToNumber"];
                                   _isLoading = true;
                                 });
                                 TransactonService()
-                                    .payerMarchant(widget.data)
+                                    .retraitDirectcash(data)
                                     .then((value) {
-                                    print(value);
-
+                                  print(value);
                                   setState(() {
                                     _isLoading = false;
                                   });
                                   if (value['message'] ==
-                                      "Tous les paramètres sont requis.") {
-                                    DialogWidget.error(context,
-                                        title: "Succes !",
-                                        content: value['message'],
-                                        color: blueColor, callback: () {
-                                      Navigator.pop(context); 
-                                      Navigator.pop(context); 
-                                    });
-                                  } 
-                                  else if (value['code'] ==
-                                      200) {
-                                      DialogWidget.success(context,
-                                        title: value['message'],
-                                        content: value['data']['sender'],
-                                        color: greenColor, callback: () {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    });
+                                      "Erreur interne du serveur lors de l'appel de la procédure stockée.") {
+                                    DialogWidget.success(
+                                      context,
+                                      title: AppLocalizations.of(context)!
+                                          .translate("erreur")!,
+                                      content: value["message"],
+                                      color: errorColor,
+                                      callback: () {
+                                        if (Navigator.canPop(context)) {
+                                          Navigator.pop(context);
+                                          if (Navigator.canPop(context)) {
+                                            Navigator.pop(context);
+                                          }
+                                        }
+                                      },
+                                    );
+                                  
+                                  } else if (value["code"] == 200) {
+                                    DialogWidget.success(
+                                      context,
+                                      title: "",
+                                      content: value['data']['message'],
+                                      color: greenColor,
+                                      callback: () {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  } else if (value["code"] == 400) {
+                                    DialogWidget.success(
+                                      context,
+                                      title: "",
+                                      content: value['message'],
+                                      color: errorColor,
+                                      callback: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
                                   }
-                                  else if (value['message'] ==
-                                      "erreur") {
-                                      DialogWidget.error(context,
-                                        title: value['message'],
-                                        content: value['data']['vErrorMessage'],
-                                        color: blueColor, callback: () {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    });
-                                  }
-                                  else if (value['code'] ==
-                                      400) {
-                                      DialogWidget.error(context,
-                                        title: "",
-                                        content: value['message'],
-                                        color: blueColor, callback: () {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    });
-                                  }
-
-                                  // context
-                                  //     .read<AuthService>()
-                                  //     .loginWithBiometric({
-                                  //   "id": context
-                                  //       .read<AuthService>()
-                                  //       .currentUser!
-                                  //       .data!
-                                  //       .phone
-                                  // });
-                                  // DialogWidget.success(context,
-                                  //     title: "Succes !",
-                                  //     content: value.toString(),
-                                  //     color: greenColor, callback: () {
-                                  //   Navigator.pop(context);
-                                  //   Navigator.pop(context);
-                                  // });
-                                  // Navigator.pop(context);
                                 }).catchError((error) {
                                   setState(() {
                                     _isLoading = false;
                                   });
                                   print(error);
-                                  DialogWidget.error(context,
-                                      title: AppLocalizations.of(context)!
-                                          .translate("erreur")!,
-                                      content: error.toString(),
-                                      color: errorColor, callback: () {
-                                    Navigator.pop(context);
-                                  });
+                                  DialogWidget.error(
+                                    context,
+                                    title: AppLocalizations.of(context)!
+                                        .translate("erreur")!,
+                                    content: '',
+                                    color: errorColor,
+                                    callback: () {
+                                      Navigator.pop(context);
+                                    },
+                                  );
                                 });
                               },
                               child: Text(
@@ -319,7 +294,8 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: Text("Annuler",
+                        child: Text(
+                            AppLocalizations.of(context)!.translate("annuler")!,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontFamily: content_font,
@@ -331,9 +307,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
               ),
             ),
             Container(
-                child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
-                    : Container())
+                child: _isLoading ? const Loader(loadingTxt: '') : Container())
           ],
         ));
   }

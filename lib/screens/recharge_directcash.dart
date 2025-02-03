@@ -1,18 +1,14 @@
-import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
-import 'package:mydirectcash/Repository/OperationServices.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
-import 'package:mydirectcash/screens/achat_credit_password.dart';
-import 'package:mydirectcash/screens/envoi_comptedirectcash_password.dart';
-import 'package:mydirectcash/screens/envoi_directcash_password.dart';
-import 'package:mydirectcash/screens/login.dart';
+import 'package:mydirectcash/screens/retrait_amount_selection.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
-import 'package:mydirectcash/widgets/success_operation_component.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -27,13 +23,21 @@ class RechargeDirectCash extends StatefulWidget {
 
 class _RechargeDirectCashState extends State<RechargeDirectCash> {
   String directCashCode = "", codeSecret = "", psw = "";
+  Map detail = {"toNumber": "", "directCode": ""};
+  PhoneNumber number = PhoneNumber(isoCode: 'CM', phoneNumber: '');
+  final TextEditingController _phonecontroller = TextEditingController();
+
   bool _isLoading = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     context.read<AuthService>().authenticate;
+  }
+
+  @override
+  void dispose() {
+    _phonecontroller.dispose();
+    super.dispose();
   }
 
   @override
@@ -52,9 +56,10 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/background.png'),
-                      fit: BoxFit.cover)),
+                image: DecorationImage(
+                    image: AssetImage('assets/images/background.png'),
+                    fit: BoxFit.cover),
+              ),
               child: ListView(
                 children: [
                   Container(
@@ -134,11 +139,11 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                               keyboardType: TextInputType.text,
                               onChanged: (value) {
                                 setState(() {
-                                  directCashCode = value;
+                                  detail['directCode'] = value;
                                 });
                               },
                               style: const TextStyle(
-                                  fontFamily: content_font, fontSize: 13),
+                                  fontFamily: content_font, fontSize: 16),
                               textAlign: TextAlign.start,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
@@ -154,62 +159,110 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                           ),
                         ],
                       )),
-                  Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            keyboardType: TextInputType.text,
-                            onChanged: (value) {
-                              setState(() {
-                                codeSecret = value;
-                              });
-                            },
-                            style: const TextStyle(
-                                fontFamily: content_font, fontSize: 13),
-                            textAlign: TextAlign.start,
-                            decoration: InputDecoration(
-                                suffixIcon: const Icon(
-                                  Icons.visibility,
-                                  size: 16,
-                                ),
-                                hintText:
-                                    "${AppLocalizations.of(context)!.translate('Saisissez votre code secret')}",
-                                hintStyle: TextStyle(
-                                    fontFamily: content_font,
-                                    color: Colors.grey.shade500,
-                                    fontSize: 13)),
-                          ),
-                          Divider(
-                            height: 1.5,
-                            color: blueColor,
-                          ),
-                        ],
-                      )),
-                  Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: TextFormField(
-                        keyboardType: TextInputType.text,
-                        onChanged: (value) {
-                          setState(() {
-                            psw = value;
-                          });
-                        },
-                        style:
-                            const TextStyle(fontFamily: content_font, fontSize: 13),
-                        textAlign: TextAlign.start,
-                        decoration: InputDecoration(
-                            suffixIcon: const Icon(
-                              Icons.visibility,
-                              size: 16,
-                            ),
-                            hintText:
-                                "${AppLocalizations.of(context)!.translate("Password")}",
-                            hintStyle: TextStyle(
-                                fontFamily: content_font,
-                                color: Colors.grey.shade500,
-                                fontSize: 13)),
-                      )),
+                  // Container(
+                  //     margin: const EdgeInsets.only(top: 20),
+                  //     child: Column(
+                  //       children: [
+                  //         TextFormField(
+                  //           keyboardType: TextInputType.text,
+                  //           onChanged: (value) {
+                  //             setState(() {
+                  //               codeSecret = value;
+                  //             });
+                  //           },
+                  //           style: const TextStyle(
+                  //               fontFamily: content_font, fontSize: 13),
+                  //           textAlign: TextAlign.start,
+                  //           decoration: InputDecoration(
+                  //               suffixIcon: const Icon(
+                  //                 Icons.visibility,
+                  //                 size: 16,
+                  //               ),
+                  //               hintText:
+                  //                   "${AppLocalizations.of(context)!.translate('Saisissez votre code secret')}",
+                  //               hintStyle: TextStyle(
+                  //                   fontFamily: content_font,
+                  //                   color: Colors.grey.shade500,
+                  //                   fontSize: 13)),
+                  //         ),
+                  //         Divider(
+                  //           height: 1.5,
+                  //           color: blueColor,
+                  //         ),
+                  //       ],
+                  //     )),
+                  // Container(
+                  //     margin: const EdgeInsets.only(top: 20),
+                  //     child: Column(
+                  //       children: [
+                  //         TextFormField(
+                  //           keyboardType: TextInputType.number,
+                  //           // initialValue: data.toNumber,
+                  //           onChanged: (value) {
+                  //             setState(() {
+                  //               detail["toNumber"] = value;
+                  //             });
+                  //           },
+                  //           style: const TextStyle(
+                  //               fontFamily: content_font, fontSize: 13),
+                  //           textAlign: TextAlign.start,
+                  //           decoration: InputDecoration(
+                  //             border: InputBorder.none,
+                  //             hintText: AppLocalizations.of(context)!.translate(
+                  //                 "Saisissez le numéro bénéficiaire")!,
+                  //             hintStyle: const TextStyle(
+                  //                 fontFamily: content_font,
+                  //                 color: Colors.grey,
+                  //                 fontSize: 13),
+                  //           ),
+                  //         ),
+                  //         Divider(
+                  //           height: 1.5,
+                  //           color: blueColor,
+                  //         ),
+                  //       ],
+                  //     )),
+                  Padding(
+                    padding: const EdgeInsets.all(0),
+                    child: InternationalPhoneNumberInput(
+                      onInputChanged: (PhoneNumber number) {
+                        setState(() {
+                          detail["toNumber"] = number.phoneNumber;
+                        });
+
+                        ///  dataUser["Phone"]==number.phoneNumber;
+                      },
+                      onInputValidated: (bool isValid) {},
+                      selectorConfig: const SelectorConfig(
+                        selectorType: PhoneInputSelectorType.DROPDOWN,
+                        setSelectorButtonAsPrefixIcon: true,
+                        leadingPadding: 4.0,
+                        showFlags: true,
+                        useEmoji: true,
+                      ),
+                      ignoreBlank: false,
+                      autoValidateMode: AutovalidateMode.disabled,
+                      selectorTextStyle: const TextStyle(color: Colors.black),
+                      initialValue: number,
+                      textFieldController: _phonecontroller,
+                      formatInput: false,
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: true, decimal: true),
+                      inputDecoration: InputDecoration(
+                        labelStyle: const TextStyle(fontSize: 14),
+                        labelText: AppLocalizations.of(context)!
+                            .translate("Saisissez le numéro bénéficiaire")!,
+                      ),
+                      onSaved: (PhoneNumber number) {
+                        print('On Saved: $number');
+                        setState(
+                          () {
+                            detail["toNumber"] = number.phoneNumber;
+                          },
+                        );
+                      },
+                    ),
+                  ),
                   const SizedBox(height: 50),
                   Container(
                     child: Row(
@@ -219,36 +272,62 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor:  blueColor,
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 50)),
+                                  backgroundColor: blueColor,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50)),
                               onPressed: () {
-                                context
-                                    .read<TransactonService>()
-                                    .creditFromDirectcash(
-                                        directCashCode,
-                                        codeSecret,
-                                        psw,
-                                        autProvider.currentUser!.data!.phone)
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                TransactonService()
+                                    .getTransferDetails(detail)
                                     .then((value) {
-                                      print(value);
+                                  print(value);
+                                  print(value['data'][0].toString().length);
                                   setState(() {
                                     _isLoading = false;
                                   });
-                                  showTopSnackBar(
-                                 Overlay.of(context),
-                                    CustomSnackBar.success(
-                                      message: value["message"],
-                                    ),
-                                  );
-                                  Navigator.pop(context);
+                                  if (value['data'][0].toString().length > 5) {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: RetraitAmountSelection(
+                                          data: value["data"][0],
+                                        ),
+                                      ),
+                                    );
+                                  } else if (value['data'][0].toString().length < 5) {
+                                    showTopSnackBar(
+                                      Overlay.of(context),
+                                      const CustomSnackBar.info(
+                                        message: "Aucune transaction en attente!",
+                                      ),
+                                    );
+                                  } else {
+                                    showTopSnackBar(
+                                      Overlay.of(context),
+                                      CustomSnackBar.success(
+                                        message: value["message"],
+                                      ),
+                                    );
+                                  }
+
+                                  // showTopSnackBar(
+                                  //   Overlay.of(context),
+                                  //   CustomSnackBar.success(
+                                  //     message: value["message"],
+                                  //   ),
+                                  // );
+                                  // Navigator.pop(context);
                                 }).catchError((error) {
                                   setState(() {
                                     _isLoading = false;
                                   });
                                   print(error);
                                   showTopSnackBar(
-Overlay.of(context),                                    const CustomSnackBar.error(
+                                    Overlay.of(context),
+                                    const CustomSnackBar.error(
                                         message: "une erreur c est produite"),
                                   );
                                 });
@@ -290,9 +369,7 @@ Overlay.of(context),                                    const CustomSnackBar.err
               ),
             ),
             Container(
-                child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
-                    : Container())
+                child: _isLoading ? const Loader(loadingTxt: '') : Container())
           ],
         ));
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:mydirectcash/Repository/OperationServices.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/achat_credit.dart';
@@ -10,22 +11,43 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-class AchatDeCreditSelectionPage extends StatelessWidget {
+class AchatDeCreditSelectionPage extends StatefulWidget {
   const AchatDeCreditSelectionPage({super.key});
 
+  @override
+  State<AchatDeCreditSelectionPage> createState() =>
+      _AchatDeCreditSelectionPageState();
+}
+
+class _AchatDeCreditSelectionPageState
+    extends State<AchatDeCreditSelectionPage> {
+  Map data = {
+    "vClientID": "",
+    "vAmount": "",
+    "vToNumber": "",
+    "vCNI": " ",
+    "vPIN": "",
+    "vreseau": "",
+    "trxTYPE": "",
+    "opType": ""
+  };
 
   @override
   Widget build(BuildContext context) {
     final operationServices = context.watch<OperationServices>();
-    Widget customLangButton(String img, int index, Widget page) {
-
+    Widget customLangButton(
+      Function callback,
+      String img,
+      int index,
+      Widget page,
+    ) {
       return ElevatedButton(
         onPressed: () {
+          callback();
           Navigator.push(
               context,
               PageTransition(
                   type: PageTransitionType.rightToLeft, child: page));
-               
         },
         style: ElevatedButton.styleFrom(
           elevation: 2,
@@ -40,6 +62,7 @@ class AchatDeCreditSelectionPage extends StatelessWidget {
         ),
       );
     }
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
@@ -129,7 +152,7 @@ class AchatDeCreditSelectionPage extends StatelessWidget {
                     'assets/images/logo-alliance-transparent.png',
                   ),
                 ),
-                  const SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Column(
@@ -139,11 +162,18 @@ class AchatDeCreditSelectionPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Column(
-                            
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              
-                              customLangButton("assets/svg/local.svg", 0, AchatCreditauther(data: {},)),
+                              customLangButton(() {
+                                setState(() {
+                                  data["trxTYPE"] = "13";
+                                });
+                              },
+                                  "assets/svg/local.svg",
+                                  0,
+                                  AchatCreditauther(
+                                    data: {},
+                                  )),
                               const SizedBox(
                                 height: 10,
                               ),
@@ -160,7 +190,13 @@ class AchatDeCreditSelectionPage extends StatelessWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              customLangButton("assets/svg/world.svg", 1, AchatCredit()),
+                              customLangButton(
+                                () {
+                                setState(() {
+                                  data["trxTYPE"] = "14";
+                                });
+                              },
+                                  "assets/svg/world.svg", 1, AchatCredit()),
                               const SizedBox(
                                 height: 10,
                               ),

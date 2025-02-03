@@ -41,6 +41,7 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
     // TODO: implement initState
     super.initState();
     _controller.text = "";
+    print(widget.data);
   }
 
   @override
@@ -187,9 +188,11 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                             Padding(
                               padding: const EdgeInsets.only(right: 20),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                   Text("${AppLocalizations.of(context)!.translate('networkSelect')}"),
+                                  Text(
+                                      "${AppLocalizations.of(context)!.translate('networkSelect')}"),
                                   const SizedBox(width: 10),
                                   PopupMenuButton(
                                     itemBuilder: (context) => [
@@ -219,11 +222,13 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                                         "value": "Yoomee"
                                       },
                                     ]
-                                        .map<PopupMenuItem>((e) => PopupMenuItem(
+                                        .map<PopupMenuItem>((e) =>
+                                            PopupMenuItem(
                                               onTap: () {
                                                 setState(() {
                                                   // coupon = e['title'];
-                                                  widget.data["reseau"] = e["value"];
+                                                  widget.data["reseau"] =
+                                                      e["value"];
                                                   print(e["value"]);
                                                 });
                                                 print(coupon);

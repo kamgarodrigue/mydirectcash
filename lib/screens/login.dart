@@ -336,13 +336,23 @@ class _LoginState extends StateMVC<Login> {
                                                           "Aucun utilisateur trouvé ou identifiant incorrect.",
                                                     ),
                                                   );
-                                                } else if (value ==
+                                                } 
+                                                else if (value ==
                                                     "Le mot de passe est incorrect!") {
                                                   showTopSnackBar(
                                                     Overlay.of(context),
                                                     const CustomSnackBar.error(
                                                       message:
                                                           "Le mot de passe est incorrect!",
+                                                    ),
+                                                  );
+                                                } 
+                                                else if (value ==
+                                                    "Erreur interne du serveur.") {
+                                                  showTopSnackBar(
+                                                    Overlay.of(context),
+                                                    const CustomSnackBar.error(
+                                                      message:  "Erreur interne du serveur.",
                                                     ),
                                                   );
                                                 } 

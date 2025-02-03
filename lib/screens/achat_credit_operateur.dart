@@ -39,7 +39,6 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
         appBar: AppBar(
           toolbarHeight: 0,
           backgroundColor: Colors.white,
-          
           elevation: 0,
         ),
         body: Stack(
@@ -112,6 +111,15 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
                                     .operateurs[index].providerCode ==
                                 "") {
                               var data = {
+                                "vClientID": "",
+                                "vAmount": "",
+                                "vToNumber": "",
+                                "vCNI": "",
+                                "vPIN": "",
+                                "vreseau": "",
+                                "trxTYPE": "",
+                                "opType": "",
+                                
                                 "montant": "",
                                 "numero": "",
                                 "Id": "",

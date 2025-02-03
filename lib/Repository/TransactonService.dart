@@ -8,9 +8,18 @@ import 'dart:convert';
 class TransactonService extends ChangeNotifier {
   List<Transaction> _historiques = [];
   List<Transaction> get historique => _historiques;
+
   Future transfertByDirectcash(Map? data) async {
     Dio.Response response = await dio().post(
         "https://apibackoffice.alliancefinancialsa.com/envoiDirectcash",
+        data: data);
+    return response.data;
+  }
+
+  Future retraitDirectcash(Map? data) async {
+    print(data);
+    Dio.Response response = await dio().post(
+        "https://apibackoffice.alliancefinancialsa.com/retraitDirectcash",
         data: data);
     return response.data;
   }
@@ -36,7 +45,6 @@ class TransactonService extends ChangeNotifier {
   }
 
   Future getDetailEnvoiDirectcash(Map? data) async {
-   
     Dio.Response response = await dio().post(
       "https://apibackoffice.alliancefinancialsa.com/getRateMD",
       data: data,
@@ -97,6 +105,14 @@ class TransactonService extends ChangeNotifier {
     return response;
   }
 
+  Future getTransferDetails(Map? data) async {
+    print(data);
+    Dio.Response response = await dio().post(
+        "https://apibackoffice.alliancefinancialsa.com/getTransferDetails",
+        data: data);
+    return response.data;
+  }
+
   Future creditFromDirectcash(directCashCode, codeSecret, psw, id) async {
     Map data = {
       "pin": codeSecret,
@@ -104,8 +120,8 @@ class TransactonService extends ChangeNotifier {
       "directcode": directCashCode,
       "id": id
     };
-    Dio.Response response =
-        await dio().post("Collecteur/CreditFromDirectCash", data: data);
+    Dio.Response response = await dio()
+        .post("https://apibackoffice.alliancefinancialsa.com", data: data);
     return json.decode(response.toString());
   }
 
