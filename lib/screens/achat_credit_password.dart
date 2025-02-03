@@ -126,7 +126,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                     child: Column(
                       children: [
                         Text(
-                            ' ${AppLocalizations.of(context)!.translate('Vous allez faire une recharge de')} ${widget.data!["montant"]} XAF  ${AppLocalizations.of(context)!.translate('au numéro')}  ${widget.data!["numero"].substring(0, 3)} ** ** **',
+                            ' ${AppLocalizations.of(context)!.translate('Vous allez faire une recharge de')} ${widget.data!["montant"]} XAF  ${AppLocalizations.of(context)!.translate('au numéro')}  ${widget.data!["numero"].substring(0, 3)} ** ** ${widget.data?["numero"].toString().substring(widget.data!["numero"].toString().length - 2)}',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 12.5,

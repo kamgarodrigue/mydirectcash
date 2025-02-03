@@ -146,7 +146,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                     child: Column(
                       children: [
                         Text(
-                            '${AppLocalizations.of(context)!.translate("Vous allez faire un transfert  de")} ${widget.data?["vAmount"]} XAF ${AppLocalizations.of(context)!.translate("au numéro")} ${widget.data?["vToNumber"].toString().substring(0, 3)} ** ** ${widget.data?["vFromNumber"].toString().substring(7, 9)}, ${AppLocalizations.of(context)!.translate("frais de")}  ${widget.data?["vRate"]} XAF. ${AppLocalizations.of(context)!.translate("Montant total à débiter")}  ${double.parse(widget.data?["vRate"]) + double.parse(widget.data?["vAmount"])} XAF.',
+                            '${AppLocalizations.of(context)!.translate("Vous allez faire un transfert  de")} ${widget.data?["vAmount"]} XAF ${AppLocalizations.of(context)!.translate("au numéro")} ${widget.data?["vToNumber"].toString().substring(0, 3)} ** ** ${widget.data?["vToNumber"].toString().substring((widget.data?["vToNumber"]).toString().length - 2)}, ${AppLocalizations.of(context)!.translate("frais de")}  ${widget.data?["vRate"]} XAF. ${AppLocalizations.of(context)!.translate("Montant total à débiter")}  ${double.parse(widget.data?["vRate"]) + double.parse(widget.data?["vAmount"])} XAF.',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 fontSize: 12.5,
@@ -255,8 +255,9 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                   setState(() {
                                     _isLoading = false;
                                   });
-                                  if (value['message'] == "Erreur interne du serveur lors de l'appel de la procédure stockée.") {
-                                      DialogWidget.success(
+                                  if (value['message'] ==
+                                      "Erreur interne du serveur lors de l'appel de la procédure stockée.") {
+                                    DialogWidget.success(
                                       context,
                                       title: AppLocalizations.of(context)!
                                           .translate("erreur")!,
@@ -268,8 +269,8 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                         Navigator.pop(context);
                                       },
                                     );
-                                  } else if(value["message"] == "Succes") {
-                                      DialogWidget.success(
+                                  } else if (value["message"] == "Succes") {
+                                    DialogWidget.success(
                                       context,
                                       title: value["message"],
                                       content: value['data']['sender'],
@@ -279,9 +280,9 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                         Navigator.pop(context);
                                       },
                                     );
-                                  }
-                                  else if(value["message"] == "Mot de passe ou PIN incorrect.") {
-                                      DialogWidget.success(
+                                  } else if (value["message"] ==
+                                      "Mot de passe ou PIN incorrect.") {
+                                    DialogWidget.success(
                                       context,
                                       title: "",
                                       content: value['message'],
@@ -290,9 +291,18 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                         Navigator.pop(context);
                                       },
                                     );
+                                  } else if (value["message"] ==
+                                      "Solde insuffisant pour effectuer cette transaction.") {
+                                    DialogWidget.success(
+                                      context,
+                                      title: "Erreur",
+                                      content: value['message'],
+                                      color: errorColor,
+                                      callback: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
                                   }
-
-                                  
                                 }).catchError((error) {
                                   setState(() {
                                     _isLoading = false;

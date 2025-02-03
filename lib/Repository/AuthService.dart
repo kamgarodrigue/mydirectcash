@@ -150,26 +150,19 @@ class AuthService extends ChangeNotifier {
     return json.decode(response.toString());
   }
 
-  Future loginWithBiometric(Map credentials) async {
+  Future loginWithBiometric(id) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
+    Dio.Response response = await dio().get(
+        "https://apibackoffice.alliancefinancialsa.com/login-fingerprint?id=$id");
+    print(response.data['data']['solde']);
+    User user = User.getUser(response.data['data']);
+    print(user.data?.toJson());
+    await pref.setString("solde", user.data!.solde!);
 
-    Dio.Response response = await dio()
-        .post("Authentication/AuthenticateWithFingerPrint", data: credentials);
-    print(response.toString());
-    if (json.decode(response.toString())['Message'] == "Success") {
-      User user = User.fromJson(json.decode(response.toString())['Info']);
-      bool a = authenticate;
-      await pref.setString("user", response.toString());
-      // await pref.setBool("open", true);
-
-      notifyListeners();
-    }
-
-    print(json.decode(response.toString()));
-    _isLoggedIn = true;
+    // _isLoggedIn = true;
 
     notifyListeners();
-    return json.decode(response.toString())['Message'];
+    return response.data;
   }
 
 /*
