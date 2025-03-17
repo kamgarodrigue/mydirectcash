@@ -2,17 +2,18 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:mydirectcash/screens/AchatCreditMOMOPassword.dart';
+import 'package:mydirectcash/Repository/AuthService.dart';
+import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/screens/settings.dart';
+import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:mydirectcash/Controllers/UserController.dart';
-import 'package:mydirectcash/Repository/TransactonService.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:provider/provider.dart';
 import 'package:mydirectcash/app_localizations.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class OmMoMo extends StatefulWidget {
   const OmMoMo({super.key});
@@ -23,14 +24,13 @@ class OmMoMo extends StatefulWidget {
 
 class _OmMoMoState extends State<OmMoMo> {
   Map data = {
-    "senderNumber": "",
-    "operateur": "CMMTNMOMO",
-    "Id": "",
-    "pass": "",
-    "reseau": "CMMTNMOMO",
-    "montant": "",
-    "numero": "",
-    "opType": "Retrait"
+    "vClientID": "",
+    "vAmount": "",
+    "vToNumber": "",
+    "vCNI": " ",
+    "vPIN": "",
+    "vreseau": "OM",
+    "opType": "depot"
   };
   bool isOm = true, _isLoading = false;
   bool isDepot = false;
@@ -45,13 +45,8 @@ class _OmMoMoState extends State<OmMoMo> {
   @override
   void initState() {
     super.initState();
+    context.read<AuthService>().authenticate;
     _controller.text = "";
-    UserController().utilisateur!.then((value) {
-      print(value.data!.phone);
-      setState(() {
-        data["Id"] = value.data!.phone;
-      });
-    });
   }
 
   @override
@@ -71,7 +66,7 @@ class _OmMoMoState extends State<OmMoMo> {
             // Update the text field and the data map with the selected phone number
             String selectedNumber = contact.phones.first.number;
             _controller.text = selectedNumber;
-            data["senderNumber"] = selectedNumber;
+            data["vToNumber"] = selectedNumber;
           });
         } else {
           // Show a message if the contact doesn't have a phone number
@@ -98,44 +93,24 @@ class _OmMoMoState extends State<OmMoMo> {
   }
 
   Widget depot() {
-    print('object');
+    final autProvider = context.watch<AuthService>();
     return Column(
       children: [
         Container(
-            margin: const EdgeInsets.only(top: 30),
+            margin: const EdgeInsets.only(top: 10),
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
-                // TextFormField(
-                //     keyboardType: TextInputType.text,
-                //     initialValue: data["senderNumber"],
-                //     onChanged: (value) {
-                //       setState(() {
-                //         data["senderNumber"] = value;
-                //       });
-                //     },
-                //     style:
-                //         const TextStyle(fontFamily: content_font, fontSize: 13),
-                //     textAlign: TextAlign.start,
-                //     decoration: InputDecoration(
-                //         border: InputBorder.none,
-                //         hintText: AppLocalizations.of(context)!
-                //             .translate('Saisissez le numéro bénéficiaire'),
-                //         hintStyle: const TextStyle(
-                //             fontFamily: content_font,
-                //             color: Colors.grey,
-                //             fontSize: 13))),
-
                 TextFormField(
                   controller:
                       _controller, // Use the controller to manage the text field
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
                   style:
                       const TextStyle(fontFamily: content_font, fontSize: 13),
                   textAlign: TextAlign.start,
                   onChanged: (value) {
                     setState(() {
-                      data["senderNumber"] = value;
+                      data["vToNumber"] = value;
                     });
                   },
                   decoration: InputDecoration(
@@ -156,7 +131,6 @@ class _OmMoMoState extends State<OmMoMo> {
                         fontSize: 13),
                   ),
                 ),
-
                 Divider(
                   height: 1.5,
                   color: blueColor,
@@ -164,16 +138,16 @@ class _OmMoMoState extends State<OmMoMo> {
               ],
             )),
         Container(
-            margin: const EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.only(top: 10),
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
                 TextFormField(
-                    keyboardType: TextInputType.text,
-                    initialValue: data["montant"],
+                    keyboardType: TextInputType.number,
+                    // initialValue: data["vAmount"],
                     onChanged: (value) {
                       setState(() {
-                        data["montant"] = value;
+                        data["vAmount"] = value;
                       });
                     },
                     style:
@@ -194,17 +168,17 @@ class _OmMoMoState extends State<OmMoMo> {
               ],
             )),
         Container(
-            margin: const EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.only(top: 10),
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
                 TextFormField(
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.number,
                     obscureText: _isOscure,
-                    initialValue: data["pass"],
+                    // initialValue: data["vPIN"],
                     onChanged: (value) {
                       setState(() {
-                        data["pass"] = value;
+                        data["vPIN"] = value;
                       });
                     },
                     style:
@@ -244,37 +218,47 @@ class _OmMoMoState extends State<OmMoMo> {
                         backgroundColor: blueColor,
                         padding: const EdgeInsets.symmetric(horizontal: 50)),
                     onPressed: () {
-                                              print(data);
-
                       setState(() {
                         _isLoading = true;
                       });
-                      TransactonService().depotMomo(data).then((value) {
+                      data["vClientID"] = autProvider.currentUser!.data!.phone;
+                      print(data);
+                      TransactonService().achatCredit(data).then((value) {
+                        print(value);
                         setState(() {
                           _isLoading = false;
-                          data = {
-                            "senderNumber": "",
-                            "operateur": isOm ? "CMORANGEOM" : "CMMTNMOMO",
-                            "Id": "",
-                            "pass": "",
-                            "reseau": "",
-                            "montant": "",
-                            "numero": "",
-                            "opType": "Dépôt"
-                          };
                         });
-                        showTopSnackBar(
-                          Overlay.of(context),
-                          CustomSnackBar.success(
-                            message: value.toString(),
-                          ),
-                        );
-                        // Navigator.pop(context);
+                        if (value["message"] ==
+                            "Tous les paramètres sont requis.") {
+                          showTopSnackBar(
+                            Overlay.of(context),
+                            CustomSnackBar.error(
+                              message: AppLocalizations.of(context)!
+                                  .translate("veille")!,
+                            ),
+                          );
+                        } else if (value["code"] == 200) {
+                          DialogWidget.success(
+                            context,
+                            title: value["message"],
+                            content: "",
+                            color: greenColor,
+                            callback: () => Navigator.pop(context),
+                          );
+                        } else if (value["code"] == 400) {
+                          DialogWidget.success(
+                            context,
+                            title: value["message"],
+                            content: "",
+                            color: errorColor,
+                            callback: () => Navigator.pop(context),
+                          );
+                        }
                       }).catchError((error) {
-                        print(error);
                         setState(() {
                           _isLoading = false;
                         });
+                        print(error);
                         showTopSnackBar(
                           Overlay.of(context),
                           CustomSnackBar.error(
@@ -283,14 +267,6 @@ class _OmMoMoState extends State<OmMoMo> {
                           ),
                         );
                       });
-
-                      /* Navigator.push(
-                          context,
-                          PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              child: AchatCreditMOMOPassword(
-                                data: data,
-                              )));*/
                     },
                     child: Text(
                       AppLocalizations.of(context)!
@@ -309,19 +285,20 @@ class _OmMoMoState extends State<OmMoMo> {
   }
 
   Widget retrait() {
+    final autProvider = context.watch<AuthService>();
     return Column(
       children: [
         Container(
-            margin: const EdgeInsets.only(top: 30),
+            margin: const EdgeInsets.only(top: 10),
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
                 TextFormField(
-                    keyboardType: TextInputType.text,
-                    initialValue: data["Id"],
+                    keyboardType: TextInputType.number,
+                    // initialValue: autProvider.currentUser!.data!.phone,
                     onChanged: (value) {
                       setState(() {
-                        data["Id"] = value;
+                        data["vToNumber"] = value;
                       });
                     },
                     style:
@@ -343,16 +320,16 @@ class _OmMoMoState extends State<OmMoMo> {
               ],
             )),
         Container(
-            margin: const EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.only(top: 10),
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
                 TextFormField(
-                    keyboardType: TextInputType.text,
-                    initialValue: data["montant"],
+                    keyboardType: TextInputType.number,
+                    // initialValue: data["vAmount"],
                     onChanged: (value) {
                       setState(() {
-                        data["montant"] = value;
+                        data["vAmount"] = value;
                       });
                     },
                     style:
@@ -374,17 +351,17 @@ class _OmMoMoState extends State<OmMoMo> {
               ],
             )),
         Container(
-            margin: const EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.only(top: 10),
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
                 TextFormField(
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.number,
                     obscureText: _isOscure,
-                    initialValue: data["pass"],
+                    // initialValue: data["pass"],
                     onChanged: (value) {
                       setState(() {
-                        data["pass"] = value;
+                        data["vPIN"] = value;
                       });
                     },
                     style:
@@ -428,28 +405,39 @@ class _OmMoMoState extends State<OmMoMo> {
                       setState(() {
                         _isLoading = true;
                       });
-                      TransactonService().retraitMomo(data).then((value) {
+                      data["vClientID"] = autProvider.currentUser!.data!.phone;
+                      TransactonService().achatCredit(data).then((value) {
+                        print(data);
+                        print(value);
                         setState(() {
                           _isLoading = false;
-                          data = {
-                            "senderNumber": "",
-                            "operateur": isOm ? "CMORANGEOM" : "CMMTNMOMO",
-                            "Id": "",
-                            "pass": "",
-                            "reseau": "",
-                            "montant": "",
-                            "numero": "",
-                            "opType": "Retrait"
-                          };
                         });
-                        print(value.toString());
-                        showTopSnackBar(
-                          Overlay.of(context),
-                          CustomSnackBar.success(
-                            message: value.toString(),
-                          ),
-                        );
-                        // Navigator.pop(context);
+                        if (value["message"] ==
+                            "Tous les paramètres sont requis.") {
+                          showTopSnackBar(
+                            Overlay.of(context),
+                            CustomSnackBar.error(
+                              message: AppLocalizations.of(context)!
+                                  .translate("veille")!,
+                            ),
+                          );
+                        } else if (value["code"] == 200) {
+                          DialogWidget.success(
+                            context,
+                            title: value["message"],
+                            content: "",
+                            color: greenColor,
+                            callback: () => Navigator.pop(context),
+                          );
+                        } else if (value["code"] == 400) {
+                          DialogWidget.success(
+                            context,
+                            title: value["message"],
+                            content: "",
+                            color: errorColor,
+                            callback: () => Navigator.pop(context),
+                          );
+                        }
                       }).catchError((error) {
                         setState(() {
                           _isLoading = false;
@@ -463,14 +451,6 @@ class _OmMoMoState extends State<OmMoMo> {
                           ),
                         );
                       });
-
-                      /* Navigator.push(
-                          context,
-                          PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              child: AchatCreditMOMOPassword(
-                                data: data,
-                              )));*/
                     },
                     child: Text(
                       AppLocalizations.of(context)!
@@ -572,14 +552,14 @@ class _OmMoMoState extends State<OmMoMo> {
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 20),
-                      width: 100,
-                      height: 100,
+                      width: 90,
+                      height: 90,
                       child: Image.asset(
                         'assets/images/logo-alliance-transparent.png',
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
                     Text(
                       AppLocalizations.of(context)!
@@ -592,7 +572,7 @@ class _OmMoMoState extends State<OmMoMo> {
                           fontSize: 12,
                           fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 5),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
@@ -604,9 +584,9 @@ class _OmMoMoState extends State<OmMoMo> {
                                 onTap: () {
                                   setState(() {
                                     isOm = true;
-                                    data["operateur"] = "CMORANGEOM";
+                                    data["vreseau"] = "OM";
                                   });
-                                  print(data["operateur"]);
+                                  print(data["vreseau"]);
                                 },
                                 child: Column(
                                   children: [
@@ -627,14 +607,14 @@ class _OmMoMoState extends State<OmMoMo> {
                                   ],
                                 ),
                               ),
-                              const SizedBox(height: 20),
+                              const SizedBox(height: 10),
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     isOm = false;
-                                    data["operateur"] = "CMMTNMOMO";
+                                    data["vreseau"] = "MOMO";
                                   });
-                                  print(data["operateur"]);
+                                  print(data["vreseau"]);
                                 },
                                 child: Column(
                                   children: [
@@ -660,17 +640,19 @@ class _OmMoMoState extends State<OmMoMo> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset(
                             isOm
                                 ? 'assets/images/orange_money.jpeg'
                                 : 'assets/images/mobile_money.png',
-                            width: 70,
+                            width: 60,
+                            height: 60,
                           ),
                           const SizedBox(
                             width: 20,
@@ -716,7 +698,7 @@ class _OmMoMoState extends State<OmMoMo> {
                                                       setState(() {
                                                         isDepot = true;
                                                         data["opType"] =
-                                                            "Depos";
+                                                            "depot";
                                                       });
                                                       print(data["opType"]);
                                                     }),
@@ -745,7 +727,7 @@ class _OmMoMoState extends State<OmMoMo> {
                                                       setState(() {
                                                         isDepot = false;
                                                         data["opType"] =
-                                                            "Retrait";
+                                                            "cashout";
                                                       });
                                                       print(data["opType"]);
                                                     }),
@@ -766,10 +748,7 @@ class _OmMoMoState extends State<OmMoMo> {
                     isDepot ? depot() : retrait(),
                   ],
                 )),
-            Container(
-                child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
-                    : Container())
+            Container(child: _isLoading ? Loader(loadingTxt: '') : Container())
           ],
         ));
   }

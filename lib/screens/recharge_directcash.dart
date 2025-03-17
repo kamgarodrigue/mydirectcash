@@ -23,7 +23,7 @@ class RechargeDirectCash extends StatefulWidget {
 
 class _RechargeDirectCashState extends State<RechargeDirectCash> {
   String directCashCode = "", codeSecret = "", psw = "";
-  Map detail = {"toNumber": "", "directCode": ""};
+  Map detail = { "directCode": ""};
   PhoneNumber number = PhoneNumber(isoCode: 'CM', phoneNumber: '');
   final TextEditingController _phonecontroller = TextEditingController();
 
@@ -144,7 +144,7 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                               },
                               style: const TextStyle(
                                   fontFamily: content_font, fontSize: 16),
-                              textAlign: TextAlign.start,
+                              textAlign: TextAlign.center,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText:
@@ -222,47 +222,47 @@ class _RechargeDirectCashState extends State<RechargeDirectCash> {
                   //         ),
                   //       ],
                   //     )),
-                  Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: InternationalPhoneNumberInput(
-                      onInputChanged: (PhoneNumber number) {
-                        setState(() {
-                          detail["toNumber"] = number.phoneNumber;
-                        });
+                  // Padding(
+                  //   padding: const EdgeInsets.all(0),
+                  //   child: InternationalPhoneNumberInput(
+                  //     onInputChanged: (PhoneNumber number) {
+                  //       setState(() {
+                  //         detail["toNumber"] = number.phoneNumber;
+                  //       });
 
-                        ///  dataUser["Phone"]==number.phoneNumber;
-                      },
-                      onInputValidated: (bool isValid) {},
-                      selectorConfig: const SelectorConfig(
-                        selectorType: PhoneInputSelectorType.DROPDOWN,
-                        setSelectorButtonAsPrefixIcon: true,
-                        leadingPadding: 4.0,
-                        showFlags: true,
-                        useEmoji: true,
-                      ),
-                      ignoreBlank: false,
-                      autoValidateMode: AutovalidateMode.disabled,
-                      selectorTextStyle: const TextStyle(color: Colors.black),
-                      initialValue: number,
-                      textFieldController: _phonecontroller,
-                      formatInput: false,
-                      keyboardType: const TextInputType.numberWithOptions(
-                          signed: true, decimal: true),
-                      inputDecoration: InputDecoration(
-                        labelStyle: const TextStyle(fontSize: 14),
-                        labelText: AppLocalizations.of(context)!
-                            .translate("Saisissez le numéro bénéficiaire")!,
-                      ),
-                      onSaved: (PhoneNumber number) {
-                        print('On Saved: $number');
-                        setState(
-                          () {
-                            detail["toNumber"] = number.phoneNumber;
-                          },
-                        );
-                      },
-                    ),
-                  ),
+                  //       ///  dataUser["Phone"]==number.phoneNumber;
+                  //     },
+                  //     onInputValidated: (bool isValid) {},
+                  //     selectorConfig: const SelectorConfig(
+                  //       selectorType: PhoneInputSelectorType.DROPDOWN,
+                  //       setSelectorButtonAsPrefixIcon: true,
+                  //       leadingPadding: 4.0,
+                  //       showFlags: true,
+                  //       useEmoji: true,
+                  //     ),
+                  //     ignoreBlank: false,
+                  //     autoValidateMode: AutovalidateMode.disabled,
+                  //     selectorTextStyle: const TextStyle(color: Colors.black),
+                  //     initialValue: number,
+                  //     textFieldController: _phonecontroller,
+                  //     formatInput: false,
+                  //     keyboardType: const TextInputType.numberWithOptions(
+                  //         signed: true, decimal: true),
+                  //     inputDecoration: InputDecoration(
+                  //       labelStyle: const TextStyle(fontSize: 14),
+                  //       labelText: AppLocalizations.of(context)!
+                  //           .translate("Saisissez le numéro bénéficiaire")!,
+                  //     ),
+                  //     onSaved: (PhoneNumber number) {
+                  //       print('On Saved: $number');
+                  //       setState(
+                  //         () {
+                  //           detail["toNumber"] = number.phoneNumber;
+                  //         },
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
                   const SizedBox(height: 50),
                   Container(
                     child: Row(

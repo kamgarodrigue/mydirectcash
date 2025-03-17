@@ -221,12 +221,12 @@ class _SettingsState extends State<Settings> {
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: null,
-          child:  CircleAvatar(
-            radius: 55.0,
-            backgroundColor: Colors.white,
-            backgroundImage: AssetImage(
-              'assets/images/logo-alliance-transparent.png',
-            ),
+        child: CircleAvatar(
+          radius: 55.0,
+          backgroundColor: Colors.white,
+          backgroundImage: AssetImage(
+            'assets/images/logo-alliance-transparent.png',
+          ),
         ),
       )
     ]);
@@ -249,7 +249,9 @@ class _SettingsState extends State<Settings> {
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          Text(title,
+              style:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
         ],
       ),
       trailing: const Icon(
@@ -310,21 +312,21 @@ class _SettingsState extends State<Settings> {
       },
     );
     try {
-      await Provider.of<AuthService>(context, listen: false).logout();
-      Navigator.of(context).pop();
+      Provider.of<AuthService>(context, listen: false).logout();
+      Navigator.pop(context);
     } catch (e) {
       if (!mounted) return;
     }
 
-    if (!mounted) return;
-    Navigator.of(context).pop();
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Login(
-                  isLogin: false,
-                )),
-        ModalRoute.withName("/"));
+    // if (!mounted) return;
+    // Navigator.of(context).pop();
+    // Navigator.pushAndRemoveUntil(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => Login(
+    //               isLogin: false,
+    //             )),
+    //     ModalRoute.withName("/"));
   }
 
   // Widget settingsContent(BuildContext context) {
@@ -921,9 +923,10 @@ class _SettingsState extends State<Settings> {
           centerTitle: true,
         ),
         body: Container(
-          decoration: const BoxDecoration(image: DecorationImage(
-              image: AssetImage('assets/images/background.png'),
-              fit: BoxFit.cover)),
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/background.png'),
+                  fit: BoxFit.cover)),
           child: ListView(
             padding: const EdgeInsets.all(20.0),
             children: [
@@ -1003,24 +1006,26 @@ class _SettingsState extends State<Settings> {
                       nextPage: Cgu(),
                     ),
                     ListTile(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 0.0),
                       leading: SvgPicture.asset(
                         "assets/svg/share.svg",
                         height: 25,
-                        colorFilter:
-                            const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                        colorFilter: const ColorFilter.mode(
+                            Colors.black, BlendMode.srcIn),
                       ),
                       minLeadingWidth: 10,
                       title: Text(
                           "${AppLocalizations.of(context)!.translate("Share")}",
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w500)),
                       trailing: const Icon(
                         Icons.arrow_forward_ios,
                         size: 16,
                       ),
                       onTap: () => () async {
                         final box = context.findRenderObject() as RenderBox?;
-          
+
                         await Share.share(
                           "https://play.google.com/store/apps/details?id=cm.directcash.alliancefinancialsa.mydirectcashmobile",
                           subject: "",
@@ -1030,29 +1035,28 @@ class _SettingsState extends State<Settings> {
                       },
                     ),
                     ListTile(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 0.0),
                       leading: SvgPicture.asset(
                         "assets/svg/log-out.svg",
                         height: 25,
-                        colorFilter:
-                            const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                        colorFilter: const ColorFilter.mode(
+                            Colors.black, BlendMode.srcIn),
                       ),
                       minLeadingWidth: 10,
                       title: Text(
                           "${AppLocalizations.of(context)!.translate("Se déconnecter")}",
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w500)),
                       trailing: const Icon(
                         Icons.arrow_forward_ios,
                         size: 16,
                       ),
-                      onTap: () => DialogWidget.complexDialog(
-                        context,
-                        title:
-                            "${AppLocalizations.of(context)!.translate("Se déconnecter")}",
-                        content: "Etes vous sûr de vouloir vous déconnecter?",
-                        color: blueColor,
-                        callback: () => _logout(),
-                      ),
+                      onTap: () {
+                        Provider.of<AuthService>(context, listen: false)
+                            .logout();
+                        Navigator.pop(context);
+                      },
                     ),
                   ],
                 ),

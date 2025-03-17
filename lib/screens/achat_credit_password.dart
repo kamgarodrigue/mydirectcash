@@ -126,7 +126,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                     child: Column(
                       children: [
                         Text(
-                            ' ${AppLocalizations.of(context)!.translate('Vous allez faire une recharge de')} ${widget.data!["montant"]} XAF  ${AppLocalizations.of(context)!.translate('au numéro')}  ${widget.data!["numero"].substring(0, 3)} ** ** ${widget.data?["numero"].toString().substring(widget.data!["numero"].toString().length - 2)}',
+                            ' ${AppLocalizations.of(context)!.translate('Vous allez faire une recharge de')} ${widget.data!["vAmount"]} XAF  ${AppLocalizations.of(context)!.translate('au numéro')}  ${widget.data!["vToNumber"].substring(0, 3)} ** ** ${widget.data?["vToNumber"].toString().substring(widget.data!["vToNumber"].toString().length - 2)}',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 12.5,
@@ -163,7 +163,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                         // initialValue: widget.data!["pass"],
                         onChanged: (value) {
                           setState(() {
-                            widget.data!["pass"] = value;
+                            widget.data!["vPIN"] = value;
                           });
                         },
                         decoration: InputDecoration(
@@ -203,27 +203,18 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                                 TransactonService()
                                     .achatCredit(widget.data)
                                     .then((value) {
-                                  print("value: $value");
+                                  print(value);
                                   setState(() {
                                     _isLoading = false;
                                   });
-                                  context
-                                      .read<AuthService>()
-                                      .loginWithBiometric({
-                                    "id": context
-                                        .read<AuthService>()
-                                        .currentUser!
-                                        .data!
-                                        .phone
-                                  });
-
-                                  DialogWidget.success(context,
-                                      title: "Succes !",
-                                      content: "crédit envoyé avec succes",
-                                      color: greenColor, callback: () {
-                                    Navigator.pop(context);
-                                    Navigator.pop(widget.parentcontext);
-                                  });
+                                 
+                                  // DialogWidget.success(context,
+                                  //     title: "Succes !",
+                                  //     content: "crédit envoyé avec succes",
+                                  //     color: greenColor, callback: () {
+                                  //   Navigator.pop(context);
+                                  //   Navigator.pop(widget.parentcontext);
+                                  // });
                                 }).catchError((error) {
                                   setState(() {
                                     _isLoading = false;

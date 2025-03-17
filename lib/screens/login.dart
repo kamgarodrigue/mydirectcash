@@ -336,8 +336,7 @@ class _LoginState extends StateMVC<Login> {
                                                           "Aucun utilisateur trouvé ou identifiant incorrect.",
                                                     ),
                                                   );
-                                                } 
-                                                else if (value ==
+                                                } else if (value ==
                                                     "Le mot de passe est incorrect!") {
                                                   showTopSnackBar(
                                                     Overlay.of(context),
@@ -346,17 +345,16 @@ class _LoginState extends StateMVC<Login> {
                                                           "Le mot de passe est incorrect!",
                                                     ),
                                                   );
-                                                } 
-                                                else if (value ==
+                                                } else if (value ==
                                                     "Erreur interne du serveur.") {
                                                   showTopSnackBar(
                                                     Overlay.of(context),
                                                     const CustomSnackBar.error(
-                                                      message:  "Erreur interne du serveur.",
+                                                      message:
+                                                          "Erreur interne du serveur.",
                                                     ),
                                                   );
-                                                } 
-                                                else if (value ==
+                                                } else if (value ==
                                                     "Authentification réussie.") {
                                                   showTopSnackBar(
                                                     Overlay.of(context),
@@ -371,8 +369,7 @@ class _LoginState extends StateMVC<Login> {
                                                         widget.fatherContext!);
                                                   }
                                                 }
-                                              }
-                                              ).catchError((error) {
+                                              }).catchError((error) {
                                                 print(" hmmmmm $error");
                                                 setState(() {
                                                   _isLoading = false;
@@ -492,6 +489,7 @@ class _LoginState extends StateMVC<Login> {
                                       .loginWithBiometric(
                                           {"id": pref.getString("tel")}).then(
                                     (value) {
+                                      print(value);
                                       setState(() {
                                         _isLoading = false;
                                       });

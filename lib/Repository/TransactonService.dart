@@ -77,7 +77,7 @@ class TransactonService extends ChangeNotifier {
 
   Future achatCredit(Map? data) async {
     Dio.Response response =
-        await dio().post("DirectcashOperations/Airtime", data: data);
+        await dio().post("https://apibackoffice.alliancefinancialsa.com/cashin_topup", data: data);
     return response.data;
   }
 

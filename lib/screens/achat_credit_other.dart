@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/achat_credit_password.dart';
 import 'package:mydirectcash/screens/settings.dart';
@@ -10,6 +11,9 @@ import 'package:page_transition/page_transition.dart';
 import 'package:mydirectcash/Controllers/UserController.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:mydirectcash/Models/User.dart';
+import 'package:provider/provider.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class AchatCreditauther extends StatefulWidget {
   Map data;
@@ -21,18 +25,10 @@ class AchatCreditauther extends StatefulWidget {
 
 class _AchatCreditState extends StateMVC<AchatCreditauther> {
   final bool _isLoading = false;
-  _AchatCreditState() : super(UserController()) {
-    _userController = UserController.userController;
-    _userController!.utilisateur!.then((value) {
-      currrentUser = value;
-      widget.data["Id"] = value.data!.phone;
-    });
-  }
+
   UserController? _userController;
-  User? currrentUser;
-  String? countryName = "";
-  String? coupon = "";
   String? codeRegion = "CM";
+  String? reseauImage;
   Contact? _selectedContact;
   TextEditingController _controller = TextEditingController();
 
@@ -40,6 +36,8 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    context.read<AuthService>().authenticate;
+
     _controller.text = "";
     print(widget.data);
   }
@@ -61,7 +59,7 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
             // Update the text field and the data map with the selected phone number
             String selectedNumber = contact.phones.first.number;
             _controller.text = selectedNumber;
-            widget.data?["numero"] = selectedNumber;
+            widget.data?["vToNumber"] = selectedNumber;
           });
         } else {
           // Show a message if the contact doesn't have a phone number
@@ -89,6 +87,7 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
 
   @override
   Widget build(BuildContext context) {
+    final autProvider = context.watch<AuthService>();
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -154,7 +153,7 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                     ),
                     const SizedBox(width: 50),
                     Text(
-                        "${AppLocalizations.of(context)!.translate('Achat de crédit')}-${widget.data["reseau"] ?? AppLocalizations.of(context)!.translate('network')}",
+                        "${AppLocalizations.of(context)!.translate('Achat de crédit')}-${widget.data["vreseau"] == "" ? AppLocalizations.of(context)!.translate('networkSelect') : widget.data["vreseau"]}",
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -227,11 +226,11 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                                               onTap: () {
                                                 setState(() {
                                                   // coupon = e['title'];
-                                                  widget.data["reseau"] =
+                                                  widget.data["vreseau"] =
                                                       e["value"];
+                                                  reseauImage = e["image"];
                                                   print(e["value"]);
                                                 });
-                                                print(coupon);
                                               },
                                               child: ListTile(
                                                 leading: Image.asset(
@@ -258,7 +257,23 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                                   ),
                                 ],
                               ),
-                            )
+                            ),
+                            Expanded(child: Container()),
+                            reseauImage != null
+                                ? Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                          reseauImage!,
+                                        )),
+                                        borderRadius: BorderRadius.circular(5)),
+                                  )
+                                : const SizedBox(
+                                    height: 50,
+                                    width: 50,
+                                  ),
                           ],
                         ),
                       ],
@@ -276,7 +291,7 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                           textAlign: TextAlign.start,
                           onChanged: (value) {
                             setState(() {
-                              widget.data["numero"] =
+                              widget.data["vToNumber"] =
                                   value; // Update the data map when the text changes
                             });
                           },
@@ -313,10 +328,10 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                             style: const TextStyle(
                                 fontFamily: content_font, fontSize: 13),
                             textAlign: TextAlign.start,
-                            initialValue: widget.data["montant"],
+                            // initialValue: widget.data["vAmount"],
                             onChanged: (value) {
                               setState(() {
-                                widget.data["montant"] = value;
+                                widget.data["vAmount"] = value;
                               });
                             },
                             decoration: InputDecoration(
@@ -345,16 +360,30 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 50)),
                           onPressed: () {
-                            widget.data["reseau"] =
-                                widget.data["reseau"].toString().split(" ")[0];
-                            print(widget.data);
-                            Navigator.push(
+                            if (widget.data["vAmount"] == "" ||
+                                widget.data["vToNumber"] == "" ||
+                                widget.data["vreseau"] == "") {
+                              showTopSnackBar(
+                                Overlay.of(context),
+                                CustomSnackBar.info(
+                                  message:
+                                      " ${AppLocalizations.of(context)!.translate('veille')}",
+                                ),
+                              );
+                            } else {
+                              widget.data["vClientID"] =
+                                  autProvider.currentUser!.data!.phone;
+                              print(widget.data);
+                              Navigator.push(
                                 context,
                                 PageTransition(
-                                    type: PageTransitionType.rightToLeft,
-                                    child: AchatCreditPassword(
-                                        parentcontext: context,
-                                        data: widget.data)));
+                                  type: PageTransitionType.rightToLeft,
+                                  child: AchatCreditPassword(
+                                      parentcontext: context,
+                                      data: widget.data),
+                                ),
+                              );
+                            }
                           },
                           child: Text(
                             "${AppLocalizations.of(context)!.translate('suivant')}",

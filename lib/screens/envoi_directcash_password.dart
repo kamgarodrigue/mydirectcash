@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mydirectcash/Models/DetailTransaction.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
@@ -162,10 +163,18 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                       margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.number,
-                        // initialValue: widget.dataTransaction!.pass,
+                        inputFormatters: [
+                          FilteringTextInputFormatter
+                              .digitsOnly, // Allow only digits
+                          LengthLimitingTextInputFormatter(
+                              4), // Limit input to 4 digits
+                        ],
                         onChanged: (value) {
+                          if (value.length > 4) {
+                            return; // Prevents excessive input
+                          }
                           setState(() {
-                            widget.data?['Direct_Code'] = value;
+                            widget.data?['secret'] = value;
                           });
                         },
                         obscureText: _isOscure1,
@@ -173,31 +182,32 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                             fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _isOscure1
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                size: 16,
-                              ),
-                              onPressed: () => togle1(),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isOscure1
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              size: 16,
                             ),
-                            hintText: AppLocalizations.of(context)!
-                                .translate("code secret")!,
-                            hintStyle: TextStyle(
-                                fontFamily: content_font,
-                                color: Colors.grey.shade500,
-                                fontSize: 13)),
+                            onPressed: () => togle1(),
+                          ),
+                          hintText: AppLocalizations.of(context)!
+                              .translate("code secret")!,
+                          hintStyle: TextStyle(
+                              fontFamily: content_font,
+                              color: Colors.grey.shade500,
+                              fontSize: 13),
+                        ),
                       )),
+                  const SizedBox(height: 5),
                   Text(
-                    widget.dataTransaction!.pIN!.length < 4 ||
-                            widget.dataTransaction!.pIN!.length > 4
+                    widget.data!['secret'].toString().length < 4
                         ? "le code doit comprendre 4 chiffre"
                         : "",
                     style: const TextStyle(
                         fontFamily: content_font,
                         color: Color.fromARGB(255, 245, 49, 49),
-                        fontSize: 10),
+                        fontSize: 12),
                   ),
                   const SizedBox(
                     height: 20,
@@ -246,12 +256,14 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 50)),
                               onPressed: () {
+                                print(widget.data);
                                 setState(() {
                                   _isLoading = true;
                                 });
                                 TransactonService()
                                     .transfertByDirectcash(widget.data)
                                     .then((value) {
+                                  print(value);
                                   setState(() {
                                     _isLoading = false;
                                   });
@@ -269,7 +281,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                         Navigator.pop(context);
                                       },
                                     );
-                                  } else if (value["message"] == "Succes") {
+                                  } else if (value["code"] == 200) {
                                     DialogWidget.success(
                                       context,
                                       title: value["message"],

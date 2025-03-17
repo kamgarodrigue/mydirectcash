@@ -56,10 +56,10 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
     "vRate": 0.0,
     "vFromNumber": "",
     "vToNumber": "",
-    "Direct_Code": "",
     "vCNI": " ",
     "vPIN": "",
     "vrxtype": "",
+    "secret": "",
   };
 
   @override

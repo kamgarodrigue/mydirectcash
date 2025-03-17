@@ -28,8 +28,8 @@ class _AchatDeCreditSelectionPageState
     "vCNI": " ",
     "vPIN": "",
     "vreseau": "",
-    "trxTYPE": "",
-    "opType": ""
+    // "trxTYPE": "",
+    "opType": "airtime"
   };
 
   @override
@@ -165,14 +165,14 @@ class _AchatDeCreditSelectionPageState
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               customLangButton(() {
-                                setState(() {
-                                  data["trxTYPE"] = "13";
-                                });
+                                // setState(() {
+                                //   data["trxTYPE"] = "13";
+                                // });
                               },
                                   "assets/svg/local.svg",
                                   0,
                                   AchatCreditauther(
-                                    data: {},
+                                    data: data,
                                   )),
                               const SizedBox(
                                 height: 10,
@@ -192,9 +192,9 @@ class _AchatDeCreditSelectionPageState
                             children: [
                               customLangButton(
                                 () {
-                                setState(() {
-                                  data["trxTYPE"] = "14";
-                                });
+                                // setState(() {
+                                //   data["trxTYPE"] = "14";
+                                // });
                               },
                                   "assets/svg/world.svg", 1, AchatCredit()),
                               const SizedBox(

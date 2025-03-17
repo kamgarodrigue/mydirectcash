@@ -22,18 +22,25 @@ class RetraitValidation extends StatefulWidget {
 class _RetraitValidationState extends State<RetraitValidation> {
   bool _isLoading = false;
   bool _isOscure = true;
+  bool _isOscure2 = true;
 
   void togle() {
     setState(() {
       _isOscure = !_isOscure;
     });
   }
+  void togle2() {
+    setState(() {
+      _isOscure2 = !_isOscure2;
+    });
+  }
 
   Map data = {
     "vClientID": "",
     "vPIN": "",
-    "vTRXID": "",
     "vTO_NUMBER": "",
+    "vTRXID": "",
+    "secret": "",
   };
 
   @override
@@ -144,7 +151,7 @@ class _RetraitValidationState extends State<RetraitValidation> {
                           '${AppLocalizations.of(context)!.translate("frais de")} '
                           '${widget.retrait?["Rate"]} XAF. '
                           '${AppLocalizations.of(context)!.translate("Montant total à débiter")} '
-                          '${double.parse(widget.retrait!["Rate"].toString()) + double.parse(widget.retrait!["Amount"].toString())} XAF.',
+                          '${double.parse(widget.retrait!["Amount"].toString())} XAF.',
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               fontSize: 12.5,
@@ -157,6 +164,38 @@ class _RetraitValidationState extends State<RetraitValidation> {
                   const SizedBox(
                     height: 20,
                   ),
+                  Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      child: TextFormField(
+                        keyboardType: TextInputType.text,
+                        // initialValue: widget.dataTransaction!.pass,
+                        onChanged: (value) {
+                          setState(() {
+                            data["secret"] = value;
+                          });
+                        },
+                        obscureText: _isOscure2,
+                        style: const TextStyle(
+                            fontFamily: content_font, fontSize: 13),
+                        textAlign: TextAlign.start,
+                        decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isOscure2
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                size: 16,
+                              ),
+                              onPressed: () => togle2(),
+                            ),
+                            hintText: AppLocalizations.of(context)!
+                                .translate("code secret")!,
+                            hintStyle: TextStyle(
+                                fontFamily: content_font,
+                                color: Colors.grey.shade500,
+                                fontSize: 13)),
+                      )),
+                  const SizedBox(height: 10),
                   Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
@@ -210,6 +249,7 @@ class _RetraitValidationState extends State<RetraitValidation> {
                                       widget.retrait?["ToNumber"];
                                   _isLoading = true;
                                 });
+                                print(data);
                                 TransactonService()
                                     .retraitDirectcash(data)
                                     .then((value) {
@@ -234,7 +274,6 @@ class _RetraitValidationState extends State<RetraitValidation> {
                                         }
                                       },
                                     );
-                                  
                                   } else if (value["code"] == 200) {
                                     DialogWidget.success(
                                       context,
@@ -242,8 +281,12 @@ class _RetraitValidationState extends State<RetraitValidation> {
                                       content: value['data']['message'],
                                       color: greenColor,
                                       callback: () {
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
+                                       if (Navigator.canPop(context)) {
+                                          Navigator.pop(context);
+                                          if (Navigator.canPop(context)) {
+                                            Navigator.pop(context);
+                                          }
+                                        }
                                       },
                                     );
                                   } else if (value["code"] == 400) {
