@@ -378,7 +378,7 @@ class _LoginState extends StateMVC<Login> {
                                                   Overlay.of(context),
                                                   CustomSnackBar.error(
                                                     message:
-                                                        "${AppLocalizations.of(context)!.translate('errorlogin')}",
+                                                       "Erreur interne du serveur.",
                                                   ),
                                                 );
                                               });
