@@ -304,6 +304,7 @@ aCollector.swift:0:7
     formData.files.addAll(files);
     print(formData.fields.toString());
     try {
+      print(formData.fields);
       final response = await dio().post(
         'https://apibackoffice.alliancefinancialsa.com/registerWithKyc', // Remplacez par votre URL d'API
         data: formData,
