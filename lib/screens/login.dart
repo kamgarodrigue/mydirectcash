@@ -249,7 +249,7 @@ class _LoginState extends StateMVC<Login> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 25),
                                     child: TextFormField(
-                                      keyboardType: TextInputType.text,
+                                      keyboardType: TextInputType.number,
                                       initialValue: creds['vpass'],
                                       onChanged: (value) {
                                         creds['vpass'] = value;
