@@ -47,7 +47,6 @@ class _SignUpScreenState extends State<Register> {
     "Phone": "",
     "Photo": "",
     "Email": "",
-    "contact": "",
     "sexe": "",
     "pays": "",
     "code": "",
@@ -448,80 +447,108 @@ class _SignUpScreenState extends State<Register> {
                                     Form(
                                       key: _formKey1,
                                       child: Column(children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(0),
-                                          child: InternationalPhoneNumberInput(
-                                            onInputChanged:
-                                                (PhoneNumber number) {
-                                              String phoneWithoutCode = number
-                                                      .phoneNumber
-                                                      ?.replaceFirst(
-                                                          number.dialCode ?? '',
-                                                          '') ??
-                                                  '';
-                                              print(
-                                                  phoneWithoutCode); // Prints number without ISO code
-                                              setState(() {
-                                                dataUser["Phone"] =
-                                                    phoneWithoutCode;
-                                              });
+                                        // Padding(
+                                        //   padding: const EdgeInsets.all(0),
+                                        //   child: InternationalPhoneNumberInput(
+                                        //     onInputChanged:
+                                        //         (PhoneNumber number) {
+                                             
+                                        //       setState(() {
+                                        //         dataUser["Phone"] =
+                                        //             number.phoneNumber;
+                                        //       });
+                                        //     },
+                                        //     onInputValidated: (bool isValid) {
+                                        //       print(isValid);
+                                        //     },
+                                        //     selectorConfig:
+                                        //         const SelectorConfig(
+                                        //       selectorType:
+                                        //           PhoneInputSelectorType
+                                        //               .DROPDOWN,
+                                        //       setSelectorButtonAsPrefixIcon:
+                                        //           true,
+                                        //       leadingPadding: 0.0,
+                                        //       showFlags: false,
+                                        //       useEmoji: true,
+                                        //     ),
+                                        //     ignoreBlank: false,
+                                        //     autoValidateMode:
+                                        //         AutovalidateMode.disabled,
+                                        //     selectorTextStyle: const TextStyle(
+                                        //         color: Colors.black),
+                                        //     initialValue: number,
+                                        //     textFieldController:
+                                        //         _phonecontroller,
+                                        //     formatInput: false,
+                                        //     keyboardType: const TextInputType
+                                        //         .numberWithOptions(
+                                        //         signed: true, decimal: true),
+                                        //     inputDecoration: InputDecoration(
+                                        //       focusedBorder:
+                                        //           UnderlineInputBorder(
+                                        //         borderSide: BorderSide(
+                                        //           color: blueColor,
+                                        //           width: 2,
+                                        //         ),
+                                        //       ),
+                                        //       hintText:
+                                        //           "${AppLocalizations.of(context)!.translate('Phone')}",
+                                        //       hintStyle: TextStyle(
+                                        //         fontFamily: content_font,
+                                        //         color: Colors.grey.shade500,
+                                        //         fontSize: 14,
+                                        //       ),
+                                        //     ),
+                                        //     onSaved: (PhoneNumber number) {
+                                        //       String phoneWithoutCode = number
+                                        //               .phoneNumber
+                                        //               ?.replaceFirst(
+                                        //                   number.dialCode ?? '',
+                                        //                   '') ??
+                                        //           '';
+                                        //       print(
+                                        //           'On Saved: $phoneWithoutCode'); // Saves number without ISO code
+                                        //       setState(() {
+                                        //         dataUser["Phone"] =
+                                        //             phoneWithoutCode;
+                                        //       });
+                                        //     },
+                                        //   ),
+                                        // ),
+                                         
+                                         Container(
+                                          margin: EdgeInsets.only(top: 10),
+                                          child: TextFormField(
+                                            keyboardType: TextInputType.number,
+                                            initialValue:  dataUser["Phone"],
+                                            onChanged: (val) {
+                                              dataUser["Phone"] = val;
                                             },
-                                            onInputValidated: (bool isValid) {
-                                              print(isValid);
+                                            validator: (value) {
+                                              if (value!.trim().isEmpty) {
+                                                return "${AppLocalizations.of(context)!.translate('Phone')} *";
+                                              }
                                             },
-                                            selectorConfig:
-                                                const SelectorConfig(
-                                              selectorType:
-                                                  PhoneInputSelectorType
-                                                      .DROPDOWN,
-                                              setSelectorButtonAsPrefixIcon:
-                                                  true,
-                                              leadingPadding: 0.0,
-                                              showFlags: false,
-                                              useEmoji: true,
+                                            style: TextStyle(
+                                              fontFamily: content_font,
+                                              fontSize: 14,
                                             ),
-                                            ignoreBlank: false,
-                                            autoValidateMode:
-                                                AutovalidateMode.disabled,
-                                            selectorTextStyle: const TextStyle(
-                                                color: Colors.black),
-                                            initialValue: number,
-                                            textFieldController:
-                                                _phonecontroller,
-                                            formatInput: false,
-                                            keyboardType: const TextInputType
-                                                .numberWithOptions(
-                                                signed: true, decimal: true),
-                                            inputDecoration: InputDecoration(
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: blueColor,
-                                                  width: 2,
+                                            textAlign: TextAlign.start,
+                                            cursorColor: blueColor,
+                                            decoration: InputDecoration(
+                                                focusedBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: blueColor,
+                                                      width: 2),
                                                 ),
-                                              ),
-                                              hintText:
-                                                  "${AppLocalizations.of(context)!.translate('Phone')}",
-                                              hintStyle: TextStyle(
-                                                fontFamily: content_font,
-                                                color: Colors.grey.shade500,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                            onSaved: (PhoneNumber number) {
-                                              String phoneWithoutCode = number
-                                                      .phoneNumber
-                                                      ?.replaceFirst(
-                                                          number.dialCode ?? '',
-                                                          '') ??
-                                                  '';
-                                              print(
-                                                  'On Saved: $phoneWithoutCode'); // Saves number without ISO code
-                                              setState(() {
-                                                dataUser["Phone"] =
-                                                    phoneWithoutCode;
-                                              });
-                                            },
+                                                hintText:
+                                                    "${AppLocalizations.of(context)!.translate('name')} *",
+                                                hintStyle: TextStyle(
+                                                    fontFamily: content_font,
+                                                    color: Colors.grey.shade500,
+                                                    fontSize: 14)),
                                           ),
                                         ),
                                         Container(
@@ -674,6 +701,7 @@ class _SignUpScreenState extends State<Register> {
                                                   fontSize: 14,
                                                 ),
                                                 textAlign: TextAlign.start,
+                                                initialValue:  dataUser["registre"],
                                                 onChanged: (val) {
                                                   setState(() =>
                                                       dataUser["registre"] =
@@ -1644,6 +1672,7 @@ class _SignUpScreenState extends State<Register> {
                                                     fontFamily: content_font,
                                                     fontSize: 14),
                                                 textAlign: TextAlign.start,
+                                                initialValue:  dataUser["CNI1"],
                                                 onChanged: (val) {
                                                   setState(() {
                                                     dataUser["CNI1"] = val;
