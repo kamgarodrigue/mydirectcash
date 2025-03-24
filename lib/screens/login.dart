@@ -1,17 +1,12 @@
-import 'package:country_list_pick/country_list_pick.dart';
-import 'package:country_list_pick/country_selection_theme.dart';
-import 'package:country_list_pick/support/code_country.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:local_auth_darwin/types/auth_messages_ios.dart';
 import 'package:mydirectcash/Controllers/Authcontroller.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/Resset_Password_Verification.dart';
 import 'package:mydirectcash/screens/ValidateAccount.dart';
-import 'package:mydirectcash/screens/carousel_page.dart';
-import 'package:mydirectcash/screens/code_entry.dart';
-import 'package:mydirectcash/screens/home.dart';
 import 'package:mydirectcash/screens/register.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
@@ -37,8 +32,12 @@ class _LoginState extends StateMVC<Login> {
   _LoginState() : super(Authcontroller()) {
     _con = Authcontroller.authController;
   }
+  final TextEditingController _phonecontroller = TextEditingController();
+
   Authcontroller? _con;
   bool isRegister = false;
+  PhoneNumber number = PhoneNumber(isoCode: 'CM', phoneNumber: '');
+
   setRegister() {
     setState(() {
       isRegister = !isRegister;
@@ -54,14 +53,6 @@ class _LoginState extends StateMVC<Login> {
   }
 
   bool _isLoading = false;
-  // Map creds = {'id': "33662044955", 'pass': "123456"};
-  // Map creds = {'id': "", 'pass': ""};
-  // completeidAndPass(String id, String pass) {
-  //   setState(() {
-  //     creds['id'] = id;
-  //     creds['pass'] = pass;
-  //   });
-  // }
 
   Map creds = {'id': "", 'vpass': "", 'deviceid': " "};
   completeidAndPass(String id, String pass) {
@@ -150,35 +141,70 @@ class _LoginState extends StateMVC<Login> {
                             key: _keyform,
                             child: Column(
                               children: [
-                                Container(
-                                    margin: const EdgeInsets.only(top: 20),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 25),
-                                    child: TextFormField(
-                                      keyboardType: TextInputType.number,
-                                      initialValue: creds['id'],
-                                      onChanged: (value) {
-                                        creds['id'] = value;
-                                      },
-                                      style: const TextStyle(
-                                          fontFamily: content_font,
-                                          fontSize: 14),
-                                      textAlign: TextAlign.start,
-                                      cursorColor: blueColor,
-                                      decoration: InputDecoration(
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: blueColor,
-                                              width: 2,
-                                            ),
-                                          ),
-                                          hintText:
-                                              "${AppLocalizations.of(context)!.translate('Phone')}",
-                                          hintStyle: TextStyle(
-                                              fontFamily: content_font,
-                                              color: Colors.grey.shade500,
-                                              fontSize: 14)),
-                                    )),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 25),
+                                  child: InternationalPhoneNumberInput(
+                                    onInputChanged: (PhoneNumber number) {
+                                      String phoneWithoutCode =
+                                          number.phoneNumber?.replaceFirst(
+                                                  number.dialCode ?? '', '') ??
+                                              '';
+                                      print(
+                                          phoneWithoutCode); // Prints number without ISO code
+                                      setState(() {
+                                        creds['id'] = phoneWithoutCode;
+                                      });
+                                    },
+                                    onInputValidated: (bool isValid) {
+                                      print(isValid);
+                                    },
+                                    selectorConfig: const SelectorConfig(
+                                      selectorType:
+                                          PhoneInputSelectorType.DROPDOWN,
+                                      setSelectorButtonAsPrefixIcon: true,
+                                      leadingPadding: 0.0,
+                                      showFlags: false,
+                                      useEmoji: true,
+                                    ),
+                                    ignoreBlank: false,
+                                    autoValidateMode: AutovalidateMode.disabled,
+                                    selectorTextStyle:
+                                        const TextStyle(color: Colors.black),
+                                    initialValue: number,
+                                    textFieldController: _phonecontroller,
+                                    formatInput: false,
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            signed: true, decimal: true),
+                                    inputDecoration: InputDecoration(
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: blueColor,
+                                          width: 2,
+                                        ),
+                                      ),
+                                      hintText:
+                                          "${AppLocalizations.of(context)!.translate('Phone')}",
+                                      hintStyle: TextStyle(
+                                        fontFamily: content_font,
+                                        color: Colors.grey.shade500,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    onSaved: (PhoneNumber number) {
+                                      String phoneWithoutCode =
+                                          number.phoneNumber?.replaceFirst(
+                                                  number.dialCode ?? '', '') ??
+                                              '';
+                                      print(
+                                          'On Saved: $phoneWithoutCode'); // Saves number without ISO code
+                                      setState(() {
+                                        creds['id'] = phoneWithoutCode;
+                                      });
+                                    },
+                                  ),
+                                ),
                                 // Container(
                                 //     margin: const EdgeInsets.only(top: 20),
                                 //     padding: const EdgeInsets.symmetric(
@@ -269,7 +295,7 @@ class _LoginState extends StateMVC<Login> {
                                                 type: PageTransitionType
                                                     .rightToLeft,
                                                 child:
-                                                    Resset_Password_Verification()));
+                                                    const Resset_Password_Verification()));
 
                                         /* Navigator.push(
                               context,
@@ -303,6 +329,7 @@ class _LoginState extends StateMVC<Login> {
                                                     const EdgeInsets.symmetric(
                                                         horizontal: 50)),
                                             onPressed: () {
+                                              // print(creds);
                                               print(
                                                   "${AppLocalizations.of(context)!.translate('login')}");
                                               setState(() {
@@ -376,9 +403,9 @@ class _LoginState extends StateMVC<Login> {
                                                 });
                                                 showTopSnackBar(
                                                   Overlay.of(context),
-                                                  CustomSnackBar.error(
+                                                  const CustomSnackBar.error(
                                                     message:
-                                                       "Erreur interne du serveur.",
+                                                        "Erreur interne du serveur.",
                                                   ),
                                                 );
                                               });

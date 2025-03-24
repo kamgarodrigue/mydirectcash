@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
     super.initState();
     context.read<AuthService>().authenticate;
     solde = context.read<AuthService>().solde.toString();
-    reset();
+    // reset();
     //context.read<AuthService>().setconversion(0);
     //  context.read<Localisation>().initLocation();
   }
@@ -85,6 +85,7 @@ class _HomeState extends State<Home> {
     setconversion(0);
     context.read<AuthService>().authenticate;
     String? id = context.read<AuthService>().currentUser!.data!.phone;
+    print(id);
     AuthService().loginWithBiometric(id).then((value) {
       setState(() {
         solde = value["data"]["solde"].toString();

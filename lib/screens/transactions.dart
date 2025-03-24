@@ -31,74 +31,8 @@ class _TransactionsState extends State<Transactions> {
 
   bool payementModule = false;
 
-/*List<Map> transactions = [
-    {
-      'title': 'Dépôt OM',
-      'destinataire': 'De TALLA jean (6 55 ** ** **)',
-      'stringPrice': '20 000,0 XAF',
-      'stringDate': 'Lun 22/05/21 - 15:20',
-      'stringSolde': 'Solde : 15 000,0 XAF',
-    },
-    {
-      'title': 'Dépôt OM',
-      'destinataire': 'De TALLA jean (6 55 ** ** **)',
-      'stringPrice': '20 000,0 XAF',
-      'stringDate': 'Lun 22/05/21 - 15:20',
-      'stringSolde': 'Solde : 15 000,0 XAF'
-    },
-    {
-      'title': 'Dépôt OM',
-      'destinataire': 'De TALLA jean (6 55 ** ** **)',
-      'stringPrice': '20 000,0 XAF',
-      'stringDate': 'Lun 22/05/21 - 15:20',
-      'stringSolde': 'Solde : 15 000,0 XAF'
-    },
-    {
-      'title': 'Dépôt OM',
-      'destinataire': 'De TALLA jean (6 55 ** ** **)',
-      'stringPrice': '20 000,0 XAF',
-      'stringDate': 'Lun 22/05/21 - 15:20',
-      'stringSolde': 'Solde : 15 000,0 XAF'
-    },
-    {
-      'title': 'Dépôt OM',
-      'destinataire': 'De TALLA jean (6 55 ** ** **)',
-      'stringPrice': '20 000,0 XAF',
-      'stringDate': 'Lun 22/05/21 - 15:20',
-      'stringSolde': 'Solde : 15 000,0 XAF'
-    },
-    {
-      'title': 'Dépôt OM',
-      'destinataire': 'De TALLA jean (6 55 ** ** **)',
-      'stringPrice': '20 000,0 XAF',
-      'stringDate': 'Lun 22/05/21 - 15:20',
-      'stringSolde': 'Solde : 15 000,0 XAF'
-    },
-    {
-      'title': 'Dépôt OM',
-      'destinataire': 'De TALLA jean (6 55 ** ** **)',
-      'stringPrice': '20 000,0 XAF',
-      'stringDate': 'Lun 22/05/21 - 15:20',
-      'stringSolde': 'Solde : 15 000,0 XAF'
-    },
-    {
-      'title': 'Dépôt OM',
-      'destinataire': 'De TALLA jean (6 55 ** ** **)',
-      'stringPrice': '20 000,0 XAF',
-      'stringDate': 'Lun 22/05/21 - 15:20',
-      'stringSolde': 'Solde : 15 000,0 XAF'
-    },
-    {
-      'title': 'Dépôt OM',
-      'destinataire': 'De TALLA jean (6 55 ** ** **)',
-      'stringPrice': '20 000,0 XAF',
-      'stringDate': 'Lun 22/05/21 - 15:20',
-      'stringSolde': 'Solde : 15 000,0 XAF'
-    },
-  ];*/
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<TransactonService>().getHistory(widget.phone);
   }
@@ -126,7 +60,8 @@ class _TransactionsState extends State<Transactions> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

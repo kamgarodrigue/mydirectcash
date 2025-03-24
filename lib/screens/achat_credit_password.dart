@@ -207,14 +207,40 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                                   setState(() {
                                     _isLoading = false;
                                   });
-                                 
-                                  // DialogWidget.success(context,
-                                  //     title: "Succes !",
-                                  //     content: "crédit envoyé avec succes",
-                                  //     color: greenColor, callback: () {
-                                  //   Navigator.pop(context);
-                                  //   Navigator.pop(widget.parentcontext);
-                                  // });
+                                  if (value["message"] ==
+                                      "Mot de passe ou PIN incorrect.") {
+                                    DialogWidget.success(
+                                      context,
+                                      title: "",
+                                      content: value['message'],
+                                      color: errorColor,
+                                      callback: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  } else if (value['message'] ==
+                                      "Erreur interne du serveur lors de l'appel de la procédure stockée.") {
+                                    DialogWidget.success(
+                                      context,
+                                      title: AppLocalizations.of(context)!
+                                          .translate("erreur")!,
+                                      content: value["message"],
+                                      color: errorColor,
+                                      callback: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  } else if (value["code"] == 200) {
+                                    DialogWidget.success(
+                                      context,
+                                      title: value["message"],
+                                      content: '',
+                                      color: greenColor,
+                                      callback: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  }
                                 }).catchError((error) {
                                   setState(() {
                                     _isLoading = false;

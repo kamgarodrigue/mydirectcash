@@ -76,8 +76,9 @@ class TransactonService extends ChangeNotifier {
   }
 
   Future achatCredit(Map? data) async {
-    Dio.Response response =
-        await dio().post("https://apibackoffice.alliancefinancialsa.com/cashin_topup", data: data);
+    Dio.Response response = await dio().post(
+        "https://apibackoffice.alliancefinancialsa.com/cashin_topup",
+        data: data);
     return response.data;
   }
 
