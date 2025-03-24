@@ -143,9 +143,24 @@ class _SignUpScreenState extends State<Register> {
       setState(() {
         _dateController.text =
             "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
-        _cniDateController.text =
-            "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
+   
         dataUser["dateNaissance"] = _dateController.text;
+      });
+    }
+  }
+  Future<void> _selectCNIDate(BuildContext context) async {
+    DateTime? pickedCNIDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedCNIDate != null) {
+      setState(() {
+        
+        _cniDateController.text =
+            "${pickedCNIDate.day}-${pickedCNIDate.month}-${pickedCNIDate.year}";
         dataUser["CNIExpiration"] = _cniDateController.text;
       });
     }
@@ -992,7 +1007,6 @@ class _SignUpScreenState extends State<Register> {
                                                     setState(() {
                                                       dataUser["pays"] = countryName.trim();
                                                     });
-                                                    print(countryName.trim());
                                                   },
                                                 ),
                                                 // TextFormField(
@@ -1665,7 +1679,7 @@ class _SignUpScreenState extends State<Register> {
                                                 // initialValue: dataUser["dateNaissance"],
                                                 readOnly: true,
                                                 onTap: () =>
-                                                    _selectDate(context),
+                                                    _selectCNIDate(context),
                                                 onChanged: (val) {
                                                   dataUser["CNIExpiration"] =
                                                       val;
