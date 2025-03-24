@@ -167,13 +167,19 @@ class _PayementMarchandState extends State<PayementMarchand> {
                               });
                             },
                             style: const TextStyle(
-                                fontFamily: content_font, fontSize: 13),
+                                fontFamily: content_font, fontSize: 14),
                             textAlign: TextAlign.start,
                             decoration: InputDecoration(
                                 // suffixIcon: IconButton(
                                 // onPressed: () => scan(),
                                 // icon: Icon(Icons.qr_code_scanner,
                                 //  size: 17, color: Colors.blue)),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: blueColor,
+                                    width: 2,
+                                  ),
+                                ),
                                 hintText: data["vMerchantCode"] == ""
                                     ? AppLocalizations.of(context)!.translate(
                                         "Entrez le code de la caisse")!
@@ -181,77 +187,108 @@ class _PayementMarchandState extends State<PayementMarchand> {
                                 hintStyle: TextStyle(
                                     fontFamily: content_font,
                                     color: Colors.grey.shade500,
-                                    fontSize: 13)),
+                                    fontSize: 14)),
                           )),
                       const SizedBox(height: 5),
-                      Padding(
-                        padding: const EdgeInsets.all(0),
-                        child: InternationalPhoneNumberInput(
-                          onInputChanged: (PhoneNumber number) {
-                            print(number.phoneNumber);
-                            setState(() {
-                              data["vToNumber"] = number.phoneNumber;
-                            });
-                          },
-                          onInputValidated: (bool isValid) {
-                            print(isValid);
-                          },
-                          selectorConfig: const SelectorConfig(
-                            selectorType: PhoneInputSelectorType.DROPDOWN,
-                            setSelectorButtonAsPrefixIcon: true,
-                            leadingPadding: 0.0,
-                            showFlags: false,
-                            useEmoji: true,
-                          ),
-                          ignoreBlank: false,
-                          autoValidateMode: AutovalidateMode.disabled,
-                          selectorTextStyle:
-                              const TextStyle(color: Colors.black),
-                          initialValue: number,
-                          textFieldController: _controller,
-                          formatInput: false,
-                          keyboardType: const TextInputType.numberWithOptions(
-                              signed: true, decimal: true),
-                          inputDecoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: blueColor,
-                                width: 2,
-                              ),
-                            ),
-                            hintText:
-                                "${AppLocalizations.of(context)!.translate('Phone')}",
-                            hintStyle: TextStyle(
-                                fontFamily: content_font,
-                                color: Colors.grey.shade500,
-                                fontSize: 14),
-                          ),
-                          onSaved: (PhoneNumber number) {
-                            print('On Saved: $number');
-                            setState(
-                              () {
-                                data["vToNumber"] = number.phoneNumber;
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                     
+                      // Padding(
+                      //   padding: const EdgeInsets.all(0),
+                      //   child: InternationalPhoneNumberInput(
+                      //     onInputChanged: (PhoneNumber number) {
+                      //       print(number.phoneNumber);
+                      //       setState(() {
+                      //         data["vToNumber"] = number.phoneNumber;
+                      //       });
+                      //     },
+                      //     onInputValidated: (bool isValid) {
+                      //       print(isValid);
+                      //     },
+                      //     selectorConfig: const SelectorConfig(
+                      //       selectorType: PhoneInputSelectorType.DROPDOWN,
+                      //       setSelectorButtonAsPrefixIcon: true,
+                      //       leadingPadding: 0.0,
+                      //       showFlags: false,
+                      //       useEmoji: true,
+                      //     ),
+                      //     ignoreBlank: false,
+                      //     autoValidateMode: AutovalidateMode.disabled,
+                      //     selectorTextStyle:
+                      //         const TextStyle(color: Colors.black),
+                      //     initialValue: number,
+                      //     textFieldController: _controller,
+                      //     formatInput: false,
+                      //     keyboardType: const TextInputType.numberWithOptions(
+                      //         signed: true, decimal: true),
+                      //     inputDecoration: InputDecoration(
+                      //       focusedBorder: UnderlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //           color: blueColor,
+                      //           width: 2,
+                      //         ),
+                      //       ),
+                      //       hintText:
+                      //           "${AppLocalizations.of(context)!.translate('Phone')}",
+                      //       hintStyle: TextStyle(
+                      //           fontFamily: content_font,
+                      //           color: Colors.grey.shade500,
+                      //           fontSize: 14),
+                      //     ),
+                      //     onSaved: (PhoneNumber number) {
+                      //       print('On Saved: $number');
+                      //       setState(
+                      //         () {
+                      //           data["vToNumber"] = number.phoneNumber;
+                      //         },
+                      //       );
+                      //     },
+                      //   ),
+                      // ),
+                      
+                      Container(
+                          margin: const EdgeInsets.only(top: 5),
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            onChanged: (value) {
+                              setState(() {
+                                data["vToNumber"] = value;
+                              });
+                            },
+                            style: const TextStyle(
+                                fontFamily: content_font, fontSize: 14),
+                            textAlign: TextAlign.start,
+                            decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: blueColor,
+                                    width: 2,
+                                  ),
+                                ),
+                                hintText:
+                                    "${AppLocalizations.of(context)!.translate('Phone')}",
+                                hintStyle: TextStyle(
+                                    fontFamily: content_font,
+                                    color: Colors.grey.shade500,
+                                    fontSize: 14)),
+                          )),
                       const SizedBox(height: 5),
                       Container(
                           margin: const EdgeInsets.only(top: 5),
                           child: TextFormField(
                             keyboardType: TextInputType.number,
-                            // initialValue: "${data["vAmount"]}",
                             onChanged: (value) {
                               setState(() {
-                                data["vAmount"] = value;
+                                data["vToNumber"]  = value;
                               });
                             },
                             style: const TextStyle(
                                 fontFamily: content_font, fontSize: 13),
                             textAlign: TextAlign.start,
                             decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: blueColor,
+                                    width: 2,
+                                  ),
+                                ),
                                 hintText: data["vAmount"] == 0
                                     ? AppLocalizations.of(context)!
                                         .translate("Saisire montant")!

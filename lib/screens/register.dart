@@ -67,6 +67,7 @@ class _SignUpScreenState extends State<Register> {
   XFile? carteV = XFile(" ");
   XFile? passeport = XFile(" ");
   XFile? profile = XFile(" ");
+  
   Future<void> getcarteR() async {
     final ImagePicker picker = ImagePicker();
     final response = await picker.pickImage(source: ImageSource.gallery);
@@ -446,7 +447,7 @@ class _SignUpScreenState extends State<Register> {
                                               print(
                                                   phoneWithoutCode); // Prints number without ISO code
                                               setState(() {
-                                            dataUser["Phone"] =
+                                                dataUser["Phone"] =
                                                     phoneWithoutCode;
                                               });
                                             },
@@ -507,7 +508,6 @@ class _SignUpScreenState extends State<Register> {
                                               });
                                             },
                                           ),
-                                        
                                         ),
                                         Container(
                                           margin: EdgeInsets.only(top: 10),
@@ -981,10 +981,18 @@ class _SignUpScreenState extends State<Register> {
                                                           color: Colors.black,
                                                           fontSize: 14),
                                                   onCountryChanged: (value) {
+                                                      String countryName =
+                                                        value.contains(' ')
+                                                            ? value
+                                                                .split(' ')
+                                                                .sublist(1)
+                                                                .join(' ')
+                                                            : value;
+
                                                     setState(() {
-                                                      dataUser["pays"] =
-                                                          value.toString();
+                                                      dataUser["pays"] = countryName.trim();
                                                     });
+                                                    print(countryName.trim());
                                                   },
                                                 ),
                                                 // TextFormField(
@@ -1817,9 +1825,6 @@ class _SignUpScreenState extends State<Register> {
                                                                     null) ||
                                                             passeport != null;
 
-                                                        print(passeport!.path);
-                                                        print(carteR!.path);
-                                                        print(carteV!.path);
                                                         print(dataUser);
 
                                                         if (image &&
