@@ -437,49 +437,45 @@ class _SignUpScreenState extends State<Register> {
                                           child: InternationalPhoneNumberInput(
                                             onInputChanged:
                                                 (PhoneNumber number) {
-                                              print(number.phoneNumber);
+                                              String phoneWithoutCode = number
+                                                      .phoneNumber
+                                                      ?.replaceFirst(
+                                                          number.dialCode ?? '',
+                                                          '') ??
+                                                  '';
+                                              print(
+                                                  phoneWithoutCode); // Prints number without ISO code
                                               setState(() {
-                                                dataUser["Phone"] =
-                                                    number.phoneNumber;
+                                            dataUser["Phone"] =
+                                                    phoneWithoutCode;
                                               });
-
-                                              ///  dataUser["Phone"]==number.phoneNumber;
-                                            },
-                                            validator: (value) {
-                                              if (value!.trim().isEmpty) {
-                                                return "Ajoutez un numero !";
-                                              }
-                                              if (value.length < 9 ||
-                                                  value.length > 14) {
-                                                return "Numero invalid !";
-                                              }
                                             },
                                             onInputValidated: (bool isValid) {
                                               print(isValid);
                                             },
-                                            selectorConfig: SelectorConfig(
+                                            selectorConfig:
+                                                const SelectorConfig(
                                               selectorType:
                                                   PhoneInputSelectorType
                                                       .DROPDOWN,
                                               setSelectorButtonAsPrefixIcon:
                                                   true,
-                                              leadingPadding: 8.0,
-                                              showFlags: true,
+                                              leadingPadding: 0.0,
+                                              showFlags: false,
                                               useEmoji: true,
                                             ),
                                             ignoreBlank: false,
                                             autoValidateMode:
                                                 AutovalidateMode.disabled,
-                                            selectorTextStyle:
-                                                TextStyle(color: Colors.black),
+                                            selectorTextStyle: const TextStyle(
+                                                color: Colors.black),
                                             initialValue: number,
                                             textFieldController:
                                                 _phonecontroller,
                                             formatInput: false,
-                                            keyboardType:
-                                                TextInputType.numberWithOptions(
-                                                    signed: true,
-                                                    decimal: true),
+                                            keyboardType: const TextInputType
+                                                .numberWithOptions(
+                                                signed: true, decimal: true),
                                             inputDecoration: InputDecoration(
                                               focusedBorder:
                                                   UnderlineInputBorder(
@@ -491,20 +487,27 @@ class _SignUpScreenState extends State<Register> {
                                               hintText:
                                                   "${AppLocalizations.of(context)!.translate('Phone')}",
                                               hintStyle: TextStyle(
-                                                  fontFamily: content_font,
-                                                  color: Colors.grey.shade500,
-                                                  fontSize: 14),
+                                                fontFamily: content_font,
+                                                color: Colors.grey.shade500,
+                                                fontSize: 14,
+                                              ),
                                             ),
                                             onSaved: (PhoneNumber number) {
-                                              print('On Saved: $number');
-                                              setState(
-                                                () {
-                                                  dataUser["Phone"] =
-                                                      number.phoneNumber;
-                                                },
-                                              );
+                                              String phoneWithoutCode = number
+                                                      .phoneNumber
+                                                      ?.replaceFirst(
+                                                          number.dialCode ?? '',
+                                                          '') ??
+                                                  '';
+                                              print(
+                                                  'On Saved: $phoneWithoutCode'); // Saves number without ISO code
+                                              setState(() {
+                                                dataUser["Phone"] =
+                                                    phoneWithoutCode;
+                                              });
                                             },
                                           ),
+                                        
                                         ),
                                         Container(
                                           margin: EdgeInsets.only(top: 10),
@@ -645,7 +648,8 @@ class _SignUpScreenState extends State<Register> {
                                         Container(
                                           margin: EdgeInsets.only(top: 10),
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               TextFormField(
                                                 keyboardType:
