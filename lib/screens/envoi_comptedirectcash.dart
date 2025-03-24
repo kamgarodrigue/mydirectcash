@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mydirectcash/Models/DetailTransaction.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
@@ -51,9 +52,11 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
   };
   Map? param;
   bool _isLoading = false;
+  PhoneNumber number = PhoneNumber(isoCode: 'CM', phoneNumber: '');
+  final TextEditingController _phonecontroller = TextEditingController();
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     context.read<AuthService>().authenticate;
@@ -203,6 +206,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                                               "Choisissez le pays de destination")!
                                           : "${code.name} ($code)";
                                       codeRegion = code.code!;
+                                      number = PhoneNumber(isoCode: codeRegion);
                                     });
                                   },
                                   useUiOverlay: true,
@@ -219,37 +223,55 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                     ),
                   ),
                   // if (codeRegion == "CM")
-                  Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                              keyboardType: TextInputType.number,
-                              // initialValue: data.toNumber,
-                              onChanged: (value) {
-                                setState(() {
-                                  data["vToNumber"] = value;
-                                });
-                              },
-                              style: const TextStyle(
-                                  fontFamily: content_font, fontSize: 13),
-                              textAlign: TextAlign.start,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: AppLocalizations.of(context)!
-                                      .translate(
-                                          "Saisissez le numéro bénéficiaire")!,
-                                  hintStyle: const TextStyle(
-                                      fontFamily: content_font,
-                                      color: Colors.grey,
-                                      fontSize: 13))),
-                          Divider(
-                            height: 1.5,
-                            color: blueColor,
-                          ),
-                        ],
-                      )),
-                  //  if (codeRegion == "CM")
+                  InternationalPhoneNumberInput(
+                    onInputChanged: (PhoneNumber number) {
+                      print(number.phoneNumber);
+                      setState(() {
+                        data["vToNumber"] = number.phoneNumber;
+                      });
+                    },
+                    onInputValidated: (bool isValid) {
+                      print(isValid);
+                    },
+                    selectorConfig: const SelectorConfig(
+                      selectorType: PhoneInputSelectorType.DROPDOWN,
+                      setSelectorButtonAsPrefixIcon: true,
+                      leadingPadding: 0.0,
+                      showFlags: true,
+                      useEmoji: true,
+                    ),
+                    ignoreBlank: false,
+                    autoValidateMode: AutovalidateMode.disabled,
+                    selectorTextStyle: const TextStyle(color: Colors.black),
+                    initialValue: number,
+                    textFieldController: _phonecontroller,
+                    formatInput: false,
+                    keyboardType: const TextInputType.numberWithOptions(
+                        signed: true, decimal: true),
+                    inputDecoration: InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: blueColor,
+                          width: 2,
+                        ),
+                      ),
+                      hintText:
+                          "${AppLocalizations.of(context)!.translate('Phone')}",
+                      hintStyle: TextStyle(
+                          fontFamily: content_font,
+                          color: Colors.grey.shade500,
+                          fontSize: 14),
+                    ),
+                    onSaved: (PhoneNumber number) {
+                      print('On Saved: $number');
+                      setState(
+                        () {
+                          data["vToNumber"] = number.phoneNumber;
+                        },
+                      );
+                    },
+                  ),
+
                   Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: Column(
@@ -301,9 +323,11 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                                     "transactionType": data['vrxtype'],
                                   };
                                 });
+                                print(param);
                                 TransactonService()
                                     .getDetailEnvoiDirectcash(param)
                                     .then((value) {
+                                  print(value);
                                   data['vFromNumber'] =
                                       autProvider.currentUser!.data!.phone;
                                   data["vClientID"] =

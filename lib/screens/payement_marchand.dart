@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/OperationServices.dart';
 import 'package:mydirectcash/app_localizations.dart';
@@ -34,6 +35,8 @@ class _PayementMarchandState extends State<PayementMarchand> {
   };
 
   String? agentName;
+  TextEditingController _controller = TextEditingController();
+  PhoneNumber number = PhoneNumber(isoCode: 'CM', phoneNumber: '');
 
   Future scan() async {
     setState(() {
@@ -181,29 +184,59 @@ class _PayementMarchandState extends State<PayementMarchand> {
                                     fontSize: 13)),
                           )),
                       const SizedBox(height: 5),
-                      Container(
-                          margin: const EdgeInsets.only(top: 5),
-                          child: TextFormField(
-                            keyboardType: TextInputType.text,
-                            initialValue: data["vToNumber"],
-                            onChanged: (value) {
-                              setState(() {
-                                data["vToNumber"] = value;
-                              });
-                            },
-                            style: const TextStyle(
-                                fontFamily: content_font, fontSize: 13),
-                            textAlign: TextAlign.start,
-                            decoration: InputDecoration(
-                                hintText: data["vToNumber"] == ""
-                                    ? AppLocalizations.of(context)!
-                                        .translate("Phone")!
-                                    : data["vToNumber"],
-                                hintStyle: TextStyle(
-                                    fontFamily: content_font,
-                                    color: Colors.grey.shade500,
-                                    fontSize: 13)),
-                          )),
+                      Padding(
+                        padding: const EdgeInsets.all(0),
+                        child: InternationalPhoneNumberInput(
+                          onInputChanged: (PhoneNumber number) {
+                            print(number.phoneNumber);
+                            setState(() {
+                              data["vToNumber"] = number.phoneNumber;
+                            });
+                          },
+                          onInputValidated: (bool isValid) {
+                            print(isValid);
+                          },
+                          selectorConfig: const SelectorConfig(
+                            selectorType: PhoneInputSelectorType.DROPDOWN,
+                            setSelectorButtonAsPrefixIcon: true,
+                            leadingPadding: 0.0,
+                            showFlags: false,
+                            useEmoji: true,
+                          ),
+                          ignoreBlank: false,
+                          autoValidateMode: AutovalidateMode.disabled,
+                          selectorTextStyle:
+                              const TextStyle(color: Colors.black),
+                          initialValue: number,
+                          textFieldController: _controller,
+                          formatInput: false,
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: true, decimal: true),
+                          inputDecoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: blueColor,
+                                width: 2,
+                              ),
+                            ),
+                            hintText:
+                                "${AppLocalizations.of(context)!.translate('Phone')}",
+                            hintStyle: TextStyle(
+                                fontFamily: content_font,
+                                color: Colors.grey.shade500,
+                                fontSize: 14),
+                          ),
+                          onSaved: (PhoneNumber number) {
+                            print('On Saved: $number');
+                            setState(
+                              () {
+                                data["vToNumber"] = number.phoneNumber;
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                     
                       const SizedBox(height: 5),
                       Container(
                           margin: const EdgeInsets.only(top: 5),
@@ -297,9 +330,8 @@ class _PayementMarchandState extends State<PayementMarchand> {
                                       });
                                       showTopSnackBar(
                                         Overlay.of(context),
-                                        CustomSnackBar.error(
-                                          message:
-                                              "${AppLocalizations.of(context)!.translate('veille')}",
+                                        const CustomSnackBar.error(
+                                          message: "Erreur interne",
                                         ),
                                       );
                                     });

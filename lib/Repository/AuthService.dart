@@ -96,29 +96,6 @@ class AuthService extends ChangeNotifier {
     return _istel;
   }
 
-  // Future login(Map credentials) async {
-  //   print(_isLoggedIn);
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-
-  //   Dio.Response response =
-  //       await dio().post("Authentication/Authenticate", data: credentials);
-  //   // print(response.toString());
-  //   print(response.data);
-  //   if (json.decode(response.toString())['Message'] == "Success") {
-  //     User user = User.fromJson(json.decode(response.toString())['Info']);
-  //     await pref.setString("user", response.toString());
-  //     await pref.setBool("open", true);
-  //     await pref.setString("tel", user.data!.phone!);
-  //     _isLoggedIn = true;
-  //     setconversion(0);
-  //     notifyListeners();
-  //   }
-
-  //   print(json.decode(response.toString()));
-
-  //   notifyListeners();
-  //   return json.decode(response.toString())['Message'];
-  // }
   Future login(Map credentials) async {
     print(
         "================================== credentials ============================================");
@@ -154,7 +131,7 @@ class AuthService extends ChangeNotifier {
     SharedPreferences pref = await SharedPreferences.getInstance();
     Dio.Response response = await dio().get(
         "https://apibackoffice.alliancefinancialsa.com/login-fingerprint?id=$id");
-    print(response.data['data']['solde']);
+    print(response.data);
     User user = User.getUser(response.data['data']);
     print(user.data?.toJson());
     await pref.setString("solde", user.data!.solde!);
@@ -165,18 +142,10 @@ class AuthService extends ChangeNotifier {
     return response.data;
   }
 
-/*
- User? userFrombd(User user) {
-    return user.data == null ? null : User(data: user.data);
-  }
-  static Stream<User>  utilisateur {
-    return auth.login(credentials).then(userFrombd);
-  } */
   Future register(Map user) async {
     Dio.Response response =
         await dio().post("Authentication/Register", data: user);
-    // print(response.toString());
-    // print(json.decode(response.toString())["Message"]);
+
     _isLoggedIn = true;
     notifyListeners();
     return json.decode(response.toString());

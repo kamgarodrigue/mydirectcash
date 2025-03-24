@@ -313,8 +313,12 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: blueColor, width: 2),
                         ),
-                        labelText:
+                        hintText:
                             "${AppLocalizations.of(context)!.translate('Phone')}",
+                        hintStyle: const TextStyle(
+                            fontFamily: content_font,
+                            color: Colors.grey,
+                            fontSize: 13),
                       ),
                       onSaved: (PhoneNumber number) {
                         print('On Saved: $number');
@@ -331,24 +335,26 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                       child: Column(
                         children: [
                           TextFormField(
-                              keyboardType: TextInputType.number,
-                              // initialValue:  widget.data?['vAmount'] == 0 ? "" ,
-                              onChanged: (value) {
-                                setState(() {
-                                  data['vAmount'] = value;
-                                });
-                              },
-                              style: const TextStyle(
-                                  fontFamily: content_font, fontSize: 13),
-                              textAlign: TextAlign.start,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: AppLocalizations.of(context)!
-                                      .translate("Saisire montant")!,
-                                  hintStyle: const TextStyle(
-                                      fontFamily: content_font,
-                                      color: Colors.grey,
-                                      fontSize: 13))),
+                            keyboardType: TextInputType.number,
+                            // initialValue:  widget.data?['vAmount'] == 0 ? "" ,
+                            onChanged: (value) {
+                              setState(() {
+                                data['vAmount'] = value;
+                              });
+                            },
+                            style: const TextStyle(
+                                fontFamily: content_font, fontSize: 13),
+                            textAlign: TextAlign.start,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: AppLocalizations.of(context)!
+                                  .translate("Saisire montant")!,
+                              hintStyle: const TextStyle(
+                                  fontFamily: content_font,
+                                  color: Colors.grey,
+                                  fontSize: 13),
+                            ),
+                          ),
                           Divider(
                             height: 1.5,
                             color: blueColor,
@@ -380,6 +386,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                 TransactonService()
                                     .getDetailEnvoiDirectcash(param)
                                     .then((value) {
+                                  print(value);
                                   data['vFromNumber'] =
                                       autProvider.currentUser!.data!.phone;
                                   data["vClientID"] =

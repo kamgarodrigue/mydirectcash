@@ -61,7 +61,7 @@ class _SignUpScreenState extends State<Register> {
     "profession": "",
     "CNI1": "",
     "nui": "",
-    "registre": ""
+    "registre": " "
   };
   XFile? carteR = XFile(" ");
   XFile? carteV = XFile(" ");
@@ -439,7 +439,8 @@ class _SignUpScreenState extends State<Register> {
                                                 (PhoneNumber number) {
                                               print(number.phoneNumber);
                                               setState(() {
-                                                dataUser["Phone"] = number;
+                                                dataUser["Phone"] =
+                                                    number.phoneNumber;
                                               });
 
                                               ///  dataUser["Phone"]==number.phoneNumber;
@@ -480,14 +481,26 @@ class _SignUpScreenState extends State<Register> {
                                                     signed: true,
                                                     decimal: true),
                                             inputDecoration: InputDecoration(
-                                              labelText:
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: blueColor,
+                                                  width: 2,
+                                                ),
+                                              ),
+                                              hintText:
                                                   "${AppLocalizations.of(context)!.translate('Phone')}",
+                                              hintStyle: TextStyle(
+                                                  fontFamily: content_font,
+                                                  color: Colors.grey.shade500,
+                                                  fontSize: 14),
                                             ),
                                             onSaved: (PhoneNumber number) {
                                               print('On Saved: $number');
                                               setState(
                                                 () {
-                                                  dataUser["Phone"] = number;
+                                                  dataUser["Phone"] =
+                                                      number.phoneNumber;
                                                 },
                                               );
                                             },
@@ -631,32 +644,50 @@ class _SignUpScreenState extends State<Register> {
                                             )),
                                         Container(
                                           margin: EdgeInsets.only(top: 10),
-                                          child: TextFormField(
-                                            keyboardType: TextInputType.text,
-                                            style: TextStyle(
-                                                fontFamily: content_font,
-                                                fontSize: 14),
-                                            textAlign: TextAlign.start,
-                                            initialValue: dataUser["registre"],
-                                            onChanged: (val) {
-                                              setState(() {
-                                                dataUser["registre"] = val;
-                                              });
-                                            },
-                                            cursorColor: blueColor,
-                                            decoration: InputDecoration(
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: blueColor, width: 2),
-                                              ),
-                                              hintText:
-                                                  "${AppLocalizations.of(context)!.translate('registe')}",
-                                              hintStyle: TextStyle(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              TextFormField(
+                                                keyboardType:
+                                                    TextInputType.text,
+                                                style: TextStyle(
                                                   fontFamily: content_font,
-                                                  color: Colors.grey.shade500,
-                                                  fontSize: 14),
-                                            ),
+                                                  fontSize: 14,
+                                                ),
+                                                textAlign: TextAlign.start,
+                                                onChanged: (val) {
+                                                  setState(() =>
+                                                      dataUser["registre"] =
+                                                          val);
+                                                },
+                                                cursorColor: blueColor,
+                                                decoration: InputDecoration(
+                                                  focusedBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: blueColor,
+                                                        width: 2),
+                                                  ),
+                                                  hintText: AppLocalizations.of(
+                                                          context)!
+                                                      .translate('registe'),
+                                                  hintStyle: TextStyle(
+                                                    fontFamily: content_font,
+                                                    color: Colors.grey.shade500,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(height: 10),
+                                              Text(
+                                                "Laissez le registre vide si vous etes un particulier!",
+                                                style: TextStyle(
+                                                  fontFamily: content_font,
+                                                  color: blueColor,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         Container(
@@ -726,11 +757,6 @@ class _SignUpScreenState extends State<Register> {
                                                       if (_formKey1
                                                           .currentState!
                                                           .validate()) {
-                                                        setState(() {
-                                                          dataUser["Phone"] =
-                                                              _phonecontroller
-                                                                  .text;
-                                                        });
                                                         if (dataUser["profession"] != "" &&
                                                             dataUser["Nom"] !=
                                                                 "" &&
@@ -740,9 +766,6 @@ class _SignUpScreenState extends State<Register> {
                                                                 "" &&
                                                             dataUser[
                                                                     "dateNaissance"] !=
-                                                                "" &&
-                                                            dataUser[
-                                                                    "registre"] !=
                                                                 "" &&
                                                             dataUser["sexe"] !=
                                                                 "") {
@@ -1884,7 +1907,6 @@ class _SignUpScreenState extends State<Register> {
                                                                 "sexe"],
                                                           )
                                                               .then((value) {
-                                                          
                                                             // print(value['message']['message']);
 
                                                             // if (value is List<
