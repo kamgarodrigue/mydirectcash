@@ -5,6 +5,7 @@ import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
+import 'package:mydirectcash/utils/auth_utils.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -305,6 +306,7 @@ class _RetraitValidationState extends State<RetraitValidation> {
                                         }
                                       },
                                     );
+                                    reset(context, setState);
                                   } else if (value["code"] == "400") {
                                     DialogWidget.success(
                                       context,
