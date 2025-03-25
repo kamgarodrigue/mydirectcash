@@ -160,7 +160,6 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                   const SizedBox(
                     height: 20,
                   ),
-
                   Container(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,77 +202,25 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                   const SizedBox(
                     height: 20,
                   ),
-                  // Container(
-                  //   color: Colors.transparent,
-                  //   child: Column(
-                  //     children: [
-                  //       Container(
-                  //         child: Row(
-                  //           children: [
-                  //             Expanded(
-                  //               child: Text('$countryName',
-                  //                   style: TextStyle(
-                  //                       color: countryName ==
-                  //                               AppLocalizations.of(context)!
-                  //                                   .translate(
-                  //                                       "Choisissez le pays de destination")!
-                  //                           ? Colors.grey
-                  //                           : Colors.black,
-                  //                       fontSize: 14)),
-                  //             ),
-                  //             CountryListPick(
-                  //                 appBar: AppBar(
-                  //                   backgroundColor: blueColor,
-                  //                   title: Text(AppLocalizations.of(context)!
-                  //                       .translate(
-                  //                           "Choisissez le pays de destination")!),
-                  //                 ),
-                  //                 theme: CountryTheme(
-                  //                   isShowFlag: true,
-                  //                   isShowTitle: false,
-                  //                   isShowCode: false,
-                  //                   isDownIcon: true,
-                  //                   showEnglishName: false,
-                  //                 ),
-                  //                 initialSelection: '+237',
-                  //                 onChanged: (CountryCode? code) {
-                  //                   setState(() {
-                  //                     countryName = code!.name == null
-                  //                         ? AppLocalizations.of(context)!.translate(
-                  //                             "Choisissez le pays de destination")!
-                  //                         : "${code.name} ($code)";
-                  //                   });
-                  //                   print(code!.name);
-                  //                 },
-                  //                 useUiOverlay: true,
-                  //                 useSafeArea: false),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //       const SizedBox(height: 10),
-                  //       Divider(
-                  //         height: 1.5,
-                  //         color: blueColor,
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                   Padding(
                     padding: const EdgeInsets.all(0),
                     child: InternationalPhoneNumberInput(
                       onInputChanged: (PhoneNumber number) {
-                        print(number.phoneNumber);
+                        String phoneWithoutCode = number.phoneNumber
+                                ?.replaceFirst(number.dialCode ?? '', '') ??
+                            '';
                         if (number.isoCode == "CM") {
                           setState(() {
-                            data['vToNumber'] = number.phoneNumber;
+                            data['vToNumber'] = phoneWithoutCode;
                             data['vrxtype'] = "1";
                           });
                         } else {
                           setState(() {
-                            data['vToNumber'] = number.phoneNumber;
+                            data['vToNumber'] = phoneWithoutCode;
                             data['vrxtype'] = "2";
                           });
                         }
+                      
                       },
                       validator: (value) {
                         if (value!.trim().isEmpty) {
@@ -321,12 +268,12 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                             fontSize: 13),
                       ),
                       onSaved: (PhoneNumber number) {
-                        print('On Saved: $number');
-                        setState(
-                          () {
-                            data['vToNumber'] = number.phoneNumber;
-                          },
-                        );
+                        String phoneWithoutCode = number.phoneNumber
+                                ?.replaceFirst(number.dialCode ?? '', '') ??
+                            '';
+                        setState(() {
+                          data['vToNumber'] = phoneWithoutCode;
+                        });
                       },
                     ),
                   ),

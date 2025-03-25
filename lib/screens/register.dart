@@ -544,7 +544,7 @@ class _SignUpScreenState extends State<Register> {
                                                       width: 2),
                                                 ),
                                                 hintText:
-                                                    "${AppLocalizations.of(context)!.translate('name')} *",
+                                                    "${AppLocalizations.of(context)!.translate('Phone')} *",
                                                 hintStyle: TextStyle(
                                                     fontFamily: content_font,
                                                     color: Colors.grey.shade500,
