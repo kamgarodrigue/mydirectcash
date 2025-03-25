@@ -222,56 +222,38 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                       ],
                     ),
                   ),
-                  // if (codeRegion == "CM")
-                  InternationalPhoneNumberInput(
-                    onInputChanged: (PhoneNumber number) {
-                      print(number.phoneNumber);
-                      setState(() {
-                        data["vToNumber"] = number.phoneNumber;
-                      });
-                    },
-                    onInputValidated: (bool isValid) {
-                      print(isValid);
-                    },
-                    selectorConfig: const SelectorConfig(
-                      selectorType: PhoneInputSelectorType.DROPDOWN,
-                      setSelectorButtonAsPrefixIcon: true,
-                      leadingPadding: 0.0,
-                      showFlags: true,
-                      useEmoji: true,
-                    ),
-                    ignoreBlank: false,
-                    autoValidateMode: AutovalidateMode.disabled,
-                    selectorTextStyle: const TextStyle(color: Colors.black),
-                    initialValue: number,
-                    textFieldController: _phonecontroller,
-                    formatInput: false,
-                    keyboardType: const TextInputType.numberWithOptions(
-                        signed: true, decimal: true),
-                    inputDecoration: InputDecoration(
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: blueColor,
-                          width: 2,
-                        ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      initialValue: data["vToNumber"],
+                      onChanged: (val) {
+                        data["vToNumber"] = val;
+                      },
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return "${AppLocalizations.of(context)!.translate('Phone')} *";
+                        }
+                      },
+                      style: const TextStyle(
+                        fontFamily: content_font,
+                        fontSize: 14,
                       ),
-                      hintText:
-                          "${AppLocalizations.of(context)!.translate('Phone')}",
-                      hintStyle: TextStyle(
-                          fontFamily: content_font,
-                          color: Colors.grey.shade500,
-                          fontSize: 14),
+                      textAlign: TextAlign.start,
+                      cursorColor: blueColor,
+                      decoration: InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: blueColor, width: 2),
+                          ),
+                          hintText:
+                              "${AppLocalizations.of(context)!.translate('Phone')} *",
+                          hintStyle: TextStyle(
+                              fontFamily: content_font,
+                              color: Colors.grey.shade500,
+                              fontSize: 14)),
                     ),
-                    onSaved: (PhoneNumber number) {
-                      print('On Saved: $number');
-                      setState(
-                        () {
-                          data["vToNumber"] = number.phoneNumber;
-                        },
-                      );
-                    },
                   ),
-
+                
                   Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: Column(
@@ -302,7 +284,6 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                         ],
                       )),
                   const SizedBox(height: 50),
-                  // if (codeRegion == "CM")
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

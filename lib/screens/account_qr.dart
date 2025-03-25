@@ -24,7 +24,6 @@ class _AccountQRState extends State<AccountQR> {
   bool showDollar = true;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<AuthService>().authenticate;
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/settings.dart';
@@ -7,6 +9,7 @@ import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class RetraitValidation extends StatefulWidget {
   Map? retrait;
@@ -29,10 +32,17 @@ class _RetraitValidationState extends State<RetraitValidation> {
       _isOscure = !_isOscure;
     });
   }
+
   void togle2() {
     setState(() {
       _isOscure2 = !_isOscure2;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthService>().authenticate;
   }
 
   Map data = {
@@ -45,6 +55,8 @@ class _RetraitValidationState extends State<RetraitValidation> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = context.watch<AuthService>();
+
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -148,8 +160,6 @@ class _RetraitValidationState extends State<RetraitValidation> {
                           '${AppLocalizations.of(context)!.translate("au numéro")} '
                           '${widget.retrait?["ToNumber"].toString().substring(0, 4)} ** ** '
                           '${widget.retrait?["ToNumber"].toString().substring(widget.retrait!["ToNumber"].toString().length - 2)}, '
-                          '${AppLocalizations.of(context)!.translate("frais de")} '
-                          '${widget.retrait?["Rate"]} XAF. '
                           '${AppLocalizations.of(context)!.translate("Montant total à débiter")} '
                           '${double.parse(widget.retrait!["Amount"].toString())} XAF.',
                           textAlign: TextAlign.center,
@@ -174,6 +184,12 @@ class _RetraitValidationState extends State<RetraitValidation> {
                             data["secret"] = value;
                           });
                         },
+                        inputFormatters: [
+                          FilteringTextInputFormatter
+                              .digitsOnly, // Allow only digits
+                          LengthLimitingTextInputFormatter(
+                              4), // Limit input to 4 digits
+                        ],
                         obscureText: _isOscure2,
                         style: const TextStyle(
                             fontFamily: content_font, fontSize: 13),
@@ -244,7 +260,7 @@ class _RetraitValidationState extends State<RetraitValidation> {
                                   data["vTRXID"] =
                                       widget.retrait?["TransferID"];
                                   data["vClientID"] =
-                                      widget.retrait?["AgentID"];
+                                      authProvider.currentUser!.data!.phone!;
                                   data["vTO_NUMBER"] =
                                       widget.retrait?["ToNumber"];
                                   _isLoading = true;
@@ -274,19 +290,29 @@ class _RetraitValidationState extends State<RetraitValidation> {
                                         }
                                       },
                                     );
-                                  } else if (value["code"] == 200) {
+                                  } else if (value["code"] == "200") {
                                     DialogWidget.success(
                                       context,
                                       title: "",
                                       content: value['data']['message'],
                                       color: greenColor,
                                       callback: () {
-                                       if (Navigator.canPop(context)) {
+                                        if (Navigator.canPop(context)) {
                                           Navigator.pop(context);
                                           if (Navigator.canPop(context)) {
                                             Navigator.pop(context);
                                           }
                                         }
+                                      },
+                                    );
+                                  } else if (value["code"] == "400") {
+                                    DialogWidget.success(
+                                      context,
+                                      title: "",
+                                      content: value['message'],
+                                      color: errorColor,
+                                      callback: () {
+                                        Navigator.pop(context);
                                       },
                                     );
                                   } else if (value["code"] == 400) {
