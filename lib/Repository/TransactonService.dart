@@ -60,7 +60,7 @@ class TransactonService extends ChangeNotifier {
 
   Future<List<Transaction>> getHistory(String? data) async {
     Dio.Response response =
-        await dio().get("HystoriqueTransaction", data: data);
+        await dio().get("https://apibackoffice.alliancefinancialsa.com/HystoriqueTransaction", data: data);
 
     print(response.data);
     print("==============================history==========================");

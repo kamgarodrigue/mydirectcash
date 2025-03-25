@@ -59,12 +59,16 @@ class _HomeState extends State<Home> {
   }
 
   String solde = "0";
+  bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
     context.read<AuthService>().authenticate;
     solde = context.read<AuthService>().solde.toString();
-    // reset();
+    Future.delayed(Duration.zero, () {
+      reset();
+    });
     //context.read<AuthService>().setconversion(0);
     //  context.read<Localisation>().initLocation();
   }
@@ -81,14 +85,18 @@ class _HomeState extends State<Home> {
     }
   }
 
-  Future reset() {
+  Future reset() async {
+    setState(() {
+      isLoading = true;
+    });
     setconversion(0);
     context.read<AuthService>().authenticate;
     String? id = context.read<AuthService>().currentUser!.data!.phone;
     print(id);
-    AuthService().loginWithBiometric(id).then((value) {
+    await AuthService().loginWithBiometric(id).then((value) {
       setState(() {
         solde = value["data"]["solde"].toString();
+        isLoading = false;
       });
     });
     return context.read<AuthService>().loginWithBiometric(id);
@@ -312,7 +320,7 @@ class _HomeState extends State<Home> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      width: 10,
+                                      width: 5,
                                     ),
                                     Container(
                                       height: 70,
@@ -324,7 +332,7 @@ class _HomeState extends State<Home> {
                                             MainAxisAlignment.end,
                                         children: [
                                           Text(
-                                            "${AppLocalizations.of(context)!.translate('Bienvenue')} ${autProvider.currentUser!.data!.nom?.toUpperCase()}",
+                                            "${AppLocalizations.of(context)!.translate('Bienvenue')} ${(autProvider.currentUser!.data!.nom?.split(" ").length ?? 0) > 1 && autProvider.currentUser!.data!.nom!.split(" ")[1].isNotEmpty ? autProvider.currentUser!.data!.nom?.split(" ")[1].toUpperCase() : autProvider.currentUser!.data!.nom?.split(" ")[0].toUpperCase()} 😊",
                                             style: TextStyle(
                                                 color: blueColor,
                                                 fontSize: 14,
@@ -460,13 +468,17 @@ class _HomeState extends State<Home> {
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text(
-                                            solde,
-                                            textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                                fontSize: 34,
-                                                fontFamily: title_font),
-                                          ),
+                                          isLoading
+                                              ? CircularProgressIndicator(
+                                                  color: blueColor,
+                                                )
+                                              : Text(
+                                                  solde,
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                      fontSize: 34,
+                                                      fontFamily: title_font),
+                                                ),
                                           const SizedBox(
                                             height: 10,
                                           ),
