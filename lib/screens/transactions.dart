@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mydirectcash/Repository/AuthService.dart';
+import 'package:intl/intl.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
-import 'package:mydirectcash/screens/carousel_page.dart';
 
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
@@ -30,11 +29,58 @@ class _TransactionsState extends State<Transactions> {
   bool om_momoModule = false;
 
   bool payementModule = false;
+  Map data = {"userID": "", "vtrxType": "", "vfromdate": "", "vTodate": ""};
+  String selectedPeriod = 'Ce Jour';
+  late String startDate;
+  late String endDate;
 
   @override
   void initState() {
     super.initState();
-    context.read<TransactonService>().getHistory(widget.phone);
+    data["userID"] = widget.phone;
+    context.read<TransactonService>().getHistory(data);
+    _updateDateRange(); // Initialize date range
+  }
+
+  void _updateDateRange() {
+    DateTime today = DateTime.now();
+    DateTime start;
+    DateTime end;
+
+    switch (selectedPeriod) {
+      case 'Ce Jour': // Today's date
+        start = today;
+        end = today;
+        break;
+
+      case 'Cette Semaine': // Current week's Monday to Sunday
+        start = today.subtract(Duration(days: today.weekday - 1)); // Monday
+        end = start.add(Duration(days: 6)); // Sunday
+        break;
+
+      case 'Ce Mois': // First and last day of current month
+        start = DateTime(today.year, today.month, 1); // First day
+        end = DateTime(today.year, today.month + 1, 0); // Last day
+        break;
+
+      case 'Cette Année': // First and last day of the year
+        start = DateTime(today.year, 1, 1); // Jan 1st
+        end = DateTime(today.year, 12, 31); // Dec 31st
+        break;
+
+      default:
+        start = today;
+        end = today;
+    }
+
+    setState(() {
+      startDate = DateFormat('yyyy-MM-dd').format(start);
+      endDate = DateFormat('yyyy-MM-dd').format(end);
+      data["vfromdate"] = startDate;
+      data["vTodate"] = endDate;
+    });
+    print(startDate);
+    print(endDate);
   }
 
   @override
@@ -179,6 +225,10 @@ class _TransactionsState extends State<Transactions> {
                               );
                             }).toList(),
                             onChanged: (value) {
+                              setState(() {
+                                selectedPeriod = value!;
+                                _updateDateRange();
+                              });
                               print(value);
                             },
                           ),

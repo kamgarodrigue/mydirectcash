@@ -4,6 +4,7 @@ import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
+import 'package:mydirectcash/utils/app_routes.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -238,6 +239,11 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                                       color: greenColor,
                                       callback: () {
                                         Navigator.pop(context);
+                                        Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          AppRoutes.homePage,
+                                          (route) => false,
+                                        );
                                       },
                                     );
                                   }
