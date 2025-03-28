@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/settings.dart';
@@ -231,6 +230,17 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                                         Navigator.pop(context);
                                       },
                                     );
+                                  } else if (value['code'] == 400) {
+                                    DialogWidget.success(
+                                      context,
+                                      title: AppLocalizations.of(context)!
+                                          .translate("erreur")!,
+                                      content: value["message"],
+                                      color: errorColor,
+                                      callback: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
                                   } else if (value["code"] == 200) {
                                     DialogWidget.success(
                                       context,
@@ -253,11 +263,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                                   });
                                   print(error);
 
-                                  //  ScaffoldMessenger.of(context).showSnackBar(
-                                  //   SnackBar(
-                                  //       content: Text(
-                                  //           "${AppLocalizations.of(context)!.translate('Saisissez le numéro bénéficiaire')}")),
-                                  // );
+                                
                                 });
                               },
                               child: Text(

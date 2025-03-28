@@ -30,16 +30,29 @@ class _TransactionsState extends State<Transactions> {
 
   bool payementModule = false;
   Map data = {"userID": "", "vtrxType": "", "vfromdate": "", "vTodate": ""};
-  String selectedPeriod = 'Ce Jour';
+  String selectedPeriod = 'Cette Semaine';
   late String startDate;
   late String endDate;
+  List<dynamic> transactions = [];
+
+  void loadTransactions() async {
+    await TransactonService().getHistory(data).then((value) {
+      setState(() {
+        transactions = value['data'];
+      });
+      print(
+          "=================================transactions=============================");
+      print(transactions);
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     data["userID"] = widget.phone;
-    context.read<TransactonService>().getHistory(data);
+    data["vtrxType"] = "";
     _updateDateRange(); // Initialize date range
+    loadTransactions();
   }
 
   void _updateDateRange() {
@@ -81,11 +94,11 @@ class _TransactionsState extends State<Transactions> {
     });
     print(startDate);
     print(endDate);
+    loadTransactions();
   }
 
   @override
   Widget build(BuildContext context) {
-    final transactionProvider = context.watch<TransactonService>();
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
@@ -210,6 +223,7 @@ class _TransactionsState extends State<Transactions> {
                               'Ce Jour',
                               'Cette Semaine',
                               'Ce Mois',
+                              'Cette Année',
                             ].map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -229,7 +243,12 @@ class _TransactionsState extends State<Transactions> {
                                 selectedPeriod = value!;
                                 _updateDateRange();
                               });
-                              print(value);
+                              context
+                                  .read<TransactonService>()
+                                  .getHistory(data)
+                                  .then((value) {
+                                print(value[1]);
+                              });
                             },
                           ),
                         ),
@@ -489,31 +508,33 @@ class _TransactionsState extends State<Transactions> {
             Expanded(
               child: Container(
                 child: ListView.builder(
-                    itemCount: transactionProvider.historique.length,
+                    itemCount: transactions.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final transaction = transactionProvider.historique[index];
+                      final transaction = transactions[index];
 
                       return TransactionContrainer(
-                        destinataire:
-                            '(${transactionProvider.historique[index].collecteur})',
-                        title: transaction.typeOperation!,
-                        stringDate: transaction.jour!,
-                        stringPrice: transaction.montant!,
-                        stringSolde: transaction.statut!,
-                        onPressShare: () {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return ShareComponent();
-                              });
-                        },
-                        onPressDelete: () {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return DeleteComponent();
-                              });
-                        },
+                        destinataire: '(${transaction["TO_NUMBER"]})',
+                        title: transaction["TRX_Type"],
+                        stringDate: transaction["TRX_DATE"] != null
+                            ? DateFormat('yyyy-MM-dd')
+                                .format(DateTime.parse(transaction["TRX_DATE"]))
+                            : "N/A",
+                        stringPrice: transaction["Amount"],
+                        stringSolde: transaction["TRX_Status"],
+                        // onPressShare: () {
+                        //   showModalBottomSheet(
+                        //       context: context,
+                        //       builder: (BuildContext context) {
+                        //         return ShareComponent();
+                        //       });
+                        // },
+                        // onPressDelete: () {
+                        //   showModalBottomSheet(
+                        //       context: context,
+                        //       builder: (BuildContext context) {
+                        //         return DeleteComponent();
+                        //       });
+                        // },
                       );
                     }),
               ),

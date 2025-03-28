@@ -9,11 +9,12 @@ class TransactionContrainer extends StatefulWidget {
       required this.stringDate,
       required this.stringPrice,
       required this.stringSolde,
-      required this.onPressShare,
-      required this.onPressDelete});
+      // required this.onPressShare,
+      // required this.onPressDelete
+      });
   String title, destinataire, stringDate, stringPrice, stringSolde;
-  void Function() onPressShare;
-  void Function() onPressDelete;
+  // void Function() onPressShare;
+  // void Function() onPressDelete;
 
   @override
   _TransactionContrainerState createState() => _TransactionContrainerState();
@@ -28,39 +29,39 @@ class _TransactionContrainerState extends State<TransactionContrainer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                    onTap: widget.onPressShare,
-                    child: CircleAvatar(
-                      backgroundColor: blueColor,
-                      radius: 10,
-                      child: const Icon(
-                        Icons.share,
-                        size: 12,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 2,
-                  ),
-                  GestureDetector(
-                    onTap: widget.onPressDelete,
-                    child: const Icon(
-                      Icons.delete,
-                      size: 15,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 8.0),
+          //   child: Container(
+          //     child: Column(
+          //       mainAxisAlignment: MainAxisAlignment.start,
+          //       children: [
+          //         GestureDetector(
+          //           onTap: widget.onPressShare,
+          //           child: CircleAvatar(
+          //             backgroundColor: blueColor,
+          //             radius: 10,
+          //             child: const Icon(
+          //               Icons.share,
+          //               size: 12,
+          //               color: Colors.white,
+          //             ),
+          //           ),
+          //         ),
+          //         const SizedBox(
+          //           height: 2,
+          //         ),
+          //         GestureDetector(
+          //           onTap: widget.onPressDelete,
+          //           child: const Icon(
+          //             Icons.delete,
+          //             size: 15,
+          //             color: Colors.grey,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           const SizedBox(
             width: 5,
           ),
