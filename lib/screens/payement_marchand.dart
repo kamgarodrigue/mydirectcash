@@ -242,7 +242,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                       //     },
                       //   ),
                       // ),
-                      
+
                       Container(
                           margin: const EdgeInsets.only(top: 5),
                           child: TextFormField(
@@ -256,7 +256,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                                 fontFamily: content_font, fontSize: 14),
                             textAlign: TextAlign.start,
                             decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
+                                focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: blueColor,
                                     width: 2,
@@ -276,14 +276,14 @@ class _PayementMarchandState extends State<PayementMarchand> {
                             keyboardType: TextInputType.number,
                             onChanged: (value) {
                               setState(() {
-                                data["vToNumber"]  = value;
+                                data["vAmount"] = value;
                               });
                             },
                             style: const TextStyle(
                                 fontFamily: content_font, fontSize: 13),
                             textAlign: TextAlign.start,
                             decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
+                                focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: blueColor,
                                     width: 2,
@@ -314,6 +314,11 @@ class _PayementMarchandState extends State<PayementMarchand> {
                                     setState(() {
                                       _isLoading = true;
                                     });
+                                    print("-----------debur");
+                                    print(data["vToNumber"]);
+                                    print(data["vAmount"]);
+                                    print(data["vMerchantCode"]);
+                                    print("-----------fin");
                                     Provider.of<OperationServices>(context,
                                             listen: false)
                                         .getAgentByPhone(data["vToNumber"])

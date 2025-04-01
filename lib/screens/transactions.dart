@@ -22,6 +22,7 @@ class Transactions extends StatefulWidget {
 class _TransactionsState extends State<Transactions> {
   bool rechargeModule = true;
   bool servicesModule = false;
+  bool isLoading = false;
 
   bool envoiModule = false;
 
@@ -30,7 +31,7 @@ class _TransactionsState extends State<Transactions> {
 
   bool payementModule = false;
   Map data = {"userID": "", "vtrxType": "", "vfromdate": "", "vTodate": ""};
-  String selectedPeriod = 'Cette Semaine';
+  String selectedPeriod = 'Ce Jour';
   late String startDate;
   late String endDate;
   List<dynamic> transactions = [];
@@ -58,17 +59,17 @@ class _TransactionsState extends State<Transactions> {
   void _updateDateRange() {
     DateTime today = DateTime.now();
     DateTime start;
-    DateTime end;
+    DateTime? end;
 
     switch (selectedPeriod) {
       case 'Ce Jour': // Today's date
         start = today;
-        end = today;
+        end = null;
         break;
 
       case 'Cette Semaine': // Current week's Monday to Sunday
         start = today.subtract(Duration(days: today.weekday - 1)); // Monday
-        end = start.add(Duration(days: 6)); // Sunday
+        end = start.add(const Duration(days: 6)); // Sunday
         break;
 
       case 'Ce Mois': // First and last day of current month
@@ -88,12 +89,13 @@ class _TransactionsState extends State<Transactions> {
 
     setState(() {
       startDate = DateFormat('yyyy-MM-dd').format(start);
-      endDate = DateFormat('yyyy-MM-dd').format(end);
+      endDate = end != null ? DateFormat('yyyy-MM-dd').format(end) : "";
       data["vfromdate"] = startDate;
       data["vTodate"] = endDate;
     });
-    print(startDate);
-    print(endDate);
+
+    print("Start Date: $startDate");
+    print("End Date: $endDate");
     loadTransactions();
   }
 
@@ -505,40 +507,33 @@ class _TransactionsState extends State<Transactions> {
             const SizedBox(
               height: 20,
             ),
-            Expanded(
-              child: Container(
-                child: ListView.builder(
-                    itemCount: transactions.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final transaction = transactions[index];
-
-                      return TransactionContrainer(
-                        destinataire: '(${transaction["TO_NUMBER"]})',
-                        title: transaction["TRX_Type"],
-                        stringDate: transaction["TRX_DATE"] != null
-                            ? DateFormat('yyyy-MM-dd')
-                                .format(DateTime.parse(transaction["TRX_DATE"]))
-                            : "N/A",
-                        stringPrice: transaction["Amount"],
-                        stringSolde: transaction["TRX_Status"],
-                        // onPressShare: () {
-                        //   showModalBottomSheet(
-                        //       context: context,
-                        //       builder: (BuildContext context) {
-                        //         return ShareComponent();
-                        //       });
-                        // },
-                        // onPressDelete: () {
-                        //   showModalBottomSheet(
-                        //       context: context,
-                        //       builder: (BuildContext context) {
-                        //         return DeleteComponent();
-                        //       });
-                        // },
-                      );
-                    }),
-              ),
+           Expanded(
+              child: isLoading
+                  ? SizedBox(
+                    height: double.infinity,
+                      child: CircularProgressIndicator(
+                        color: blueColor,
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: transactions.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final transaction = transactions[index];
+                        return TransactionContrainer(
+                          destinataire:
+                              '(${transaction["TO_NUMBER"] ?? transaction["FROM_NUMBER"]})',
+                          title: transaction["TRX_Type"],
+                          stringDate: transaction["TRX_DATE"] != null
+                              ? DateFormat('yyyy-MM-dd').format(
+                                  DateTime.parse(transaction["TRX_DATE"]))
+                              : "N/A",
+                          stringPrice: transaction["Amount"],
+                          stringSolde: transaction["TRX_Status"],
+                        );
+                      },
+                    ),
             ),
+
             BottomNavigation()
           ],
         ),

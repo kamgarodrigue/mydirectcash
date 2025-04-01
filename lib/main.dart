@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mydirectcash/Controllers/Authcontroller.dart';
-import 'package:mydirectcash/Models/Transaction.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/OperationServices.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/Repository/localisation.dart';
-import 'package:mydirectcash/screens/Apropos_de_nous.dart';
-import 'package:mydirectcash/screens/MonCompte.dart';
-import 'package:mydirectcash/screens/account_qr.dart';
-import 'package:mydirectcash/screens/aide_et_suport.dart';
 import 'package:mydirectcash/screens/home.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/welcome.dart';
 import 'package:mydirectcash/utils/app_routes.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import './AppLanguage.dart';
 import 'app_localizations.dart';
-import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -115,6 +108,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       home: auth.authenticate ? Home() : WelcomePage(),
       routes: {
         AppRoutes.homePage: (context) => const Home(),
+        AppRoutes.loginPage: (context) => Login(isLogin: false),
       },
     );
   }
