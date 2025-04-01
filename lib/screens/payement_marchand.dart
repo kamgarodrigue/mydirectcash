@@ -242,7 +242,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                       //     },
                       //   ),
                       // ),
-                      
+
                       Container(
                           margin: const EdgeInsets.only(top: 5),
                           child: TextFormField(
@@ -256,7 +256,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                                 fontFamily: content_font, fontSize: 14),
                             textAlign: TextAlign.start,
                             decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
+                                focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: blueColor,
                                     width: 2,
@@ -283,7 +283,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                                 fontFamily: content_font, fontSize: 13),
                             textAlign: TextAlign.start,
                             decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
+                                focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: blueColor,
                                     width: 2,

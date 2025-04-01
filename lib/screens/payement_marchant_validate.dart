@@ -252,11 +252,12 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                       );
                                     });
                                   }
-                                  else if (value['message'] ==
-                                      "erreur") {
+                                 
+                                  else if (value['code'] ==
+                                      400) {
                                       DialogWidget.error(context,
                                         title: value['message'],
-                                        content: value['data']['vErrorMessage'],
+                                        content: value['vErrorMessage'],
                                         color: blueColor, callback: () {
                                       Navigator.pop(context);
                                       Navigator.pop(context);

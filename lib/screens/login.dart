@@ -383,6 +383,7 @@ class _LoginState extends StateMVC<Login> {
                                                   );
                                                 } else if (value ==
                                                     "Authentification réussie.") {
+                                                  Navigator.pop(context);
                                                   showTopSnackBar(
                                                     Overlay.of(context),
                                                     const CustomSnackBar

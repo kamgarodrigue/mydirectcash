@@ -4,7 +4,8 @@ import 'package:mydirectcash/utils/fonts.dart';
 
 class TransactionContrainer extends StatefulWidget {
   TransactionContrainer(
-      {super.key, required this.destinataire,
+      {super.key, 
+      required this.destinataire,
       required this.title,
       required this.stringDate,
       required this.stringPrice,
