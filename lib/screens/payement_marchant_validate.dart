@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
+import 'package:mydirectcash/screens/home.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
@@ -245,10 +246,11 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                         content: value['data']['sender'],
                                         color: greenColor, callback: () {
                                       Navigator.pop(context);
-                                       Navigator.pushNamedAndRemoveUntil(
+                                     
+                                      Navigator.pushReplacement(
                                         context,
-                                        AppRoutes.homePage,
-                                        (route) => false,
+                                        MaterialPageRoute(
+                                            builder: (context) => Home()),
                                       );
                                     });
                                   }

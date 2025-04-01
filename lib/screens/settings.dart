@@ -223,7 +223,8 @@ class _SettingsState extends State<Settings> {
               onTap: () {
                 Provider.of<AuthService>(context, listen: false).logout();
                 Navigator.pop(context);
-                Navigator.pushNamed(context, AppRoutes.loginPage);
+                Navigator.pop(context);
+                // Navigator.pushNamed(context, AppRoutes.loginPage);
               },
             ),
           ],
