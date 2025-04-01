@@ -8,6 +8,7 @@ import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/Resset_Password_Verification.dart';
 import 'package:mydirectcash/screens/ValidateAccount.dart';
 import 'package:mydirectcash/screens/register.dart';
+import 'package:mydirectcash/utils/app_routes.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -392,9 +393,11 @@ class _LoginState extends StateMVC<Login> {
                                                     ),
                                                   );
                                                   if (widget.isLogin) {
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(
-                                                        widget.fatherContext!);
+                                                    // Navigator.pop(context);
+                                                    // Navigator.pop(
+                                                    //     widget.fatherContext!);
+                                                    Navigator.pushNamed(context, AppRoutes.homePage);
+
                                                   }
                                                 }
                                               }).catchError((error) {

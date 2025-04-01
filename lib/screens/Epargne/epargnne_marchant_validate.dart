@@ -214,6 +214,7 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                                   setState(() {
                                     _isLoading = false;
                                   });
+                                  print(value);
                                   if (value['message'] ==
                                       "Tous les paramètres sont requis.") {
                                     DialogWidget.error(context,
@@ -223,7 +224,7 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                                       Navigator.pop(context);
                                       Navigator.pop(context);
                                     });
-                                  } else if (value['message'] == "Succes") {
+                                  } else if (value['code'] == 200) {
                                     DialogWidget.success(context,
                                         title: value['message'],
                                         content: value['data']['sender'],
@@ -235,10 +236,20 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                                         (route) => false,
                                       );
                                     });
-                                  } else if (value['message'] == "erreur") {
+                                  } 
+                                  else if (value['code'] == 400) {
                                     DialogWidget.error(context,
                                         title: value['message'],
-                                        content: value['data']['vErrorMessage'],
+                                        content: value['vErrorMessage'],
+                                        color: blueColor, callback: () {
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    });
+                                  }
+                                  else if (value['code'] == 400) {
+                                    DialogWidget.error(context,
+                                        title: "",
+                                        content: value['message'],
                                         color: blueColor, callback: () {
                                       Navigator.pop(context);
                                       Navigator.pop(context);
