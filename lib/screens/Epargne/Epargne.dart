@@ -36,6 +36,7 @@ class _PayementMarchandState extends State<Epargne> {
   String? agentName;
 
   dynamic microfi;
+
   // List bannk = [
   //   {
   //     "name": "Afriland First Bank ",
@@ -65,6 +66,22 @@ class _PayementMarchandState extends State<Epargne> {
       data["Client"] = code;
       isCanning = false;
     });
+  }
+
+  List<dynamic> agents = [];
+
+  @override
+  void initState() {
+    super.initState();
+    OperationServices().getBank().then(
+      (value) {
+        setState(() {
+          _isLoading = false;
+        });
+        agents = value['data'];
+        print(agents);
+      },
+    );
   }
 
   @override
@@ -194,7 +211,7 @@ class _PayementMarchandState extends State<Epargne> {
                                     color: Colors.grey.shade500,
                                     fontSize: 13)),
                           )),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 10),
                       Container(
                           margin: const EdgeInsets.only(top: 20),
                           child: TextFormField(
@@ -203,53 +220,48 @@ class _PayementMarchandState extends State<Epargne> {
                                 _isLoading = true;
                               });
 
-                              OperationServices().getBank().then((value) {
-                                setState(() {
-                                  _isLoading = false;
-                                });
-                                List<dynamic> agents = value['data'];
-                                print(agents);
-                                showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return ListView(
-                                        padding: const EdgeInsets.only(top: 32),
-                                        children: List.generate(
-                                          agents.length,
-                                          (index) => Microfinance(
-                                              image:
-                                                  "https://apibackoffice.alliancefinancialsa.com/${agents[index]["photo"]}",
-                                              name: agents[index]["AgentName"],
-                                              slogant: "",
-                                              ontap: () {
-                                                setState(() {
-                                                  microfi = agents[index];
-                                                  data['vClientID'] = context
-                                                      .read<AuthService>()
-                                                      .currentUser!
-                                                      .data!
-                                                      .phone;
-                                                  data['vFromNumber'] = context
-                                                      .read<AuthService>()
-                                                      .currentUser!
-                                                      .data!
-                                                      .phone;
-                                                  data['vToNumber'] =
-                                                      agents[index]['Phone'];
-                                                  data['vToAgentId'] =
-                                                      agents[index]['Agent_ID'];
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return  agents.isEmpty ? Container(height:200,width: double.infinity, child: Center(child: const CircularProgressIndicator())) : ListView(
+                                    padding: const EdgeInsets.only(top: 32),
+                                    children: List.generate(
+                                      agents.length,
+                                      (index) => Microfinance(
+                                        image:
+                                            "https://apibackoffice.alliancefinancialsa.com/${agents[index]["photo"]}",
+                                        name: agents[index]["AgentName"],
+                                        slogant: "",
+                                        ontap: () {
+                                          setState(() {
+                                            microfi = agents[index];
+                                            data['vClientID'] = context
+                                                .read<AuthService>()
+                                                .currentUser!
+                                                .data!
+                                                .phone;
+                                            data['vFromNumber'] = context
+                                                .read<AuthService>()
+                                                .currentUser!
+                                                .data!
+                                                .phone;
+                                            data['vToNumber'] =
+                                                agents[index]['Phone'];
+                                            data['vToAgentId'] =
+                                                agents[index]['Agent_ID'];
 
-                                                  agentName = agents[index]
-                                                      ['AgentName'];
-                                                });
-                                                print(data);
-                                                print(agentName);
-                                                Navigator.pop(context);
-                                              }),
-                                        ),
-                                      );
-                                    });
-                              });
+                                            agentName =
+                                                agents[index]['AgentName'];
+                                          });
+                                          print(data);
+                                          print(agentName);
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
                             },
                             readOnly: true,
                             keyboardType: TextInputType.text,

@@ -8,6 +8,7 @@ import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
+import 'package:mydirectcash/utils/app_routes.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -332,7 +333,11 @@ class _AchatCreditPasswordState extends State<AchatCreditPasswordCoupon> {
                                     color: greenColor,
                                     callback: () {
                                       Navigator.pop(context);
-                                      Navigator.pop(widget.parentcontext);
+                                      Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        AppRoutes.homePage,
+                                        (route) => false,
+                                      );
                                     },
                                   );
                                 }).catchError((error) {
@@ -340,7 +345,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPasswordCoupon> {
                                     _isLoading = false;
                                   });
                                   print(error);
-                                  
+
                                   DialogWidget.error(
                                     context,
                                     title: AppLocalizations.of(context)!

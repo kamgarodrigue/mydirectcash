@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mydirectcash/Repository/AuthService.dart';
+import 'package:intl/intl.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
-import 'package:mydirectcash/screens/carousel_page.dart';
 
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/utils/colors.dart';
@@ -30,16 +29,76 @@ class _TransactionsState extends State<Transactions> {
   bool om_momoModule = false;
 
   bool payementModule = false;
+  Map data = {"userID": "", "vtrxType": "", "vfromdate": "", "vTodate": ""};
+  String selectedPeriod = 'Cette Semaine';
+  late String startDate;
+  late String endDate;
+  List<dynamic> transactions = [];
+
+  void loadTransactions() async {
+    await TransactonService().getHistory(data).then((value) {
+      setState(() {
+        transactions = value['data'];
+      });
+      print(
+          "=================================transactions=============================");
+      print(transactions);
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    context.read<TransactonService>().getHistory(widget.phone);
+    data["userID"] = widget.phone;
+    data["vtrxType"] = "";
+    _updateDateRange(); // Initialize date range
+    loadTransactions();
+  }
+
+  void _updateDateRange() {
+    DateTime today = DateTime.now();
+    DateTime start;
+    DateTime end;
+
+    switch (selectedPeriod) {
+      case 'Ce Jour': // Today's date
+        start = today;
+        end = today;
+        break;
+
+      case 'Cette Semaine': // Current week's Monday to Sunday
+        start = today.subtract(Duration(days: today.weekday - 1)); // Monday
+        end = start.add(Duration(days: 6)); // Sunday
+        break;
+
+      case 'Ce Mois': // First and last day of current month
+        start = DateTime(today.year, today.month, 1); // First day
+        end = DateTime(today.year, today.month + 1, 0); // Last day
+        break;
+
+      case 'Cette Année': // First and last day of the year
+        start = DateTime(today.year, 1, 1); // Jan 1st
+        end = DateTime(today.year, 12, 31); // Dec 31st
+        break;
+
+      default:
+        start = today;
+        end = today;
+    }
+
+    setState(() {
+      startDate = DateFormat('yyyy-MM-dd').format(start);
+      endDate = DateFormat('yyyy-MM-dd').format(end);
+      data["vfromdate"] = startDate;
+      data["vTodate"] = endDate;
+    });
+    print(startDate);
+    print(endDate);
+    loadTransactions();
   }
 
   @override
   Widget build(BuildContext context) {
-    final transactionProvider = context.watch<TransactonService>();
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
@@ -164,6 +223,7 @@ class _TransactionsState extends State<Transactions> {
                               'Ce Jour',
                               'Cette Semaine',
                               'Ce Mois',
+                              'Cette Année',
                             ].map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -179,7 +239,16 @@ class _TransactionsState extends State<Transactions> {
                               );
                             }).toList(),
                             onChanged: (value) {
-                              print(value);
+                              setState(() {
+                                selectedPeriod = value!;
+                                _updateDateRange();
+                              });
+                              context
+                                  .read<TransactonService>()
+                                  .getHistory(data)
+                                  .then((value) {
+                                print(value[1]);
+                              });
                             },
                           ),
                         ),
@@ -439,31 +508,33 @@ class _TransactionsState extends State<Transactions> {
             Expanded(
               child: Container(
                 child: ListView.builder(
-                    itemCount: transactionProvider.historique.length,
+                    itemCount: transactions.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final transaction = transactionProvider.historique[index];
+                      final transaction = transactions[index];
 
                       return TransactionContrainer(
-                        destinataire:
-                            '(${transactionProvider.historique[index].collecteur})',
-                        title: transaction.typeOperation!,
-                        stringDate: transaction.jour!,
-                        stringPrice: transaction.montant!,
-                        stringSolde: transaction.statut!,
-                        onPressShare: () {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return ShareComponent();
-                              });
-                        },
-                        onPressDelete: () {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return DeleteComponent();
-                              });
-                        },
+                        destinataire: '(${transaction["TO_NUMBER"]})',
+                        title: transaction["TRX_Type"],
+                        stringDate: transaction["TRX_DATE"] != null
+                            ? DateFormat('yyyy-MM-dd')
+                                .format(DateTime.parse(transaction["TRX_DATE"]))
+                            : "N/A",
+                        stringPrice: transaction["Amount"],
+                        stringSolde: transaction["TRX_Status"],
+                        // onPressShare: () {
+                        //   showModalBottomSheet(
+                        //       context: context,
+                        //       builder: (BuildContext context) {
+                        //         return ShareComponent();
+                        //       });
+                        // },
+                        // onPressDelete: () {
+                        //   showModalBottomSheet(
+                        //       context: context,
+                        //       builder: (BuildContext context) {
+                        //         return DeleteComponent();
+                        //       });
+                        // },
                       );
                     }),
               ),

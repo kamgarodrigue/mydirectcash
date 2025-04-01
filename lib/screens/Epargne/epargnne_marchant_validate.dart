@@ -6,6 +6,7 @@ import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
+import 'package:mydirectcash/utils/app_routes.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -203,77 +204,77 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                                   backgroundColor: blueColor,
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 50)),
-                             
-                                onPressed:
-                                () {
+                              onPressed: () {
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                TransactonService()
+                                    .payerMarchant(widget.data)
+                                    .then((value) {
                                   setState(() {
-                                    _isLoading = true;
+                                    _isLoading = false;
                                   });
-                                  TransactonService()
-                                      .payerMarchant(widget.data)
-                                      .then((value) {
-                                    setState(() {
-                                      _isLoading = false;
-                                    });
-                                    if (value['message'] ==
-                                        "Tous les paramètres sont requis.") {
-                                      DialogWidget.error(context,
-                                          title: "Succes !",
-                                          content: value['message'],
-                                          color: blueColor, callback: () {
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                      });
-                                    } else if (value['message'] ==
-                                        "Succes") {
-                                      DialogWidget.success(context,
-                                          title: value['message'],
-                                          content: value['data']['sender'],
-                                          color: greenColor, callback: () {
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                      });
-                                    } else if (value['message'] == "erreur") {
-                                      DialogWidget.error(context,
-                                          title: value['message'],
-                                          content: value['data']
-                                              ['vErrorMessage'],
-                                          color: blueColor, callback: () {
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                      });
-                                    }
-
-                                    // context
-                                    //     .read<AuthService>()
-                                    //     .loginWithBiometric({
-                                    //   "id": context
-                                    //       .read<AuthService>()
-                                    //       .currentUser!
-                                    //       .data!
-                                    //       .phone
-                                    // });
-                                    // DialogWidget.success(context,
-                                    //     title: "Succes !",
-                                    //     content: value.toString(),
-                                    //     color: greenColor, callback: () {
-                                    //   Navigator.pop(context);
-                                    //   Navigator.pop(context);
-                                    // });
-                                    // Navigator.pop(context);
-                                  }).catchError((error) {
-                                    setState(() {
-                                      _isLoading = false;
-                                    });
-                                    print(error);
+                                  if (value['message'] ==
+                                      "Tous les paramètres sont requis.") {
                                     DialogWidget.error(context,
-                                        title: AppLocalizations.of(context)!
-                                            .translate("erreur")!,
-                                        content: error.toString(),
-                                        color: errorColor, callback: () {
+                                        title: "Succes !",
+                                        content: value['message'],
+                                        color: blueColor, callback: () {
+                                      Navigator.pop(context);
                                       Navigator.pop(context);
                                     });
+                                  } else if (value['message'] == "Succes") {
+                                    DialogWidget.success(context,
+                                        title: value['message'],
+                                        content: value['data']['sender'],
+                                        color: greenColor, callback: () {
+                                      Navigator.pop(context);
+                                      Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        AppRoutes.homePage,
+                                        (route) => false,
+                                      );
+                                    });
+                                  } else if (value['message'] == "erreur") {
+                                    DialogWidget.error(context,
+                                        title: value['message'],
+                                        content: value['data']['vErrorMessage'],
+                                        color: blueColor, callback: () {
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    });
+                                  }
+
+                                  // context
+                                  //     .read<AuthService>()
+                                  //     .loginWithBiometric({
+                                  //   "id": context
+                                  //       .read<AuthService>()
+                                  //       .currentUser!
+                                  //       .data!
+                                  //       .phone
+                                  // });
+                                  // DialogWidget.success(context,
+                                  //     title: "Succes !",
+                                  //     content: value.toString(),
+                                  //     color: greenColor, callback: () {
+                                  //   Navigator.pop(context);
+                                  //   Navigator.pop(context);
+                                  // });
+                                  // Navigator.pop(context);
+                                }).catchError((error) {
+                                  setState(() {
+                                    _isLoading = false;
                                   });
+                                  print(error);
+                                  DialogWidget.error(context,
+                                      title: AppLocalizations.of(context)!
+                                          .translate("erreur")!,
+                                      content: error.toString(),
+                                      color: errorColor, callback: () {
+                                    Navigator.pop(context);
+                                  });
+                                });
                               },
                               child: Text(
                                 AppLocalizations.of(context)!

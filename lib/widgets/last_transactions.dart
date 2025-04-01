@@ -19,9 +19,9 @@ class _LastTransactionState extends State<LastTransaction> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context
-        .read<TransactonService>()
-        .getHistory(widget.currrentUser!.data!.phone!);
+    // context
+    //     .read<TransactonService>()
+    //     .getHistory(widget.currrentUser!.data!.phone);
   }
 
   @override

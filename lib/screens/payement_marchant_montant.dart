@@ -193,7 +193,7 @@ class _PayementMarchandMontantState extends State<PayementMarchandMontant> {
             ),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
+                    ? Loader(loadingTxt: '')
                     : Container())
           ],
         ));

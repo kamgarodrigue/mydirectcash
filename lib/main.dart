@@ -13,6 +13,7 @@ import 'package:mydirectcash/screens/aide_et_suport.dart';
 import 'package:mydirectcash/screens/home.dart';
 import 'package:mydirectcash/screens/login.dart';
 import 'package:mydirectcash/screens/welcome.dart';
+import 'package:mydirectcash/utils/app_routes.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './AppLanguage.dart';
@@ -51,8 +52,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     context.read<AppLanguage>().fetchLocale();
-    
   }
+
 /*
   @override
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
@@ -84,21 +85,19 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 */
   @override
   void dispose() {
-   
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final appLanguage = context.watch<AppLanguage>();
-     final auth = context.watch<AuthService>();
-    
+    final auth = context.watch<AuthService>();
+
     return MaterialApp(
       title: 'My Direct Cash',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        
       ),
       locale: appLanguage.appLocal,
       supportedLocales: const [
@@ -113,9 +112,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         AppLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      home: auth.authenticate?Home():  WelcomePage(),
-              
-           
+      home: auth.authenticate ? Home() : WelcomePage(),
+      routes: {
+        AppRoutes.homePage: (context) => const Home(),
+      },
     );
   }
 }

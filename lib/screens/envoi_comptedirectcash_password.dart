@@ -1,14 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
+import 'package:mydirectcash/utils/app_routes.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
-
 
 class EnvoiCompteDirectCashPassword extends StatefulWidget {
   Map? data;
@@ -222,8 +221,7 @@ class _EnvoiCompteDirectCashPasswordState
                                       content: value["message"],
                                       color: errorColor,
                                       callback: () {
-                                        // Navigator.pop(widget.context1);
-                                        // Navigator.pop(widget.context2);
+                                      
                                         Navigator.pop(context);
                                       },
                                     );
@@ -236,8 +234,7 @@ class _EnvoiCompteDirectCashPasswordState
                                       content: value["message"],
                                       color: errorColor,
                                       callback: () {
-                                        // Navigator.pop(widget.context1);
-                                        // Navigator.pop(widget.context2);
+                                       
                                         Navigator.pop(context);
                                       },
                                     );
@@ -248,8 +245,12 @@ class _EnvoiCompteDirectCashPasswordState
                                       content: value['data']['sender'],
                                       color: greenColor,
                                       callback: () {
-                                        Navigator.pop(widget.context2);
                                         Navigator.pop(context);
+                                        Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          AppRoutes.homePage,
+                                          (route) => false,
+                                        );
                                       },
                                     );
                                   }

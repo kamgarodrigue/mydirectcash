@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
+import 'package:mydirectcash/utils/app_routes.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -230,6 +230,17 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                                         Navigator.pop(context);
                                       },
                                     );
+                                  } else if (value['code'] == 400) {
+                                    DialogWidget.success(
+                                      context,
+                                      title: AppLocalizations.of(context)!
+                                          .translate("erreur")!,
+                                      content: value["message"],
+                                      color: errorColor,
+                                      callback: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
                                   } else if (value["code"] == 200) {
                                     DialogWidget.success(
                                       context,
@@ -238,6 +249,11 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                                       color: greenColor,
                                       callback: () {
                                         Navigator.pop(context);
+                                        Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          AppRoutes.homePage,
+                                          (route) => false,
+                                        );
                                       },
                                     );
                                   }
@@ -247,11 +263,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                                   });
                                   print(error);
 
-                                  //  ScaffoldMessenger.of(context).showSnackBar(
-                                  //   SnackBar(
-                                  //       content: Text(
-                                  //           "${AppLocalizations.of(context)!.translate('Saisissez le numéro bénéficiaire')}")),
-                                  // );
+                                
                                 });
                               },
                               child: Text(

@@ -6,6 +6,7 @@ import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
+import 'package:mydirectcash/utils/app_routes.dart';
 import 'package:mydirectcash/utils/auth_utils.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
@@ -289,11 +290,14 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                       content: value['data']['sender'],
                                       color: greenColor,
                                       callback: () {
-                                        Navigator.pop(widget.context2);
                                         Navigator.pop(context);
+                                        Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          AppRoutes.homePage,
+                                          (route) => false,
+                                        );
                                       },
                                     );
-                                    reset(context, setState);
                                   } else if (value["message"] ==
                                       "Mot de passe ou PIN incorrect.") {
                                     DialogWidget.success(
