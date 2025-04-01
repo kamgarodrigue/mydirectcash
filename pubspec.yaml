@@ -65,6 +65,8 @@ dependencies:
   intl:
   flutter_contacts: ^1.1.9+2
   flutter_svg:
+  
+  
 
 dev_dependencies:
   flutter_test:
