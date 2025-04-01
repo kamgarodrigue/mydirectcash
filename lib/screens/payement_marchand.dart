@@ -276,7 +276,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
                             keyboardType: TextInputType.number,
                             onChanged: (value) {
                               setState(() {
-                                data["vToNumber"]  = value;
+                               data["vAmount"] = value;
                               });
                             },
                             style: const TextStyle(
@@ -314,6 +314,11 @@ class _PayementMarchandState extends State<PayementMarchand> {
                                     setState(() {
                                       _isLoading = true;
                                     });
+                                    print("-----------debur");
+                                    print(data["vToNumber"]);
+                                    print(data["vAmount"]);
+                                    print(data["vMerchantCode"]);
+print("-----------fin");
                                     Provider.of<OperationServices>(context,
                                             listen: false)
                                         .getAgentByPhone(data["vToNumber"])
