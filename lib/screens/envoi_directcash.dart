@@ -47,6 +47,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
   void initState() {
     super.initState();
     _controller.text = "";
+    data['vrxtype'] = "1";
     context.read<AuthService>().authenticate;
   }
 
@@ -64,8 +65,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
 
   @override
   void dispose() {
-    _controller
-        .dispose(); // Dispose of the controller when the widget is removed
+    _controller.dispose();
     super.dispose();
   }
 
@@ -76,13 +76,14 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
         final contact = await FlutterContacts.openExternalPick();
         if (contact != null && contact.phones.isNotEmpty) {
           setState(() {
-            // Update the text field and the data map with the selected phone number
             String selectedNumber = contact.phones.first.number;
-            _controller.text = selectedNumber;
-            data['vToNumber'] = selectedNumber;
+            List<String> parts = selectedNumber.split(' ');
+            String phoneWithoutCode =
+                parts.length > 1 ? parts.sublist(1).join('') : selectedNumber;
+            _controller.text = phoneWithoutCode;
+            data["vToNumber"] = _controller.text;
           });
         } else {
-          // Show a message if the contact doesn't have a phone number
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
                 content: Text(
@@ -220,7 +221,6 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                             data['vrxtype'] = "2";
                           });
                         }
-                      
                       },
                       validator: (value) {
                         if (value!.trim().isEmpty) {
@@ -325,10 +325,11 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                   _isLoading = true;
                                   param = {
                                     "amount": data['vAmount'],
-                                    "to": data['vToNumber'],
+                                    "to": _controller.text,
                                     "transactionType": data['vrxtype'],
                                   };
                                 });
+                                print(param);
 
                                 TransactonService()
                                     .getDetailEnvoiDirectcash(param)
@@ -339,6 +340,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                   data["vClientID"] =
                                       autProvider.currentUser!.data!.phone;
                                   data["vRate"] = value["data"]["fees"];
+                                  print(data);
                                   Navigator.push(
                                       context,
                                       PageTransition(

@@ -63,10 +63,12 @@ class _OmMoMoState extends State<OmMoMo> {
         final contact = await FlutterContacts.openExternalPick();
         if (contact != null && contact.phones.isNotEmpty) {
           setState(() {
-            // Update the text field and the data map with the selected phone number
             String selectedNumber = contact.phones.first.number;
-            _controller.text = selectedNumber;
-            data["vToNumber"] = selectedNumber;
+            List<String> parts = selectedNumber.split(' ');
+            String phoneWithoutCode =
+                parts.length > 1 ? parts.sublist(1).join('') : selectedNumber;
+            _controller.text = phoneWithoutCode;
+            data["vToNumber"] = phoneWithoutCode.toString();
           });
         } else {
           // Show a message if the contact doesn't have a phone number
