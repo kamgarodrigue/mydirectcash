@@ -189,5 +189,6 @@
   "Vous êtes sur le point d'acheter le bouquet ACCESS pour 3 mois": "You are about to buy the ACCESS package for 3 months",
   "whatsappMessage": "Write to us on WhatsApp and our agents will answer you.",
   "yourAre": "You are going to pay:",
-  "to": "to"
+  "to": "to",
+  "check_network_or_number": "Please check the network or the number selected"
 }

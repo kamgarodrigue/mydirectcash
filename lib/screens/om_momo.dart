@@ -6,6 +6,7 @@ import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
+import 'package:mydirectcash/utils/app_routes.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -71,7 +72,6 @@ class _OmMoMoState extends State<OmMoMo> {
             data["vToNumber"] = phoneWithoutCode.toString();
           });
         } else {
-          // Show a message if the contact doesn't have a phone number
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
                 content: Text(
@@ -79,7 +79,6 @@ class _OmMoMoState extends State<OmMoMo> {
           );
         }
       } else {
-        // Handle permission denied case
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content: Text(
@@ -87,7 +86,6 @@ class _OmMoMoState extends State<OmMoMo> {
         );
       }
     } catch (e) {
-      // Handle errors
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to pick a contact: $e')),
       );
@@ -245,16 +243,37 @@ class _OmMoMoState extends State<OmMoMo> {
                             title: value["message"],
                             content: "",
                             color: greenColor,
-                            callback: () => Navigator.pop(context),
+                            callback: () {
+                              Navigator.pop(context);
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                AppRoutes.homePage,
+                                (route) => false,
+                              );
+                            },
                           );
                         } else if (value["code"] == 400) {
-                          DialogWidget.success(
-                            context,
-                            title: value["message"],
-                            content: "",
-                            color: errorColor,
-                            callback: () => Navigator.pop(context),
-                          );
+                          if (value["message"]=="L'API externe a retourné une réponse inattendue.") {
+                             DialogWidget.success(
+                              context,
+                              title: AppLocalizations.of(context)!
+                                  .translate("erreur")!,
+                              content: AppLocalizations.of(context)!
+                                  .translate("check_network_or_number"),
+                              color: errorColor,
+                              callback: () => Navigator.pop(context),
+                            );
+                          } else {
+                             DialogWidget.success(
+                              context,
+                              title: AppLocalizations.of(context)!
+                                  .translate("erreur")!,
+                              content: value["message"],
+                              color: errorColor,
+                              callback: () => Navigator.pop(context),
+                            );
+                          }
+                         
                         }
                       }).catchError((error) {
                         setState(() {
@@ -649,97 +668,86 @@ class _OmMoMoState extends State<OmMoMo> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Image.asset(
-                            isOm
-                                ? 'assets/images/orange_money.jpeg'
-                                : 'assets/images/mobile_money.png',
-                            width: 60,
-                            height: 60,
-                          ),
+                          // Image.asset(
+                          //   isOm
+                          //       ? 'assets/images/orange_money.jpeg'
+                          //       : 'assets/images/mobile_money.png',
+                          //   width: 60,
+                          //   height: 60,
+                          // ),
                           const SizedBox(
                             width: 20,
                           ),
                           Expanded(
                             child: Container(
                               color: Colors.transparent,
-                              child: Column(
+                              child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    AppLocalizations.of(context)!
-                                        .translate(
-                                            'Choisissez le type de transaction')
-                                        .toString(),
-                                    style: TextStyle(
-                                        fontFamily: title_font,
-                                        color: blueColor,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Container(
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                  AppLocalizations.of(context)!
-                                                      .translate('Dépôt')
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      fontFamily:
-                                                          content_font)),
-                                              GestureDetector(
-                                                onTap: () {},
-                                                child: Radio(
-                                                    value: isDepot,
-                                                    activeColor: blueColor,
-                                                    groupValue: true,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        isDepot = true;
-                                                        data["opType"] =
-                                                            "depot";
-                                                      });
-                                                      print(data["opType"]);
-                                                    }),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(width: 30),
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                  AppLocalizations.of(context)!
-                                                      .translate('Retrait')
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      fontFamily:
-                                                          content_font)),
-                                              GestureDetector(
-                                                onTap: () {},
-                                                child: Radio(
-                                                    activeColor: blueColor,
-                                                    value: !isDepot,
-                                                    groupValue: true,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        isDepot = false;
-                                                        data["opType"] =
-                                                            "cashout";
-                                                      });
-                                                      print(data["opType"]);
-                                                    }),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                 
+                                  // Container(
+                                    // child: Row(
+                                      // children: [
+                                        // Container(
+                                        //   child: Row(
+                                        //     children: [
+                                        //       Text(
+                                        //           AppLocalizations.of(context)!
+                                        //               .translate('Dépôt')
+                                        //               .toString(),
+                                        //           style: const TextStyle(
+                                        //               fontFamily:
+                                        //                   content_font)),
+                                        //       GestureDetector(
+                                        //         onTap: () {},
+                                        //         child: Radio(
+                                        //             value: isDepot,
+                                        //             activeColor: blueColor,
+                                        //             groupValue: true,
+                                        //             onChanged: (value) {
+                                        //               setState(() {
+                                        //                 isDepot = true;
+                                        //                 data["opType"] =
+                                        //                     "depot";
+                                        //               });
+                                        //               print(data["opType"]);
+                                        //             }),
+                                        //       )
+                                        //     ],
+                                        //   ),
+                                        // ),
+                                        // Container(
+                                        //   child: Row(
+                                        //     children: [
+                                        //       Text(
+                                        //           AppLocalizations.of(context)!
+                                        //               .translate('Retrait')
+                                        //               .toString(),
+                                        //           style: const TextStyle(
+                                        //               fontFamily:
+                                        //                   content_font)),
+                                        //       GestureDetector(
+                                        //         onTap: () {},
+                                        //         child: Radio(
+                                        //             activeColor: blueColor,
+                                        //             value: !isDepot,
+                                        //             groupValue: true,
+                                        //             onChanged: (value) {
+                                        //               setState(() {
+                                        //                 isDepot = false;
+                                        //                 data["opType"] =
+                                        //                     "cashout";
+                                        //               });
+                                        //               print(data["opType"]);
+                                        //             }),
+                                        //       )
+                                        //     ],
+                                        //   ),
+                                        // ),
+                                      // ],
+                                    // ),
+                                  // )
                                 ],
                               ),
                             ),
@@ -747,10 +755,12 @@ class _OmMoMoState extends State<OmMoMo> {
                         ],
                       ),
                     ),
-                    isDepot ? depot() : retrait(),
+                    // isDepot ? 
+                    depot() 
+                    // : retrait(),
                   ],
                 )),
-            Container(child: _isLoading ? Loader(loadingTxt: '') : Container())
+            Container(child: _isLoading ? Loader(loadingTxt: '', color: blueColor,) : Container())
           ],
         ));
   }
