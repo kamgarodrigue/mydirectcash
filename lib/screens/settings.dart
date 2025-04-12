@@ -14,6 +14,7 @@ import 'package:mydirectcash/screens/aide_et_suport.dart';
 import 'package:mydirectcash/screens/change_language_page.dart';
 
 import 'package:mydirectcash/screens/home.dart';
+import 'package:mydirectcash/screens/transaction_new.dart';
 import 'package:mydirectcash/screens/transactions.dart';
 import 'package:mydirectcash/utils/app_routes.dart';
 import 'package:mydirectcash/utils/colors.dart';
@@ -159,10 +160,12 @@ class _SettingsState extends State<Settings> {
             _buildSettingTile(
                 icon: "home", title: "Accueil", nextPage: const Home()),
             _buildSettingTile(
-                icon: "transaction",
-                title: "Mes transactions",
-                nextPage:
-                    Transactions(phone: authProvider.currentUser?.data?.phone)),
+              icon: "transaction",
+              title: "Mes transactions",
+              nextPage:
+                  Transactions(phone: authProvider.currentUser?.data?.phone),
+              // nextPage: TransactionNew(),
+            ),
             _buildSettingTile(
                 icon: "person",
                 title: "Mon Compte",

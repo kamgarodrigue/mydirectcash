@@ -260,260 +260,257 @@ class _TransactionsState extends State<Transactions> {
                   const SizedBox(
                     height: 15,
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              rechargeModule = true;
-                              servicesModule = false;
-                              envoiModule = false;
-                              airtimeModule = false;
-                              om_momoModule = false;
-                              payementModule = false;
-                            });
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            margin: const EdgeInsets.only(left: 10),
-                            decoration: BoxDecoration(
-                                color: rechargeModule ? blueColor : Colors.grey,
-                                borderRadius: BorderRadius.circular(5)),
-                            width: MediaQuery.of(context).size.width / 5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/images/ico-achat-credit.png',
-                                  width: 30,
-                                ),
-                                const SizedBox(
-                                  height: 0,
-                                ),
-                                const Text(
-                                  "Recharge",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: content_font,
-                                      fontSize: 10,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              rechargeModule = false;
-                              servicesModule = true;
-                              envoiModule = false;
-                              airtimeModule = false;
-                              om_momoModule = false;
-                              payementModule = false;
-                            });
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 20),
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                                color: servicesModule ? blueColor : Colors.grey,
-                                borderRadius: BorderRadius.circular(5)),
-                            width: MediaQuery.of(context).size.width / 5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/images/ico-paiement-marchand.png',
-                                  width: 30,
-                                ),
-                                const Text(
-                                  "Services",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: content_font,
-                                      fontSize: 10,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              rechargeModule = false;
-                              servicesModule = false;
-                              envoiModule = true;
-                              airtimeModule = false;
-                              om_momoModule = false;
-                              payementModule = false;
-                            });
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 20),
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                                color: envoiModule ? blueColor : Colors.grey,
-                                borderRadius: BorderRadius.circular(5)),
-                            width: MediaQuery.of(context).size.width / 5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/images/ico-transfert-dargent.png',
-                                  width: 30,
-                                ),
-                                const Text(
-                                  "Envoi",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: content_font,
-                                      fontSize: 10,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              rechargeModule = false;
-                              servicesModule = false;
-                              envoiModule = false;
-                              airtimeModule = true;
-                              om_momoModule = false;
-                              payementModule = false;
-                            });
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 20),
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                                color: airtimeModule ? blueColor : Colors.grey,
-                                borderRadius: BorderRadius.circular(5)),
-                            width: MediaQuery.of(context).size.width / 5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/images/ico-achat-credit.png',
-                                  width: 30,
-                                ),
-                                const SizedBox(
-                                  height: 0,
-                                ),
-                                const Text(
-                                  "Airtime",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: content_font,
-                                      fontSize: 10,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              rechargeModule = false;
-                              servicesModule = false;
-                              envoiModule = false;
-                              airtimeModule = false;
-                              om_momoModule = true;
-                              payementModule = false;
-                            });
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 20),
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                                color: om_momoModule ? blueColor : Colors.grey,
-                                borderRadius: BorderRadius.circular(5)),
-                            width: MediaQuery.of(context).size.width / 5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/images/ico-om_momo.png',
-                                  width: 30,
-                                ),
-                                const Text(
-                                  "OM/MoMo",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: content_font,
-                                      fontSize: 10,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              rechargeModule = false;
-                              servicesModule = false;
-                              envoiModule = false;
-                              airtimeModule = false;
-                              om_momoModule = false;
-                              payementModule = true;
-                            });
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 20, right: 10),
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                                color: payementModule ? blueColor : Colors.grey,
-                                borderRadius: BorderRadius.circular(5)),
-                            width: MediaQuery.of(context).size.width / 5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/images/ico-facture.png',
-                                  width: 30,
-                                ),
-                                const Text(
-                                  "Facture",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: content_font,
-                                      fontSize: 10,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // SingleChildScrollView(
+                  //   scrollDirection: Axis.horizontal,
+                  //   child: Row(
+                  //     children: [
+                  //       GestureDetector(
+                  //         onTap: () {
+                  //           setState(() {
+                  //             rechargeModule = true;
+                  //             servicesModule = false;
+                  //             envoiModule = false;
+                  //             airtimeModule = false;
+                  //             om_momoModule = false;
+                  //             payementModule = false;
+                  //           });
+                  //         },
+                  //         child: Container(
+                  //           padding: const EdgeInsets.symmetric(vertical: 5),
+                  //           margin: const EdgeInsets.only(left: 10),
+                  //           decoration: BoxDecoration(
+                  //               color: rechargeModule ? blueColor : Colors.grey,
+                  //               borderRadius: BorderRadius.circular(5)),
+                  //           width: MediaQuery.of(context).size.width / 5,
+                  //           child: Column(
+                  //             crossAxisAlignment: CrossAxisAlignment.center,
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: [
+                  //               Image.asset(
+                  //                 'assets/images/ico-achat-credit.png',
+                  //                 width: 30,
+                  //               ),
+                  //               const SizedBox(
+                  //                 height: 0,
+                  //               ),
+                  //               const Text(
+                  //                 "Recharge",
+                  //                 textAlign: TextAlign.center,
+                  //                 style: TextStyle(
+                  //                     fontFamily: content_font,
+                  //                     fontSize: 10,
+                  //                     color: Colors.white),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     setState(() {
+                        //       rechargeModule = false;
+                        //       servicesModule = true;
+                        //       envoiModule = false;
+                        //       airtimeModule = false;
+                        //       om_momoModule = false;
+                        //       payementModule = false;
+                        //     });
+                        //   },
+                        //   child: Container(
+                        //     margin: const EdgeInsets.only(left: 20),
+                        //     padding: const EdgeInsets.symmetric(vertical: 5),
+                        //     decoration: BoxDecoration(
+                        //         color: servicesModule ? blueColor : Colors.grey,
+                        //         borderRadius: BorderRadius.circular(5)),
+                        //     width: MediaQuery.of(context).size.width / 5,
+                        //     child: Column(
+                        //       crossAxisAlignment: CrossAxisAlignment.center,
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         Image.asset(
+                        //           'assets/images/ico-paiement-marchand.png',
+                        //           width: 30,
+                        //         ),
+                        //         const Text(
+                        //           "Services",
+                        //           textAlign: TextAlign.center,
+                        //           style: TextStyle(
+                        //               fontFamily: content_font,
+                        //               fontSize: 10,
+                        //               color: Colors.white),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     setState(() {
+                        //       rechargeModule = false;
+                        //       servicesModule = false;
+                        //       envoiModule = true;
+                        //       airtimeModule = false;
+                        //       om_momoModule = false;
+                        //       payementModule = false;
+                        //     });
+                        //   },
+                        //   child: Container(
+                        //     margin: const EdgeInsets.only(left: 20),
+                        //     padding: const EdgeInsets.symmetric(vertical: 5),
+                        //     decoration: BoxDecoration(
+                        //         color: envoiModule ? blueColor : Colors.grey,
+                        //         borderRadius: BorderRadius.circular(5)),
+                        //     width: MediaQuery.of(context).size.width / 5,
+                        //     child: Column(
+                        //       crossAxisAlignment: CrossAxisAlignment.center,
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         Image.asset(
+                        //           'assets/images/ico-transfert-dargent.png',
+                        //           width: 30,
+                        //         ),
+                        //         const Text(
+                        //           "Envoi",
+                        //           textAlign: TextAlign.center,
+                        //           style: TextStyle(
+                        //               fontFamily: content_font,
+                        //               fontSize: 10,
+                        //               color: Colors.white),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     setState(() {
+                        //       rechargeModule = false;
+                        //       servicesModule = false;
+                        //       envoiModule = false;
+                        //       airtimeModule = true;
+                        //       om_momoModule = false;
+                        //       payementModule = false;
+                        //     });
+                        //   },
+                        //   child: Container(
+                        //     margin: const EdgeInsets.only(left: 20),
+                        //     padding: const EdgeInsets.symmetric(vertical: 5),
+                        //     decoration: BoxDecoration(
+                        //         color: airtimeModule ? blueColor : Colors.grey,
+                        //         borderRadius: BorderRadius.circular(5)),
+                        //     width: MediaQuery.of(context).size.width / 5,
+                        //     child: Column(
+                        //       crossAxisAlignment: CrossAxisAlignment.center,
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         Image.asset(
+                        //           'assets/images/ico-achat-credit.png',
+                        //           width: 30,
+                        //         ),
+                        //         const SizedBox(
+                        //           height: 0,
+                        //         ),
+                        //         const Text(
+                        //           "Airtime",
+                        //           textAlign: TextAlign.center,
+                        //           style: TextStyle(
+                        //               fontFamily: content_font,
+                        //               fontSize: 10,
+                        //               color: Colors.white),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     setState(() {
+                        //       rechargeModule = false;
+                        //       servicesModule = false;
+                        //       envoiModule = false;
+                        //       airtimeModule = false;
+                        //       om_momoModule = true;
+                        //       payementModule = false;
+                        //     });
+                        //   },
+                        //   child: Container(
+                        //     margin: const EdgeInsets.only(left: 20),
+                        //     padding: const EdgeInsets.symmetric(vertical: 5),
+                        //     decoration: BoxDecoration(
+                        //         color: om_momoModule ? blueColor : Colors.grey,
+                        //         borderRadius: BorderRadius.circular(5)),
+                        //     width: MediaQuery.of(context).size.width / 5,
+                        //     child: Column(
+                        //       crossAxisAlignment: CrossAxisAlignment.center,
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         Image.asset(
+                        //           'assets/images/ico-om_momo.png',
+                        //           width: 30,
+                        //         ),
+                        //         const Text(
+                        //           "OM/MoMo",
+                        //           textAlign: TextAlign.center,
+                        //           style: TextStyle(
+                        //               fontFamily: content_font,
+                        //               fontSize: 10,
+                        //               color: Colors.white),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     setState(() {
+                        //       rechargeModule = false;
+                        //       servicesModule = false;
+                        //       envoiModule = false;
+                        //       airtimeModule = false;
+                        //       om_momoModule = false;
+                        //       payementModule = true;
+                        //     });
+                        //   },
+                        //   child: Container(
+                        //     margin: const EdgeInsets.only(left: 20, right: 10),
+                        //     padding: const EdgeInsets.symmetric(vertical: 5),
+                        //     decoration: BoxDecoration(
+                        //         color: payementModule ? blueColor : Colors.grey,
+                        //         borderRadius: BorderRadius.circular(5)),
+                        //     width: MediaQuery.of(context).size.width / 5,
+                        //     child: Column(
+                        //       crossAxisAlignment: CrossAxisAlignment.center,
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         Image.asset(
+                        //           'assets/images/ico-facture.png',
+                        //           width: 30,
+                        //         ),
+                        //         const Text(
+                        //           "Facture",
+                        //           textAlign: TextAlign.center,
+                        //           style: TextStyle(
+                        //               fontFamily: content_font,
+                        //               fontSize: 10,
+                        //               color: Colors.white),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                      // ],
+                    // ),
+                  // ),
                 ],
               ),
             ),
             const SizedBox(
               height: 20,
             ),
-           Expanded(
+            Expanded(
               child: isLoading
-                  ? SizedBox(
-                    height: double.infinity,
-                      child: CircularProgressIndicator(
-                        color: blueColor,
-                      ),
+                  ? Center(
+                      child: CircularProgressIndicator(color: blueColor),
                     )
                   : ListView.builder(
                       itemCount: transactions.length,
@@ -529,12 +526,12 @@ class _TransactionsState extends State<Transactions> {
                               : "N/A",
                           stringPrice: transaction["Amount"],
                           stringSolde: transaction["TRX_Status"],
+                          frais: transaction["rate"] ?? " ",
                         );
                       },
                     ),
             ),
-
-            BottomNavigation()
+            const BottomNavigation()
           ],
         ),
       ),

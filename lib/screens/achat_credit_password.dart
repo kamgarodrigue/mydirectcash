@@ -235,7 +235,8 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                                       context,
                                       title: AppLocalizations.of(context)!
                                           .translate("erreur")!,
-                                      content: value["message"],
+                                      content: AppLocalizations.of(context)!
+                                          .translate("check_network_or_number"),
                                       color: errorColor,
                                       callback: () {
                                         Navigator.pop(context);

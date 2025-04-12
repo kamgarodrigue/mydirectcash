@@ -61,6 +61,13 @@ class _HomeState extends State<Home> {
   String solde = "0";
   bool isLoading = false;
 
+  String formatSolde(String sold) {
+  double value = double.parse(sold);
+  String formatted = value.toStringAsFixed(2);
+  formatted = formatted.replaceAll(RegExp(r'\.?0+$'), '');
+  return formatted;
+}
+
   @override
   void initState() {
     super.initState();
@@ -473,7 +480,7 @@ class _HomeState extends State<Home> {
                                                   color: blueColor,
                                                 )
                                               : Text(
-                                                  solde,
+                                                 formatSolde(solde),
                                                   textAlign: TextAlign.center,
                                                   style: const TextStyle(
                                                       fontSize: 34,

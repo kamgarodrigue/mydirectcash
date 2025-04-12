@@ -31,16 +31,7 @@ class PayementFacture extends StatefulWidget {
 class _PayementFactureState extends State<PayementFacture> {
   List<BouquetCanal> boquets = [];
 
-  /* dynamic detailfacture = {
-    "message": "Solde Insuffisant pour payer cette facture",
-    "paymentID":
-        "S-113-950-ENEO-10039-37848bf18e5e49a2b77d54247317cd5f-23bbb7e264c948f2beb077d452a44441",
-    "amount": "2200.00",
-    "numeroFacture": "585022237",
-    "dateFacture": "12/06/2021 01:00:00",
-    "dateEcheance": "12/16/2021 01:00:00",
-    "penalite": "0.00"
-  };*/
+ 
 
   @override
   void initState() {

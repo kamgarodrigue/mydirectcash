@@ -10,10 +10,11 @@ class TransactionContrainer extends StatefulWidget {
       required this.stringDate,
       required this.stringPrice,
       required this.stringSolde,
+      required this.frais,
       // required this.onPressShare,
       // required this.onPressDelete
       });
-  String title, destinataire, stringDate, stringPrice, stringSolde;
+  String title, destinataire, stringDate, stringPrice, stringSolde, frais;
   // void Function() onPressShare;
   // void Function() onPressDelete;
 
@@ -106,6 +107,15 @@ class _TransactionContrainerState extends State<TransactionContrainer> {
                                       color: Colors.grey.shade600,
                                       fontSize: 11),
                                 ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  widget.stringSolde,
+                                  style: TextStyle(
+                                      fontFamily: content_font,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey.shade600,
+                                      fontSize: 11),
+                                ),
                               ],
                             ),
                           ),
@@ -123,20 +133,21 @@ class _TransactionContrainerState extends State<TransactionContrainer> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14),
                               ),
-                              Text(widget.stringDate,
-                                  style: TextStyle(
-                                      fontFamily: content_font,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey.shade600,
-                                      fontSize: 11)),
-                              Text(
-                                widget.stringSolde,
+                               Text(
+                                widget.frais,
                                 style: TextStyle(
                                     fontFamily: content_font,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey.shade600,
                                     fontSize: 11),
                               ),
+                              Text(widget.stringDate,
+                                  style: TextStyle(
+                                      fontFamily: content_font,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey.shade600,
+                                      fontSize: 11)),
+                             
                             ],
                           ),
                         ),
