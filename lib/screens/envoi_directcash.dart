@@ -12,6 +12,10 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class EnvoiDirectCash extends StatefulWidget {
   dynamic context1;
@@ -25,7 +29,6 @@ class EnvoiDirectCash extends StatefulWidget {
 class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
   String? countryName = 'Choisissez le pays de destination';
   String? coupon = 'Choisissez le coupon crédit';
-  Contact? _selectedContact;
   TextEditingController _controller = TextEditingController();
 
   PhoneNumber number = PhoneNumber(isoCode: 'CM', phoneNumber: '');
@@ -43,12 +46,66 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
   Map? param;
   bool _isLoading = false;
   String codeRegion = "";
+  String? country;
   @override
   void initState() {
     super.initState();
+    printUserCountry();
     _controller.text = "";
     data['vrxtype'] = "1";
     context.read<AuthService>().authenticate;
+  }
+
+  Future<void> printUserCountry() async {
+    try {
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          print('Location permission denied');
+          Navigator.of(context).pop;
+          return;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        print('Location permissions are permanently denied.');
+        Navigator.of(context).pop;
+        return;
+      }
+
+      // Get current position
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      // Reverse geocode to get country
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      if (placemarks.isNotEmpty) {
+        country = placemarks.first.country;
+        print('User is in: $country');
+      } else {
+        print('Could not determine the country.');
+      }
+    } catch (e) {
+      print('An error occurred: $e');
+    }
+  }
+
+  void setTransactionType() {
+    if (country != "Cameroon" || number.isoCode != "CM") {
+      setState(() {
+        data['vrxtype'] = "2";
+      });
+    } else {
+      setState(() {
+        data['vrxtype'] = "1";
+      });
+    }
   }
 
   Map data = {
@@ -87,15 +144,20 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
                 content: Text(
-                    "${AppLocalizations.of(context)!.translate('Saisissez le numéro bénéficiaire')}")),
+              "${AppLocalizations.of(context)!.translate(
+                'Saisissez le numéro bénéficiaire',
+              )}",
+            )),
           );
         }
       } else {
         // Handle permission denied case
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(
-                  "${AppLocalizations.of(context)!.translate('Saisissez le numéro bénéficiaire')}")),
+            content: Text("${AppLocalizations.of(context)!.translate(
+              'Saisissez le numéro bénéficiaire',
+            )}"),
+          ),
         );
       }
     } catch (e) {
@@ -213,12 +275,10 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                         if (number.isoCode == "CM") {
                           setState(() {
                             data['vToNumber'] = phoneWithoutCode;
-                            data['vrxtype'] = "1";
                           });
                         } else {
                           setState(() {
                             data['vToNumber'] = phoneWithoutCode;
-                            data['vrxtype'] = "2";
                           });
                         }
                       },
@@ -277,6 +337,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                       },
                     ),
                   ),
+                 
                   Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: Column(
@@ -321,6 +382,8 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 50)),
                               onPressed: () {
+                                setTransactionType();
+
                                 setState(() {
                                   _isLoading = true;
                                   param = {
@@ -355,6 +418,14 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                     _isLoading = false;
                                   });
                                 }).catchError((error) {
+                                  print(error);
+                                   showTopSnackBar(
+                                    Overlay.of(context),
+                                    CustomSnackBar.error(
+                                      message: AppLocalizations.of(context)!
+                                          .translate("erreur")!,
+                                    ),
+                                  );
                                   setState(() {
                                     _isLoading = false;
                                   });
@@ -377,9 +448,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
               ),
             ),
             Container(
-                child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
-                    : Container())
+                child: _isLoading ? const Loader(loadingTxt: '') : Container())
           ],
         ));
   }

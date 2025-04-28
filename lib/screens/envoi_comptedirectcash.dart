@@ -1,9 +1,9 @@
-import 'dart:convert';
-
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:mydirectcash/Models/DetailTransaction.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
@@ -52,14 +52,111 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
   };
   Map? param;
   bool _isLoading = false;
+  String? _code;
   PhoneNumber number = PhoneNumber(isoCode: 'CM', phoneNumber: '');
   final TextEditingController _phonecontroller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-
+    printUserCountry();
     context.read<AuthService>().authenticate;
+  }
+
+  String? country;
+
+  Future<void> printUserCountry() async {
+    try {
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          print('Location permission denied');
+          Navigator.of(context).pop;
+          return;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        print('Location permissions are permanently denied.');
+        Navigator.of(context).pop;
+        return;
+      }
+
+      // Get current position
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      // Reverse geocode to get country
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      if (placemarks.isNotEmpty) {
+        country = placemarks.first.country;
+        print('User is in: $country');
+      } else {
+        print('Could not determine the country.');
+      }
+    } catch (e) {
+      print('An error occurred: $e');
+    }
+  }
+
+  Future<void> _pickContact() async {
+    try {
+      // Request permission and pick a contact
+      if (await FlutterContacts.requestPermission()) {
+        final contact = await FlutterContacts.openExternalPick();
+        if (contact != null && contact.phones.isNotEmpty) {
+          setState(() {
+            String selectedNumber = contact.phones.first.number;
+            List<String> parts = selectedNumber.split(' ');
+            String phoneWithoutCode =
+                parts.length > 1 ? parts.sublist(1).join('') : selectedNumber;
+            _phonecontroller.text = phoneWithoutCode;
+            data["vToNumber"] = _phonecontroller.text;
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                content: Text(
+              "${AppLocalizations.of(context)!.translate(
+                'Saisissez le numéro bénéficiaire',
+              )}",
+            )),
+          );
+        }
+      } else {
+        // Handle permission denied case
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("${AppLocalizations.of(context)!.translate(
+              'Saisissez le numéro bénéficiaire',
+            )}"),
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle errors
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to pick a contact: $e')),
+      );
+    }
+  }
+
+  void setTransactionType() {
+    if (country != "Cameroon" || number.isoCode != "CM" || _code == "+237") {
+      setState(() {
+        data['vrxtype'] = "12";
+      });
+    } else {
+      setState(() {
+        data['vrxtype'] = "11";
+      });
+    }
   }
 
   String codeRegion = "";
@@ -198,9 +295,9 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                                   initialSelection: '+237',
                                   onChanged: (CountryCode? code) {
                                     setState(() {
-                                      code.toString() == "+237"
-                                          ? data["vrxtype"] = "11"
-                                          : data["vrxtype"] = "12";
+                                      _code = code.toString();
+                                      //     ? data["vrxtype"] = "11"
+                                      //     : data["vrxtype"] = "12";
                                       countryName = code!.name == null
                                           ? AppLocalizations.of(context)!.translate(
                                               "Choisissez le pays de destination")!
@@ -222,38 +319,111 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                       ],
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      initialValue: data["vToNumber"],
-                      onChanged: (val) {
-                        data["vToNumber"] = val;
+                  Padding(
+                    padding: const EdgeInsets.all(0),
+                    child: InternationalPhoneNumberInput(
+                      onInputChanged: (PhoneNumber number) {
+                        String phoneWithoutCode = number.phoneNumber
+                                ?.replaceFirst(number.dialCode ?? '', '') ??
+                            '';
+                        if (number.isoCode == "CM") {
+                          setState(() {
+                            data['vToNumber'] = phoneWithoutCode;
+                          });
+                        } else {
+                          setState(() {
+                            data['vToNumber'] = phoneWithoutCode;
+                          });
+                        }
                       },
                       validator: (value) {
                         if (value!.trim().isEmpty) {
-                          return "${AppLocalizations.of(context)!.translate('Phone')} *";
+                          return "Ajoutez un numero !";
+                        }
+                        if (value.length < 9 || value.length > 14) {
+                          return "Numero invalid !";
                         }
                       },
-                      style: const TextStyle(
-                        fontFamily: content_font,
-                        fontSize: 14,
+                      onInputValidated: (bool isValid) {
+                        print(isValid);
+                      },
+                      selectorConfig: const SelectorConfig(
+                        selectorType: PhoneInputSelectorType.DROPDOWN,
+                        setSelectorButtonAsPrefixIcon: true,
+                        leadingPadding: 8.0,
+                        showFlags: true,
+                        useEmoji: true,
                       ),
-                      textAlign: TextAlign.start,
-                      cursorColor: blueColor,
-                      decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: blueColor, width: 2),
+                      ignoreBlank: false,
+                      autoValidateMode: AutovalidateMode.disabled,
+                      selectorTextStyle: const TextStyle(color: Colors.black),
+                      initialValue: number,
+                      textFieldController: _phonecontroller,
+                      formatInput: false,
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: true, decimal: true),
+                      inputDecoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.perm_contact_calendar_sharp,
+                            size: 24,
+                            color: blueColor,
                           ),
-                          hintText:
-                              "${AppLocalizations.of(context)!.translate('Phone')} *",
-                          hintStyle: TextStyle(
-                              fontFamily: content_font,
-                              color: Colors.grey.shade500,
-                              fontSize: 14)),
+                          onPressed: _pickContact, // Open contact picker
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: blueColor, width: 2),
+                        ),
+                        hintText:
+                            "${AppLocalizations.of(context)!.translate('Phone')}",
+                        hintStyle: const TextStyle(
+                            fontFamily: content_font,
+                            color: Colors.grey,
+                            fontSize: 13),
+                      ),
+                      onSaved: (PhoneNumber number) {
+                        String phoneWithoutCode = number.phoneNumber
+                                ?.replaceFirst(number.dialCode ?? '', '') ??
+                            '';
+                        setState(() {
+                          data['vToNumber'] = phoneWithoutCode;
+                        });
+                      },
                     ),
                   ),
-                
+
+                  // Container(
+                  //   margin: EdgeInsets.only(top: 10),
+                  //   child: TextFormField(
+                  //     keyboardType: TextInputType.number,
+                  //     initialValue: data["vToNumber"],
+                  //     onChanged: (val) {
+                  //       data["vToNumber"] = val;
+                  //     },
+                  //     validator: (value) {
+                  //       if (value!.trim().isEmpty) {
+                  //         return "${AppLocalizations.of(context)!.translate('Phone')} *";
+                  //       }
+                  //     },
+                  //     style: const TextStyle(
+                  //       fontFamily: content_font,
+                  //       fontSize: 14,
+                  //     ),
+                  //     textAlign: TextAlign.start,
+                  //     cursorColor: blueColor,
+                  //     decoration: InputDecoration(
+                  //         focusedBorder: UnderlineInputBorder(
+                  //           borderSide: BorderSide(color: blueColor, width: 2),
+                  //         ),
+                  //         hintText:
+                  //             "${AppLocalizations.of(context)!.translate('Phone')} *",
+                  //         hintStyle: TextStyle(
+                  //             fontFamily: content_font,
+                  //             color: Colors.grey.shade500,
+                  //             fontSize: 14)),
+                  //   ),
+                  // ),
+
                   Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: Column(
@@ -296,6 +466,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 50)),
                               onPressed: () {
+                                setTransactionType();
                                 setState(() {
                                   _isLoading = true;
                                   param = {

@@ -52,9 +52,9 @@ class TransactonService extends ChangeNotifier {
     return response.data;
   }
 
-  Future getDetailFactureEneoCamwater(typeOp, id, numerodecontrat) async {
+  Future getDetailFactureEneoCamwater(typeOp, numerodecontrat) async {
     Dio.Response response = await dio()
-        .get("DirectcashOperations/BillDetailled/$typeOp/$id/$numerodecontrat");
+        .get("https://apibackoffice.alliancefinancialsa.com/bill_detailed/$numerodecontrat/$typeOp");
     return response.data;
   }
 
@@ -81,6 +81,7 @@ class TransactonService extends ChangeNotifier {
         data: data);
     return response.data;
   }
+
 
   Future achatCreditInternational(Map? data) async {
     Dio.Response response = await dio()
