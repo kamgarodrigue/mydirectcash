@@ -43,16 +43,7 @@ xmlns:tools="http://schemas.android.com/tools"
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-            <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
-             android:exported="true"
-    android:launchMode="singleTask">
-    <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="${applicationId}.braintree" />
-    </intent-filter>
-</activity>
+           
 <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true"/>
 
     </application>
