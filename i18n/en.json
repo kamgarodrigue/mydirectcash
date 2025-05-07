@@ -190,5 +190,6 @@
   "whatsappMessage": "Write to us on WhatsApp and our agents will answer you.",
   "yourAre": "You are going to pay:",
   "to": "to",
-  "check_network_or_number": "Please check the network or the number selected"
+  "check_network_or_number": "Please check the network or the number selected",
+  "deposit_message": "You will make a deposit of {amount}  to the number {number} with a fee of {fee}!"
 }

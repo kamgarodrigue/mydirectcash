@@ -28,6 +28,7 @@ class _AchatDeCreditSelectionPageState
     "vCNI": " ",
     "vPIN": "",
     "vreseau": "",
+    "vrate": 0,
     // "trxTYPE": "",
     "opType": "airtime"
   };

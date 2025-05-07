@@ -12,14 +12,14 @@ class ChoixDeRecharge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> items = [
-      {
-        'name': AppLocalizations.of(context)!.translate('Copmte OM/MOMO1'),
-        'image': 'OM et MoMo.png',
-        'callback': () => Navigator.push(
-            context,
-            PageTransition(
-                type: PageTransitionType.rightToLeft, child: const OmMoMo())),
-      },
+      // {
+      //   'name': AppLocalizations.of(context)!.translate('Copmte OM/MOMO1'),
+      //   'image': 'OM et MoMo.png',
+      //   'callback': () => Navigator.push(
+      //       context,
+      //       PageTransition(
+      //           type: PageTransitionType.rightToLeft, child: const OmMoMo())),
+      // },
       {
         'name': AppLocalizations.of(context)!.translate('Transfert DirectCash'),
         'image': 'logo-alliance-transparent.png',

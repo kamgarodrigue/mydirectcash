@@ -27,20 +27,9 @@ class PayementFactureValidate extends StatefulWidget {
 }
 
 class _PayementFactureValidateState extends State<PayementFactureValidate> {
-  final detail = {
-    "message": "null",
-    "paymentID":
-        "S-113-950-ENEO-10039-098e0fe2564749ec9229502da2d3d1d1-7e1dcaa6837f4ea28787b01033f7b359",
-    "amount": "25562",
-    "numeroFacture": "653198620",
-    "dateFacture": "9/5/2022 2:00:00 AM",
-    "dateEcheance": "9/15/2022 2:00:00 AM",
-    "penalite": "0.00",
-    "frais": "null"
-  };
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<AuthService>().authenticate;
   }
