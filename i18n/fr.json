@@ -191,5 +191,7 @@
   "yourAre": "Vous allez payer :",
   "to": "à",
   "check_network_or_number": "Veuillez vérifier le réseau ou le numéro sélectionné",
-  "deposit_message": "Vous allez faire un dépôt de {amount} au numéro {number} avec les frais de {fee}!"
+  "deposit_message": "Vous allez faire un dépôt de {amount} au numéro {number} avec les frais de {fee}!",
+  "tap here": "Appuyez ici",
+  "scan qr": "Scanner le QR code du client"
 }

@@ -6,6 +6,7 @@ import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/QRViewExample.dart';
 import 'package:mydirectcash/screens/payement_marchant_validate.dart';
 import 'package:mydirectcash/screens/settings.dart';
+import 'package:mydirectcash/screens/widgets/qr_code_scanner.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -311,6 +312,18 @@ class _PayementMarchandState extends State<PayementMarchand> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 50)),
                                   onPressed: () {
+                                    if (data["vToNumber"] == "" ||
+                                        int.parse(data["vAmount"]) < 50 ||
+                                        data["vMerchantCode"] == "") {
+                                      showTopSnackBar(
+                                        Overlay.of(context),
+                                        CustomSnackBar.error(
+                                          message: AppLocalizations.of(context)!
+                                              .translate("veille")!,
+                                        ),
+                                      );
+                                      return;
+                                    }
                                     setState(() {
                                       _isLoading = true;
                                     });
@@ -426,8 +439,17 @@ class _PayementMarchandState extends State<PayementMarchand> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          //  scan();
-                          //scanQRCode();
+                          final result = await Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const QrCodeScanner(),
+                            ),
+                          );
+
+                          if (result != null) {
+                            setState(() {
+                              data["vMerchantCode"] = result.toString();
+                            });
+                          }
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(

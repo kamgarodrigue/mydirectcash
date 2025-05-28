@@ -191,5 +191,8 @@
   "yourAre": "You are going to pay:",
   "to": "to",
   "check_network_or_number": "Please check the network or the number selected",
-  "deposit_message": "You will make a deposit of {amount}  to the number {number} with a fee of {fee}!"
+  "deposit_message": "You will make a deposit of {amount}  to the number {number} with a fee of {fee}!",
+  "tap here":  "Press here",
+  "scan qr":  "Scan the customer's QR code"
+  
 }

@@ -6,6 +6,7 @@ import 'package:mydirectcash/screens/Epargne/epargne_marchant_montant.dart';
 import 'package:mydirectcash/screens/QRViewExample.dart';
 import 'package:mydirectcash/screens/settings.dart';
 import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
+import 'package:mydirectcash/screens/widgets/qr_code_scanner.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -373,9 +374,18 @@ class _PayementMarchandState extends State<Epargne> {
                         height: 40,
                       ),
                       GestureDetector(
-                        onTap: () async {
-                          //  scan();
-                          //scanQRCode();
+                     onTap: () async {
+                          final result = await Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const QrCodeScanner(),
+                            ),
+                          );
+
+                          if (result != null) {
+                            setState(() {
+                              data["vMerchantCode"] = result.toString();
+                            });
+                          }
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(
