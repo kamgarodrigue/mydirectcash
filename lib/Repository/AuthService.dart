@@ -302,6 +302,7 @@ aCollector.swift:0:7
 
 // Ajouter les fichiers valides au formData
     formData.files.addAll(files);
+    print(formData.fields.toString());
     try {
       print(formData.fields);
       final response = await dio().post(
