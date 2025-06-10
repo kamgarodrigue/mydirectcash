@@ -117,6 +117,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
                           'image': 'assets/images/eneo.png',
                           'title': 'Enéo',
                           'typeOP': 'ENEO',
+                          'id': '22',
                           'description': AppLocalizations.of(context)!
                               .translate('Payer votre facture Enéo')
                               .toString()
@@ -186,6 +187,7 @@ class _ChoixFactureState extends State<ChoixFacture> {
                           'image': 'assets/images/cam_water.jpg',
                           'title': 'Camwater',
                           'typeOP': 'CAMWATER',
+                          'id': '22',
                           'description': AppLocalizations.of(context)!
                               .translate("Payer votre quittance d'eau")
                               .toString()

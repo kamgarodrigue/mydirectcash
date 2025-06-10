@@ -8,6 +8,7 @@ import 'package:mydirectcash/Repository/Canal.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/login.dart';
+import 'package:mydirectcash/screens/payement_facture_selection.dart';
 import 'package:mydirectcash/screens/payement_facture_validate.dart';
 import 'package:mydirectcash/screens/payement_marchant_montant.dart';
 import 'package:mydirectcash/screens/settings.dart';
@@ -53,6 +54,12 @@ class _PayementFactureState extends State<PayementFacture> {
     "imei": "5258889",
     "typeOp": "",
   };
+
+  final billType = {
+    "number": "",
+    "type": "",
+  };
+
   bool _isLoading = false;
 
   Widget bouquetContainer(int index) {
@@ -473,12 +480,32 @@ class _PayementFactureState extends State<PayementFacture> {
                                 children: [
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor: blueColor,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 50)),
+                                      backgroundColor: blueColor,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 50,
+                                      ),
+                                    ),
                                     onPressed: () {
+                                      if (detailFac["numeroDeContrat"]
+                                          .toString()
+                                          .isEmpty) {
+                                        showTopSnackBar(
+                                          Overlay.of(context),
+                                          CustomSnackBar.info(
+                                            message:
+                                                AppLocalizations.of(context)!
+                                                    .translate('veille')
+                                                    .toString(),
+                                          ),
+                                        );
+                                        return;
+                                      }
                                       setState(() {
                                         _isLoading = true;
+                                        billType["type"] =
+                                            widget.factureInfos["typeOP"];
+                                        billType["number"] =
+                                            detailFac["numeroDeContrat"];
                                       });
                                       print(widget.factureInfos["typeOP"] +
                                           ' ' +
@@ -493,12 +520,12 @@ class _PayementFactureState extends State<PayementFacture> {
                                             detailFac["numeroDeContrat"],
                                           )
                                           .then((value) {
+                                        widget.factureInfos["serviceNumber"] =
+                                            detailFac["numeroDeContrat"];
                                         print(widget.factureInfos);
                                         print(value);
-                                        print(value["data"].runtimeType);
                                         if (value['data'] is List &&
                                             (value['data'] as List).isEmpty) {
-                                          print("test");
                                           showTopSnackBar(
                                             Overlay.of(context),
                                             const CustomSnackBar.info(
@@ -506,18 +533,21 @@ class _PayementFactureState extends State<PayementFacture> {
                                                   "Aucune facture pour ce numéro de contrat",
                                             ),
                                           );
-                                       
                                         } else {
-                                          // Navigator.push(context,
-                                          //     MaterialPageRoute(
-                                          //   builder: (context) {
-                                          //     return PayementFactureValidate(
-                                          //       factureInfos:
-                                          //           widget.factureInfos,
-                                          //       detailFac: value["data"][0],
-                                          //     );
-                                          //   },
-                                          // ));
+                                          if (widget.factureInfos["typeOP"] ==
+                                                  "ENEO" ||
+                                              widget.factureInfos["typeOP"] ==
+                                                  "CAMWATER") {
+                                            Navigator.push(context,
+                                                MaterialPageRoute(
+                                              builder: (context) {
+                                                return PayementFactureSelection(
+                                                  data: value["data"],
+                                                  billType: widget.factureInfos,
+                                                );
+                                              },
+                                            ));
+                                          }
                                         }
 
                                         setState(() {
