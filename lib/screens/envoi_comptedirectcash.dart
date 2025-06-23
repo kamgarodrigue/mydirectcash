@@ -96,6 +96,8 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
 
       if (placemarks.isNotEmpty) {
         country = placemarks.first.country;
+        print( "test ${placemarks[3]}");
+
         print('User is in: $country');
       } else {
         print('Could not determine the country.');
@@ -148,23 +150,29 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
   }
 
   void setTransactionType() {
-    if (country != "Cameroon" || number.isoCode != "CM" || _code == "+237") {
-      setState(() {
-        data['vrxtype'] = "12";
-      });
-    } else {
-      setState(() {
-        data['vrxtype'] = "11";
-      });
-    }
+  print(country);
+  if (country != "Cameroon") {
+    setState(() {
+      data['vrxtype'] = "12";
+    });
+  } else if (number.isoCode != "CM" || _code != "+237") {
+    setState(() {
+      data['vrxtype'] = "12";
+    });
+  } else {
+    setState(() {
+      data['vrxtype'] = "11";
+    });
   }
+}
+
 
   String codeRegion = "";
 
   @override
   Widget build(BuildContext context) {
     final autProvider = context.watch<AuthService>();
-
+  //print(country);
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -466,6 +474,16 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 50)),
                               onPressed: () {
+                                if (country==null) {
+                                   DialogWidget.success(context,
+                                        title: "Transaction impossible!",
+                                        content:
+                                            "veuillez verifier votre connextion internet",
+                                        color: blueColor, callback: () {
+                                      Navigator.pop(context);
+                                    });
+                                    return ;
+                                }
                                 setTransactionType();
                                 setState(() {
                                   _isLoading = true;

@@ -7,6 +7,7 @@ import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/envoi_directcash_password.dart';
 import 'package:mydirectcash/screens/settings.dart';
+import 'package:mydirectcash/screens/widgets/dialog_widget.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
@@ -43,6 +44,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
     rate: "",
     toNumber: "",
   );
+   String? _code;
   Map? param;
   bool _isLoading = false;
   String codeRegion = "";
@@ -96,17 +98,22 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
     }
   }
 
-  void setTransactionType() {
-    if (country != "Cameroon" || number.isoCode != "CM") {
-      setState(() {
-        data['vrxtype'] = "2";
-      });
-    } else {
-      setState(() {
-        data['vrxtype'] = "1";
-      });
-    }
+    void setTransactionType() {
+  print(country);
+  if (country != "Cameroon") {
+    setState(() {
+      data['vrxtype'] = "12";
+    });
+  } else if (number.isoCode != "CM" || _code != "+237") {
+    setState(() {
+      data['vrxtype'] = "12";
+    });
+  } else {
+    setState(() {
+      data['vrxtype'] = "11";
+    });
   }
+}
 
   Map data = {
     "vClientID": "",
@@ -328,6 +335,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                             fontSize: 13),
                       ),
                       onSaved: (PhoneNumber number) {
+                         _code = number.dialCode.toString();
                         String phoneWithoutCode = number.phoneNumber
                                 ?.replaceFirst(number.dialCode ?? '', '') ??
                             '';
@@ -382,6 +390,16 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 50)),
                               onPressed: () {
+                                if (country==null) {
+                                   DialogWidget.success(context,
+                                        title: "Transaction impossible!",
+                                        content:
+                                            "veuillez verifier votre connextion internet",
+                                        color: blueColor, callback: () {
+                                      Navigator.pop(context);
+                                    });
+                                    return ;
+                                }
                                 setTransactionType();
 
                                 setState(() {

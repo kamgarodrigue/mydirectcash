@@ -138,13 +138,46 @@ class _EnvoiCompteDirectCashPasswordState
                   Container(
                     child: Column(
                       children: [
-                        Text(
-                            '${AppLocalizations.of(context)!.translate("Vous allez faire une recharge de")!} ${widget.data?['vAmount']} XAF ${AppLocalizations.of(context)!.translate("au numéro")!} ${widget.data?['vToNumber'].toString().substring(0, 3)} ** ** ${widget..data?['vToNumber'].toString().substring(7, 9)} de Nom: ${widget.nom}, frais de ${widget.data?['vRate']} XAF. Montant total à débiter $totaldebite XAF.',
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                fontSize: 12.5,
-                                fontFamily: content_font,
-                                fontWeight: FontWeight.w500)),
+                       RichText(
+  textAlign: TextAlign.center,
+  text: TextSpan(
+    style: const TextStyle(
+      fontSize: 12.5,
+      fontFamily: content_font,
+      fontWeight: FontWeight.w500,
+      color: Colors.black, // Couleur par défaut
+    ),
+    children: [
+      TextSpan(text: '${AppLocalizations.of(context)!.translate("Vous allez faire une recharge de")!} '),
+      TextSpan(
+        text: '${widget.data?['vAmount']} XAF',
+        style:  TextStyle(color:blueColor),
+      ),
+      TextSpan(text: ' ${AppLocalizations.of(context)!.translate("au numéro")!} '),
+      TextSpan(
+        text: '${widget.data?['vToNumber']}',
+        style: TextStyle(color:blueColor),
+      ),
+      TextSpan(text: ' de Nom: '),
+      TextSpan(
+        text: '${widget.nom}',
+        style:  TextStyle(color:blueColor),
+      ),
+      TextSpan(text: ', frais de '),
+      TextSpan(
+        text: '${widget.data?['vRate']} XAF',
+        style:  TextStyle(color: blueColor),
+      ),
+      TextSpan(text: '. Montant total à débiter '),
+      TextSpan(
+        text: '$totaldebite XAF',
+        style:  TextStyle(color: blueColor),
+      ),
+      TextSpan(text: '.'),
+    ],
+  ),
+)
+
                       ],
                     ),
                   ),
@@ -201,6 +234,7 @@ class _EnvoiCompteDirectCashPasswordState
                                   setState(() {
                                     _isLoading = false;
                                   });
+                                  print(value["message"]);
                                   if (value["message"] ==
                                       "Mot de passe ou PIN incorrect.") {
                                     DialogWidget.success(
@@ -251,6 +285,17 @@ class _EnvoiCompteDirectCashPasswordState
                                           AppRoutes.homePage,
                                           (route) => false,
                                         );
+                                      },
+                                    );
+                                  } else{
+                                     DialogWidget.success(
+                                      context,
+                                      title: value["message"],
+                                      content: value['data']['sender'],
+                                      color: greenColor,
+                                      callback: () {
+                                        Navigator.pop(context);
+                                        
                                       },
                                     );
                                   }
