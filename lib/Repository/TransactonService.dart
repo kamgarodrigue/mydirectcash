@@ -15,6 +15,12 @@ class TransactonService extends ChangeNotifier {
         data: data);
     return response.data;
   }
+  Future payBill(Map? data) async {
+    Dio.Response response = await dio().post(
+        "https://apibackoffice.alliancefinancialsa.com/payBill",
+        data: data);
+    return response.data;
+  }
 
   Future retraitDirectcash(Map? data) async {
     print(data);

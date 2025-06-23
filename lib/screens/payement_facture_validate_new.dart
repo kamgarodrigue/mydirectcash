@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:mydirectcash/Models/DetailTransaction.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
@@ -12,44 +10,41 @@ import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-class EnvoiDirectCashPassword extends StatefulWidget {
-  DataTransaction? dataTransaction;
-  dynamic context1;
-  dynamic context2;
-  Map? data;
-  EnvoiDirectCashPassword(
-      {Key? key,
-      @required this.dataTransaction,
-      this.context1,
-      this.data,
-      this.context2})
-      : super(key: key);
+class PayementFactureValidateNew extends StatefulWidget {
+  final Map? formData;
+  PayementFactureValidateNew({
+    super.key,
+    required this.factureInfos,
+    this.detailFac,
+    required this.formData,
+  });
+  dynamic factureInfos;
+  dynamic detailFac;
 
   @override
-  _EnvoiDirectCashPasswordState createState() =>
-      _EnvoiDirectCashPasswordState();
+  _PayementFactureValidateNewState createState() =>
+      _PayementFactureValidateNewState();
 }
 
-class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
+class _PayementFactureValidateNewState
+    extends State<PayementFactureValidateNew> {
+  String? amount;
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthService>().authenticate;
+    amount =
+        "${double.parse(widget.formData?["vDisplayraterate"]) + double.parse(widget.detailFac["amountLocalCur"].toString())}";
+    print(amount);
+  }
+
   bool _isLoading = false;
-  bool _isOscure = true;
-  bool _isOscure1 = true;
-
-  void togle() {
-    setState(() {
-      _isOscure = !_isOscure;
-    });
-  }
-
-  void togle1() {
-    setState(() {
-      _isOscure1 = !_isOscure1;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final authService = context.watch<AuthService>();
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -119,7 +114,8 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                         const SizedBox(width: 50),
                         Text(
                             AppLocalizations.of(context)!
-                                .translate("Transfert DirectCash")!,
+                                .translate('Payement de facture')
+                                .toString(),
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -131,142 +127,39 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 50,
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 20),
-                    width: 100,
-                    height: 100,
-                    child: Image.asset(
-                      'assets/images/logo-alliance-transparent.png',
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    child: Column(
-                      children: [
-                       RichText(
-  textAlign: TextAlign.center,
-  text: TextSpan(
-    style: const TextStyle(
-      fontSize: 12.5,
-      fontFamily: content_font,
-      fontWeight: FontWeight.w500,
-      color: Colors.black,
-    ),
-    children: [
-      TextSpan(text: '${AppLocalizations.of(context)!.translate("Vous allez faire un transfert  de")} '),
-      TextSpan(
-        text: '${widget.data?["vAmount"]} XAF',
-        style:  TextStyle(color:blueColor),
-      ),
-      TextSpan(text: ' ${AppLocalizations.of(context)!.translate("au numéro")} '),
-      TextSpan(
-        text: '${widget.data?["vToNumber"].toString().substring(0, 3)}',
-        style:  TextStyle(color: blueColor),
-      ),
-      TextSpan(text: ', ${AppLocalizations.of(context)!.translate("frais de")} '),
-      TextSpan(
-        text: '${widget.data?["vRate"]} XAF',
-        style:  TextStyle(color: blueColor),
-      ),
-      TextSpan(text: '. ${AppLocalizations.of(context)!.translate("Montant total à débiter")} '),
-      TextSpan(
-        text: '${(double.parse(widget.data?["vRate"]) + double.parse(widget.data?["vAmount"])).toStringAsFixed(2)} XAF',
-        style:  TextStyle(color:blueColor),
-      ),
-      TextSpan(text: '.'),
-    ],
-  ),
-)
-
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter
-                              .digitsOnly, // Allow only digits
-                          LengthLimitingTextInputFormatter(
-                              4), // Limit input to 4 digits
-                        ],
-                        onChanged: (value) {
-                          if (value.length > 4) {
-                            return; // Prevents excessive input
-                          }
-                          setState(() {
-                            widget.data?['secret'] = value;
-                          });
-                        },
-                        obscureText: _isOscure1,
-                        style: const TextStyle(
-                            fontFamily: content_font, fontSize: 13),
-                        textAlign: TextAlign.start,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _isOscure1
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              size: 16,
-                            ),
-                            onPressed: () => togle1(),
-                          ),
-                          hintText: AppLocalizations.of(context)!
-                              .translate("code secret")!,
-                          hintStyle: TextStyle(
-                              fontFamily: content_font,
-                              color: Colors.grey.shade500,
-                              fontSize: 13),
-                        ),
-                      )),
-                  const SizedBox(height: 5),
                   Text(
-                    widget.data!['secret'].toString().length < 4
-                        ? "le code doit comprendre 4 chiffre"
-                        : "",
-                    style: const TextStyle(
-                        fontFamily: content_font,
-                        color: Color.fromARGB(255, 245, 49, 49),
-                        fontSize: 12),
-                  ),
+                      '${AppLocalizations.of(context)!.translate("Frais :")}${widget.formData?["vDisplayraterate"]} XAF ${AppLocalizations.of(context)!.translate("le montant total à débité est de")}:  $amount XAF',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 12.5,
+                          fontFamily: content_font,
+                          color: blueColor,
+                          fontWeight: FontWeight.w600)),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
-                        // initialValue: widget.dataTransaction!.pass,
                         onChanged: (value) {
                           setState(() {
-                            widget.data?["vPIN"] = value;
+                            widget.formData?["vPIN"] = value;
                           });
                         },
-                        obscureText: _isOscure,
                         style: const TextStyle(
                             fontFamily: content_font, fontSize: 13),
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _isOscure
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                size: 16,
-                              ),
-                              onPressed: () => togle(),
+                            suffixIcon: const Icon(
+                              Icons.visibility,
+                              size: 16,
                             ),
                             hintText: AppLocalizations.of(context)!
-                                .translate("Password")!,
+                                .translate("Mot de passe DirectCash")
+                                .toString(),
                             hintStyle: TextStyle(
                                 fontFamily: content_font,
                                 color: Colors.grey.shade500,
@@ -284,13 +177,13 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                   backgroundColor: blueColor,
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 50)),
-                              onPressed: () {
-                                print(widget.data);
+                                 onPressed: () {
+                                print(widget.formData);
                                 setState(() {
                                   _isLoading = true;
                                 });
                                 TransactonService()
-                                    .transfertByDirectcash(widget.data)
+                                    .payBill(widget.formData)
                                     .then((value) {
                                   print(value);
                                   setState(() {
@@ -305,8 +198,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                       content: value["message"],
                                       color: errorColor,
                                       callback: () {
-                                        // Navigator.pop(widget.context1);
-                                        // Navigator.pop(widget.context2);
+                                   
                                         Navigator.pop(context);
                                       },
                                     );
@@ -314,7 +206,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                     DialogWidget.success(
                                       context,
                                       title: value["message"],
-                                      content: value['data']['sender'],
+                                      content: "",
                                       color: greenColor,
                                       callback: () {
                                         Navigator.pop(context);
@@ -336,8 +228,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                         Navigator.pop(context);
                                       },
                                     );
-                                  } 
-                                  else if (value["message"] ==
+                                  } else if (value["message"] ==
                                       "Solde insuffisant pour effectuer cette transaction.") {
                                     DialogWidget.success(
                                       context,
@@ -348,8 +239,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                         Navigator.pop(context);
                                       },
                                     );
-                                  }
-                                  else if (value["code"] == 400) {
+                                  } else if (value["code"] == 400) {
                                     DialogWidget.success(
                                       context,
                                       title: "Erreur",
@@ -380,7 +270,8 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                               
                               child: Text(
                                 AppLocalizations.of(context)!
-                                    .translate("Valider")!,
+                                    .translate("Valider")
+                                    .toString(),
                                 style: const TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
@@ -399,7 +290,9 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                           Navigator.pop(context);
                         },
                         child: Text(
-                            AppLocalizations.of(context)!.translate("annuler")!,
+                            AppLocalizations.of(context)!
+                                .translate("annuler")
+                                .toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontFamily: content_font,

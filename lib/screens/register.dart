@@ -62,11 +62,11 @@ class _SignUpScreenState extends State<Register> {
     "nui": "",
     "registre": " "
   };
-  XFile? carteR = XFile(" ");
-  XFile? carteV = XFile(" ");
-  XFile? passeport = XFile(" ");
-  XFile? profile = XFile(" ");
-  
+  XFile? carteR;
+  XFile? carteV;
+  XFile? passeport;
+  XFile? profile;
+
   Future<void> getcarteR() async {
     final ImagePicker picker = ImagePicker();
     final response = await picker.pickImage(source: ImageSource.gallery);
@@ -142,11 +142,12 @@ class _SignUpScreenState extends State<Register> {
       setState(() {
         _dateController.text =
             "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
-   
+
         dataUser["dateNaissance"] = _dateController.text;
       });
     }
   }
+
   Future<void> _selectCNIDate(BuildContext context) async {
     DateTime? pickedCNIDate = await showDatePicker(
       context: context,
@@ -157,7 +158,6 @@ class _SignUpScreenState extends State<Register> {
 
     if (pickedCNIDate != null) {
       setState(() {
-        
         _cniDateController.text =
             "${pickedCNIDate.day}-${pickedCNIDate.month}-${pickedCNIDate.year}";
         dataUser["CNIExpiration"] = _cniDateController.text;
@@ -452,7 +452,7 @@ class _SignUpScreenState extends State<Register> {
                                         //   child: InternationalPhoneNumberInput(
                                         //     onInputChanged:
                                         //         (PhoneNumber number) {
-                                             
+
                                         //       setState(() {
                                         //         dataUser["Phone"] =
                                         //             number.phoneNumber;
@@ -516,12 +516,12 @@ class _SignUpScreenState extends State<Register> {
                                         //     },
                                         //   ),
                                         // ),
-                                         
-                                         Container(
+
+                                        Container(
                                           margin: EdgeInsets.only(top: 10),
                                           child: TextFormField(
                                             keyboardType: TextInputType.number,
-                                            initialValue:  dataUser["Phone"],
+                                            initialValue: dataUser["Phone"],
                                             onChanged: (val) {
                                               dataUser["Phone"] = val;
                                             },
@@ -701,7 +701,8 @@ class _SignUpScreenState extends State<Register> {
                                                   fontSize: 14,
                                                 ),
                                                 textAlign: TextAlign.start,
-                                                initialValue:  dataUser["registre"],
+                                                initialValue:
+                                                    dataUser["registre"],
                                                 onChanged: (val) {
                                                   setState(() =>
                                                       dataUser["registre"] =
@@ -801,6 +802,8 @@ class _SignUpScreenState extends State<Register> {
                                                                     horizontal:
                                                                         50)),
                                                     onPressed: () {
+                                                      // _nextPage();
+
                                                       if (_formKey1
                                                           .currentState!
                                                           .validate()) {
@@ -1024,7 +1027,7 @@ class _SignUpScreenState extends State<Register> {
                                                           color: Colors.black,
                                                           fontSize: 14),
                                                   onCountryChanged: (value) {
-                                                      String countryName =
+                                                    String countryName =
                                                         value.contains(' ')
                                                             ? value
                                                                 .split(' ')
@@ -1033,7 +1036,8 @@ class _SignUpScreenState extends State<Register> {
                                                             : value;
 
                                                     setState(() {
-                                                      dataUser["pays"] = countryName.trim();
+                                                      dataUser["pays"] =
+                                                          countryName.trim();
                                                     });
                                                   },
                                                 ),
@@ -1327,6 +1331,8 @@ class _SignUpScreenState extends State<Register> {
                                                                       horizontal:
                                                                           50)),
                                                       onPressed: () {
+                                                        // _nextPage();
+
                                                         if (dataUser[
                                                                     "CNI"] !=
                                                                 "" &&
@@ -1516,8 +1522,12 @@ class _SignUpScreenState extends State<Register> {
                                                           BorderRadius.circular(
                                                               20),
                                                       image: DecorationImage(
-                                                          image: FileImage(File(
-                                                              carteR!.path)),
+                                                          image: FileImage(
+                                                            File(
+                                                              carteR?.path ??
+                                                                  "",
+                                                            ),
+                                                          ),
                                                           fit: BoxFit.cover)),
                                                   child: Center(
                                                     child: SizedBox(
@@ -1557,8 +1567,12 @@ class _SignUpScreenState extends State<Register> {
                                                           BorderRadius.circular(
                                                               20),
                                                       image: DecorationImage(
-                                                          image: FileImage(File(
-                                                              carteV!.path)),
+                                                          image: FileImage(
+                                                            File(
+                                                              carteV?.path ??
+                                                                  "",
+                                                            ),
+                                                          ),
                                                           fit: BoxFit.cover)),
                                                   child: Center(
                                                     child: SizedBox(
@@ -1598,8 +1612,12 @@ class _SignUpScreenState extends State<Register> {
                                                           BorderRadius.circular(
                                                               20),
                                                       image: DecorationImage(
-                                                          image: FileImage(File(
-                                                              passeport!.path)),
+                                                          image: FileImage(
+                                                            File(
+                                                              passeport?.path ??
+                                                                  "",
+                                                            ),
+                                                          ),
                                                           fit: BoxFit.cover)),
                                                   child: Center(
                                                     child: SizedBox(
@@ -1639,7 +1657,7 @@ class _SignUpScreenState extends State<Register> {
                                                             20),
                                                     image: DecorationImage(
                                                         image: FileImage(File(
-                                                            profile!.path)),
+                                                            profile?.path ?? "")),
                                                         fit: BoxFit.cover)),
                                                 child: Center(
                                                   child: SizedBox(
@@ -1672,7 +1690,7 @@ class _SignUpScreenState extends State<Register> {
                                                     fontFamily: content_font,
                                                     fontSize: 14),
                                                 textAlign: TextAlign.start,
-                                                initialValue:  dataUser["CNI1"],
+                                                initialValue: dataUser["CNI1"],
                                                 onChanged: (val) {
                                                   setState(() {
                                                     dataUser["CNI1"] = val;
@@ -1869,6 +1887,10 @@ class _SignUpScreenState extends State<Register> {
                                                             passeport != null;
 
                                                         print(dataUser);
+                                                        print("carte: ${carteR?.path}");
+                                                        print("carte: ${carteV?.path}");
+                                                        print("photo: ${profile?.path}");
+                                                        print("passport: ${passeport?.path}");
 
                                                         if (image &&
                                                             profile!.path !=
@@ -1931,25 +1953,25 @@ class _SignUpScreenState extends State<Register> {
                                                                 "nomConntact"],
                                                             p_cniRectoPath:
                                                                 carteR != null
-                                                                    ? carteR!
-                                                                        .path
+                                                                    ? carteR
+                                                                        ?.path
                                                                     : '', // Vérifie que carteR n'est pas null
-                                                            p_cniVersoPath: carteV!
-                                                                        .path !=
+                                                            p_cniVersoPath: carteV
+                                                                        ?.path !=
                                                                     " "
-                                                                ? carteV!.path
+                                                                ? carteV?.path
                                                                 : '', // Vérifie que carteV n'est pas null
                                                             p_passportPath:
-                                                                passeport!.path !=
+                                                                passeport?.path !=
                                                                         " "
-                                                                    ? passeport!
-                                                                        .path
+                                                                    ? passeport
+                                                                        ?.path
                                                                     : '', // Vérifie que passeport n'est pas null
                                                             p_photoPath:
-                                                                profile!.path !=
+                                                                profile?.path !=
                                                                         " "
-                                                                    ? profile!
-                                                                        .path
+                                                                    ? profile
+                                                                        ?.path
                                                                     : '',
                                                             Ville: dataUser[
                                                                 "Ville"],

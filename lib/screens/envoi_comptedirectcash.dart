@@ -565,7 +565,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
             ),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
+                    ? Loader(loadingTxt: '')
                     : Container())
           ],
         ));

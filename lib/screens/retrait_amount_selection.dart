@@ -66,15 +66,11 @@ class RetraitView extends StatelessWidget {
     super.key,
     required this.retrait,
   });
- String formatDate(String dateString, {String? locale}) {
-    DateTime date = DateTime.parse(dateString);
-
-    // Use the provided locale or default to system locale
+String formatDate(String dateString, {String? locale}) {
+    DateTime date = DateTime.parse(dateString).toLocal();
     String detectedLocale = locale ?? Intl.getCurrentLocale();
-
     return DateFormat("MMM dd, HH:mm", detectedLocale).format(date);
   }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

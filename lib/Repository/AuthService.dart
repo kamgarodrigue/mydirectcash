@@ -304,7 +304,7 @@ aCollector.swift:0:7
     formData.files.addAll(files);
     print(formData.fields.toString());
     try {
-      print(formData.fields);
+      print(formData.files);
       final response = await dio().post(
         'https://apibackoffice.alliancefinancialsa.com/registerWithKyc', // Remplacez par votre URL d'API
         data: formData,
@@ -314,6 +314,7 @@ aCollector.swift:0:7
           },
         ),
       );
+      print(response);
       return response.data;
     } catch (e) {
       print('Erreur: $e');
