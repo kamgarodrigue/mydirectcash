@@ -100,7 +100,7 @@ class _ChoixEnvoiArgentState extends State<ChoixEnvoiArgent> {
                       type: PageTransitionType.rightToLeft,
                       child: EnvoiCompteDirectCash(
                         context2: context,
-                      )));
+                      ))); 
             },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 0),

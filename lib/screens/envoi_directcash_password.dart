@@ -147,13 +147,41 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                   Container(
                     child: Column(
                       children: [
-                        Text(
-                            '${AppLocalizations.of(context)!.translate("Vous allez faire un transfert  de")} ${widget.data?["vAmount"]} XAF ${AppLocalizations.of(context)!.translate("au numéro")} ${widget.data?["vToNumber"].toString().substring(0, 3)} ** ** ${widget.data?["vToNumber"].toString().substring((widget.data?["vToNumber"]).toString().length - 2)}, ${AppLocalizations.of(context)!.translate("frais de")}  ${widget.data?["vRate"]} XAF. ${AppLocalizations.of(context)!.translate("Montant total à débiter")}  ${double.parse(widget.data?["vRate"]) + double.parse(widget.data?["vAmount"])} XAF.',
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                fontSize: 12.5,
-                                fontFamily: content_font,
-                                fontWeight: FontWeight.w500)),
+                       RichText(
+  textAlign: TextAlign.center,
+  text: TextSpan(
+    style: const TextStyle(
+      fontSize: 12.5,
+      fontFamily: content_font,
+      fontWeight: FontWeight.w500,
+      color: Colors.black,
+    ),
+    children: [
+      TextSpan(text: '${AppLocalizations.of(context)!.translate("Vous allez faire un transfert  de")} '),
+      TextSpan(
+        text: '${widget.data?["vAmount"]} XAF',
+        style:  TextStyle(color:blueColor),
+      ),
+      TextSpan(text: ' ${AppLocalizations.of(context)!.translate("au numéro")} '),
+      TextSpan(
+        text: '${widget.data?["vToNumber"].toString().substring(0, 3)}',
+        style:  TextStyle(color: blueColor),
+      ),
+      TextSpan(text: ', ${AppLocalizations.of(context)!.translate("frais de")} '),
+      TextSpan(
+        text: '${widget.data?["vRate"]} XAF',
+        style:  TextStyle(color: blueColor),
+      ),
+      TextSpan(text: '. ${AppLocalizations.of(context)!.translate("Montant total à débiter")} '),
+      TextSpan(
+        text: '${(double.parse(widget.data?["vRate"]) + double.parse(widget.data?["vAmount"])).toStringAsFixed(2)} XAF',
+        style:  TextStyle(color:blueColor),
+      ),
+      TextSpan(text: '.'),
+    ],
+  ),
+)
+
                       ],
                     ),
                   ),

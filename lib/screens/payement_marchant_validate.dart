@@ -146,14 +146,35 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                   Container(
                     child: Column(
                       children: [
-                        Text(
-                            '${AppLocalizations.of(context)!.translate("yourAre")}  ${widget.data!["vAmount"]} XAF, ${AppLocalizations.of(context)!.translate("to")} ${widget.agentName} ${AppLocalizations.of(context)!.translate("le montant total à débité est de")!} $debite XAF',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 12.5,
-                                fontFamily: content_font,
-                                color: blueColor,
-                                fontWeight: FontWeight.w600)),
+                       RichText(
+  textAlign: TextAlign.center,
+  text: TextSpan(
+    style: const TextStyle(
+      fontSize: 12.5,
+      fontFamily: content_font,
+      fontWeight: FontWeight.w600,
+      color: Colors.black, // Couleur du texte statique
+    ),
+    children: [
+      TextSpan(text: '${AppLocalizations.of(context)!.translate("yourAre")} '),
+      TextSpan(
+        text: '${widget.data!["vAmount"]} XAF',
+        style: TextStyle(color: blueColor),
+      ),
+      TextSpan(text: ', ${AppLocalizations.of(context)!.translate("to")} '),
+      TextSpan(
+        text: '${widget.agentName}',
+        style: TextStyle(color: blueColor),
+      ),
+      TextSpan(text: ' ${AppLocalizations.of(context)!.translate("le montant total à débité est de")!} '),
+      TextSpan(
+        text: '$debite XAF',
+        style: TextStyle(color: blueColor),
+      ),
+    ],
+  ),
+),
+
                         const SizedBox(
                           height: 10,
                         ),
