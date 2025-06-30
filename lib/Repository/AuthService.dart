@@ -20,6 +20,7 @@ class AuthService extends ChangeNotifier {
   User? get currentUser => _currentUser;
   String? solde;
   String? pendingsolde;
+  
   bool get authenticate {
     //logout()
     sharedPreferences().then((value) {
