@@ -201,7 +201,7 @@ class _AchatsState extends State<Achats> {
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: HomeGuichet()));
+                                            child: const HomeGuichet()));
                                   },
                                   child: Icon(Icons.home,
                                       color: marronColor, size: 35),
@@ -305,14 +305,14 @@ class _AchatsState extends State<Achats> {
                           showModalBottomSheet(
                               context: context,
                               builder: (BuildContext context) {
-                                return ShareComponent();
+                                return const ShareComponent();
                               });
                         },
                         onPressDelete: () {
                           showModalBottomSheet(
                               context: context,
                               builder: (BuildContext context) {
-                                return DeleteComponent();
+                                return const DeleteComponent();
                               });
                         },
                       );

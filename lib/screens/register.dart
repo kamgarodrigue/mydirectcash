@@ -529,6 +529,7 @@ class _SignUpScreenState extends State<Register> {
                                               if (value!.trim().isEmpty) {
                                                 return "${AppLocalizations.of(context)!.translate('Phone')} *";
                                               }
+                                              return null;
                                             },
                                             style: TextStyle(
                                               fontFamily: content_font,
@@ -563,6 +564,7 @@ class _SignUpScreenState extends State<Register> {
                                               if (value!.trim().isEmpty) {
                                                 return "${AppLocalizations.of(context)!.translate('name')} *";
                                               }
+                                              return null;
                                             },
                                             style: TextStyle(
                                               fontFamily: content_font,
@@ -604,6 +606,7 @@ class _SignUpScreenState extends State<Register> {
                                                 if (!emailReg.hasMatch(value)) {
                                                   return "Email Invalid";
                                                 }
+                                                return null;
                                               },
                                               cursorColor: blueColor,
                                               decoration: InputDecoration(
@@ -639,6 +642,7 @@ class _SignUpScreenState extends State<Register> {
                                                 if (value!.trim().isEmpty) {
                                                   return "${AppLocalizations.of(context)!.translate('profession')} *";
                                                 }
+                                                return null;
                                               },
                                               cursorColor: blueColor,
                                               decoration: InputDecoration(

@@ -174,7 +174,7 @@ class _GuichetAchatProduitConfState extends State<GuichetAchatProduitConf> {
                                     context,
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
-                                        child: HomeGuichet()));
+                                        child: const HomeGuichet()));
                               },
                               child: const Text(
                                 'Valider',

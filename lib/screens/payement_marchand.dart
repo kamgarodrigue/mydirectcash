@@ -36,7 +36,7 @@ class _PayementMarchandState extends State<PayementMarchand> {
   };
 
   String? agentName;
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   PhoneNumber number = PhoneNumber(isoCode: 'CM', phoneNumber: '');
 
   Future scan() async {

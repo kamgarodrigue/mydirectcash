@@ -114,7 +114,7 @@ class _SettingsState extends State<Settings> {
               Navigator.of(context).push(
                 PageRouteBuilder(
                   pageBuilder: (context, animation, secondaryAnimation) =>
-                      nextPage!,
+                      nextPage,
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {
                     const begin = Offset(1.0, 0.0);
@@ -200,8 +200,8 @@ class _SettingsState extends State<Settings> {
                   height: 25,
                   colorFilter:
                       const ColorFilter.mode(Colors.black, BlendMode.srcIn)),
-              title: Text("Partager",
-                  style: const TextStyle(
+              title: const Text("Partager",
+                  style: TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w500)),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: () async {
@@ -219,8 +219,8 @@ class _SettingsState extends State<Settings> {
                   height: 25,
                   colorFilter:
                       const ColorFilter.mode(Colors.black, BlendMode.srcIn)),
-              title: Text("Se déconnecter",
-                  style: const TextStyle(
+              title: const Text("Se déconnecter",
+                  style: TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w500)),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: () {

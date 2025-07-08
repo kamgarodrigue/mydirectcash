@@ -63,7 +63,7 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: Settings()));
+                                            child: const Settings()));
                                   },
                                   child: Image.asset(
                                     'assets/images/ico-parametre.png',
@@ -135,6 +135,7 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
                             return AppLocalizations.of(context)!
                                 .translate("Saisire montant")!;
                           }
+                          return null;
                         },
                         style: const TextStyle(
                             fontFamily: content_font, fontSize: 13),
@@ -214,7 +215,7 @@ class _PayementMarchandMontantState extends State<EpargneMarchandMontant> {
             ),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
+                    ? const Loader(loadingTxt: 'Content is loading...')
                     : Container())
           ],
         ));

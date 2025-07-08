@@ -8,7 +8,6 @@ import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 import 'package:mydirectcash/widgets/Loader.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 
 class AchatCreditPassword extends StatefulWidget {
   Map? data;
@@ -125,27 +124,44 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                   Container(
                     child: Column(
                       children: [
-                        Text(
-                            ' ${AppLocalizations.of(context)!.translate('Vous allez faire une recharge de')} ${widget.data!["vAmount"]} XAF  ${AppLocalizations.of(context)!.translate('au numéro')}  ${widget.data!["vToNumber"].substring(0, 3)} ** ** ${widget.data?["vToNumber"].toString().substring(widget.data!["vToNumber"].toString().length - 2)}',
-                            textAlign: TextAlign.center,
+                        Text.rich(
+                          TextSpan(
                             style: TextStyle(
-                                fontSize: 12.5,
-                                fontFamily: content_font,
-                                color: blueColor,
-                                fontWeight: FontWeight.w600)),
-                        const SizedBox(
-                          height: 10,
+                              fontSize: 12.5,
+                              fontFamily: content_font,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black, // Couleur du texte de base
+                            ),
+                            children: [
+                              TextSpan(
+                                  text:
+                                      '${AppLocalizations.of(context)!.translate('Vous allez faire une recharge de')} '),
+                              TextSpan(
+                                text: '${widget.data!["vAmount"]} XAF ',
+                                style: TextStyle(color: blueColor),
+                              ),
+                              TextSpan(
+                                  text:
+                                      ', ${AppLocalizations.of(context)!.translate("frais de")} '),
+                              TextSpan(
+                                text: '${widget.data?["vrate"]} XAF',
+                                style: TextStyle(color: blueColor),
+                              ),
+                              TextSpan(
+                                  text:
+                                      ' ${AppLocalizations.of(context)!.translate('au numéro')} '),
+                              TextSpan(
+                                text: '${widget.data!["vToNumber"]}',
+                                style: TextStyle(color: blueColor),
+                              ),
+                              TextSpan(
+                                text:
+                                    '  ${AppLocalizations.of(context)!.translate('Veuillez saisir le mot de passe pour valider la transastion')}',
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Text(
-                              '${AppLocalizations.of(context)!.translate('Veuillez saisir le mot de passe pour valider la transastion')}',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: content_font,
-                                  fontWeight: FontWeight.w500)),
-                        )
                       ],
                     ),
                   ),
@@ -263,8 +279,6 @@ class _AchatCreditPasswordState extends State<AchatCreditPassword> {
                                     _isLoading = false;
                                   });
                                   print(error);
-
-                                
                                 });
                               },
                               child: Text(

@@ -121,7 +121,7 @@ class _PhoneNumberEntryState extends State<PhoneNumberEntry> {
                               context,
                               PageTransition(
                                   type: PageTransitionType.rightToLeft,
-                                  child: CodeEntry()));
+                                  child: const CodeEntry()));
                         },
                         child: const Text(
                           'SUIVANT',
@@ -155,7 +155,7 @@ class _PhoneNumberEntryState extends State<PhoneNumberEntry> {
                         context,
                         PageTransition(
                             type: PageTransitionType.rightToLeft,
-                            child: CodeEntry()));
+                            child: const CodeEntry()));
                   },
                   child: Text("J'ai déjà un compte",
                       textAlign: TextAlign.center,

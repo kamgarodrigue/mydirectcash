@@ -80,7 +80,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: Settings()));
+                                            child: const Settings()));
                                   },
                                   child: Image.asset(
                                     'assets/images/ico-parametre.png',
@@ -357,7 +357,7 @@ class _PayementFactureValidateState extends State<PayementFactureValidate> {
             ),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
+                    ? const Loader(loadingTxt: 'Content is loading...')
                     : Container())
           ],
         ));

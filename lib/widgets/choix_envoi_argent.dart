@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/envoi_comptedirectcash.dart';
-import 'package:mydirectcash/screens/envoi_dargent_type_selection.dart';
 import 'package:mydirectcash/screens/envoi_directcash.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';

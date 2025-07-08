@@ -44,7 +44,7 @@ class _OmMoMoState extends State<OmMoMo> {
   bool isOm = true, _isLoading = false;
   bool isDepot = false;
   bool _isOscure = true;
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   void togle() {
     setState(() {
       _isOscure = !_isOscure;
@@ -504,7 +504,7 @@ class _OmMoMoState extends State<OmMoMo> {
                                           PageTransition(
                                               type: PageTransitionType
                                                   .rightToLeft,
-                                              child: Settings()));
+                                              child: const Settings()));
                                     },
                                     child: Image.asset(
                                       'assets/images/ico-parametre.png',

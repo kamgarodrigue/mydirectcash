@@ -111,7 +111,7 @@ class _CodeEntryState extends State<CodeEntry> {
                                     context,
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
-                                        child: CodeCheckSim()));
+                                        child: const CodeCheckSim()));
                               },
                               child: const Text(
                                 'SUIVANT',

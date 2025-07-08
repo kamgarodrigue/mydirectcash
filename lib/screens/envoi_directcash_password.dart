@@ -87,7 +87,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: Settings()));
+                                            child: const Settings()));
                                   },
                                   child: Image.asset(
                                     'assets/images/ico-parametre.png',
@@ -147,41 +147,49 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                   Container(
                     child: Column(
                       children: [
-                       RichText(
-  textAlign: TextAlign.center,
-  text: TextSpan(
-    style: const TextStyle(
-      fontSize: 12.5,
-      fontFamily: content_font,
-      fontWeight: FontWeight.w500,
-      color: Colors.black,
-    ),
-    children: [
-      TextSpan(text: '${AppLocalizations.of(context)!.translate("Vous allez faire un transfert  de")} '),
-      TextSpan(
-        text: '${widget.data?["vAmount"]} XAF',
-        style:  TextStyle(color:blueColor),
-      ),
-      TextSpan(text: ' ${AppLocalizations.of(context)!.translate("au numéro")} '),
-      TextSpan(
-        text: '${widget.data?["vToNumber"].toString().substring(0, 3)}',
-        style:  TextStyle(color: blueColor),
-      ),
-      TextSpan(text: ', ${AppLocalizations.of(context)!.translate("frais de")} '),
-      TextSpan(
-        text: '${widget.data?["vRate"]} XAF',
-        style:  TextStyle(color: blueColor),
-      ),
-      TextSpan(text: '. ${AppLocalizations.of(context)!.translate("Montant total à débiter")} '),
-      TextSpan(
-        text: '${(double.parse(widget.data?["vRate"]) + double.parse(widget.data?["vAmount"])).toStringAsFixed(2)} XAF',
-        style:  TextStyle(color:blueColor),
-      ),
-      TextSpan(text: '.'),
-    ],
-  ),
-)
-
+                        RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            style: const TextStyle(
+                              fontSize: 12.5,
+                              fontFamily: content_font,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
+                            children: [
+                              TextSpan(
+                                  text:
+                                      '${AppLocalizations.of(context)!.translate("Vous allez faire un transfert  de")} '),
+                              TextSpan(
+                                text: '${widget.data?["vAmount"]} XAF',
+                                style: TextStyle(color: blueColor),
+                              ),
+                              TextSpan(
+                                  text:
+                                      ' ${AppLocalizations.of(context)!.translate("au numéro")} '),
+                              TextSpan(
+                                text: '${widget.data?["vToNumber"]}',
+                                style: TextStyle(color: blueColor),
+                              ),
+                              TextSpan(
+                                  text:
+                                      ', ${AppLocalizations.of(context)!.translate("frais de")} '),
+                              TextSpan(
+                                text: '${widget.data?["vRate"]} XAF',
+                                style: TextStyle(color: blueColor),
+                              ),
+                              TextSpan(
+                                  text:
+                                      '. ${AppLocalizations.of(context)!.translate("Montant total à débiter")} '),
+                              TextSpan(
+                                text:
+                                    '${(double.parse(widget.data?["vRate"]) + double.parse(widget.data?["vAmount"])).toStringAsFixed(2)} XAF',
+                                style: TextStyle(color: blueColor),
+                              ),
+                              const TextSpan(text: '.'),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -336,8 +344,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                         Navigator.pop(context);
                                       },
                                     );
-                                  } 
-                                  else if (value["message"] ==
+                                  } else if (value["message"] ==
                                       "Solde insuffisant pour effectuer cette transaction.") {
                                     DialogWidget.success(
                                       context,
@@ -348,8 +355,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                         Navigator.pop(context);
                                       },
                                     );
-                                  }
-                                  else if (value["code"] == 400) {
+                                  } else if (value["code"] == 400) {
                                     DialogWidget.success(
                                       context,
                                       title: "Erreur",
@@ -377,7 +383,6 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
                                   );
                                 });
                               },
-                              
                               child: Text(
                                 AppLocalizations.of(context)!
                                     .translate("Valider")!,
@@ -412,7 +417,7 @@ class _EnvoiDirectCashPasswordState extends State<EnvoiDirectCashPassword> {
             ),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
+                    ? const Loader(loadingTxt: 'Content is loading...')
                     : Container())
           ],
         ));

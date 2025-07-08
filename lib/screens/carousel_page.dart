@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/login.dart';
-import 'package:mydirectcash/screens/phone_number_entry.dart';
-import 'package:mydirectcash/screens/register.dart';
 import 'package:mydirectcash/utils/colors.dart';
-import 'package:mydirectcash/utils/fonts.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
-import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
-import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:mydirectcash/widgets/carousel_container.dart';
 import 'package:page_transition/page_transition.dart';
 

@@ -78,7 +78,7 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: Settings()));
+                                            child: const Settings()));
                                   },
                                   child: Image.asset(
                                     'assets/images/ico-parametre.png',
@@ -207,7 +207,7 @@ class _Achat_credit_operateurState extends State<Achat_credit_operateur> {
                 ])),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
+                    ? const Loader(loadingTxt: 'Content is loading...')
                     : Container())
           ],
         ));

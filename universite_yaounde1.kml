@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark>
+    <name>Université de Yaoundé I</name>
+    <description>Simulation de position GPS à l'Université de Yaoundé I, Ngoa-Ekelle</description>
+    <Point>
+      <coordinates>11.5164,3.8678,0</coordinates>
+    </Point>
+  </Placemark>
+</kml>

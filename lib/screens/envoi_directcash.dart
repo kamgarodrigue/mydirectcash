@@ -30,7 +30,7 @@ class EnvoiDirectCash extends StatefulWidget {
 class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
   String? countryName = 'Choisissez le pays de destination';
   String? coupon = 'Choisissez le coupon crédit';
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   PhoneNumber number = PhoneNumber(isoCode: 'CM', phoneNumber: '');
 
@@ -44,7 +44,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
     rate: "",
     toNumber: "",
   );
-   String? _code;
+  String? _code;
   Map? param;
   bool _isLoading = false;
   String codeRegion = "";
@@ -98,22 +98,22 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
     }
   }
 
-    void setTransactionType() {
-  print(country);
-  if (country != "Cameroon") {
-    setState(() {
-      data['vrxtype'] = "12";
-    });
-  } else if (number.isoCode != "CM" || _code != "+237") {
-    setState(() {
-      data['vrxtype'] = "12";
-    });
-  } else {
-    setState(() {
-      data['vrxtype'] = "11";
-    });
+  void setTransactionType() {
+    print(country);
+    if (country != "Cameroon") {
+      setState(() {
+        data['vrxtype'] = "2";
+      });
+    } else if (number.isoCode != "CM" || _code != "+237") {
+      setState(() {
+        data['vrxtype'] = "2";
+      });
+    } else {
+      setState(() {
+        data['vrxtype'] = "1";
+      });
+    }
   }
-}
 
   Map data = {
     "vClientID": "",
@@ -178,6 +178,10 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
   @override
   Widget build(BuildContext context) {
     final autProvider = context.watch<AuthService>();
+    //print(country);
+    print(data['vrxtype']);
+    print(number.isoCode);
+    print(_code);
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -215,7 +219,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: Settings()));
+                                            child: const Settings()));
                                   },
                                   child: Image.asset(
                                     'assets/images/ico-parametre.png',
@@ -276,6 +280,8 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                     padding: const EdgeInsets.all(0),
                     child: InternationalPhoneNumberInput(
                       onInputChanged: (PhoneNumber number) {
+                        _code = number.dialCode.toString();
+                        print(_code);
                         String phoneWithoutCode = number.phoneNumber
                                 ?.replaceFirst(number.dialCode ?? '', '') ??
                             '';
@@ -296,6 +302,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                         if (value.length < 9 || value.length > 14) {
                           return "Numero invalid !";
                         }
+                        return null;
                       },
                       onInputValidated: (bool isValid) {
                         print(isValid);
@@ -335,7 +342,8 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                             fontSize: 13),
                       ),
                       onSaved: (PhoneNumber number) {
-                         _code = number.dialCode.toString();
+                        _code = number.dialCode.toString();
+                        print(_code);
                         String phoneWithoutCode = number.phoneNumber
                                 ?.replaceFirst(number.dialCode ?? '', '') ??
                             '';
@@ -345,7 +353,6 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                       },
                     ),
                   ),
-                 
                   Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: Column(
@@ -390,15 +397,15 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 50)),
                               onPressed: () {
-                                if (country==null) {
-                                   DialogWidget.success(context,
-                                        title: "Transaction impossible!",
-                                        content:
-                                            "veuillez verifier votre connextion internet",
-                                        color: blueColor, callback: () {
-                                      Navigator.pop(context);
-                                    });
-                                    return ;
+                                if (country == null) {
+                                  DialogWidget.success(context,
+                                      title: "Transaction impossible!",
+                                      content:
+                                          "veuillez verifier votre connextion internet",
+                                      color: blueColor, callback: () {
+                                    Navigator.pop(context);
+                                  });
+                                  return;
                                 }
                                 setTransactionType();
 
@@ -437,7 +444,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                                   });
                                 }).catchError((error) {
                                   print(error);
-                                   showTopSnackBar(
+                                  showTopSnackBar(
                                     Overlay.of(context),
                                     CustomSnackBar.error(
                                       message: AppLocalizations.of(context)!

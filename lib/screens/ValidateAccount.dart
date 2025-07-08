@@ -264,7 +264,7 @@ class _ValidateAccountState extends State<ValidateAccount> {
                               setState(() => hasError = true);
                             } else {
                               setState(() {
-                                this._isLoading = true;
+                                _isLoading = true;
                               });
                               context.read<AuthService>().validation({
                                 "phone": widget.phoneNumber,
@@ -280,8 +280,7 @@ class _ValidateAccountState extends State<ValidateAccount> {
                                   showTopSnackBar(
                                    Overlay.of(context),
                                     CustomSnackBar.success(
-                                      message: value.toString() +
-                                          "  Votre compte a ete verifier",
+                                      message: "$value  Votre compte a ete verifier",
                                     ),
                                   );
                                 } else {
@@ -289,18 +288,18 @@ class _ValidateAccountState extends State<ValidateAccount> {
                                  Overlay.of(context),
                                     CustomSnackBar.success(
                                       message:
-                                          value.toString() + "  Code invalide",
+                                          "$value  Code invalide",
                                     ),
                                   );
                                 }
                                 setState(() {
-                                  this._isLoading = false;
+                                  _isLoading = false;
                                 });
                               }).catchError((err) {
                                 setState(() {
-                                  this._isLoading = false;
+                                  _isLoading = false;
                                 });
-                                print("err" + err.toString());
+                                print("err$err");
                                 showTopSnackBar(
                                   Overlay.of(context),
                                   CustomSnackBar.error(

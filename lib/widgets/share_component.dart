@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
-import 'package:page_transition/page_transition.dart';
 
 class ShareComponent extends StatefulWidget {
   const ShareComponent({super.key});

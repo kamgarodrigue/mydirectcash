@@ -151,7 +151,7 @@ class _GuichetAchatProduitState extends State<GuichetAchatProduit> {
                                     context,
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
-                                        child: GuichetAchatProduitMontant()));
+                                        child: const GuichetAchatProduitMontant()));
                               },
                               child: const Text(
                                 'Suivant',

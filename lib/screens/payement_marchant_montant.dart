@@ -60,7 +60,7 @@ class _PayementMarchandMontantState extends State<PayementMarchandMontant> {
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: Settings()));
+                                            child: const Settings()));
                                   },
                                   child: Image.asset(
                                     'assets/images/ico-parametre.png',
@@ -193,7 +193,7 @@ class _PayementMarchandMontantState extends State<PayementMarchandMontant> {
             ),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: '')
+                    ? const Loader(loadingTxt: '')
                     : Container())
           ],
         ));

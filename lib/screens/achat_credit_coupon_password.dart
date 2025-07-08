@@ -38,7 +38,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPasswordCoupon> {
   }
 
   Contact? _selectedContact;
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
@@ -130,7 +130,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPasswordCoupon> {
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: Settings()));
+                                            child: const Settings()));
                                   },
                                   child: Image.asset(
                                     'assets/images/ico-parametre.png',
@@ -392,7 +392,7 @@ class _AchatCreditPasswordState extends State<AchatCreditPasswordCoupon> {
             ),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
+                    ? const Loader(loadingTxt: 'Content is loading...')
                     : Container())
           ],
         ));

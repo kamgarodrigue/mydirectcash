@@ -180,7 +180,7 @@ class _GuichetRemplirInfosState extends State<GuichetRemplirInfos> {
                                     context,
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
-                                        child: InfosCompteBancaire()));
+                                        child: const InfosCompteBancaire()));
                               },
                               child: const Text(
                                 'Valider',

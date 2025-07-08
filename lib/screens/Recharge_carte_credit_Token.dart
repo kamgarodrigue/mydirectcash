@@ -76,7 +76,7 @@ class _Recharge_carte_credit_TokenState
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: Settings()));
+                                            child: const Settings()));
                                   },
                                   child: Image.asset(
                                     'assets/images/ico-parametre.png',
@@ -213,12 +213,9 @@ class _Recharge_carte_credit_TokenState
                                     "PriceConverted": widget.details[0]
                                         ["convertedAmount"]
                                   };
-                                  print("${"convertedAmount: " +
-                                      int.tryParse(widget.details[1]
+                                  print("${"convertedAmount: ${int.tryParse(widget.details[1]
                                                   ["convertedAmount"]
-                                              .toString())
-                                          .toString() +
-                                      " currencyCode " +
+                                              .toString())} currencyCode " +
                                       widget.details[1]['currencyCode']} token: ${json
                                           .decode(value.toString())["code"]}");
 
@@ -287,7 +284,7 @@ class _Recharge_carte_credit_TokenState
             ),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
+                    ? const Loader(loadingTxt: 'Content is loading...')
                     : Container())
           ],
         ));

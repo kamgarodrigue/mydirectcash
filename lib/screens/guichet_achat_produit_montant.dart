@@ -153,7 +153,7 @@ class _GuichetAchatProduitMontantState
                                     context,
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
-                                        child: GuichetAchatProduitConf()));
+                                        child: const GuichetAchatProduitConf()));
                               },
                               child: const Text(
                                 'Suivant',

@@ -91,7 +91,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                                       context,
                                       PageTransition(
                                           type: PageTransitionType.rightToLeft,
-                                          child: HomeGuichet()));
+                                          child: const HomeGuichet()));
                                 },
                                 child: Icon(Icons.home,
                                     color: marronColor, size: 35),
@@ -307,7 +307,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                                   context,
                                   PageTransition(
                                       type: PageTransitionType.rightToLeft,
-                                      child: GuichetAchatProduit()));
+                                      child: const GuichetAchatProduit()));
                             },
                             child: const Text(
                               'Achetez un produit',
@@ -338,7 +338,7 @@ class _HomeGuichetState extends State<HomeGuichet> {
                                   context,
                                   PageTransition(
                                       type: PageTransitionType.rightToLeft,
-                                      child: Achats()));
+                                      child: const Achats()));
                             },
                             child: const Text(
                               'Mes achats',

@@ -114,7 +114,7 @@ class _PayementFactureSelectionState extends State<PayementFactureSelection> {
               )
             ],
           ),
-          Container(child: _isLoading ? Loader(loadingTxt: '') : Container())
+          Container(child: _isLoading ? const Loader(loadingTxt: '') : Container())
         ],
       ),
     );

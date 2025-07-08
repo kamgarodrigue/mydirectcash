@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/utils/colors.dart';
-import 'package:mydirectcash/utils/fonts.dart';
 
 class DialogWidget {
   static Future<void> loadingDialog(context) async {

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart' as Dio;
 import 'package:flutter/material.dart';
-import 'package:mydirectcash/Models/DetailTransaction.dart';
 import 'package:mydirectcash/Models/Transaction.dart';
 import 'package:mydirectcash/Repository/DioClient.dart';
 import 'dart:convert';

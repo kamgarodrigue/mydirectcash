@@ -33,7 +33,7 @@ class OmMoValidate extends StatefulWidget {
 class _OmMoValidateState extends State<OmMoValidate> {
   bool _isLoading = false;
   bool _isOscure = true;
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   void togle() {
     setState(() {
@@ -243,7 +243,7 @@ class _OmMoValidateState extends State<OmMoValidate> {
                                           PageTransition(
                                               type: PageTransitionType
                                                   .rightToLeft,
-                                              child: Settings()));
+                                              child: const Settings()));
                                     },
                                     child: Image.asset(
                                       'assets/images/ico-parametre.png',

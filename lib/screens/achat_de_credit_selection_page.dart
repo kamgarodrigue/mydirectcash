@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:mydirectcash/Repository/OperationServices.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/achat_credit.dart';
@@ -191,13 +193,11 @@ class _AchatDeCreditSelectionPageState
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              customLangButton(
-                                () {
+                              customLangButton(() {
                                 // setState(() {
                                 //   data["trxTYPE"] = "14";
                                 // });
-                              },
-                                  "assets/svg/world.svg", 1, AchatCredit()),
+                              }, "assets/svg/world.svg", 1, AchatCredit()),
                               const SizedBox(
                                 height: 10,
                               ),

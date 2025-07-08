@@ -146,7 +146,7 @@ class _HomeState extends State<MonCompte> {
                                           PageTransition(
                                               type: PageTransitionType
                                                   .rightToLeft,
-                                              child: Settings()));
+                                              child: const Settings()));
                                     },
                                     child: Image.asset(
                                       'assets/images/ico-parametre.png',
@@ -200,7 +200,7 @@ class _HomeState extends State<MonCompte> {
                                       height: 8,
                                     ),
                                     Text(
-                                      "Id: ${this.currrentUser!.data!.matricule!}",
+                                      "Id: ${currrentUser!.data!.matricule!}",
                                       style: TextStyle(
                                           color: blueColor,
                                           fontSize: 14,
@@ -228,7 +228,7 @@ class _HomeState extends State<MonCompte> {
                             context,
                             PageTransition(
                                 type: PageTransitionType.rightToLeft,
-                                child: Resset_Password_Verification()));
+                                child: const Resset_Password_Verification()));
                       },
                       child: Text(
                         "${AppLocalizations.of(context)!.translate('Changer de Mot de Passe')}",
@@ -257,7 +257,7 @@ class _HomeState extends State<MonCompte> {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return ChoixRecharge();
+                                        return const ChoixRecharge();
                                       });
                                 },
                                 child: Text(

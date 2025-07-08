@@ -24,7 +24,7 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => OperationServices()),
       ChangeNotifierProvider(create: (context) => Localisation()),
     ],
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 
@@ -105,7 +105,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         AppLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      home: auth.authenticate ? Home() : WelcomePage(),
+      home: auth.authenticate ? const Home() : const WelcomePage(),
       routes: {
         AppRoutes.homePage: (context) => const Home(),
         AppRoutes.loginPage: (context) => Login(isLogin: false),

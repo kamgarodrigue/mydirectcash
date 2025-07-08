@@ -42,7 +42,7 @@ class _ChoixRechargeState extends State<ChoixRecharge> {
                       context,
                       PageTransition(
                           type: PageTransitionType.rightToLeft,
-                          child: Recharge_carte_credit_Amount()));
+                          child: const Recharge_carte_credit_Amount()));
                 },
                 child: Text(
                   AppLocalizations.of(context)!
@@ -61,7 +61,7 @@ class _ChoixRechargeState extends State<ChoixRecharge> {
                       context,
                       PageTransition(
                           type: PageTransitionType.rightToLeft,
-                          child: OmMoMo()));
+                          child: const OmMoMo()));
                 },
                 child: Text(
                   "${AppLocalizations.of(context)!.translate('Copmte OM/MOMO1')}",

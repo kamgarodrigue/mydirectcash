@@ -96,7 +96,7 @@ class _RetraitValidationState extends State<RetraitValidation> {
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: Settings()));
+                                            child: const Settings()));
                                   },
                                   child: Image.asset(
                                     'assets/images/ico-parametre.png',
@@ -154,25 +154,41 @@ class _RetraitValidationState extends State<RetraitValidation> {
                     height: 20,
                   ),
                   Container(
-                    child: Column(
+                      child: Text.rich(
+                    TextSpan(
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontFamily: content_font,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      ),
                       children: [
-                        Text(
-                          '${AppLocalizations.of(context)!.translate("Vous allez faire une recharge de")} '
-                          '${widget.retrait?["Amount"]} XAF '
-                          '${AppLocalizations.of(context)!.translate("au numéro")} '
-                          '${widget.retrait?["ToNumber"].toString().substring(0, 4)} ** ** '
-                          '${widget.retrait?["ToNumber"].toString().substring(widget.retrait!["ToNumber"].toString().length - 2)}, '
-                          '${AppLocalizations.of(context)!.translate("Montant total à débiter")} '
-                          '${double.parse(widget.retrait!["Amount"].toString())} XAF.',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 12.5,
-                              fontFamily: content_font,
-                              fontWeight: FontWeight.w500),
-                        )
+                        TextSpan(
+                            text:
+                                '${AppLocalizations.of(context)!.translate("Vous allez faire une recharge de")} '),
+                        TextSpan(
+                          text: '${widget.retrait?["Amount"]} XAF ',
+                          style: TextStyle(color: blueColor),
+                        ),
+                        TextSpan(
+                            text:
+                                '${AppLocalizations.of(context)!.translate("au numéro")} '),
+                        TextSpan(
+                          text: '${widget.retrait?["ToNumber"]}',
+                          style: TextStyle(color: blueColor),
+                        ),
+                        TextSpan(
+                            text:
+                                ' ${AppLocalizations.of(context)!.translate("Montant total à débiter")} '),
+                        TextSpan(
+                          text:
+                              '${double.parse(widget.retrait!["Amount"].toString())} XAF.',
+                          style: TextStyle(color: blueColor),
+                        ),
                       ],
                     ),
-                  ),
+                    textAlign: TextAlign.center,
+                  )),
                   const SizedBox(
                     height: 20,
                   ),

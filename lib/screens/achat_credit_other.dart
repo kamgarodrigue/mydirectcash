@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
+import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/screens/achat_credit_password.dart';
 import 'package:mydirectcash/screens/settings.dart';
@@ -24,22 +27,67 @@ class AchatCreditauther extends StatefulWidget {
 }
 
 class _AchatCreditState extends StateMVC<AchatCreditauther> {
-  final bool _isLoading = false;
+  bool _isLoading = false;
 
   UserController? _userController;
   String? codeRegion = "CM";
   String? reseauImage;
   Contact? _selectedContact;
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    printUserCountry();
     context.read<AuthService>().authenticate;
 
     _controller.text = "";
     print(widget.data);
+  }
+
+  String? country;
+  String? _code;
+  Future<void> printUserCountry() async {
+    try {
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          print('Location permission denied');
+          Navigator.of(context).pop;
+          return;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        print('Location permissions are permanently denied.');
+        Navigator.of(context).pop;
+        return;
+      }
+
+      // Get current position
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      // Reverse geocode to get country
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      if (placemarks.isNotEmpty) {
+        country = placemarks.first.country;
+        print("test ${placemarks[3]}");
+
+        print('User is in: $country');
+      } else {
+        print('Could not determine the country.');
+      }
+    } catch (e) {
+      print('An error occurred: $e');
+    }
   }
 
   @override
@@ -58,9 +106,8 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
           setState(() {
             String selectedNumber = contact.phones.first.number;
             List<String> parts = selectedNumber.split(' ');
-            String phoneWithoutCode = parts.length > 1
-                ? parts.sublist(1).join('')
-                : selectedNumber; 
+            String phoneWithoutCode =
+                parts.length > 1 ? parts.sublist(1).join('') : selectedNumber;
             _controller.text = phoneWithoutCode;
             widget.data["vToNumber"] = phoneWithoutCode.toString();
           });
@@ -87,9 +134,60 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
     }
   }
 
+  void goToAirtimePassword(dynamic data) {
+    var param = {};
+    print(country);
+    if (country != "Cameroon") {
+      setState(() {
+        _isLoading = true;
+        param = {
+          "amount": data['vAmount'],
+          "to": data["vClientID"],
+          "transactionType": "0",
+        };
+      });
+      print(param);
+      TransactonService().getDetailEnvoiDirectcash(param).then((value) {
+        print(value);
+        widget.data["vrate"] = value['data']['fees'];
+        Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child:
+                AchatCreditPassword(parentcontext: context, data: widget.data),
+          ),
+        );
+        setState(() {
+          _isLoading = false;
+        });
+      }).catchError((error) {
+        print(error);
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: AppLocalizations.of(context)!.translate("erreur")!,
+          ),
+        );
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    } else {
+      Navigator.push(
+        context,
+        PageTransition(
+          type: PageTransitionType.rightToLeft,
+          child: AchatCreditPassword(parentcontext: context, data: widget.data),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final autProvider = context.watch<AuthService>();
+    print(country);
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -376,15 +474,8 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
                               widget.data["vClientID"] =
                                   autProvider.currentUser!.data!.phone;
                               print(widget.data);
-                              Navigator.push(
-                                context,
-                                PageTransition(
-                                  type: PageTransitionType.rightToLeft,
-                                  child: AchatCreditPassword(
-                                      parentcontext: context,
-                                      data: widget.data),
-                                ),
-                              );
+
+                              goToAirtimePassword(widget.data);
                             }
                           },
                           child: Text(

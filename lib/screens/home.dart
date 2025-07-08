@@ -154,7 +154,7 @@ class _HomeState extends State<Home> {
           showModalBottomSheet(
               context: context,
               builder: (BuildContext context) {
-                return ChoixEnvoiArgent();
+                return const ChoixEnvoiArgent();
               });
         }
       },
@@ -169,7 +169,7 @@ class _HomeState extends State<Home> {
           showModalBottomSheet(
               context: context,
               builder: (BuildContext context) {
-                return ChoixFacture();
+                return const ChoixFacture();
               });
         },
       },
@@ -184,7 +184,7 @@ class _HomeState extends State<Home> {
           showModalBottomSheet(
               context: context,
               builder: (BuildContext context) {
-                return ChoixFacture();
+                return const ChoixFacture();
               });
         },
       },
@@ -213,7 +213,7 @@ class _HomeState extends State<Home> {
           Navigator.push(
               context,
               PageTransition(
-                  type: PageTransitionType.rightToLeft, child: OmMoMo()));
+                  type: PageTransitionType.rightToLeft, child: const OmMoMo()));
         },
       },
 
@@ -257,21 +257,21 @@ class _HomeState extends State<Home> {
           showModalBottomSheet(
               context: context,
               builder: (BuildContext context) {
-                return ChoixEnvoiArgent();
+                return const ChoixEnvoiArgent();
               });
           break;
         case 3:
           showModalBottomSheet(
               context: context,
               builder: (BuildContext context) {
-                return ChoixFacture();
+                return const ChoixFacture();
               });
           break;
         case 5:
           Navigator.push(
               context,
               PageTransition(
-                  type: PageTransitionType.rightToLeft, child: OmMoMo()));
+                  type: PageTransitionType.rightToLeft, child: const OmMoMo()));
           break;
 
         case 6:
@@ -372,7 +372,7 @@ class _HomeState extends State<Home> {
                                               PageTransition(
                                                   type: PageTransitionType
                                                       .rightToLeft,
-                                                  child: Settings()));
+                                                  child: const Settings()));
                                         },
                                         child: Image.asset(
                                           'assets/images/ico-parametre.png',
@@ -410,7 +410,7 @@ class _HomeState extends State<Home> {
                                           PageTransition(
                                               type: PageTransitionType
                                                   .bottomToTop,
-                                              child: ChoixDeRecharge()));
+                                              child: const ChoixDeRecharge()));
                                     },
                                     child: Text(
                                       "${AppLocalizations.of(context)!.translate('Recharger mon compte')}",

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mydirectcash/Models/Transaction.dart';
 import 'package:mydirectcash/Models/User.dart';
 import 'package:mydirectcash/Repository/TransactonService.dart';
 import 'package:mydirectcash/app_localizations.dart';

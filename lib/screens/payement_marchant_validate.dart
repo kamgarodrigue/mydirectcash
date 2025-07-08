@@ -86,7 +86,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: Settings()));
+                                            child: const Settings()));
                                   },
                                   child: Image.asset(
                                     'assets/images/ico-parametre.png',
@@ -271,7 +271,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
                                       Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => Home()),
+                                            builder: (context) => const Home()),
                                       );
                                     });
                                   }
@@ -361,7 +361,7 @@ class _PayementMarchandValidateState extends State<PayementMarchandValidate> {
             ),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
+                    ? const Loader(loadingTxt: 'Content is loading...')
                     : Container())
           ],
         ));

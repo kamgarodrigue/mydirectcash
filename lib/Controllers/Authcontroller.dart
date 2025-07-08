@@ -1,10 +1,6 @@
-import 'dart:convert';
 
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:mydirectcash/Models/User.dart';
 import 'package:mydirectcash/Repository/AuthService.dart';
-import 'package:mydirectcash/screens/register.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Authcontroller extends ControllerMVC {
   factory Authcontroller() {

@@ -229,7 +229,7 @@ class _Resset_PasswordState extends State<Resset_Password> {
           ),
           Container(
               child: _isLoading
-                  ? Loader(loadingTxt: 'Content is loading...')
+                  ? const Loader(loadingTxt: 'Content is loading...')
                   : Container())
         ]));
   }

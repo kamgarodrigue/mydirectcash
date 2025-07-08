@@ -1,5 +1,8 @@
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:mydirectcash/Repository/OperationServices.dart';
 import 'package:mydirectcash/Repository/localisation.dart';
 import 'package:mydirectcash/app_localizations.dart';
@@ -56,13 +59,98 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    printUserCountry();
     // context.read<Localisation>().initLocation();
+  }
+
+  String? country;
+
+  Future<void> printUserCountry() async {
+    try {
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          print('Location permission denied');
+          Navigator.of(context).pop;
+          return;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        print('Location permissions are permanently denied.');
+        Navigator.of(context).pop;
+        return;
+      }
+
+      // Get current position
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      // Reverse geocode to get country
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      if (placemarks.isNotEmpty) {
+        country = placemarks.first.country;
+        print("test ${placemarks[3]}");
+
+        print('User is in: $country');
+      } else {
+        print('Could not determine the country.');
+      }
+    } catch (e) {
+      print('An error occurred: $e');
+    }
+  }
+
+  Future<void> _pickContact() async {
+    try {
+      // Request permission and pick a contact
+      if (await FlutterContacts.requestPermission()) {
+        final contact = await FlutterContacts.openExternalPick();
+        if (contact != null && contact.phones.isNotEmpty) {
+          setState(() {
+            String selectedNumber = contact.phones.first.number;
+            List<String> parts = selectedNumber.split(' ');
+            String phoneWithoutCode =
+                parts.length > 1 ? parts.sublist(1).join('') : selectedNumber;
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                content: Text(
+              "${AppLocalizations.of(context)!.translate(
+                'Saisissez le numéro bénéficiaire',
+              )}",
+            )),
+          );
+        }
+      } else {
+        // Handle permission denied case
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("${AppLocalizations.of(context)!.translate(
+              'Saisissez le numéro bénéficiaire',
+            )}"),
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle errors
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to pick a contact: $e')),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final locat = context.watch<Localisation>();
+    print(country);
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -98,7 +186,7 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                                       context,
                                       PageTransition(
                                           type: PageTransitionType.rightToLeft,
-                                          child: Settings()));
+                                          child: const Settings()));
                                 },
                                 child: Image.asset(
                                   'assets/images/ico-parametre.png',
@@ -230,9 +318,11 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
                                       locat.addres["country"] == "Cameroun")
                                   .then((value) {
                                 print(value);
+
                                 setState(() {
                                   _isLoading = false;
                                 });
+
                                 Navigator.push(
                                     context,
                                     PageTransition(
@@ -273,7 +363,7 @@ class _AchatCreditState extends StateMVC<AchatCredit> {
           ),
           Container(
               child: _isLoading
-                  ? Loader(loadingTxt: 'Content is loading...')
+                  ? const Loader(loadingTxt: 'Content is loading...')
                   : Container())
         ]));
   }

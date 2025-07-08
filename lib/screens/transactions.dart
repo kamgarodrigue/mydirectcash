@@ -142,7 +142,7 @@ class _TransactionsState extends State<Transactions> {
                                   context,
                                   PageTransition(
                                       type: PageTransitionType.rightToLeft,
-                                      child: Settings()));
+                                      child: const Settings()));
                             },
                             child: Image.asset(
                               'assets/images/ico-parametre.png',

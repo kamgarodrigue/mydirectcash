@@ -75,7 +75,7 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: Settings()));
+                                            child: const Settings()));
                                   },
                                   child: Image.asset(
                                     'assets/images/ico-parametre.png',
@@ -138,7 +138,7 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
                        RichText(
   textAlign: TextAlign.center,
   text: TextSpan(
-    style: TextStyle(
+    style: const TextStyle(
       fontSize: 12.5,
       fontFamily: content_font,
       fontWeight: FontWeight.w600,
@@ -341,7 +341,7 @@ class _PayementMarchandValidateState extends State<EpargnneMarchantValidate> {
             ),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
+                    ? const Loader(loadingTxt: 'Content is loading...')
                     : Container())
           ],
         ));

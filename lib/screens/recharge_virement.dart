@@ -57,7 +57,7 @@ class _RechargeVirementState extends State<RechargeVirement> {
                                     context,
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
-                                        child: Settings()));
+                                        child: const Settings()));
                               },
                               child: Image.asset(
                                 'assets/images/ico-parametre.png',

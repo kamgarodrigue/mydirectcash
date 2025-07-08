@@ -204,7 +204,7 @@ class _InfosCompteBancaireState extends State<InfosCompteBancaire> {
                                     context,
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
-                                        child: HomeGuichet()));
+                                        child: const HomeGuichet()));
                               },
                               child: const Text(
                                 'Valider',

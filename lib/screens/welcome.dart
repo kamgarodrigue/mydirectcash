@@ -112,7 +112,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                   context,
                                   PageTransition(
                                       type: PageTransitionType.rightToLeft,
-                                      child: CarouselPage()));
+                                      child: const CarouselPage()));
                             },
                             child: Text(
                               "${AppLocalizations.of(context)!.translate('Commencer')}",

@@ -96,7 +96,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
 
       if (placemarks.isNotEmpty) {
         country = placemarks.first.country;
-        print( "test ${placemarks[3]}");
+        print("test ${placemarks[3]}");
 
         print('User is in: $country');
       } else {
@@ -150,29 +150,28 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
   }
 
   void setTransactionType() {
-  print(country);
-  if (country != "Cameroon") {
-    setState(() {
-      data['vrxtype'] = "12";
-    });
-  } else if (number.isoCode != "CM" || _code != "+237") {
-    setState(() {
-      data['vrxtype'] = "12";
-    });
-  } else {
-    setState(() {
-      data['vrxtype'] = "11";
-    });
+    print(country);
+    if (country != "Cameroon") {
+      setState(() {
+        data['vrxtype'] = "12";
+      });
+    } else if (number.isoCode != "CM" || _code != "+237") {
+      setState(() {
+        data['vrxtype'] = "12";
+      });
+    } else {
+      setState(() {
+        data['vrxtype'] = "11";
+      });
+    }
   }
-}
-
 
   String codeRegion = "";
 
   @override
   Widget build(BuildContext context) {
     final autProvider = context.watch<AuthService>();
-  //print(country);
+    //print(country);
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -210,7 +209,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: Settings()));
+                                            child: const Settings()));
                                   },
                                   child: Image.asset(
                                     'assets/images/ico-parametre.png',
@@ -331,6 +330,8 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                     padding: const EdgeInsets.all(0),
                     child: InternationalPhoneNumberInput(
                       onInputChanged: (PhoneNumber number) {
+                        _code = number.dialCode.toString();
+                        print(_code);
                         String phoneWithoutCode = number.phoneNumber
                                 ?.replaceFirst(number.dialCode ?? '', '') ??
                             '';
@@ -351,6 +352,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                         if (value.length < 9 || value.length > 14) {
                           return "Numero invalid !";
                         }
+                        return null;
                       },
                       onInputValidated: (bool isValid) {
                         print(isValid);
@@ -474,15 +476,15 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 50)),
                               onPressed: () {
-                                if (country==null) {
-                                   DialogWidget.success(context,
-                                        title: "Transaction impossible!",
-                                        content:
-                                            "veuillez verifier votre connextion internet",
-                                        color: blueColor, callback: () {
-                                      Navigator.pop(context);
-                                    });
-                                    return ;
+                                if (country == null) {
+                                  DialogWidget.success(context,
+                                      title: "Transaction impossible!",
+                                      content:
+                                          "veuillez verifier votre connextion internet",
+                                      color: blueColor, callback: () {
+                                    Navigator.pop(context);
+                                  });
+                                  return;
                                 }
                                 setTransactionType();
                                 setState(() {
@@ -564,9 +566,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
               ),
             ),
             Container(
-                child: _isLoading
-                    ? Loader(loadingTxt: '')
-                    : Container())
+                child: _isLoading ? const Loader(loadingTxt: '') : Container())
           ],
         ));
   }

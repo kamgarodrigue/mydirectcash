@@ -41,6 +41,7 @@ class _EnvoiCompteDirectCashPasswordState
   Widget build(BuildContext context) {
     final totaldebite = double.tryParse(widget.data?['vAmount'])! +
         double.tryParse(widget.data?["vRate"])!;
+
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -78,7 +79,7 @@ class _EnvoiCompteDirectCashPasswordState
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: Settings()));
+                                            child: const Settings()));
                                   },
                                   child: Image.asset(
                                     'assets/images/ico-parametre.png',
@@ -138,46 +139,50 @@ class _EnvoiCompteDirectCashPasswordState
                   Container(
                     child: Column(
                       children: [
-                       RichText(
-  textAlign: TextAlign.center,
-  text: TextSpan(
-    style: const TextStyle(
-      fontSize: 12.5,
-      fontFamily: content_font,
-      fontWeight: FontWeight.w500,
-      color: Colors.black, // Couleur par défaut
-    ),
-    children: [
-      TextSpan(text: '${AppLocalizations.of(context)!.translate("Vous allez faire une recharge de")!} '),
-      TextSpan(
-        text: '${widget.data?['vAmount']} XAF',
-        style:  TextStyle(color:blueColor),
-      ),
-      TextSpan(text: ' ${AppLocalizations.of(context)!.translate("au numéro")!} '),
-      TextSpan(
-        text: '${widget.data?['vToNumber']}',
-        style: TextStyle(color:blueColor),
-      ),
-      TextSpan(text: ' de Nom: '),
-      TextSpan(
-        text: '${widget.nom}',
-        style:  TextStyle(color:blueColor),
-      ),
-      TextSpan(text: ', frais de '),
-      TextSpan(
-        text: '${widget.data?['vRate']} XAF',
-        style:  TextStyle(color: blueColor),
-      ),
-      TextSpan(text: '. Montant total à débiter '),
-      TextSpan(
-        text: '$totaldebite XAF',
-        style:  TextStyle(color: blueColor),
-      ),
-      TextSpan(text: '.'),
-    ],
-  ),
-)
-
+                        RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            style: const TextStyle(
+                              fontSize: 12.5,
+                              fontFamily: content_font,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black, // Couleur par défaut
+                            ),
+                            children: [
+                              TextSpan(
+                                  text:
+                                      '${AppLocalizations.of(context)!.translate("Vous allez faire une recharge de")!} '),
+                              TextSpan(
+                                text: '${widget.data?['vAmount']} XAF',
+                                style: TextStyle(color: blueColor),
+                              ),
+                              TextSpan(
+                                  text:
+                                      ' ${AppLocalizations.of(context)!.translate("au numéro")!} '),
+                              TextSpan(
+                                text: '${widget.data?['vToNumber']}',
+                                style: TextStyle(color: blueColor),
+                              ),
+                              const TextSpan(text: ' de Nom: '),
+                              TextSpan(
+                                text: widget.nom,
+                                style: TextStyle(color: blueColor),
+                              ),
+                              const TextSpan(text: ', frais de '),
+                              TextSpan(
+                                text: '${widget.data?['vRate']} XAF',
+                                style: TextStyle(color: blueColor),
+                              ),
+                              const TextSpan(
+                                  text: '. Montant total à débiter '),
+                              TextSpan(
+                                text: '$totaldebite XAF',
+                                style: TextStyle(color: blueColor),
+                              ),
+                              const TextSpan(text: '.'),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -255,7 +260,6 @@ class _EnvoiCompteDirectCashPasswordState
                                       content: value["message"],
                                       color: errorColor,
                                       callback: () {
-                                      
                                         Navigator.pop(context);
                                       },
                                     );
@@ -268,7 +272,6 @@ class _EnvoiCompteDirectCashPasswordState
                                       content: value["message"],
                                       color: errorColor,
                                       callback: () {
-                                       
                                         Navigator.pop(context);
                                       },
                                     );
@@ -287,15 +290,14 @@ class _EnvoiCompteDirectCashPasswordState
                                         );
                                       },
                                     );
-                                  } else{
-                                     DialogWidget.success(
+                                  } else {
+                                    DialogWidget.success(
                                       context,
                                       title: value["message"],
                                       content: value['data']['sender'],
                                       color: greenColor,
                                       callback: () {
                                         Navigator.pop(context);
-                                        
                                       },
                                     );
                                   }
@@ -351,7 +353,7 @@ class _EnvoiCompteDirectCashPasswordState
             ),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
+                    ? const Loader(loadingTxt: 'Content is loading...')
                     : Container())
           ],
         ));

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mydirectcash/app_localizations.dart';
 import 'package:mydirectcash/utils/colors.dart';
 import 'package:mydirectcash/utils/fonts.dart';
 

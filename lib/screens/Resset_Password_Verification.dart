@@ -176,7 +176,7 @@ class _Resset_Password_VerificationState
           ),
           Container(
               child: _isLoading
-                  ? Loader(loadingTxt: 'Content is loading...')
+                  ? const Loader(loadingTxt: 'Content is loading...')
                   : Container())
         ]));
   }

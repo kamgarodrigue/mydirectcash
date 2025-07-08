@@ -55,7 +55,7 @@ class _Apropos_de_nousState extends State<Apropos_de_nous> {
                                   context,
                                   PageTransition(
                                       type: PageTransitionType.rightToLeft,
-                                      child: Settings()));
+                                      child: const Settings()));
                             },
                             child: Image.asset(
                               'assets/images/ico-parametre.png',

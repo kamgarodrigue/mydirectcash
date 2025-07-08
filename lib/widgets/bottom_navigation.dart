@@ -98,7 +98,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context) {
-                    return ChoixEnvoiArgent();
+                    return const ChoixEnvoiArgent();
                   });
             },
             child: Container(
@@ -132,7 +132,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               Navigator.push(
                   context,
                   PageTransition(
-                      type: PageTransitionType.rightToLeft, child: OmMoMo()));
+                      type: PageTransitionType.rightToLeft, child: const OmMoMo()));
             },
             child: Container(
               color: Colors.transparent,
@@ -165,7 +165,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context) {
-                    return ChoixFacture();
+                    return const ChoixFacture();
                   });
             },
             child: Container(

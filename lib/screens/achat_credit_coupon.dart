@@ -190,7 +190,7 @@ class _Achat_credit_couponState extends State<Achat_credit_coupon> {
                 ])),
             Container(
                 child: _isLoading
-                    ? Loader(loadingTxt: 'Content is loading...')
+                    ? const Loader(loadingTxt: 'Content is loading...')
                     : Container())
           ],
         ));
