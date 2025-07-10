@@ -330,7 +330,9 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
                     padding: const EdgeInsets.all(0),
                     child: InternationalPhoneNumberInput(
                       onInputChanged: (PhoneNumber number) {
-                        _code = number.dialCode.toString();
+                        setState(() {
+                          _code = number.dialCode.toString();
+                        });
                         print(_code);
                         String phoneWithoutCode = number.phoneNumber
                                 ?.replaceFirst(number.dialCode ?? '', '') ??

@@ -181,7 +181,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
     //print(country);
     print(data['vrxtype']);
     print(number.isoCode);
-    print(_code);
+    //  print(_code);
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
@@ -280,7 +280,9 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
                     padding: const EdgeInsets.all(0),
                     child: InternationalPhoneNumberInput(
                       onInputChanged: (PhoneNumber number) {
-                        _code = number.dialCode.toString();
+                        setState(() {
+                          _code = number.dialCode.toString();
+                        });
                         print(_code);
                         String phoneWithoutCode = number.phoneNumber
                                 ?.replaceFirst(number.dialCode ?? '', '') ??
