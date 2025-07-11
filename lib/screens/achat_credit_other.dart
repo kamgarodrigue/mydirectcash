@@ -137,7 +137,7 @@ class _AchatCreditState extends StateMVC<AchatCreditauther> {
   void goToAirtimePassword(dynamic data) {
     var param = {};
     print(country);
-    if (country != "Cameroon") {
+    if (country != "Cameroon" && country != "Cameroun") {
       setState(() {
         _isLoading = true;
         param = {

@@ -100,7 +100,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
 
   void setTransactionType() {
     print(country);
-    if (country != "Cameroon") {
+    if (country != "Cameroon" && country != "Cameroun") {
       setState(() {
         data['vrxtype'] = "2";
       });
@@ -180,7 +180,7 @@ class _EnvoiDirectCashState extends State<EnvoiDirectCash> {
     final autProvider = context.watch<AuthService>();
     //print(country);
     print(data['vrxtype']);
-    print(number.isoCode);
+    // print(number.isoCode);
     //  print(_code);
     return Scaffold(
         appBar: AppBar(

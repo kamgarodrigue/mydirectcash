@@ -507,18 +507,15 @@ class _PayementFactureState extends State<PayementFacture> {
                                         billType["number"] =
                                             detailFac["numeroDeContrat"];
                                       });
-                                      print(widget.factureInfos["typeOP"] +
-                                          ' ' +
-                                          authService
-                                              .currentUser!.data!.phone! +
-                                          " " +
-                                          detailFac["numeroDeContrat"]);
+
                                       context
                                           .read<TransactonService>()
                                           .getDetailFactureEneoCamwater(
-                                            widget.factureInfos["typeOP"],
-                                            detailFac["numeroDeContrat"],
-                                          )
+                                              widget.factureInfos["typeOP"],
+                                              detailFac["numeroDeContrat"],
+                                              authService
+                                                  .currentUser!.data!.phone!,
+                                              "22")
                                           .then((value) {
                                         widget.factureInfos["serviceNumber"] =
                                             detailFac["numeroDeContrat"];

@@ -14,6 +14,7 @@ class TransactonService extends ChangeNotifier {
         data: data);
     return response.data;
   }
+
   Future payBill(Map? data) async {
     Dio.Response response = await dio().post(
         "https://apibackoffice.alliancefinancialsa.com/payBill",
@@ -57,15 +58,19 @@ class TransactonService extends ChangeNotifier {
     return response.data;
   }
 
-  Future getDetailFactureEneoCamwater(typeOp, numerodecontrat) async {
-    Dio.Response response = await dio()
-        .get("https://apibackoffice.alliancefinancialsa.com/bill_detailed/$numerodecontrat/$typeOp");
+  Future getDetailFactureEneoCamwater(
+      typeOp, numerodecontrat, userId, idtrasaction) async {
+    print(idtrasaction);
+    Dio.Response response = await dio().get(
+        "https://apibackoffice.alliancefinancialsa.com/bill_detailed/$numerodecontrat/$typeOp/$idtrasaction/$userId");
+    print(response.data);
     return response.data;
   }
 
   Future getHistory(Map? data) async {
-    Dio.Response response =
-        await dio().post("https://apibackoffice.alliancefinancialsa.com/HystoriqueTransaction", data: data);
+    Dio.Response response = await dio().post(
+        "https://apibackoffice.alliancefinancialsa.com/HystoriqueTransaction",
+        data: data);
 
     return response.data;
   }
@@ -86,7 +91,6 @@ class TransactonService extends ChangeNotifier {
         data: data);
     return response.data;
   }
-
 
   Future achatCreditInternational(Map? data) async {
     Dio.Response response = await dio()

@@ -35,7 +35,7 @@ class _PayementFactureSelectionState extends State<PayementFactureSelection> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(244, 246, 249, 1),
       appBar: AppBar(
-        title: const Text("Selectionnez une transaction",
+        title: const Text("Selectionnez une Facture",
             style: TextStyle(fontSize: 16)),
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -91,7 +91,7 @@ class _PayementFactureSelectionState extends State<PayementFactureSelection> {
                                         return PayementFactureValidateNew(
                                           factureInfos: widget.billType,
                                           detailFac: bill,
-                                          formData:formData,
+                                          formData: formData,
                                         );
                                       },
                                     ));
@@ -114,7 +114,8 @@ class _PayementFactureSelectionState extends State<PayementFactureSelection> {
               )
             ],
           ),
-          Container(child: _isLoading ? const Loader(loadingTxt: '') : Container())
+          Container(
+              child: _isLoading ? const Loader(loadingTxt: '') : Container())
         ],
       ),
     );

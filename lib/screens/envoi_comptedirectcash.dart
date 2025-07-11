@@ -151,7 +151,7 @@ class _EnvoiCompteDirectCashState extends State<EnvoiCompteDirectCash> {
 
   void setTransactionType() {
     print(country);
-    if (country != "Cameroon") {
+    if (country != "Cameroon" && country != "Cameroun") {
       setState(() {
         data['vrxtype'] = "12";
       });
